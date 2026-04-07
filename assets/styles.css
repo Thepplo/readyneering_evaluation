@@ -40,7 +40,7 @@ body::after {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 4rem 10%;
+  padding: 0rem 10% 4rem 10%;
   position: relative;
   overflow: hidden;
   animation: fadeLeft 0.9s cubic-bezier(.4,0,.2,1) both;
@@ -88,7 +88,7 @@ body::after {
 .tagline em { font-style: italic; opacity: 0.65; }
 
 .calc-grid {
-  margin-top: 4rem;
+  margin-top: 6.5rem;
   display: grid; 
   grid-template-columns: 1fr 1fr 1fr; 
   gap: 2rem;
