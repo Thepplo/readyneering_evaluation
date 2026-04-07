@@ -12,11 +12,11 @@
 
 @font-face {
   font-family: "q5-heading";
-  src: url("./assets/fonts/AndQFive_Headlinefont_SiteHead.ttf") format("truetype");
+  src: url("./fonts/AndQFive_Headlinefont_Thick.ttf") format("truetype");
 }
 @font-face {
   font-family: "q5-heading-slim";
-  src: url("./assets/fonts/AndQFive_Headlinefont_Thin.ttf") format("truetype");
+  src: url("./fonts/AndQFive_Headlinefont_Thin.ttf") format("truetype");
 }
 
 body {
