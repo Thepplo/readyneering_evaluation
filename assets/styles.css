@@ -27,13 +27,15 @@ body::after {
 /* HERO GRID */
 .hero {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.5fr 0.5fr;
   min-height: calc(100vh - 52px);
 }
 
 /* ── LEFT PANEL ── */
 .left {
-  background: var(--red);
+  background-image: url(assets/images/V2.jpg);
+  background-size: cover;
+  background-position: center;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
