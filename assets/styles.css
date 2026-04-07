@@ -74,10 +74,10 @@ body::after {
 }
 
 .left-top { position: relative; z-index: 2; }
-.logo-img { width: 200px; filter: brightness(0) invert(1); opacity: 0.92; margin-bottom: 3rem; }
+.logo { width: 300px; filter: brightness(0) invert(1); opacity: 0.92; margin-bottom: 3rem; }
 
 .tagline {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 2.6rem;
   line-height: 1.12;
   color: #fff;
@@ -87,12 +87,19 @@ body::after {
 
 .sub-tag {
   font-size: 0.72rem;
-  letter-spacing: 0.16em;
+/*   letter-spacing: 0.16em;
+ */  
   text-transform: uppercase;
   color: rgba(255,255,255,0.45);
   font-weight: 400;
 }
-
+.top-tag {
+  font-size: 1rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,1);
+  font-weight: 500;
+}
 /* quotient dots */
 .left-bottom { position: relative; z-index: 2; }
 .q-dots {
@@ -270,10 +277,10 @@ body::after {
 
 
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f7f4;color:#1a1a18;min-height:100vh}
+  /* body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f7f4;color:#1a1a18;min-height:100vh} */
   .shell{max-width:680px;margin:0 auto;padding:2rem 1.5rem 4rem}
   .lbl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#888780;margin-bottom:4px}
-  h1{font-size:26px;font-weight:500;color:#1a1a18;margin-bottom:6px;line-height:1.2}
+  /* h1{font-size:26px;font-weight:500;color:#1a1a18;margin-bottom:6px;line-height:1.2} */
   h2{font-size:18px;font-weight:500;color:#1a1a18;margin-bottom:4px}
   .sub{font-size:15px;color:#5F5E5A;line-height:1.65;margin-bottom:1.5rem}
   .pbar{height:3px;background:#e0dfd8;border-radius:2px;margin-bottom:2.5rem}
