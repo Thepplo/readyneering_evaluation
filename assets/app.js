@@ -132,18 +132,22 @@ document.getElementById('nodes').addEventListener('mouseleave',()=>{
   document.getElementById('nodes').style.animationPlayState='running';
 });
 
-// cycling dots on left
-/* const dotWrap=document.getElementById('q-dots');
-Q.forEach((q,i)=>{
-  const d=document.createElement('div');
-  d.className='q-dot'+(i===0?' on':'');
-  d.innerHTML=`<span class="q-dot-tip">${q.name}</span>`;
-  dotWrap.appendChild(d);
-});
-let di=0;
-setInterval(()=>{
-  dotWrap.querySelectorAll('.q-dot').forEach((d,i)=>d.classList.toggle('on',i===di));
-  di=(di+1)%Q.length;
-},1600);
- */
+const dotWrap = document.getElementById('q-dots');
+
+if (dotWrap) {
+  Q.forEach((q, i) => {
+    const d = document.createElement('div');
+    d.className = 'q-dot' + (i === 0 ? ' on' : '');
+    d.innerHTML = `<span class="q-dot-tip">${q.name}</span>`;
+    dotWrap.appendChild(d);
+  });
+
+  let di = 0;
+  setInterval(() => {
+    dotWrap.querySelectorAll('.q-dot').forEach((d, i) =>
+      d.classList.toggle('on', i === di)
+    );
+    di = (di + 1) % Q.length;
+  }, 1600);
+}
 render();
