@@ -53,7 +53,7 @@ body::after {
 /* concentric circle decoration */
 .circles {
   position: absolute;
-  top: 0%; left: 33%;
+  top: 0%; left: 45%;
   /* transform: translate(-50%,-50%); */
   pointer-events: none;
   width: 50%;
