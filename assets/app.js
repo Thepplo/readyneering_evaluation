@@ -133,7 +133,7 @@ document.getElementById('nodes').addEventListener('mouseleave',()=>{
 });
 
 // cycling dots on left
-const dotWrap=document.getElementById('q-dots');
+/* const dotWrap=document.getElementById('q-dots');
 Q.forEach((q,i)=>{
   const d=document.createElement('div');
   d.className='q-dot'+(i===0?' on':'');
@@ -145,5 +145,5 @@ setInterval(()=>{
   dotWrap.querySelectorAll('.q-dot').forEach((d,i)=>d.classList.toggle('on',i===di));
   di=(di+1)%Q.length;
 },1600);
-
+ */
 render();
