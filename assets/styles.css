@@ -8,6 +8,17 @@
   --muted: #7a5a66;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
+
+@font-face {
+  font-family: "q5-heading";
+  src: url("./assets/fonts/AndQFive_Headlinefont_SiteHead.ttf") format("truetype");
+}
+@font-face {
+  font-family: "q5-heading-slim";
+  src: url("./assets/fonts/AndQFive_Headlinefont_Thin.ttf") format("truetype");
+}
+
 body {
   background: var(--cream);
   font-family: 'Montserrat', sans-serif;
@@ -79,8 +90,9 @@ body::after {
 .logo { width: 300px; filter: brightness(0) invert(1); opacity: 0.92; margin-bottom: 3rem; }
 
 .tagline {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'q5-heading', sans-serif;
   font-size: 2.6rem;
+  text-transform: uppercase;
   line-height: 1.12;
   color: #fff;
   margin-bottom: 1rem;
@@ -102,7 +114,8 @@ body::after {
   color: var(--cream);
 }
 .calc-title {
-  font-size: 1.3rem; 
+  font-size: 1.3rem;
+  font-family: 'q5-heading', sans-serif;
   font-weight: 500; 
   margin-bottom: 0.25rem;
   width: 100%;
