@@ -10,7 +10,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   background: var(--cream);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   color: var(--ink);
   min-height: 100vh;
   overflow-x: hidden;
@@ -27,8 +27,8 @@ body::after {
 /* HERO GRID */
 .hero {
   display: grid;
-  grid-template-columns: 1.5fr 0.5fr;
-  min-height: calc(100vh - 52px);
+  grid-template-columns: 1.5fr 1fr;
+  min-height: 100vh;
   position: relative;
 }
 
@@ -40,7 +40,7 @@ body::after {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 4rem 3.5rem;
+  padding: 4rem 10%;
   position: relative;
   overflow: hidden;
   animation: fadeLeft 0.9s cubic-bezier(.4,0,.2,1) both;
