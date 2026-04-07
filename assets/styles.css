@@ -89,16 +89,24 @@ body::after {
   margin-top: 2rem;
   display: grid; 
   grid-template-columns: 1fr 1fr 1fr; 
-  gap: 0.75rem;
+  gap: 1.2rem;
 }
 .calc-item {
-  display: flex; flex-direction: column; align-items: start; justify-content: start;
+  display: flex; 
+  flex-direction: column; 
+  align-items: start; 
+  justify-content: start;
   text-align: left;
   color: var(--cream);
 }
 .calc-title {
-  font-size: 1.3rem; font-weight: 500; margin-bottom: 0.25rem;
-  display: flex; align-items: start;
+  font-size: 1.3rem; 
+  font-weight: 500; 
+  margin-bottom: 0.25rem;
+  width: 100%;
+  display: flex; 
+  align-items: start;
+  text-transform: uppercase;
 }
 
 
