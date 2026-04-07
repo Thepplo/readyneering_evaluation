@@ -97,7 +97,7 @@ body::after {
   color: #fff;
   margin-bottom: 1rem;
 }
-.tagline em { font-style: italic; opacity: 0.65; }
+.tagline em { font-style: italic; opacity: 0.85; }
 
 .calc-grid {
   margin-top: 6.5rem;
@@ -124,6 +124,10 @@ body::after {
   text-transform: uppercase;
 }
 
+.calc-title em {
+  font-style: italic;
+  opacity: 0.9;
+}
 
 .sub-tag {
   font-size: 1rem;
