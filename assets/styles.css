@@ -29,6 +29,7 @@ body::after {
   display: grid;
   grid-template-columns: 1.5fr 0.5fr;
   min-height: calc(100vh - 52px);
+  position: relative;
 }
 
 /* ── LEFT PANEL ── */
@@ -240,10 +241,13 @@ body::after {
 
 /* ── STRIP ── */
 .strip {
-  background: var(--ink);
+  background: transparent;
   height: 52px;
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
   padding: 0 3.5rem; gap: 2rem;
+  position: absolute; bottom: 0; left: 0; right: 0;
 }
 .strip span {
   font-size: 0.68rem; letter-spacing: 0.12em;
