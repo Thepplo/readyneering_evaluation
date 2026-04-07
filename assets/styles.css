@@ -33,7 +33,7 @@ body::after {
 
 /* ── LEFT PANEL ── */
 .left {
-  background-image: url(assets/images/V2.jpg);
+  background-image: url("../assets/images/V2.jpg");
   background-size: cover;
   background-position: center;
   display: flex;
