@@ -86,11 +86,13 @@ body::after {
 .tagline em { font-style: italic; opacity: 0.65; }
 
 .sub-tag {
-  font-size: 0.72rem;
+  font-size: 0.9rem;
 /*   letter-spacing: 0.16em;
- */  
+ */
+ 
+  line-height: 20px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.9);
   font-weight: 400;
 }
 .top-tag {
