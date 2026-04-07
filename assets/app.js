@@ -132,6 +132,17 @@ document.getElementById('nodes').addEventListener('mouseleave',()=>{
   document.getElementById('nodes').style.animationPlayState='running';
 });
 
+fetch('./assets/images/atom-model.svg')
+  .then(res => res.text())
+  .then(svg => {
+    const wrap = document.getElementById('atom-svg');
+    wrap.innerHTML = svg;
+
+    wrap.querySelectorAll('.pulse-path').forEach(el => {
+      el.classList.add('animate-pulse-path');
+    });
+  });
+
 const dotWrap = document.getElementById('q-dots');
 
 if (dotWrap) {
