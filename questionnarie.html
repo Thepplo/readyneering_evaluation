@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>READYNEERING Diagnostic · andQfive</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+
+<!-- INTRO -->
+<div id="scr-intro">
+  <div class="lbl" style="margin-bottom:8px">andQfive · READYNEERING</div>
+  <h1>Organizational Readiness Diagnostic</h1>
+  <p class="sub" style="margin-top:8px">You'll encounter 15 real organizational situations — one triangle at a time. Place your dot where your organization's reality sits. No right answers. The geometry reveals your readiness profile across five quotients.</p>
+  <div class="intro-stats">
+    <div class="istat"><div class="il">Situations</div><div class="iv">15</div><div class="is">3 corners each</div></div>
+    <div class="istat"><div class="il">Estimated time</div><div class="iv">~15</div><div class="is">minutes</div></div>
+    <div class="istat"><div class="il">Dimensions scored</div><div class="iv">7</div><div class="is">incl. overall readiness</div></div>
+  </div>
+  <div style="font-size:13px;font-weight:500;color:#888780;margin-bottom:10px">The five quotients measured</div>
+  <div class="intro-dims">
+    <div class="idim"><span>Vitality</span></div>
+    <div class="idim"><span>Emotion</span></div>
+    <div class="idim"><span>Mind</span></div>
+    <div class="idim"><span>Execution</span></div>
+    <div class="idim"><span>Alignment</span></div>
+  </div>
+  <p class="sub" style="font-size:13px;margin-bottom:1.5rem">Each quotient is assessed twice — once for how your organization behaves <em>under pressure</em> (Resilience) and once for how well it is <em>structurally prepared</em> before pressure hits (Preparedness). Overall Readiness = Resilience × Preparedness.</p>
+  <button class="btn primary" onclick="startAssessment()">Begin diagnostic →</button>
+</div>
+
+<!-- ASSESSMENT -->
+<div id="scr-assess" class="hidden">
+  <div class="pbar"><div class="pfill" id="prog"></div></div>
+  <div id="steps-wrap"></div>
+  <div class="warn" id="warn">Place your dot inside the triangle before continuing.</div>
+  <div class="nav">
+    <button class="btn" id="btn-back" onclick="nav(-1)" disabled>← Back</button>
+    <button class="btn primary" id="btn-next" onclick="nav(1)">Next →</button>
+    <span class="sind" id="sind"></span>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="results" id="results">
+  <div class="lbl" style="margin-bottom:6px">andQfive · READYNEERING</div>
+  <h1 style="margin-bottom:1.5rem">Your readiness profile</h1>
+
+  <!-- three donut rings -->
+  <div class="ring-row" id="ring-row"></div>
+
+  <div class="verdict" id="vbox">
+    <div class="vl" id="vl"></div><div class="vt" id="vt"></div><div class="vd" id="vd"></div>
+  </div>
+
+  <div class="section-title">The 5 quotients</div>
+  <!-- dot matrix: 5 columns, R row + P row -->
+  <div id="dot-matrix"></div>
+
+  <!-- dumbbell chart: R vs P gap per quotient -->
+  <div class="chart-wrap" style="margin-top:1.25rem">
+    <div class="ct">Resilience vs. preparedness — gap view</div>
+    <div id="dumbbell"></div>
+    <div class="legend" style="margin-top:14px">
+      <span><span class="legend-dot" style="background:#534AB7"></span>Resilience</span>
+      <span><span class="legend-dot" style="background:#1D9E75"></span>Preparedness</span>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top:1.25rem">Signals from your scenarios</div>
+  <div class="signal-grid" id="signal-grid"></div>
+
+  <div class="debrief">
+    <div class="dl">The question that matters most</div>
+    <div class="dq">Where are we currently surviving on competence — but not on system design?</div>
+    <div class="dn">Because competence leaves when people leave. System design stays.</div>
+  </div>
+
+  <div class="nav">
+    <button class="btn" onclick="restart()">← Retake</button>
+    <button class="btn primary" id="rec-btn">Get deeper analysis ↗</button>
+  </div>
+</div>
+
+</div>
+<script src="assets/questionnarie.js"></script>
+</body>
+</html>
