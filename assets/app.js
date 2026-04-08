@@ -116,6 +116,28 @@ function animate() {
 
   requestAnimationFrame(animate);
 }
+function updateNodeStyles() {
+  const nodes = document.getElementById('nodes').children;
+
+  Q.forEach((q, i) => {
+    const node = nodes[i];
+    const scoreT = node.querySelector('.score-text');
+    const nameT = node.querySelector('.name-text');
+
+    const isHovered = hovered === i;
+    const isActive = selected === i;
+
+    scoreT.setAttribute(
+      'fill',
+      isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e')
+    );
+
+    nameT.setAttribute(
+      'fill',
+      isActive ? 'transparent' : (isHovered ? '#000000' : '#0000007e')
+    );
+  });
+}
 
 function buildNodes() {
   const g = document.getElementById('nodes');
@@ -156,6 +178,7 @@ function buildNodes() {
     const scoreT = el('text', {
       x: 0,
       y: 4,
+      class: 'score-text',
       'text-anchor': 'middle',
       'font-size': isActive ? '22' : '18',
       'font-family': "'Montserrat',sans-serif",
@@ -167,6 +190,7 @@ function buildNodes() {
     const nameT = el('text', {
       x: 0,
       y: size / 2 + 18,
+      class: 'name-text',
       'text-anchor': 'middle',
       'font-size': '14',
       'font-weight': isActive ? '700' : '500',
@@ -184,12 +208,14 @@ function buildNodes() {
 
     ng.addEventListener('mouseenter', () => {
       hovered = i;
-      updateInfo();
+      //updateInfo();
+      updateNodeStyles();
     });
 
     ng.addEventListener('mouseleave', () => {
       hovered = null;
-      updateInfo();
+      //updateInfo();
+      updateNodeStyles();
     });
 
     ng.addEventListener('click', () => {
