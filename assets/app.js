@@ -163,13 +163,19 @@ function buildNodes() {
 }
 
 function updateCentre() {
-  const avgR = Q.reduce((s, q) => s + q.r, 0) / Q.length;
-  const avgP = Q.reduce((s, q) => s + q.p, 0) / Q.length;
-  const elR = document.getElementById('c-r');
-  if (elR) elR.textContent = avgR.toFixed(1);
+  const q = Q[selected];
 
+  const elR = document.getElementById('c-r');
   const elP = document.getElementById('c-p');
-  if (elP) elP.textContent = avgP.toFixed(1);
+
+  if (elR) {
+    elR.textContent = q.r.toFixed(1);
+    elR.style.color = q.color;
+  }
+  if (elP) {
+    elP.textContent = q.p.toFixed(1);
+    elP.style.color = q.color;
+  }
 }
 
 function updateInfo() {
