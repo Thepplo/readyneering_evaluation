@@ -53,8 +53,9 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 let mode = 'R';
 let hovered = null;
 let selected = 0;
-let currentAnchor = 0;
-let targetAnchor = 0;
+let currentOffset = 0;
+let targetOffset = 0;
+const focusRatio = 0.00; // where the selected node should sit on the path
 
 function el(tag, attrs) {
   const e = document.createElementNS(SVG_NS, tag);
@@ -71,22 +72,32 @@ function getTrackMetrics() {
   return { path, total: path.getTotalLength() };
 }
 
-function getNodeDistance(index, activeIndex, total) {
+function getNodeDistance(index, total) {
   const step = total / Q.length;
-  const focusDist = total * currentAnchor;
-  const relativeIndex = (index - activeIndex + Q.length) % Q.length;
-  return (focusDist + relativeIndex * step) % total;
+  const focusDist = total * focusRatio;
+  return (focusDist + currentOffset + index * step) % total;
+}
+function initPosition() {
+  const { total } = getTrackMetrics();
+  const step = total / Q.length;
+  currentOffset = -selected * step;
+  targetOffset = currentOffset;
 }
 
 function animate() {
-  currentAnchor += (targetAnchor - currentAnchor) * 0.1;
+  const diff = targetOffset - currentOffset;
 
-  render();
+  if (Math.abs(diff) > 0.0001) {
+    currentOffset += diff * 0.1;
+    render();
+  } else if (currentOffset !== targetOffset) {
+    currentOffset = targetOffset;
+    render();
+  }
 
   requestAnimationFrame(animate);
 }
 
-animate();
 function buildNodes() {
   const g = document.getElementById('nodes');
   g.innerHTML = '';
@@ -94,7 +105,7 @@ function buildNodes() {
   const { path, total } = getTrackMetrics();
 
   Q.forEach((q, i) => {
-    const dist = getNodeDistance(i, selected, total);
+    const dist = getNodeDistance(i, total);    
     const pt = path.getPointAtLength(dist);
     const score = mode === 'R' ? q.r : q.p;
     const isHovered = hovered === i;
@@ -166,7 +177,10 @@ function buildNodes() {
       selected = i;
       hovered = null;
 
-      targetAnchor = (1 - (i / Q.length)) % 1;
+      const { total } = getTrackMetrics();
+      const step = total / Q.length;
+
+      targetOffset = -i * step;
     });
 
     g.appendChild(ng);
@@ -263,4 +277,6 @@ fetch('./assets/images/atom-model.svg')
     });
   });
 
+initPosition();
 render();
+animate();
