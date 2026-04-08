@@ -456,7 +456,8 @@ function showResults() {
   document.getElementById('scr-results').style.display = 'block';
 
   var res = computeAll();
-
+  console.log('Assessment Results:', res);
+  
   document.getElementById('r-overall').textContent = res.O.toFixed(2);
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
   document.getElementById('r-prep').textContent    = res.P.toFixed(2);
