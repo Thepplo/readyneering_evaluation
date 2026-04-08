@@ -220,7 +220,7 @@ body::after {
 }
 /* orbit stage */
 .orbit-stage {
-  width: 320px; height: 320px;
+  width: 550px; height: 320px;
   flex-shrink: 0;
   margin-bottom: 1.75rem;
 }
@@ -281,7 +281,7 @@ body::after {
 
 .info-desc {
   font-size: 0.83rem; line-height: 1.65;
-  color: var(--muted); min-height: 52px;
+  color: var(--muted); min-height: 70px;
   margin-bottom: 1rem;
   transition: opacity 0.3s;
 }
