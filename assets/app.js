@@ -126,7 +126,7 @@ function buildNodes() {
 
     ng.addEventListener('click', () => {
       selected = i;
-      hovered = i;
+      hovered = null;
       render();
     });
 
