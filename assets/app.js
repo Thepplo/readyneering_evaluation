@@ -26,7 +26,7 @@ const Q = [
     icon:'./assets/images/q-mind.svg',
     dr:'The quality of thinking and decision-making when data is incomplete and time is short.',
     dp:'Whether scenario planning, pre-mortems and assumption-testing are built into how you operate.',
-    color: '#2428AB'
+    color: '#64012D'
 
   },
   {
@@ -131,7 +131,7 @@ function buildNodes() {
       'font-size': '14',
       'font-weight': isActive ? '700' : '500',
       'letter-spacing': '0.6',
-      fill: '#000000',
+      fill: isActive ? 'transparent' : (isHovered ? '#000000' : '#0000007e'),
       'font-family': "'Montserrat',sans-serif",
       'pointer-events': 'none'
     });
@@ -193,7 +193,7 @@ function updateInfo() {
 
   if (meter) {
     meter.style.width = ((s - 1) / 4 * 100) + '%';
-    meter.style.backgroundColor = q.color;
+    meter.style.background = q.color;
   }
 }
 
