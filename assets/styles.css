@@ -51,7 +51,7 @@ body::after {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0rem 10% 4rem 10%;
+  padding: 4rem 10% 4rem 10%;
   position: relative;
   overflow: hidden;
   animation: fadeLeft 0.9s cubic-bezier(.4,0,.2,1) both;

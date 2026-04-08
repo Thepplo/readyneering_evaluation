@@ -1,19 +1,34 @@
 const Q = [
-  { name:'Vitality',   ang:-90, r:3.8, p:3.2,
+  {
+    name:'Vitality', ang:-90, r:3.8, p:3.2,
+    icon:'./assets/images/q-vitality.svg',
     dr:'How well the organization sustains energy and pace under prolonged pressure without burning people out.',
-    dp:'Whether capacity planning, recovery cycles and wellbeing practices are structurally designed in.' },
-  { name:'Emotion',    ang:-18, r:4.1, p:3.6,
+    dp:'Whether capacity planning, recovery cycles and wellbeing practices are structurally designed in.'
+  },
+  {
+    name:'Emotion', ang:-18, r:4.1, p:3.6,
+    icon:'./assets/images/q-emotion.svg',
     dr:'How leaders and teams regulate emotional responses during conflict, failure and uncertainty.',
-    dp:'Whether the organization proactively prepares for predictable emotional patterns in high-pressure phases.' },
-  { name:'Mind',       ang: 54, r:3.5, p:3.0,
+    dp:'Whether the organization proactively prepares for predictable emotional patterns in high-pressure phases.'
+  },
+  {
+    name:'Mind', ang:54, r:3.5, p:3.0,
+    icon:'./assets/images/q-mind.svg',
     dr:'The quality of thinking and decision-making when data is incomplete and time is short.',
-    dp:'Whether scenario planning, pre-mortems and assumption-testing are built into how you operate.' },
-  { name:'Execution',  ang:126, r:4.3, p:3.9,
+    dp:'Whether scenario planning, pre-mortems and assumption-testing are built into how you operate.'
+  },
+  {
+    name:'Execution', ang:126, r:4.3, p:3.9,
+    icon:'./assets/images/q-execution.svg',
     dr:'How decisively and consistently the organization acts under constraint and real time pressure.',
-    dp:'Whether decision rights, escalation paths and implementation briefs are defined in advance.' },
-  { name:'Alignment',  ang:198, r:3.6, p:3.4,
+    dp:'Whether decision rights, escalation paths and implementation briefs are defined in advance.'
+  },
+  {
+    name:'Alignment', ang:198, r:3.6, p:3.4,
+    icon:'./assets/images/q-alignment.svg',
     dr:'Whether the organization stays coherent — roles, priorities, collaboration — when under stress.',
-    dp:'How well the system is designed to survive personnel changes and strategic fragmentation.' }
+    dp:'How well the system is designed to survive personnel changes and strategic fragmentation.'
+  }
 ];
 
 const CX=160, CY=160, OR=125, CIRC=2*Math.PI*OR;
@@ -32,48 +47,50 @@ function el(tag,attrs){
 function buildNodes(){
   const g=document.getElementById('nodes');
   g.innerHTML='';
+
   Q.forEach((q,i)=>{
     const {x,y}=pos(q.ang);
-    const score=mode==='R'?q.r:q.p;
+    const score=mode==='R' ? q.r : q.p;
     const active=hovered===i;
-    const r=18+((score-1)/4)*7;
+    const size=38 + ((score-1)/4)*14;
 
     const ng=document.createElementNS(SVG_NS,'g');
     ng.style.cursor='pointer';
 
-    // counter-rotate so text stays upright
-    ng.setAttribute('transform',`rotate(${-pos(q.ang).x+CX} ${x} ${y})`);
-
-    const circle=el('circle',{
-      cx:x, cy:y, r,
-      fill: active?'#770136':'#f4e8ee',
-      stroke:'#770136','stroke-width':'1.5'
+    const icon=el('image',{
+      href:q.icon,
+      x:x - size/2,
+      y:y - size/2,
+      width:size,
+      height:size,
+      preserveAspectRatio:'xMidYMid meet'
     });
-
-    const nameT=el('text',{
-      x, y:y+3, 'text-anchor':'middle',
-      'font-size':'8.5','font-weight':'500',
-      'letter-spacing':'0.6',
-      fill: active?'#fff':'#770136',
-      'font-family':"'DM Sans',sans-serif"
-    });
-    nameT.textContent=q.name.toUpperCase();
 
     const scoreT=el('text',{
       x, y:y-6, 'text-anchor':'middle',
       'font-size':'10',
       'font-family':"'DM Serif Display',serif",
-      fill: active?'rgba(255,255,255,0.75)':'#c4537e'
+      fill: active ? 'rgba(255,255,255,0.75)' : '#c4537e'
     });
     scoreT.textContent=score.toFixed(1);
 
-    ng.appendChild(circle);
+    const nameT=el('text',{
+      x, y:y+8, 'text-anchor':'middle',
+      'font-size':'8.5',
+      'font-weight':'500',
+      'letter-spacing':'0.6',
+      fill: active ? '#fff' : '#770136',
+      'font-family':"'DM Sans',sans-serif"
+    });
+    nameT.textContent=q.name.toUpperCase();
+
+    ng.appendChild(icon);
     ng.appendChild(scoreT);
     ng.appendChild(nameT);
 
     ng.addEventListener('mouseenter',()=>{ hovered=i; render(); });
     ng.addEventListener('mouseleave',()=>{ hovered=null; render(); });
-    ng.addEventListener('click',()=>{ hovered=hovered===i?null:i; render(); });
+    ng.addEventListener('click',()=>{ hovered=hovered===i ? null : i; render(); });
 
     g.appendChild(ng);
   });
