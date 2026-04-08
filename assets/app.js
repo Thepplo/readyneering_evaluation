@@ -53,20 +53,10 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 let mode = 'R';
 let hovered = null;
 let selected = 0;
-let pendingSelected = 0;
-let currentOffset = 0;
-let targetOffset = 0;
+let isAnimating = false;
+
 const focusRatio = 0.00;
-
-function mod(n, m) {
-  return ((n % m) + m) % m;
-}
-
-function shortestDelta(from, to, total) {
-  let delta = mod(to - from, total);
-  if (delta > total / 2) delta -= total;
-  return delta;
-}
+const nodeRefs = [];
 
 function el(tag, attrs) {
   const e = document.createElementNS(SVG_NS, tag);
@@ -83,10 +73,15 @@ function getTrackMetrics() {
   return { path, total: path.getTotalLength() };
 }
 
-function getNodeDistance(index, total) {
+function mod(n, m) {
+  return ((n % m) + m) % m;
+}
+
+function getNodeDistance(index, activeIndex, total) {
   const step = total / Q.length;
   const focusDist = total * focusRatio;
-  return mod(focusDist + currentOffset + index * step, total);
+  const relativeIndex = (index - activeIndex + Q.length) % Q.length;
+  return mod(focusDist + relativeIndex * step, total);
 }
 
 function initPosition() {
@@ -116,62 +111,120 @@ function animate() {
 
   requestAnimationFrame(animate);
 }
+function animateInfoChange(nextIndex) {
+  const q = Q[nextIndex];
+  const s = mode === 'R' ? q.r : q.p;
+
+  const elR = document.getElementById('c-r');
+  const elP = document.getElementById('c-p');
+  const title = document.getElementById('info-title');
+  const desc = document.getElementById('info-desc');
+  const meter = document.getElementById('meter');
+
+  const tl = gsap.timeline();
+
+  tl.to([elR, elP, title, desc], {
+    duration: 0.18,
+    opacity: 0,
+    y: 8,
+    ease: 'power2.out'
+  });
+
+  tl.add(() => {
+    elR.textContent = q.r.toFixed(1);
+    elP.textContent = q.p.toFixed(1);
+    title.textContent = q.name;
+    desc.textContent = mode === 'R' ? q.dr : q.dp;
+    meter.style.width = ((s - 1) / 4 * 100) + '%';
+  });
+
+  tl.to([elR, elP], {
+    duration: 0.3,
+    fill: q.color,
+    ease: 'power2.out'
+  }, '<');
+
+  tl.to(title, {
+    duration: 0.3,
+    color: q.color,
+    ease: 'power2.out'
+  }, '<');
+
+  tl.to(meter, {
+    duration: 0.45,
+    backgroundColor: q.color,
+    width: ((s - 1) / 4 * 100) + '%',
+    ease: 'power2.out'
+  }, '<');
+
+  tl.to([elR, elP, title, desc], {
+    duration: 0.28,
+    opacity: 1,
+    y: 0,
+    ease: 'power2.out'
+  });
+
+  return tl;
+}
+function selectQ(i) {
+  if (i === selected || isAnimating) return;
+
+  isAnimating = true;
+  hovered = null;
+
+  const tl = gsap.timeline({
+    onComplete: () => {
+      selected = i;
+      isAnimating = false;
+      updateDots();
+      updateNodeStyles();
+    }
+  });
+
+  tl.add(layoutNodes(i, true), 0);
+  tl.add(animateInfoChange(i), 0);
+}
 function updateNodeStyles() {
-  const nodes = document.getElementById('nodes').children;
-
   Q.forEach((q, i) => {
-    const node = nodes[i];
-    const scoreT = node.querySelector('.score-text');
-    const nameT = node.querySelector('.name-text');
+    const ref = nodeRefs[i];
+    const isActive = i === selected;
+    const isHovered = i === hovered;
 
-    const isHovered = hovered === i;
-    const isActive = selected === i;
+    gsap.to(ref.scoreT, {
+      duration: 0.2,
+      fill: isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e')
+    });
 
-    scoreT.setAttribute(
-      'fill',
-      isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e')
-    );
-
-    nameT.setAttribute(
-      'fill',
-      isActive ? 'transparent' : (isHovered ? '#000000' : '#0000007e')
-    );
+    gsap.to(ref.nameT, {
+      duration: 0.2,
+      fill: isActive ? 'transparent' : (isHovered ? '#000000' : '#0000007e')
+    });
   });
 }
 
-function buildNodes() {
+function initNodes() {
   const g = document.getElementById('nodes');
   g.innerHTML = '';
-
-  const { path, total } = getTrackMetrics();
+  nodeRefs.length = 0;
 
   Q.forEach((q, i) => {
-    const dist = getNodeDistance(i, total);    
-    const pt = path.getPointAtLength(dist);
-    const score = mode === 'R' ? q.r : q.p;
-    const isHovered = hovered === i;
-    const isActive = selected === i;
-    const isPending = pendingSelected === i;
-    const size = isActive ? 82 : 74 + ((score - 1) / 4) * 10;
-
     const ng = document.createElementNS(SVG_NS, 'g');
     ng.style.cursor = 'pointer';
-    ng.setAttribute('transform', `translate(${pt.x}, ${pt.y})`);
 
     const hit = el('circle', {
       cx: 0,
       cy: 0,
-      r: size / 2 + 16,
+      r: 60,
       fill: 'transparent',
       'pointer-events': 'all'
     });
 
     const icon = el('image', {
       href: q.icon,
-      x: -size / 2,
-      y: -size / 2,
-      width: size,
-      height: size,
+      x: -40,
+      y: -40,
+      width: 80,
+      height: 80,
       preserveAspectRatio: 'xMidYMid meet',
       'pointer-events': 'none'
     });
@@ -181,25 +234,26 @@ function buildNodes() {
       y: 4,
       class: 'score-text',
       'text-anchor': 'middle',
-      'font-size': isActive ? '22' : '18',
+      'font-size': '18',
       'font-family': "'Montserrat',sans-serif",
-      fill: isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e'),
+      fill: '#c4537e',
       'pointer-events': 'none'
     });
-    scoreT.textContent = score.toFixed(1);
 
     const nameT = el('text', {
       x: 0,
-      y: size / 2 + 18,
+      y: 58,
       class: 'name-text',
       'text-anchor': 'middle',
       'font-size': '14',
-      'font-weight': isActive ? '700' : '500',
+      'font-weight': '500',
       'letter-spacing': '0.6',
-      fill: isPending ? 'transparent' : isActive ? 'transparent': (isHovered ? '#000000' : '#0000007e'),
+      fill: '#0000007e',
       'font-family': "'Montserrat',sans-serif",
       'pointer-events': 'none'
     });
+
+    scoreT.textContent = q[mode.toLowerCase()].toFixed(1);
     nameT.textContent = q.name.toUpperCase();
 
     ng.appendChild(hit);
@@ -209,29 +263,108 @@ function buildNodes() {
 
     ng.addEventListener('mouseenter', () => {
       hovered = i;
-      //updateInfo();
+      updateInfo();
       updateNodeStyles();
     });
 
     ng.addEventListener('mouseleave', () => {
       hovered = null;
-      //updateInfo();
+      updateInfo();
       updateNodeStyles();
     });
 
     ng.addEventListener('click', () => {
-      hovered = null;
-      pendingSelected = i;
-
-      const { total } = getTrackMetrics();
-      const step = total / Q.length;
-      targetOffset = mod(-i * step, total);
+      selectQ(i);
     });
 
     g.appendChild(ng);
+
+    nodeRefs.push({
+      g: ng,
+      hit,
+      icon,
+      scoreT,
+      nameT
+    });
   });
 }
+function layoutNodes(activeIndex, animate = false) {
+  const { path, total } = getTrackMetrics();
 
+  Q.forEach((q, i) => {
+    const dist = getNodeDistance(i, activeIndex, total);
+    const pt = path.getPointAtLength(dist);
+    const score = mode === 'R' ? q.r : q.p;
+    const isActive = i === activeIndex;
+    const isHovered = hovered === i;
+
+    const size = isActive ? 82 : 74 + ((score - 1) / 4) * 10;
+    const fontSize = isActive ? 22 : 18;
+    const nameFill = isActive ? 'transparent' : (isHovered ? '#000000' : '#0000007e');
+    const scoreFill = isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e');
+
+    const ref = nodeRefs[i];
+
+    if (animate) {
+      gsap.to(ref.g, {
+        duration: 0.75,
+        ease: 'power3.inOut',
+        attr: { transform: `translate(${pt.x}, ${pt.y})` }
+      });
+
+      gsap.to(ref.icon, {
+        duration: 0.75,
+        ease: 'power3.inOut',
+        attr: {
+          x: -size / 2,
+          y: -size / 2,
+          width: size,
+          height: size
+        }
+      });
+
+      gsap.to(ref.hit, {
+        duration: 0.75,
+        ease: 'power3.inOut',
+        attr: { r: size / 2 + 16 }
+      });
+
+      gsap.to(ref.scoreT, {
+        duration: 0.35,
+        ease: 'power2.out',
+        attr: {
+          y: 4,
+          'font-size': fontSize
+        },
+        fill: scoreFill,
+        onStart: () => {
+          ref.scoreT.textContent = score.toFixed(1);
+        }
+      });
+
+      gsap.to(ref.nameT, {
+        duration: 0.35,
+        ease: 'power2.out',
+        attr: {
+          y: size / 2 + 18
+        },
+        fill: nameFill
+      });
+    } else {
+      ref.g.setAttribute('transform', `translate(${pt.x}, ${pt.y})`);
+      ref.icon.setAttribute('x', -size / 2);
+      ref.icon.setAttribute('y', -size / 2);
+      ref.icon.setAttribute('width', size);
+      ref.icon.setAttribute('height', size);
+      ref.hit.setAttribute('r', size / 2 + 16);
+      ref.scoreT.setAttribute('font-size', fontSize);
+      ref.scoreT.setAttribute('fill', scoreFill);
+      ref.scoreT.textContent = score.toFixed(1);
+      ref.nameT.setAttribute('y', size / 2 + 18);
+      ref.nameT.setAttribute('fill', nameFill);
+    }
+  });
+}
 function updateCentre() {
   const q = Q[selected];
 
@@ -297,20 +430,45 @@ function updateDots() {
   });
 }
 
-function render() {
+function initialPaint() {
+  const q = Q[selected];
+  const elR = document.getElementById('c-r');
+  const elP = document.getElementById('c-p');
+  const title = document.getElementById('info-title');
+  const desc = document.getElementById('info-desc');
+  const meter = document.getElementById('meter');
+
+  elR.textContent = q.r.toFixed(1);
+  elP.textContent = q.p.toFixed(1);
+  elR.style.fill = q.color;
+  elP.style.fill = q.color;
+  title.textContent = q.name;
+  title.style.color = q.color;
+  desc.textContent = mode === 'R' ? q.dr : q.dp;
+  meter.style.width = ((q.r - 1) / 4 * 100) + '%';
+  meter.style.backgroundColor = q.color;
+}
+
+initNodes();
+layoutNodes(selected, false);
+initialPaint();
+updateDots();
+updateNodeStyles();
+
+/* function render() {
   buildNodes();
   updateCentre();
   updateInfo();
   updateDots();
-}
+} */
 
-function setMode(m) {
+/* function setMode(m) {
   mode = m;
   document.getElementById('pill-r')?.classList.toggle('on', m === 'R');
   document.getElementById('pill-p')?.classList.toggle('on', m === 'P');
   render();
 }
-
+ */
 fetch('./assets/images/atom-model.svg')
   .then(res => res.text())
   .then(svg => {
@@ -322,6 +480,6 @@ fetch('./assets/images/atom-model.svg')
     });
   });
 
-initPosition();
+/* initPosition();
 render();
-animate();
+animate(); */
