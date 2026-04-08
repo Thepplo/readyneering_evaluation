@@ -192,7 +192,32 @@ body::after {
   from { opacity: 0; transform: translateX(24px); }
   to   { opacity: 1; transform: translateX(0); }
 }
+.q-track {
+  fill: none;
+  stroke: #7d5c6e;
+  stroke-opacity: 0.22;
+  stroke-width: 1.25;
+}
 
+.score-value {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  fill: #770136;
+}
+
+.score-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8px;
+  fill: #bba8b0;
+  letter-spacing: 1.5px;
+}
+
+.score-mult {
+  font-family: 'DM Serif Display', serif;
+  font-size: 10px;
+  fill: #c4537e;
+  opacity: 0.5;
+}
 /* orbit stage */
 .orbit-stage {
   width: 320px; height: 320px;
