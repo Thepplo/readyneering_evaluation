@@ -206,10 +206,7 @@ body::after {
 
 .score-text,
 .name-text {
-  transition: color 2s ease-in-out;
-  transition: opacity 2s ease-in-out;
-
-  
+  transition: fill 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 

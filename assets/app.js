@@ -151,6 +151,7 @@ function buildNodes() {
     const score = mode === 'R' ? q.r : q.p;
     const isHovered = hovered === i;
     const isActive = selected === i;
+    const isPending = pendingSelected === i;
     const size = isActive ? 82 : 74 + ((score - 1) / 4) * 10;
 
     const ng = document.createElementNS(SVG_NS, 'g');
@@ -195,7 +196,7 @@ function buildNodes() {
       'font-size': '14',
       'font-weight': isActive ? '700' : '500',
       'letter-spacing': '0.6',
-      fill: isActive ? 'transparent' : (isHovered ? '#000000' : '#0000007e'),
+      fill: isPending ? 'transparent' : isActive ? 'transparent': (isHovered ? '#000000' : '#0000007e'),
       'font-family': "'Montserrat',sans-serif",
       'pointer-events': 'none'
     });
