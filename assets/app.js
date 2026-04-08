@@ -52,7 +52,7 @@ function buildNodes(){
     const {x,y}=pos(q.ang);
     const score=mode==='R' ? q.r : q.p;
     const active=hovered===i;
-    const size=38 + ((score-1)/4)*14;
+    const size=100 + ((score-1)/4)*14;
 
     const ng=document.createElementNS(SVG_NS,'g');
     ng.style.cursor='pointer';
