@@ -77,6 +77,14 @@ function buildNodes() {
     ng.style.cursor = 'pointer';
     ng.setAttribute('transform', `translate(${pt.x}, ${pt.y})`);
 
+    const hit = el('circle', {
+      cx: 0,
+      cy: 0,
+      r: size / 2 + 16,
+      fill: 'transparent',
+      'pointer-events': 'all'
+    });
+
     const icon = el('image', {
       href: q.icon,
       x: -size / 2,
@@ -111,6 +119,7 @@ function buildNodes() {
     });
     nameT.textContent = q.name.toUpperCase();
 
+    ng.appendChild(hit);
     ng.appendChild(icon);
     ng.appendChild(scoreT);
     ng.appendChild(nameT);
@@ -126,7 +135,6 @@ function buildNodes() {
     });
 
     ng.addEventListener('click', () => {
-      console.log('clicked', i, q.name);
       selected = i;
       hovered = null;
       render();
