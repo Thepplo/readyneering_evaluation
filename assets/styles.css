@@ -220,7 +220,7 @@ body::after {
 }
 /* orbit stage */
 .orbit-stage {
-  width: 550px; height: 320px;
+  width: 85%; height: 320px;
   flex-shrink: 0;
   margin-bottom: 1.75rem;
 }
@@ -341,7 +341,7 @@ body::after {
   .hero { grid-template-columns: 1fr; }
   .left { padding: 2.5rem 2rem; }
   .right { padding: 2.5rem 2rem; }
-  .orbit-stage { width: 270px; height: 270px; }
+  .orbit-stage { width: 85%; height: 270px; }
   .strip { padding: 0 2rem; flex-wrap: wrap; height: auto; padding: 0.75rem 2rem; }
 }
 

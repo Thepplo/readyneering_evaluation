@@ -73,8 +73,11 @@ function buildNodes() {
     const isActive = selected === i;
     const size = isActive ? 82 : 74 + ((score - 1) / 4) * 10;
 
+    console.log('node', q.name, 'selected=', selected, 'x=', pt.x, 'y=', pt.y);
+
     const ng = document.createElementNS(SVG_NS, 'g');
     ng.style.cursor = 'pointer';
+    ng.style.pointerEvents = 'all';
     ng.setAttribute('transform', `translate(${pt.x}, ${pt.y})`);
 
     const icon = el('image', {
@@ -83,7 +86,8 @@ function buildNodes() {
       y: -size / 2,
       width: size,
       height: size,
-      preserveAspectRatio: 'xMidYMid meet'
+      preserveAspectRatio: 'xMidYMid meet',
+      'pointer-events': 'none'
     });
 
     const scoreT = el('text', {
@@ -91,8 +95,9 @@ function buildNodes() {
       y: 4,
       'text-anchor': 'middle',
       'font-size': isActive ? '16' : '14',
-      'font-family': "'DM Serif Display',serif",
-      fill: isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e')
+      'font-family': "'Montserrat',sans-serif",
+      fill: isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e'),
+      'pointer-events': 'none'
     });
     scoreT.textContent = score.toFixed(1);
 
@@ -100,11 +105,12 @@ function buildNodes() {
       x: 0,
       y: size / 2 + 18,
       'text-anchor': 'middle',
-      'font-size': '12',
+      'font-size': '14',
       'font-weight': isActive ? '700' : '500',
       'letter-spacing': '0.6',
       fill: '#770136',
-      'font-family': "'DM Sans',sans-serif"
+      'font-family': "'Montserrat',sans-serif",
+      'pointer-events': 'none'
     });
     nameT.textContent = q.name.toUpperCase();
 
@@ -125,6 +131,7 @@ function buildNodes() {
     });
 
     ng.addEventListener('click', () => {
+      console.log('clicked', i, q.name);
       selected = i;
       hovered = null;
       render();
