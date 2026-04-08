@@ -83,7 +83,8 @@ function buildNodes() {
       y: -size / 2,
       width: size,
       height: size,
-      preserveAspectRatio: 'xMidYMid meet'
+      preserveAspectRatio: 'xMidYMid meet',
+      'pointer-events': 'none'
     });
 
     const scoreT = el('text', {
@@ -92,7 +93,8 @@ function buildNodes() {
       'text-anchor': 'middle',
       'font-size': isActive ? '16' : '14',
       'font-family': "'Montserrat',sans-serif",
-      fill: isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e')
+      fill: isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e'),
+      'pointer-events': 'none'
     });
     scoreT.textContent = score.toFixed(1);
 
@@ -104,7 +106,8 @@ function buildNodes() {
       'font-weight': isActive ? '700' : '500',
       'letter-spacing': '0.6',
       fill: '#770136',
-      'font-family': "'Montserrat',sans-serif"
+      'font-family': "'Montserrat',sans-serif",
+      'pointer-events': 'none'
     });
     nameT.textContent = q.name.toUpperCase();
 
@@ -169,7 +172,7 @@ if (dotWrap) {
     d.innerHTML = `<span class="q-dot-tip">${q.name}</span>`;
     d.addEventListener('click', () => {
       selected = i;
-      hovered = i;
+      hovered = null;
       render();
     });
     dotWrap.appendChild(d);
