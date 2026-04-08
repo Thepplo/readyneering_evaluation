@@ -101,11 +101,12 @@ function animate() {
   const { total } = getTrackMetrics();
   const diff = shortestDelta(currentOffset, targetOffset, total);
 
-  if (Math.abs(diff) > 0.1) {
-    currentOffset = mod(currentOffset + diff * 0.12, total);
-    render();
+  if (Math.abs(diff) > 0.05) {
+    currentOffset = mod(currentOffset + diff * 0.08, total);
+    buildNodes();
   } else {
     const snapped = mod(targetOffset, total);
+
     if (currentOffset !== snapped || selected !== pendingSelected) {
       currentOffset = snapped;
       selected = pendingSelected;
@@ -156,7 +157,7 @@ function buildNodes() {
       x: 0,
       y: 4,
       'text-anchor': 'middle',
-      'font-size': isActive ? '20' : '16',
+      'font-size': isActive ? '22' : '18',
       'font-family': "'Montserrat',sans-serif",
       fill: isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e'),
       'pointer-events': 'none'
