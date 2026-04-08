@@ -204,6 +204,15 @@ body::after {
   fill: #770136;
 }
 
+.score-text,
+.name-text {
+  transition: color 2s ease-in-out;
+  transition: opacity 2s ease-in-out;
+
+  
+}
+
+
 .score-label {
   font-family: 'Montserrat', sans-serif;
   font-size: 8px;
