@@ -88,9 +88,9 @@ function buildNodes() {
 
     const scoreT = el('text', {
       x: 0,
-      y: -6,
+      y: 4,
       'text-anchor': 'middle',
-      'font-size': isActive ? '11' : '10',
+      'font-size': isActive ? '16' : '14',
       'font-family': "'DM Serif Display',serif",
       fill: isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e')
     });
@@ -98,12 +98,12 @@ function buildNodes() {
 
     const nameT = el('text', {
       x: 0,
-      y: 8,
+      y: size / 2 + 18,
       'text-anchor': 'middle',
-      'font-size': '8.5',
+      'font-size': '12',
       'font-weight': isActive ? '700' : '500',
       'letter-spacing': '0.6',
-      fill: isActive ? '#fff' : (isHovered ? '#fff' : '#770136'),
+      fill: '#770136',
       'font-family': "'DM Sans',sans-serif"
     });
     nameT.textContent = q.name.toUpperCase();
