@@ -53,6 +53,8 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 let mode = 'R';
 let hovered = null;
 let selected = 0;
+let currentAnchor = 0;
+let targetAnchor = 0;
 
 function el(tag, attrs) {
   const e = document.createElementNS(SVG_NS, tag);
@@ -71,12 +73,20 @@ function getTrackMetrics() {
 
 function getNodeDistance(index, activeIndex, total) {
   const step = total / Q.length;
-  const focusRatio = 0.00;
-  const focusDist = total * focusRatio;
+  const focusDist = total * currentAnchor;
   const relativeIndex = (index - activeIndex + Q.length) % Q.length;
   return (focusDist + relativeIndex * step) % total;
 }
 
+function animate() {
+  currentAnchor += (targetAnchor - currentAnchor) * 0.1;
+
+  render();
+
+  requestAnimationFrame(animate);
+}
+
+animate();
 function buildNodes() {
   const g = document.getElementById('nodes');
   g.innerHTML = '';
@@ -155,7 +165,8 @@ function buildNodes() {
     ng.addEventListener('click', () => {
       selected = i;
       hovered = null;
-      render();
+
+      targetAnchor = (1 - (i / Q.length)) % 1;
     });
 
     g.appendChild(ng);
@@ -170,11 +181,11 @@ function updateCentre() {
 
   if (elR) {
     elR.textContent = q.r.toFixed(1);
-    elR.style.color = q.color;
+    elR.style.fill = q.color;
   }
   if (elP) {
     elP.textContent = q.p.toFixed(1);
-    elP.style.color = q.color;
+    elP.style.fill = q.color;
   }
 }
 
