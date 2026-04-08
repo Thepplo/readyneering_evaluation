@@ -296,12 +296,12 @@ body::after {
 .meter-track { height: 2px; background: #e8dfe4; border-radius: 2px; margin-bottom: 5px; overflow: hidden; }
 .meter-fill {
   height: 100%; border-radius: 2px;
-  background: linear-gradient(90deg, rgb(34, 34, 34), black);
+  background-color: black;
   transition: width 0.9s cubic-bezier(.4,0,.2,1);
 }
 .meter-ends {
   display: flex; justify-content: space-between;
-  font-size: 8.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #bba8b0;
+  font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: black;
 }
 
 .cta {

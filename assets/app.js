@@ -383,9 +383,9 @@ function layoutNodes(activeIndex, animate = false) {
           'font-size': fontSize
         },
         fill: scoreFill,
-        onStart: () => {
+/*         onStart: () => {
           ref.scoreT.textContent = score.toFixed(1);
-        }
+        } */
       });
 
       gsap.to(ref.nameT, {
@@ -405,13 +405,13 @@ function layoutNodes(activeIndex, animate = false) {
       ref.hit.setAttribute('r', size / 2 + 16);
       ref.scoreT.setAttribute('font-size', fontSize);
       ref.scoreT.setAttribute('fill', scoreFill);
-      ref.scoreT.textContent = score.toFixed(1);
+      /* ref.scoreT.textContent = score.toFixed(1); */
       ref.nameT.setAttribute('y', size / 2 + 18);
       ref.nameT.setAttribute('fill', nameFill);
     }
   });
 }
-function updateCentre() {
+/* function updateCentre() {
   const q = Q[selected];
 
   const elR = document.getElementById('c-r');
@@ -425,7 +425,7 @@ function updateCentre() {
     elP.textContent = q.p.toFixed(1);
     elP.style.fill = q.color;
   }
-}
+} */
 
 function updateInfo() {
   const title = document.getElementById('info-title');
