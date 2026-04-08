@@ -204,10 +204,10 @@ body::after {
   fill: #770136;
 }
 
-.score-text,
+/* .score-text,
 .name-text {
   transition: fill 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
+} */
 
 
 .score-label {

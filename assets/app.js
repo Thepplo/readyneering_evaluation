@@ -54,6 +54,7 @@ let mode = 'R';
 let hovered = null;
 let selected = 0;
 let isAnimating = false;
+let orbitOffset = 0;
 
 const focusRatio = 0.00;
 const nodeRefs = [];
@@ -76,6 +77,47 @@ function getTrackMetrics() {
 function mod(n, m) {
   return ((n % m) + m) % m;
 }
+function positionNodes() {
+  const { path, total } = getTrackMetrics();
+  const step = total / Q.length;
+  const focusDist = total * focusRatio;
+
+  Q.forEach((q, i) => {
+    const dist = ((focusDist + orbitOffset + i * step) % total + total) % total;
+    const pt = path.getPointAtLength(dist);
+    const ref = nodeRefs[i];
+
+    ref.g.setAttribute('transform', `translate(${pt.x}, ${pt.y})`);
+  });
+}
+function shortestDelta(from, to, total) {
+  let delta = ((to - from) % total + total) % total;
+  if (delta > total / 2) delta -= total;
+  return delta;
+}
+
+function animateOrbitTo(index) {
+  const { total } = getTrackMetrics();
+  const step = total / Q.length;
+
+  const targetOffset = -index * step;
+  const delta = shortestDelta(orbitOffset, targetOffset, total);
+  const endOffset = orbitOffset + delta;
+
+  gsap.to({ value: orbitOffset }, {
+    value: endOffset,
+    duration: 0.8,
+    ease: 'power2.inOut',
+    onUpdate() {
+      orbitOffset = this.targets()[0].value;
+      positionNodes();
+    },
+    onComplete() {
+      orbitOffset = ((targetOffset % total) + total) % total;
+      positionNodes();
+    }
+  });
+}
 
 function getNodeDistance(index, activeIndex, total) {
   const step = total / Q.length;
@@ -92,7 +134,7 @@ function initPosition() {
   pendingSelected = selected;
 }
 
-function animate() {
+/* function animate() {
   const { total } = getTrackMetrics();
   const diff = shortestDelta(currentOffset, targetOffset, total);
 
@@ -110,7 +152,7 @@ function animate() {
   }
 
   requestAnimationFrame(animate);
-}
+} */
 function animateInfoChange(nextIndex) {
   const q = Q[nextIndex];
   const s = mode === 'R' ? q.r : q.p;
@@ -172,6 +214,8 @@ function selectQ(i) {
   isAnimating = true;
   hovered = null;
 
+  animateOrbitTo(i);
+
   const tl = gsap.timeline({
     onComplete: () => {
       selected = i;
@@ -181,9 +225,10 @@ function selectQ(i) {
     }
   });
 
-  tl.add(layoutNodes(i, true), 0);
+  tl.add(() => layoutNodes(i, true), 0);
   tl.add(animateInfoChange(i), 0);
 }
+
 function updateNodeStyles() {
   Q.forEach((q, i) => {
     const ref = nodeRefs[i];
@@ -263,13 +308,13 @@ function initNodes() {
 
     ng.addEventListener('mouseenter', () => {
       hovered = i;
-      updateInfo();
+      //updateInfo();
       updateNodeStyles();
     });
 
     ng.addEventListener('mouseleave', () => {
       hovered = null;
-      updateInfo();
+      //updateInfo();
       updateNodeStyles();
     });
 
@@ -288,6 +333,7 @@ function initNodes() {
     });
   });
 }
+
 function layoutNodes(activeIndex, animate = false) {
   const { path, total } = getTrackMetrics();
 
@@ -306,11 +352,11 @@ function layoutNodes(activeIndex, animate = false) {
     const ref = nodeRefs[i];
 
     if (animate) {
-      gsap.to(ref.g, {
+/*       gsap.to(ref.g, {
         duration: 0.75,
         ease: 'power3.inOut',
         attr: { transform: `translate(${pt.x}, ${pt.y})` }
-      });
+      }); */
 
       gsap.to(ref.icon, {
         duration: 0.75,
