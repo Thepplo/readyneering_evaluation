@@ -117,18 +117,15 @@ function buildNodes() {
 
     ng.addEventListener('mouseenter', () => {
       hovered = i;
-      updateInfo();
-      buildNodes();
+      render();
     });
 
     ng.addEventListener('mouseleave', () => {
       hovered = null;
-      updateInfo();
-      buildNodes();
+      render();
     });
 
     ng.addEventListener('click', () => {
-      console.log('clicked', i, q.name);
       selected = i;
       hovered = null;
       render();
