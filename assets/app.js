@@ -1,30 +1,40 @@
 const Q = [
   {
-    name:'Vitality', r:3.8, p:3.2,
+    name:'Vitality', 
+    r:3.8, 
+    p:3.2,
     icon:'./assets/images/q-vitality.svg',
     dr:'How well the organization sustains energy and pace under prolonged pressure without burning people out.',
     dp:'Whether capacity planning, recovery cycles and wellbeing practices are structurally designed in.'
   },
   {
-    name:'Emotion', r:4.1, p:3.6,
+    name:'Emotion', 
+    r:4.1, 
+    p:3.6,
     icon:'./assets/images/q-emotion.svg',
     dr:'How leaders and teams regulate emotional responses during conflict, failure and uncertainty.',
     dp:'Whether the organization proactively prepares for predictable emotional patterns in high-pressure phases.'
   },
   {
-    name:'Mind', r:3.5, p:3.0,
+    name:'Mind', 
+    r:3.5, 
+    p:3.0,
     icon:'./assets/images/q-mind.svg',
     dr:'The quality of thinking and decision-making when data is incomplete and time is short.',
     dp:'Whether scenario planning, pre-mortems and assumption-testing are built into how you operate.'
   },
   {
-    name:'Execution', r:4.3, p:3.9,
+    name:'Execution', 
+    r:4.3, 
+    p:3.9,
     icon:'./assets/images/q-execution.svg',
     dr:'How decisively and consistently the organization acts under constraint and real time pressure.',
     dp:'Whether decision rights, escalation paths and implementation briefs are defined in advance.'
   },
   {
-    name:'Alignment', r:3.6, p:3.4,
+    name:'Alignment', 
+    r:3.6, 
+    p:3.4,
     icon:'./assets/images/q-alignment.svg',
     dr:'Whether the organization stays coherent — roles, priorities, collaboration — when under stress.',
     dp:'How well the system is designed to survive personnel changes and strategic fragmentation.'
@@ -53,7 +63,7 @@ function getTrackMetrics() {
 
 function getNodeDistance(index, activeIndex, total) {
   const step = total / Q.length;
-  const focusRatio = 0.72;
+  const focusRatio = 0.00;
   const focusDist = total * focusRatio;
   const relativeIndex = (index - activeIndex + Q.length) % Q.length;
   return (focusDist + relativeIndex * step) % total;
