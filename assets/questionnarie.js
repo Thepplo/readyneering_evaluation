@@ -450,14 +450,50 @@ function computeAll() {
   return {dim:dim, R:R, P:P, O:R*P};
 }
 
+function getAnswerBreakdown() {
+  var out = [];
+
+  for (var i = 0; i < TRIADS.length; i++) {
+    if (!placements[i]) continue;
+
+    var b = bary(placements[i].x, placements[i].y);
+    var tot = Math.max(b[0]+b[1]+b[2], 0.001);
+
+    var A = Math.round(b[0]/tot*100);
+    var B = Math.round(b[1]/tot*100);
+    var C = Math.round(b[2]/tot*100);
+
+    var dominant = 'A';
+    if (B > A && B > C) dominant = 'B';
+    if (C > A && C > B) dominant = 'C';
+
+    out.push({
+      index: i,
+      quotient: TRIADS[i].quotient,
+      question: TRIADS[i].question,
+      scenario: TRIADS[i].scenario,
+      A: A,
+      B: B,
+      C: C,
+      dominant: dominant
+    });
+  }
+
+  return out;
+}
+
 // ── Results ───────────────────────────────────────────────
 function showResults() {
   document.getElementById('scr-assess').style.display = 'none';
   document.getElementById('scr-results').style.display = 'block';
 
+  var answers = getAnswerBreakdown();
+  console.log('--- ANSWER BREAKDOWN ---');
+  console.table(answers);
+  
   var res = computeAll();
   console.log('Assessment Results:', res);
-  
+
   document.getElementById('r-overall').textContent = res.O.toFixed(2);
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
   document.getElementById('r-prep').textContent    = res.P.toFixed(2);
