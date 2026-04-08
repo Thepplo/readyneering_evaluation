@@ -5,7 +5,9 @@ const Q = [
     p:3.2,
     icon:'./assets/images/q-vitality.svg',
     dr:'How well the organization sustains energy and pace under prolonged pressure without burning people out.',
-    dp:'Whether capacity planning, recovery cycles and wellbeing practices are structurally designed in.'
+    dp:'Whether capacity planning, recovery cycles and wellbeing practices are structurally designed in.',
+    color:'#FFAA33'
+    
   },
   {
     name:'Emotion', 
@@ -13,7 +15,9 @@ const Q = [
     p:3.6,
     icon:'./assets/images/q-emotion.svg',
     dr:'How leaders and teams regulate emotional responses during conflict, failure and uncertainty.',
-    dp:'Whether the organization proactively prepares for predictable emotional patterns in high-pressure phases.'
+    dp:'Whether the organization proactively prepares for predictable emotional patterns in high-pressure phases.',
+    color: '#C30615'
+    
   },
   {
     name:'Mind', 
@@ -21,7 +25,9 @@ const Q = [
     p:3.0,
     icon:'./assets/images/q-mind.svg',
     dr:'The quality of thinking and decision-making when data is incomplete and time is short.',
-    dp:'Whether scenario planning, pre-mortems and assumption-testing are built into how you operate.'
+    dp:'Whether scenario planning, pre-mortems and assumption-testing are built into how you operate.',
+    color: '#2428AB'
+
   },
   {
     name:'Execution', 
@@ -29,7 +35,8 @@ const Q = [
     p:3.9,
     icon:'./assets/images/q-execution.svg',
     dr:'How decisively and consistently the organization acts under constraint and real time pressure.',
-    dp:'Whether decision rights, escalation paths and implementation briefs are defined in advance.'
+    dp:'Whether decision rights, escalation paths and implementation briefs are defined in advance.',
+    color: '#2428AB'
   },
   {
     name:'Alignment', 
@@ -37,7 +44,8 @@ const Q = [
     p:3.4,
     icon:'./assets/images/q-alignment.svg',
     dr:'Whether the organization stays coherent — roles, priorities, collaboration — when under stress.',
-    dp:'How well the system is designed to survive personnel changes and strategic fragmentation.'
+    dp:'How well the system is designed to survive personnel changes and strategic fragmentation.',
+    color: '#1B74CD'
   }
 ];
 
@@ -109,7 +117,7 @@ function buildNodes() {
       x: 0,
       y: 4,
       'text-anchor': 'middle',
-      'font-size': isActive ? '16' : '14',
+      'font-size': isActive ? '20' : '16',
       'font-family': "'Montserrat',sans-serif",
       fill: isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e'),
       'pointer-events': 'none'
@@ -123,7 +131,7 @@ function buildNodes() {
       'font-size': '14',
       'font-weight': isActive ? '700' : '500',
       'letter-spacing': '0.6',
-      fill: '#770136',
+      fill: '#000000',
       'font-family': "'Montserrat',sans-serif",
       'pointer-events': 'none'
     });
@@ -173,9 +181,20 @@ function updateInfo() {
   const q = Q[index];
   const s = mode === 'R' ? q.r : q.p;
 
-  if (title) title.textContent = q.name;
-  if (desc) desc.textContent = mode === 'R' ? q.dr : q.dp;
-  if (meter) meter.style.width = ((s - 1) / 4 * 100) + '%';
+  if (title) {
+    title.textContent = q.name;
+    title.style.color = q.color;
+  }
+
+  if (desc) {
+    desc.textContent = mode === 'R' ? q.dr : q.dp;
+    /* desc.style.color = q.color; */
+  }
+
+  if (meter) {
+    meter.style.width = ((s - 1) / 4 * 100) + '%';
+    meter.style.backgroundColor = q.color;
+  }
 }
 
 const dotWrap = document.getElementById('q-dots');
