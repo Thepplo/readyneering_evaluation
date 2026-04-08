@@ -137,8 +137,11 @@ function buildNodes() {
 function updateCentre() {
   const avgR = Q.reduce((s, q) => s + q.r, 0) / Q.length;
   const avgP = Q.reduce((s, q) => s + q.p, 0) / Q.length;
-  document.getElementById('c-r')?.textContent = avgR.toFixed(1);
-  document.getElementById('c-p')?.textContent = avgP.toFixed(1);
+  const elR = document.getElementById('c-r');
+  if (elR) elR.textContent = avgR.toFixed(1);
+
+  const elP = document.getElementById('c-p');
+  if (elP) elP.textContent = avgP.toFixed(1);
 }
 
 function updateInfo() {
