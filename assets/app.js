@@ -73,11 +73,8 @@ function buildNodes() {
     const isActive = selected === i;
     const size = isActive ? 82 : 74 + ((score - 1) / 4) * 10;
 
-    console.log('node', q.name, 'selected=', selected, 'x=', pt.x, 'y=', pt.y);
-
     const ng = document.createElementNS(SVG_NS, 'g');
     ng.style.cursor = 'pointer';
-    ng.style.pointerEvents = 'all';
     ng.setAttribute('transform', `translate(${pt.x}, ${pt.y})`);
 
     const icon = el('image', {
@@ -86,8 +83,7 @@ function buildNodes() {
       y: -size / 2,
       width: size,
       height: size,
-      preserveAspectRatio: 'xMidYMid meet',
-      'pointer-events': 'none'
+      preserveAspectRatio: 'xMidYMid meet'
     });
 
     const scoreT = el('text', {
@@ -96,8 +92,7 @@ function buildNodes() {
       'text-anchor': 'middle',
       'font-size': isActive ? '16' : '14',
       'font-family': "'Montserrat',sans-serif",
-      fill: isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e'),
-      'pointer-events': 'none'
+      fill: isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e')
     });
     scoreT.textContent = score.toFixed(1);
 
@@ -109,8 +104,7 @@ function buildNodes() {
       'font-weight': isActive ? '700' : '500',
       'letter-spacing': '0.6',
       fill: '#770136',
-      'font-family': "'Montserrat',sans-serif",
-      'pointer-events': 'none'
+      'font-family': "'Montserrat',sans-serif"
     });
     nameT.textContent = q.name.toUpperCase();
 
