@@ -200,20 +200,20 @@ body::after {
 }
 
 .score-value {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 26px;
   fill: #770136;
 }
 
 .score-label {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 8px;
   fill: #bba8b0;
   letter-spacing: 1.5px;
 }
 
 .score-mult {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 10px;
   fill: #c4537e;
   opacity: 0.5;
@@ -240,7 +240,7 @@ body::after {
 }
 
 .q-watermark {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 80px;
   fill: var(--red); opacity: 0.06;
   user-select: none;
@@ -261,7 +261,7 @@ body::after {
 
 .info-title {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.5rem; color: var(--red);
+  font-size: 1.5rem; color: black;
   min-height: 2rem; margin-bottom: 5px;
   transition: opacity 0.3s;
 }
@@ -273,15 +273,15 @@ body::after {
   font-size: 0.68rem; font-weight: 500;
   letter-spacing: 0.12em; text-transform: uppercase;
   padding: 4px 12px; border-radius: 20px;
-  border: 1px solid var(--red-mid);
-  color: var(--muted); cursor: pointer;
+  border: 1px solid rgb(34, 34, 34);
+  color: rgb(34, 34, 34); cursor: pointer;
   transition: all 0.2s;
 }
-.mode-pill.on { background: var(--red); border-color: var(--red); color: #fff; }
+.mode-pill.on { background: black; border-color: black; color: #fff; }
 
 .info-desc {
   font-size: 0.83rem; line-height: 1.65;
-  color: var(--muted); min-height: 70px;
+  color: rgb(34, 34, 34); min-height: 70px;
   margin-bottom: 1rem;
   transition: opacity 0.3s;
 }
@@ -291,7 +291,7 @@ body::after {
 .meter-track { height: 2px; background: #e8dfe4; border-radius: 2px; margin-bottom: 5px; overflow: hidden; }
 .meter-fill {
   height: 100%; border-radius: 2px;
-  background: linear-gradient(90deg, var(--red-mid), var(--red));
+  background: linear-gradient(90deg, rgb(34, 34, 34), black);
   transition: width 0.9s cubic-bezier(.4,0,.2,1);
 }
 .meter-ends {
@@ -301,15 +301,16 @@ body::after {
 
 .cta {
   display: inline-flex; align-items: center; gap: 10px;
-  padding: 11px 22px;
-  background: var(--red); color: #fff;
+  padding: 17px 26px;
+  background: black; color: #fff;
   font-size: 0.72rem; font-weight: 500;
   letter-spacing: 0.14em; text-transform: uppercase;
   border: none; border-radius: 2px; cursor: pointer;
   text-decoration: none;
   transition: all 0.2s;
+  border-radius: 10px;
 }
-.cta:hover { background: var(--red-light); gap: 14px; }
+.cta:hover { background: rgb(39, 39, 39); gap: 14px; }
 .arrow {
   width: 12px; height: 12px;
   border-top: 1.5px solid #fff; border-right: 1.5px solid #fff;
