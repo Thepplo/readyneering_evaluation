@@ -53,9 +53,20 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 let mode = 'R';
 let hovered = null;
 let selected = 0;
+let pendingSelected = 0;
 let currentOffset = 0;
 let targetOffset = 0;
-const focusRatio = 0.00; // where the selected node should sit on the path
+const focusRatio = 0.00;
+
+function mod(n, m) {
+  return ((n % m) + m) % m;
+}
+
+function shortestDelta(from, to, total) {
+  let delta = mod(to - from, total);
+  if (delta > total / 2) delta -= total;
+  return delta;
+}
 
 function el(tag, attrs) {
   const e = document.createElementNS(SVG_NS, tag);
@@ -75,24 +86,31 @@ function getTrackMetrics() {
 function getNodeDistance(index, total) {
   const step = total / Q.length;
   const focusDist = total * focusRatio;
-  return (focusDist + currentOffset + index * step) % total;
+  return mod(focusDist + currentOffset + index * step, total);
 }
+
 function initPosition() {
   const { total } = getTrackMetrics();
   const step = total / Q.length;
-  currentOffset = -selected * step;
+  currentOffset = mod(-selected * step, total);
   targetOffset = currentOffset;
+  pendingSelected = selected;
 }
 
 function animate() {
-  const diff = targetOffset - currentOffset;
+  const { total } = getTrackMetrics();
+  const diff = shortestDelta(currentOffset, targetOffset, total);
 
-  if (Math.abs(diff) > 0.0001) {
-    currentOffset += diff * 0.1;
+  if (Math.abs(diff) > 0.1) {
+    currentOffset = mod(currentOffset + diff * 0.12, total);
     render();
-  } else if (currentOffset !== targetOffset) {
-    currentOffset = targetOffset;
-    render();
+  } else {
+    const snapped = mod(targetOffset, total);
+    if (currentOffset !== snapped || selected !== pendingSelected) {
+      currentOffset = snapped;
+      selected = pendingSelected;
+      render();
+    }
   }
 
   requestAnimationFrame(animate);
@@ -174,13 +192,12 @@ function buildNodes() {
     });
 
     ng.addEventListener('click', () => {
-      selected = i;
       hovered = null;
+      pendingSelected = i;
 
       const { total } = getTrackMetrics();
       const step = total / Q.length;
-
-      targetOffset = -i * step;
+      targetOffset = mod(-i * step, total);
     });
 
     g.appendChild(ng);
