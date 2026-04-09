@@ -260,9 +260,10 @@ const TRIADS = [
 ];
 
 // ── Geometry ──────────────────────────────────────────────
-var TA = {x:250, y:130};
-var TB = {x:48,  y:360};
-var TC = {x:452, y:360};
+var SCALE = 1.3;
+var TA = {x:250 * SCALE, y:130 * SCALE};
+var TB = {x:48 * SCALE,  y:360 * SCALE};
+var TC = {x:452 * SCALE, y:360 * SCALE};
 
 var SHUFFLED_TRIADS = [];
 
@@ -301,7 +302,8 @@ var current = 0;
 var placements = [];
 
 // ── SVG builder ───────────────────────────────────────────
-var VW=800, VH=820, LH=18, FS=13;
+
+var VW = 500 * SCALE, VH = 520 * SCALE, LH=18, FS=13;
 var GX = (TA.x+TB.x+TC.x)/3;
 var GY = (TA.y+TB.y+TC.y)/3;
 
