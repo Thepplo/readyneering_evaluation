@@ -490,33 +490,152 @@ function getAnswerBreakdown() {
   for (var i = 0; i < SHUFFLED_TRIADS.length; i++) {
     if (!placements[i]) continue;
 
-    var b = bary(placements[i].x, placements[i].y);
-    var tot = Math.max(b[0]+b[1]+b[2], 0.001);
+    var triad = SHUFFLED_TRIADS[i];
+    var placement = placements[i];
 
-    var A = Math.round(b[0]/tot*100);
-    var B = Math.round(b[1]/tot*100);
-    var C = Math.round(b[2]/tot*100);
+    var b = bary(placement.x, placement.y);
+    var tot = Math.max(b[0] + b[1] + b[2], 0.001);
+
+    var a = b[0] / tot;
+    var bb = b[1] / tot;
+    var c = b[2] / tot;
+
+    var percentA = Math.round(a * 100);
+    var percentB = Math.round(bb * 100);
+    var percentC = Math.round(c * 100);
 
     var dominant = 'A';
-    if (B > A && B > C) dominant = 'B';
-    if (C > A && C > B) dominant = 'C';
+    if (percentB > percentA && percentB > percentC) dominant = 'B';
+    if (percentC > percentA && percentC > percentB) dominant = 'C';
 
     out.push({
       index: i,
-      id: SHUFFLED_TRIADS[i].id,
-      quotient: SHUFFLED_TRIADS[i].quotient,
-      question: SHUFFLED_TRIADS[i].question,
-      scenario: SHUFFLED_TRIADS[i].scenario,
-      A: A,
-      B: B,
-      C: C,
-      dominant: dominant
+      item_key: triad.id,
+      quotient: triad.quotient,
+      question: triad.question,
+      scenario: triad.scenario,
+      labels: {
+        A: triad.A,
+        B: triad.B,
+        C: triad.C
+      },
+      placement: {
+        x: placement.x,
+        y: placement.y
+      },
+      barycentric: {
+        a: a,
+        b: bb,
+        c: c
+      },
+      percent: {
+        a: percentA,
+        b: percentB,
+        c: percentC
+      },
+      dominant_label: dominant
     });
   }
 
   return out;
 }
+function computeVerdict(overallScore) {
+  const levels = [
+    {min:16.0, cls:'v-s1', label:'Strategic Readiness',
+     desc:'You operate as a deliberately designed system. Pressure reveals capability, not fragility.'},
+    {min:11.0, cls:'v-s2', label:'Functional but Vulnerable',
+     desc:'You execute well under normal conditions. One significant disruption will expose structural gaps.'},
+    {min:6.5, cls:'v-s3', label:'Reactive Mode',
+     desc:'Firefighting dominates. Heroics compensate for missing systems. Structural investment is the answer.'},
+    {min:0, cls:'v-s4', label:'Structural Risk Zone',
+     desc:'Instability is likely under sustained stress. Immediate structural intervention required.'}
+  ];
 
+  for (let i = 0; i < levels.length; i++) {
+    if (overallScore >= levels[i].min) {
+      return levels[i];
+    }
+  }
+
+  return levels[levels.length - 1];
+}
+
+function buildSubmissionPayload(res, verdict) {
+  const breakdown = getAnswerBreakdown();
+
+  const items = breakdown.map(answer => ({
+    item_key: answer.item_key,
+    item_index: answer.index,
+    item_type: "triad",
+    response_value: {
+      quotient: answer.quotient,
+      scenario: answer.scenario,
+      question: answer.question,
+      labels: answer.labels,
+      placement: answer.placement,
+      barycentric: answer.barycentric,
+      percent: answer.percent,
+      dominant_label: answer.dominant_label
+    }
+  }));
+
+  const scores = [
+    {
+      score_key: "resilience_score",
+      score_type: "numeric",
+      numeric_value: res.R
+    },
+    {
+      score_key: "preparedness_score",
+      score_type: "numeric",
+      numeric_value: res.P
+    },
+    {
+      score_key: "overall_score",
+      score_type: "numeric",
+      numeric_value: res.O
+    },
+    {
+      score_key: "verdict_label",
+      score_type: "text",
+      text_value: verdict.label
+    },
+    {
+      score_key: "verdict_meta",
+      score_type: "json",
+      json_value: {
+        class: verdict.cls,
+        label: verdict.label,
+        description: verdict.desc
+      }
+    }
+  ];
+
+  Object.entries(res.dim).forEach(([key, value]) => {
+    scores.push({
+      score_key: key,
+      score_type: "numeric",
+      numeric_value: value
+    });
+  });
+
+  return {
+    instrument: {
+      key: "resilience_triads",
+      version: "v1"
+    },
+    submission: {
+      respondent_id: null,
+      session_id: localStorage.getItem("session_id"),
+      status: "completed",
+      metadata: {
+        source: "web_app"
+      }
+    },
+    items,
+    scores
+  };
+}
 // ── Results ───────────────────────────────────────────────
 function showResults() {
   document.getElementById('scr-assess').style.display = 'none';
@@ -527,7 +646,11 @@ function showResults() {
   console.table(answers);
 
   var res = computeAll();
+  var verdict = computeVerdict(res.O);
+  var payload = buildSubmissionPayload(res, verdict);
+
   console.log('Assessment Results:', res);
+  console.log('Submission Payload:', payload);
 
   document.getElementById('r-overall').textContent = res.O.toFixed(2);
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
