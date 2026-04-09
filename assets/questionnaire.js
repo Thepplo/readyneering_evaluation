@@ -621,7 +621,7 @@ function buildSubmissionPayload(res, verdict) {
 
   return {
     instrument: {
-      key: "resilience_triads",
+      key: "readyneering_diagnostic",
       version: "v1"
     },
     submission: {
