@@ -6,7 +6,8 @@ const Q = [
     icon:'./assets/images/q-vitality.svg',
     dr:'How well the organization sustains energy and pace under prolonged pressure without burning people out.',
     dp:'Whether capacity planning, recovery cycles and wellbeing practices are structurally designed in.',
-    color:'#FFAA33'
+    color:'#FFAA33',
+    textColor: '#0000007e'
     
   },
   {
@@ -16,7 +17,8 @@ const Q = [
     icon:'./assets/images/q-emotion.svg',
     dr:'How leaders and teams regulate emotional responses during conflict, failure and uncertainty.',
     dp:'Whether the organization proactively prepares for predictable emotional patterns in high-pressure phases.',
-    color: '#C30615'
+    color: '#C30615',
+    textColor: '#fff'
     
   },
   {
@@ -26,7 +28,8 @@ const Q = [
     icon:'./assets/images/q-mind.svg',
     dr:'The quality of thinking and decision-making when data is incomplete and time is short.',
     dp:'Whether scenario planning, pre-mortems and assumption-testing are built into how you operate.',
-    color: '#64012D'
+    color: '#64012D',
+    textColor: '#fff'
 
   },
   {
@@ -36,7 +39,8 @@ const Q = [
     icon:'./assets/images/q-execution.svg',
     dr:'How decisively and consistently the organization acts under constraint and real time pressure.',
     dp:'Whether decision rights, escalation paths and implementation briefs are defined in advance.',
-    color: '#2428AB'
+    color: '#2428AB',
+    textColor: '#fff'
   },
   {
     name:'Alignment', 
@@ -45,7 +49,8 @@ const Q = [
     icon:'./assets/images/q-alignment.svg',
     dr:'Whether the organization stays coherent — roles, priorities, collaboration — when under stress.',
     dp:'How well the system is designed to survive personnel changes and strategic fragmentation.',
-    color: '#1B74CD'
+    color: '#1B74CD',
+    textColor: '#0000007e'
   }
 ];
 
@@ -237,7 +242,8 @@ function updateNodeStyles() {
 
     gsap.to(ref.scoreT, {
       duration: 0.2,
-      fill: isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e')
+      opacity: isActive ? 1 : (isHovered ? 0.85 : 0.4),
+      ease: 'power2.out'
     });
 
     gsap.to(ref.nameT, {
@@ -281,7 +287,7 @@ function initNodes() {
       'text-anchor': 'middle',
       'font-size': '18',
       'font-family': "'Montserrat',sans-serif",
-      fill: '#c4537e',
+      fill: q.textColor,
       'pointer-events': 'none'
     });
 
@@ -347,8 +353,7 @@ function layoutNodes(activeIndex, animate = false) {
     const size = isActive ? 82 : 74 + ((score - 1) / 4) * 10;
     const fontSize = isActive ? 22 : 18;
     const nameFill = isActive ? 'transparent' : (isHovered ? '#000000' : '#0000007e');
-    const scoreFill = isActive ? '#fff' : (isHovered ? '#fff' : '#c4537e');
-
+    const scoreFill = q.color;
     const ref = nodeRefs[i];
 
     if (animate) {
