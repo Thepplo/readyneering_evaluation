@@ -242,7 +242,7 @@ function updateNodeStyles() {
 
     gsap.to(ref.scoreT, {
       duration: 0.2,
-      opacity: isActive ? 1 : (isHovered ? 0.85 : 0.4),
+      opacity: isActive ? 1 : (isHovered ? 0.85 : 0.6),
       ease: 'power2.out'
     });
 
@@ -353,7 +353,7 @@ function layoutNodes(activeIndex, animate = false) {
     const size = isActive ? 82 : 74 + ((score - 1) / 4) * 10;
     const fontSize = isActive ? 22 : 18;
     const nameFill = isActive ? 'transparent' : (isHovered ? '#000000' : '#0000007e');
-    const scoreFill = q.color;
+    const scoreFill = q.textColor;
     const ref = nodeRefs[i];
 
     if (animate) {
