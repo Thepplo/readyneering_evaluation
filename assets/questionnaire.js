@@ -261,6 +261,8 @@ const TRIADS = [
 
 // ── Geometry ──────────────────────────────────────────────
 var SCALE = 1.3;
+function s(n) { return n * SCALE; }
+
 var TA = {x:250 * SCALE, y:130 * SCALE};
 var TB = {x:48 * SCALE,  y:360 * SCALE};
 var TC = {x:452 * SCALE, y:360 * SCALE};
@@ -303,7 +305,7 @@ var placements = [];
 
 // ── SVG builder ───────────────────────────────────────────
 
-var VW = 500 * SCALE, VH = 520 * SCALE, LH=18, FS=13;
+var VW = s(500), VH = s(520), LH = s(18), FS = s(13);
 var GX = (TA.x+TB.x+TC.x)/3;
 var GY = (TA.y+TB.y+TC.y)/3;
 
@@ -344,10 +346,10 @@ function shuffle(array) {
 function makeSVG(idx) {
   var t = SHUFFLED_TRIADS[idx];
   var aLines = t.A.split('\n').length;
-  var aBottomY = TA.y - 14;
+  var aBottomY = TA.y - s(14);
   var aTopY    = aBottomY - (aLines - 1) * LH;
-  var bTopY    = TB.y + 16;
-  var cTopY    = TC.y + 16;
+  var bTopY    = TB.y + s(16);
+  var cTopY    = TC.y + s(16);
   var fs = 'font-size="'+FS+'" fill="#2a2a28" font-weight="500" font-family="-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif"';
 
   var gx = GX.toFixed(1), gy = GY.toFixed(1);
