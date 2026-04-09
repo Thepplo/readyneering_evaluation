@@ -46,20 +46,25 @@
 
 /* nav */
 .nav { display: flex; gap: 10px; align-items: center; margin-top: 24px; }
-.btn { 
-    padding: 0 20px; 
-    height: 38px; 
-    border: 1px solid #c8c7c0; 
-    background: #fff; 
-    font-size: 14px; 
-    font-weight: 500; 
-    cursor: pointer; 
-    color: #1a1a18; 
-    transition: all 0.2s;
-    border-radius: 10px;
-}
-.btn:hover { background: #f1f0e8; gap: 14px; }
 
+.btn:hover { background: #f1f0e8; gap: 14px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 17px 26px;
+  background: #fff; 
+  color: #1a1a18;
+  border: 1px solid #c8c7c0;
+  font-size: 0.72rem; 
+  font-weight: 500;
+  letter-spacing: 0.14em; 
+  text-transform: uppercase;
+  border: none; 
+  border-radius: 2px; 
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  border-radius: 10px;
+}
 .arrow {
   width: 12px; height: 12px;
   border-top: 1.5px solid black; border-right: 1.5px solid black;
