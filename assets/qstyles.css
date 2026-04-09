@@ -25,7 +25,7 @@
 
 /* progress */
 .pbar { height: 3px; background: #e0dfd8; border-radius: 2px; margin-bottom: 28px; }
-.pfill { height: 100%; background: #770136; border-radius: 2px; transition: width 0.3s; }
+.pfill { height: 100%; background: #d3b327; border-radius: 2px; transition: width 0.3s; }
 
 /* scenario card */
 .card { background: #fff; border: 1px solid #e0dfd8; border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; }
@@ -65,16 +65,24 @@
   transition: all 0.2s;
   border-radius: 10px;
 }
+.arrow,
+.arrow-back {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid #000;
+  border-right: 2px solid #000;
+  flex: 0 0 12px;
+}
+
 .arrow {
-  width: 12px; height: 12px;
-  border-top: 1.5px solid black; border-right: 1.5px solid black;
   transform: rotate(45deg);
 }
+
 .arrow-back {
-  width: 12px; height: 12px;
-  border-top: 1.5px solid black; border-right: 1.5px solid black;
   transform: rotate(225deg);
 }
+
 .btn.primary { 
     background: #ffda33; 
     color: black; 

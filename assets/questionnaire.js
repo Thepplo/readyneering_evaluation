@@ -301,7 +301,7 @@ var current = 0;
 var placements = [];
 
 // ── SVG builder ───────────────────────────────────────────
-var VW=500, VH=520, LH=18, FS=13;
+var VW=800, VH=820, LH=18, FS=13;
 var GX = (TA.x+TB.x+TC.x)/3;
 var GY = (TA.y+TB.y+TC.y)/3;
 
@@ -449,8 +449,11 @@ function updateUI() {
   document.getElementById('prog').style.width = pct + '%';
   document.getElementById('step-ind').textContent = (current+1) + ' of ' + SHUFFLED_TRIADS.length;
   document.getElementById('btn-back').disabled = current === 0;
-  document.getElementById('btn-next').textContent = current === SHUFFLED_TRIADS.length-1 ? 'See results →' : 'Next →';
-}
+  document.getElementById('btn-next').innerHTML =
+    current === SHUFFLED_TRIADS.length - 1
+      ? 'See results <span class="arrow"></span>'
+      : 'Next <span class="arrow"></span>';
+  }
 
 function showStep(idx) {
   for (var i=0; i<SHUFFLED_TRIADS.length; i++) {
