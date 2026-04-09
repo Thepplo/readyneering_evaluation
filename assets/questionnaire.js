@@ -1,3 +1,20 @@
+async function saveAssessment(payload) {
+  const response = await fetch('/assessments/submit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Failed to save assessment');
+  }
+
+  return data;
+}
 const TRIADS = [
 
 /* 1 — Vitality (R) */
@@ -636,8 +653,11 @@ function buildSubmissionPayload(res, verdict) {
     scores
   };
 }
+
+
+
 // ── Results ───────────────────────────────────────────────
-function showResults() {
+async function showResults() {
   document.getElementById('scr-assess').style.display = 'none';
   document.getElementById('scr-results').style.display = 'block';
 
@@ -651,6 +671,13 @@ function showResults() {
 
   console.log('Assessment Results:', res);
   console.log('Submission Payload:', payload);
+
+  try {
+    const saved = await saveAssessment(payload);
+    console.log('Saved assessment:', saved);
+  } catch (err) {
+    console.error('Failed to save assessment:', err);
+  }
 
   document.getElementById('r-overall').textContent = res.O.toFixed(2);
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
