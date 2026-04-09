@@ -322,16 +322,31 @@ function initNodes() {
     });
   });
 }
-
-function animateTrackFill(score) {
+function setTrackFill(score, color) {
   const path = document.getElementById('q-track-fill');
+  if (!path) return;
+
   const total = path.getTotalLength();
-  const ratio = (score - 1) / 4;
+  const ratio = Math.max(0, Math.min(1, (score - 1) / 4));
+  const fillLength = total * ratio;
+
+  path.style.stroke = color;
+  path.style.strokeDasharray = `${fillLength} ${total}`;
+  path.style.strokeDashoffset = '0';
+}
+
+function animateTrackFill(score, color) {
+  const path = document.getElementById('q-track-fill');
+  if (!path) return;
+
+  const total = path.getTotalLength();
+  const ratio = Math.max(0, Math.min(1, (score - 1) / 4));
   const fillLength = total * ratio;
 
   gsap.to(path, {
     duration: 0.6,
     ease: 'power2.out',
+    stroke: color,
     strokeDasharray: `${fillLength} ${total}`
   });
 }
@@ -480,7 +495,7 @@ function initialPaint() {
   desc.textContent = mode === 'R' ? q.dr : q.dp;
   meter.style.width = ((q.r - 1) / 4 * 100) + '%';
   meter.style.backgroundColor = q.color;
-  animateTrackFill(s);
+  setTrackFill(s, q.color);
 }
 
 initNodes();
