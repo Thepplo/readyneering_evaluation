@@ -200,8 +200,7 @@ body::after {
 }
 .q-track-fill {
   fill: none;
-  stroke: #770136;
-  stroke-opacity: 0.22;
+  stroke: #f36faa;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
