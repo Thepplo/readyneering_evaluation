@@ -485,7 +485,7 @@ function initialPaint() {
   const title = document.getElementById('info-title');
   const desc = document.getElementById('info-desc');
   const meter = document.getElementById('meter');
-
+  const s = mode === 'R' ? q.r : q.p;
   elR.textContent = q.r.toFixed(1);
   elP.textContent = q.p.toFixed(1);
   elR.style.fill = q.color;
