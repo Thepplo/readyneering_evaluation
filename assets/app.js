@@ -139,25 +139,7 @@ function initPosition() {
   pendingSelected = selected;
 }
 
-/* function animate() {
-  const { total } = getTrackMetrics();
-  const diff = shortestDelta(currentOffset, targetOffset, total);
 
-  if (Math.abs(diff) > 0.05) {
-    currentOffset = mod(currentOffset + diff * 0.08, total);
-    buildNodes();
-  } else {
-    const snapped = mod(targetOffset, total);
-
-    if (currentOffset !== snapped || selected !== pendingSelected) {
-      currentOffset = snapped;
-      selected = pendingSelected;
-      render();
-    }
-  }
-
-  requestAnimationFrame(animate);
-} */
 function animateInfoChange(nextIndex) {
   const q = Q[nextIndex];
   const s = mode === 'R' ? q.r : q.p;
@@ -340,6 +322,19 @@ function initNodes() {
   });
 }
 
+function animateTrackFill(score) {
+  const path = document.getElementById('q-track-fill');
+  const total = path.getTotalLength();
+  const ratio = (score - 1) / 4;
+  const fillLength = total * ratio;
+
+  gsap.to(path, {
+    duration: 0.6,
+    ease: 'power2.out',
+    strokeDasharray: `${fillLength} ${total}`
+  });
+}
+
 function layoutNodes(activeIndex, animate = false) {
   const { path, total } = getTrackMetrics();
 
@@ -416,21 +411,6 @@ function layoutNodes(activeIndex, animate = false) {
     }
   });
 }
-/* function updateCentre() {
-  const q = Q[selected];
-
-  const elR = document.getElementById('c-r');
-  const elP = document.getElementById('c-p');
-
-  if (elR) {
-    elR.textContent = q.r.toFixed(1);
-    elR.style.fill = q.color;
-  }
-  if (elP) {
-    elP.textContent = q.p.toFixed(1);
-    elP.style.fill = q.color;
-  }
-} */
 
 function updateInfo() {
   const title = document.getElementById('info-title');
@@ -440,6 +420,7 @@ function updateInfo() {
   const index = hovered !== null ? hovered : selected;
   const q = Q[index];
   const s = mode === 'R' ? q.r : q.p;
+  animateTrackFill(s);
 
   if (title) {
     title.textContent = q.name;
@@ -506,12 +487,6 @@ initialPaint();
 updateDots();
 updateNodeStyles();
 
-/* function render() {
-  buildNodes();
-  updateCentre();
-  updateInfo();
-  updateDots();
-} */
 
 function setMode(m) {
   if (mode === m) return;
@@ -542,6 +517,3 @@ fetch('./assets/images/atom-model.svg')
     });
   });
 
-/* initPosition();
-render();
-animate(); */
