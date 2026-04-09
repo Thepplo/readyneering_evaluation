@@ -165,7 +165,7 @@ function animateInfoChange(nextIndex) {
     title.textContent = q.name;
     desc.textContent = mode === 'R' ? q.dr : q.dp;
 
-    animateTrackFill(s);
+    animateTrackFill(s, q.color);
   });
 
   tl.to([elR, elP], {
@@ -436,7 +436,7 @@ function updateInfo() {
   const index = hovered !== null ? hovered : selected;
   const q = Q[index];
   const s = mode === 'R' ? q.r : q.p;
-  animateTrackFill(s);
+  animateTrackFill(s, q.color);
 
   if (title) {
     title.textContent = q.name;
