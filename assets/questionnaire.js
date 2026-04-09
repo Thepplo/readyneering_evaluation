@@ -266,6 +266,12 @@ var TC = {x:452, y:360};
 
 var SHUFFLED_TRIADS = [];
 
+
+document.getElementById('industry-select').addEventListener('change', function () {
+  var other = document.getElementById('industry-other');
+  other.style.display = this.value === 'other' ? 'block' : 'none';
+});
+
 function bary(px, py) {
   var d = (TB.y-TC.y)*(TA.x-TC.x) + (TC.x-TB.x)*(TA.y-TC.y);
   var a = ((TB.y-TC.y)*(px-TC.x) + (TC.x-TB.x)*(py-TC.y)) / d;
@@ -660,7 +666,8 @@ function buildSubmissionPayload(res, verdict) {
       status: "completed",
       metadata: {
         source: "web_app",
-        batch_id: getQueryParam('batch_id')
+        batch_id: getQueryParam('batch_id'),
+        industry: selectedIndustry
       }
     },
     items,
@@ -743,11 +750,24 @@ async function showResults() {
 
 // ── Start ─────────────────────────────────────────────────
 function startAssessment() {
+  var industryValue = industrySelect.value;
+  if (industryValue === 'other') {
+    var otherText = document.getElementById('industry-other').value.trim();
+    if (!otherText) {
+      document.getElementById('industry-warn').textContent = 'Please specify your industry.';
+      document.getElementById('industry-warn').style.display = 'block';
+      return;
+    }
+    selectedIndustry = otherText;
+  } else {
+    selectedIndustry = industryValue;
+  }
   document.getElementById('scr-intro').style.display  = 'none';
   document.getElementById('scr-assess').style.display = 'block';
   buildSteps();
   updateUI();
   window.scrollTo(0, 0);
+
 }
 
 document.getElementById('start-btn').addEventListener('click', startAssessment);
