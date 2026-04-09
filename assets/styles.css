@@ -284,6 +284,12 @@ body::after {
 }
 .mode-pill.on { background: black; border-color: black; color: #fff; }
 
+.mode-pill:hover {
+  border: 1px solid rgb(99, 99, 99);
+  color: rgb(99, 99, 99); 
+}
+
+
 .info-desc {
   font-size: 0.83rem; line-height: 1.65;
   color: rgb(34, 34, 34); min-height: 70px;

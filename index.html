@@ -53,7 +53,11 @@
 
   <!-- RIGHT -->
   <div class="right">
-  <div class="orbit-stage">
+    <div class="mode-row">
+        <span class="mode-pill on" id="pill-r" onclick="setMode('R')">Resilience</span>
+        <span class="mode-pill" id="pill-p" onclick="setMode('P')">Preparedness</span>
+    </div>
+  <div class="orbit-stage" style = "margin-top: 3rem;">
     <svg class="orbit-svg" viewBox="0 0 630 320" xmlns="http://www.w3.org/2000/svg">
 
       <!-- custom Q track -->
@@ -76,10 +80,6 @@
   </div>
     <div class="info">
       <div class="info-title" id="info-title">Five quotients of readiness</div>
-      <div class="mode-row">
-        <span class="mode-pill on" id="pill-r" onclick="setMode('R')">Resilience</span>
-        <span class="mode-pill" id="pill-p" onclick="setMode('P')">Preparedness</span>
-      </div>
       <p class="info-desc" id="info-desc">Hover a quotient node to explore. Each is assessed under pressure and by structural design.</p>
       <div class="meter-wrap">
         <div class="meter-track"><div class="meter-fill" id="meter" style="width:0%"></div></div>

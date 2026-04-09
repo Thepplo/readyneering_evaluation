@@ -508,13 +508,24 @@ updateNodeStyles();
   updateDots();
 } */
 
-/* function setMode(m) {
+function setMode(m) {
+  if (mode === m) return;
+
   mode = m;
+
   document.getElementById('pill-r')?.classList.toggle('on', m === 'R');
   document.getElementById('pill-p')?.classList.toggle('on', m === 'P');
-  render();
+
+  Q.forEach((q, i) => {
+    const score = m === 'R' ? q.r : q.p;
+    nodeRefs[i].scoreT.textContent = score.toFixed(1);
+  });
+
+  animateInfoChange(selected);
+
+  updateNodeStyles();
 }
- */
+
 fetch('./assets/images/atom-model.svg')
   .then(res => res.text())
   .then(svg => {
