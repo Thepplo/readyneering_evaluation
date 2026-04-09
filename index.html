@@ -89,9 +89,21 @@
         <div class="meter-track"><div class="meter-fill" id="meter" style="width:0%"></div></div>
         <div class="meter-ends"><span>Structural Risk</span><span>Strategic Readiness</span></div>
       </div>
-      <a class="cta" href="questionnaire.html">
+      <a class="cta" id="diagnostic-link" href="questionnaire.html">
         Take the diagnostic <span class="arrow"></span>
       </a>
+
+      <script>
+        (function () {
+          var link = document.getElementById('diagnostic-link');
+          if (!link) return;
+
+          var params = window.location.search;
+          if (params) {
+            link.href = 'questionnaire.html' + params;
+          }
+        })();
+      </script>
     </div>
   </div>
 </div>

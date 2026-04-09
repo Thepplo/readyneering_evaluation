@@ -303,6 +303,19 @@ function esc(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
+function getSessionId() {
+  let sessionId = localStorage.getItem('session_id');
+  if (!sessionId) {
+    sessionId = crypto.randomUUID();
+    localStorage.setItem('session_id', sessionId);
+  }
+  return sessionId;
+}
+
+function getQueryParam(name) {
+  return new URLSearchParams(window.location.search).get(name);
+}
+
 function makeTspans(txt, anchor, x, startY) {
   var parts = txt.split('\n');
   var out = '';
@@ -643,10 +656,11 @@ function buildSubmissionPayload(res, verdict) {
     },
     submission: {
       respondent_id: null,
-      session_id: localStorage.getItem("session_id"),
+      session_id: getSessionId(),
       status: "completed",
       metadata: {
-        source: "web_app"
+        source: "web_app",
+        batch_id: getQueryParam('batch_id')
       }
     },
     items,
