@@ -3,6 +3,7 @@ const TRIADS = [
 /* 1 — Vitality (R) */
 {
   quotient:"Vitality",
+  id:"vitality-1",
   scenario:"Your team has just come through a demanding six-month delivery phase. Key deadlines were met — but at what cost? Looking at your team now, describe the energy level you observe.",
   question:"Where does the energy situation sit?",
   A:"Visibly exhausted —\nrecovery has not happened",
@@ -14,6 +15,7 @@ const TRIADS = [
 /* 2 — Emotion (R) */
 {
   quotient:"Emotion",
+  id:"emotion-1",
   scenario:"During a difficult period — a restructuring, a failed project, or a leadership conflict — emotions ran high. Some things were said that created lasting tension between people.",
   question:"How did your organization handle the emotional aftermath?",
   A:"Leaders named it openly;\nworked through it together",
@@ -25,6 +27,7 @@ const TRIADS = [
 /* 3 — Mind (P) */
 {
   quotient:"Mind",
+  id:"mind-1",
   scenario:"Your organization is about to enter a period of significant uncertainty — a market shift, a new competitor, or a major strategic bet. Before the pressure arrives, how does the organization prepare its thinking?",
   question:"What best describes your planning approach?",
   A:"Priorities defined clearly\nbefore things get hard",
@@ -36,6 +39,7 @@ const TRIADS = [
 /* 4 — Alignment (R) */
 {
   quotient:"Alignment",
+  id:"alignment-1",
   scenario:"A critical team leader is suddenly unavailable — illness, resignation, or an unexpected absence — right in the middle of a high-stakes delivery. No succession has been formally planned.",
   question:"What happens to operational stability?",
   A:"Minimal disruption;\nshared clarity holds",
@@ -47,6 +51,7 @@ const TRIADS = [
 /* 5 — Execution (R) */
 {
   quotient:"Execution",
+  id:"execution-1",
   scenario:"An unexpected external event — a regulatory change, a competitor move, a sudden client escalation — forces your organization to change direction mid-delivery. Speed and clarity of response matter enormously.",
   question:"What best describes how your organization responds?",
   A:"Recalibrate within days;\nnot panicked, not paralyzed",
@@ -58,6 +63,7 @@ const TRIADS = [
 /* 6 — Vitality (P) */
 {
   quotient:"Vitality",
+  id:"vitality-2",
   scenario:"You are in the planning phase for next year. The ambition is high, the timeline is tight, and the team is already running at close to full capacity. How does your organization approach this?",
   question:"What does capacity planning look like in practice?",
   A:"Realistic workload with\ndeliberate recovery built in",
@@ -69,6 +75,7 @@ const TRIADS = [
 /* 7 — Emotion (R) */
 {
   quotient:"Emotion",
+  id:"emotion-2",
   scenario:"Someone on the leadership team needs to give difficult feedback to a peer — about behavior under pressure, a leadership blind spot, or impact on others. This is the kind of feedback that could cause friction.",
   question:"What typically happens in your organization?",
   A:"Given carefully; sometimes\ntaken personally",
@@ -80,6 +87,7 @@ const TRIADS = [
 /* 8 — Alignment (R) */
 {
   quotient:"Alignment",
+  id:"alignment-2",
   scenario:"Three teams are working toward the same goal but their priorities conflict. One team's urgent is another team's low priority. The pressure is building and no one has resolved the tension.",
   question:"How does your organization resolve cross-team priority conflicts?",
   A:"Clear escalation;\nresolved quickly at right level",
@@ -91,6 +99,7 @@ const TRIADS = [
 /* 9 — Execution (P) */
 {
   quotient:"Execution",
+  id:"execution-2",
   scenario:"Before a major initiative launches, your organization needs to decide how decisions will be made during implementation — especially when things go wrong and speed matters. How prepared is the organization?",
   question:"What is in place before the pressure starts?",
   A:"Decision principles\ndocumented in advance",
@@ -102,6 +111,7 @@ const TRIADS = [
 /* 10 — Vitality (R) */
 {
   quotient:"Vitality",
+  id:"vitality-3",
   scenario:"Over several months, a pattern emerges: some people look visibly drained, productivity is subtly declining, and a few key people show signs of disengagement. The workload has not decreased.",
   question:"How does your organization respond to these signals?",
   A:"Signals normalized —\n‘this is just a demanding phase’",
@@ -113,6 +123,7 @@ const TRIADS = [
 /* 11 — Execution (R) */
 {
   quotient:"Execution",
+  id:"execution-3",
   scenario:"A significant decision has been made at leadership level. Two weeks later, implementation is inconsistent — different teams are executing in different ways and no one is sure which interpretation is correct.",
   question:"How common is this, and how is it addressed?",
   A:"Rare — clear briefs and\naccountable owners from the start",
@@ -124,6 +135,7 @@ const TRIADS = [
 /* 12 — Emotion (P) */
 {
   quotient:"Emotion",
+  id:"emotion-3",
   scenario:"Before a known high-pressure phase — a major launch, a restructuring, a difficult negotiation — your leadership team has the opportunity to prepare not just operationally, but emotionally and relationally.",
   question:"What does that preparation look like?",
   A:"Operational focus only;\nemotion is personal responsibility",
@@ -135,6 +147,7 @@ const TRIADS = [
 /* 13 — Mind (R) */
 {
   quotient:"Mind",
+  id:"mind-2",
   scenario:"Your organization has just come through a significant setback — a strategy that did not work, a major project that failed to deliver, or a market bet that was wrong. The post-mortem conversation is about to happen.",
   question:"What does that conversation look like?",
   A:"Structural analysis —\nwhat in our process allowed this",
@@ -146,6 +159,7 @@ const TRIADS = [
 /* 14 — Alignment (P) */
 {
   quotient:"Alignment",
+  id:"alignment-3",
   scenario:"Your organization has articulated a clear strategic direction. Six months into implementation, you ask people at different levels to describe what that strategy means in practice for their work.",
   question:"What do you find?",
   A:"Consistent clarity\nat every level",
@@ -157,6 +171,7 @@ const TRIADS = [
 /* 15 — Mind (R) */
 {
   quotient:"Mind",
+  id:"mind-3",
   scenario:"Your organization is under pressure and a dominant narrative has taken hold — a shared story about why things are difficult, who is responsible, and what is possible. The narrative may be partially true, but it is also limiting.",
   question:"How does your organization relate to its own dominant narrative under pressure?",
   A:"We actively interrogate it —\ngroupthink is a leadership risk",
@@ -168,6 +183,7 @@ const TRIADS = [
 /* 16 — Vitality */
 {
   quotient:"Vitality",
+  id:"vitality-4",
   scenario:"After an intense period, your organization reviews how it manages energy and wellbeing over time. The question on the table: do we treat sustainable performance as a design question — or as an individual responsibility?",
   question:"What best describes your organization’s relationship with sustainable energy?",
   A:"Individual endurance;\npeople manage their own limits",
@@ -179,6 +195,7 @@ const TRIADS = [
 /* 17 — Emotion */
 {
   quotient:"Emotion",
+  id:"emotion-4",
   scenario:"A senior leader reflects on how they personally behave when under significant pressure. Do they know their own stress patterns — and has the leadership team ever discussed this explicitly together?",
   question:"How emotionally self-aware and prepared is your leadership team?",
   A:"Leaders know their patterns;\nteam has discussed this openly",
@@ -190,6 +207,7 @@ const TRIADS = [
 /* 18 — Mind */
 {
   quotient:"Mind",
+  id:"mind-4",
   scenario:"In the middle of a fast-moving situation, your leadership team is trying to make sense of what is happening. Some information is confirmed, some is rumour, some is interpretation. How clearly does the team separate these?",
   question:"How does your team handle the mix of facts, assumptions and interpretations in real time?",
   A:"We explicitly label what we know,\nwhat we assume, what we interpret",
@@ -201,6 +219,7 @@ const TRIADS = [
 /* 19 — Execution */
 {
   quotient:"Execution",
+  id:"execution-4",
   scenario:"Your organization has just completed a major initiative. There is pressure to move on immediately. Someone proposes a structured after-action review — to capture what worked and what needs to change before the next cycle.",
   question:"What happens to the after-action review?",
   A:"It happens quickly and drives\nreal change in how we work next time",
@@ -212,6 +231,7 @@ const TRIADS = [
 /* 20 — Alignment */
 {
   quotient:"Alignment",
+  id:"alignment-4",
   scenario:"Your organization enters a period of significant ambiguity — a strategic shift is signalled but not yet defined, roles may change, and people are unsure who decides what. The formal structure has not caught up with the new reality.",
   question:"How does your organization maintain coherence during this ambiguous transition?",
   A:"Leadership communicates clear intent;\npeople navigate from shared direction",
@@ -226,6 +246,8 @@ const TRIADS = [
 var TA = {x:250, y:130};
 var TB = {x:48,  y:360};
 var TC = {x:452, y:360};
+
+var SHUFFLED_TRIADS = [];
 
 function bary(px, py) {
   var d = (TB.y-TC.y)*(TA.x-TC.x) + (TC.x-TB.x)*(TA.y-TC.y);
@@ -254,7 +276,6 @@ function w2score(raw) {
 // ── State ─────────────────────────────────────────────────
 var current = 0;
 var placements = [];
-for (var i=0; i<TRIADS.length; i++) placements.push(null);
 
 // ── SVG builder ───────────────────────────────────────────
 var VW=500, VH=520, LH=18, FS=13;
@@ -274,8 +295,16 @@ function makeTspans(txt, anchor, x, startY) {
   return out;
 }
 
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 function makeSVG(idx) {
-  var t = TRIADS[idx];
+  var t = SHUFFLED_TRIADS[idx];
   var aLines = t.A.split('\n').length;
   var aBottomY = TA.y - 14;
   var aTopY    = aBottomY - (aLines - 1) * LH;
@@ -312,12 +341,17 @@ function makeSVG(idx) {
 function buildSteps() {
   var wrap = document.getElementById('steps-wrap');
   var html = '';
-  for (var i=0; i<TRIADS.length; i++) {
-    var t = TRIADS[i];
+
+  SHUFFLED_TRIADS = shuffle([...TRIADS]);
+  placements = new Array(SHUFFLED_TRIADS.length).fill(null);
+  current = 0;
+
+  for (var i=0; i<SHUFFLED_TRIADS.length; i++) {
+    var t = SHUFFLED_TRIADS[i];
     var display = i===0 ? 'block' : 'none';
     html += '<div id="step-'+i+'" style="display:'+display+'">'
       +'<div class="card">'
-      +'<div class="eyebrow">Situation '+(i+1)+' of '+TRIADS.length+' &nbsp;&middot;&nbsp; </div>'
+      +'<div class="eyebrow">Situation '+(i+1)+' of '+SHUFFLED_TRIADS.length+' &nbsp;&middot;&nbsp; </div>'
       +'<div class="scenario-text">'+esc(t.scenario)+'</div>'
       +'</div>'
       +'<div class="question">'+esc(t.question)+'</div>'
@@ -331,10 +365,10 @@ function buildSteps() {
       +'</div>'
       +'</div>';
   }
+
   wrap.innerHTML = html;
 
-  // Attach events after building
-  for (var j=0; j<TRIADS.length; j++) {
+  for (var j=0; j<SHUFFLED_TRIADS.length; j++) {
     attachEvents(j);
   }
 }
@@ -375,15 +409,15 @@ function attachEvents(idx) {
 
 // ── Navigation ────────────────────────────────────────────
 function updateUI() {
-  var pct = (current / TRIADS.length * 100);
+  var pct = (current / SHUFFLED_TRIADS.length * 100);
   document.getElementById('prog').style.width = pct + '%';
-  document.getElementById('step-ind').textContent = (current+1) + ' of ' + TRIADS.length;
+  document.getElementById('step-ind').textContent = (current+1) + ' of ' + SHUFFLED_TRIADS.length;
   document.getElementById('btn-back').disabled = current === 0;
-  document.getElementById('btn-next').textContent = current === TRIADS.length-1 ? 'See results →' : 'Next →';
+  document.getElementById('btn-next').textContent = current === SHUFFLED_TRIADS.length-1 ? 'See results →' : 'Next →';
 }
 
 function showStep(idx) {
-  for (var i=0; i<TRIADS.length; i++) {
+  for (var i=0; i<SHUFFLED_TRIADS.length; i++) {
     document.getElementById('step-'+i).style.display = i===idx ? 'block' : 'none';
   }
 }
@@ -393,7 +427,7 @@ document.getElementById('btn-next').addEventListener('click', function() {
     document.getElementById('warn').style.display = 'block';
     return;
   }
-  if (current === TRIADS.length - 1) {
+  if (current === SHUFFLED_TRIADS.length - 1) {
     showResults();
     return;
   }
@@ -421,12 +455,12 @@ function computeAll() {
   var accum = {}, count = {};
   for (var k=0; k<DIMS.length; k++) { accum[DIMS[k]]=0; count[DIMS[k]]=0; }
 
-  for (var i=0; i<TRIADS.length; i++) {
+  for (var i=0; i<SHUFFLED_TRIADS.length; i++) {
     if (!placements[i]) continue;
     var b = bary(placements[i].x, placements[i].y);
     var tot = Math.max(b[0]+b[1]+b[2], 0.001);
     var coords = [b[0]/tot, b[1]/tot, b[2]/tot];
-    var sc = TRIADS[i].scores;
+    var sc = SHUFFLED_TRIADS[i].scores;
     for (var k in sc) {
       var raw = sc[k][0]*coords[0] + sc[k][1]*coords[1] + sc[k][2]*coords[2];
       accum[k] += w2score(raw);
@@ -453,7 +487,7 @@ function computeAll() {
 function getAnswerBreakdown() {
   var out = [];
 
-  for (var i = 0; i < TRIADS.length; i++) {
+  for (var i = 0; i < SHUFFLED_TRIADS.length; i++) {
     if (!placements[i]) continue;
 
     var b = bary(placements[i].x, placements[i].y);
@@ -469,9 +503,10 @@ function getAnswerBreakdown() {
 
     out.push({
       index: i,
-      quotient: TRIADS[i].quotient,
-      question: TRIADS[i].question,
-      scenario: TRIADS[i].scenario,
+      id: SHUFFLED_TRIADS[i].id,
+      quotient: SHUFFLED_TRIADS[i].quotient,
+      question: SHUFFLED_TRIADS[i].question,
+      scenario: SHUFFLED_TRIADS[i].scenario,
       A: A,
       B: B,
       C: C,
@@ -555,7 +590,7 @@ document.getElementById('start-btn').addEventListener('click', startAssessment);
 
 document.getElementById('btn-restart').addEventListener('click', function() {
   placements = [];
-  for (var i=0; i<TRIADS.length; i++) placements.push(null);
+  for (var i=0; i<SHUFFLED_TRIADS.length; i++) placements.push(null);
   current = 0;
   document.getElementById('scr-results').style.display = 'none';
   document.getElementById('scr-intro').style.display = 'block';
