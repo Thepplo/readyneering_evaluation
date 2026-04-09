@@ -60,6 +60,16 @@
 }
 .btn:hover { background: #f1f0e8; gap: 14px; }
 
+.arrow {
+  width: 12px; height: 12px;
+  border-top: 1.5px solid black; border-right: 1.5px solid black;
+  transform: rotate(45deg);
+}
+.arrow-back {
+  width: 12px; height: 12px;
+  border-top: 1.5px solid black; border-right: 1.5px solid black;
+  transform: rotate(225deg);
+}
 .btn.primary { 
     background: #ffda33; 
     color: black; 
