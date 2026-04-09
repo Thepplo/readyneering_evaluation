@@ -750,24 +750,28 @@ async function showResults() {
 
 // ── Start ─────────────────────────────────────────────────
 function startAssessment() {
-  var industryValue = industrySelect.value;
-  if (industryValue === 'other') {
-    var otherText = document.getElementById('industry-other').value.trim();
-    if (!otherText) {
-      document.getElementById('industry-warn').textContent = 'Please specify your industry.';
-      document.getElementById('industry-warn').style.display = 'block';
-      return;
-    }
-    selectedIndustry = otherText;
-  } else {
-    selectedIndustry = industryValue;
+  var industrySelect = document.getElementById('industry-select');
+
+  if (!industrySelect) {
+    console.error('Industry select not found');
+    return;
   }
+
+  selectedIndustry = industrySelect.value;
+
+  if (!selectedIndustry) {
+    document.getElementById('industry-warn').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('industry-warn').style.display = 'none';
+
   document.getElementById('scr-intro').style.display  = 'none';
   document.getElementById('scr-assess').style.display = 'block';
+
   buildSteps();
   updateUI();
   window.scrollTo(0, 0);
-
 }
 
 document.getElementById('start-btn').addEventListener('click', startAssessment);
