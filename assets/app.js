@@ -164,7 +164,8 @@ function animateInfoChange(nextIndex) {
     elP.textContent = q.p.toFixed(1);
     title.textContent = q.name;
     desc.textContent = mode === 'R' ? q.dr : q.dp;
-    meter.style.width = ((s - 1) / 4 * 100) + '%';
+
+    animateTrackFill(s);
   });
 
   tl.to([elR, elP], {
@@ -479,6 +480,7 @@ function initialPaint() {
   desc.textContent = mode === 'R' ? q.dr : q.dp;
   meter.style.width = ((q.r - 1) / 4 * 100) + '%';
   meter.style.backgroundColor = q.color;
+  animateTrackFill(s);
 }
 
 initNodes();
