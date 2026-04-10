@@ -17,7 +17,7 @@
   z-index: -1;
 }
 .logo{
-  width: 250px;
+  width: 200px;
 }
 
 .wrap { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 4rem; position: relative; z-index: 1;}
@@ -53,7 +53,7 @@
   font-weight: 600; 
   color: #1a1a18; 
   margin-top: 1.5rem;
-  min-height: 85px;
+  min-height: 69px;
 }
 .hint { 
   font-size: 12px; 
