@@ -544,13 +544,26 @@ function attachEvents(idx) {
 // ── Navigation ────────────────────────────────────────────
 function updateUI() {
   var pct = (current / SHUFFLED_TRIADS.length * 100);
+
+  const isLast = current === SHUFFLED_TRIADS.length - 1;
+  const isHalfway = current === Math.floor(SHUFFLED_TRIADS.length / 2);
+  let label = 'Next';
+  
+  if (isLast) {
+    label = 'See results';
+  } else if (isHalfway) {
+    label = 'Halfway there';
+    gsap.fromTo('#prog',
+      { boxShadow: '0 0 0 rgba(255,218,51,0)' },
+      { boxShadow: '0 0 12px rgba(255,218,51,0.6)', duration: 0.4, yoyo: true, repeat: 1 }
+    );
+  }
+
   document.getElementById('prog').style.width = pct + '%';
   document.getElementById('step-ind').textContent = 'Situation ' + (current+1) + ' of ' + SHUFFLED_TRIADS.length;
   document.getElementById('btn-back').disabled = current === 0;
   document.getElementById('btn-next').innerHTML =
-    current === SHUFFLED_TRIADS.length - 1
-      ? 'See results <span class="arrow"></span>'
-      : 'Next <span class="arrow"></span>';
+    label + ' <span class="arrow"></span>';
   }
 
 function showStep(idx, direction) {
