@@ -468,8 +468,9 @@ function buildSteps() {
       +'<div class="eyebrow">Situation '+(i+1)+' of '+SHUFFLED_TRIADS.length+'</div>'
       +'<div class="scenario-text">'+esc(t.scenario)+'</div>'
       +'</div>'
-      +'<div class="question">'+esc(t.question)+'</div>'
+      +'<div class="question">'+esc(t.question)
       +'<div class="hint">Click or tap anywhere inside the triangle. You can reposition your dot before moving on.</div>'
+      +'</div>'
       +'<div class="tri-wrap">'+makeSVG(i)+'</div>'
       +'<div class="placed" id="placed-'+i+'"></div>'
       +'<div class="pills">'
