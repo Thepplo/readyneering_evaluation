@@ -96,6 +96,30 @@
 }
 .btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
+.pdf-button {
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1.5rem;
+  border-radius: 100%;
+  transition: background-color 0.2s ease, 
+              box-shadow 0.2s ease, 
+              transform 0.1s ease;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+
+.pdf-button:hover {
+  color: var(--text);
+  box-shadow: 
+    0 0 0 2px rgba(255,255,255,0.05),
+    0 6px 16px rgba(0,0,0,0.4);
+  transform: translateY(-1px) scale(1.03);
+}
+
 .cta-div { 
   margin-top: 5px;
   display: flex;
@@ -138,7 +162,7 @@
 /* results */
 .score-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; max-height: 350px; }
 .scard { background: #fff; border: 1px solid #e0dfd8; border-radius: 10px; padding: 14px; }
-.scard-hero { background: #f4e8ee; border-color: #770136; }
+.scard-hero { background: #f4e8ee; padding: 14px; border-radius: 10px; border: 1px solid #770136;}
 .scard-lbl { font-size: 12px; color: #888; margin-bottom: 4px; }
 .scard-val { font-size: 22px; font-weight: 600; color: #1a1a18; }
 .scard-hero .scard-val { color: #770136; }
@@ -172,3 +196,7 @@
 .debrief-lbl { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #534ab7; margin-bottom: 8px; }
 .debrief-q { font-size: 15px; font-weight: 600; color: #26215c; margin-bottom: 6px; line-height: 1.5; }
 .debrief-n { font-size: 13px; color: #534ab7; line-height: 1.65; }
+
+@media print {
+  .btn, .nav, .note-div, .no-print { display: none; }
+}
