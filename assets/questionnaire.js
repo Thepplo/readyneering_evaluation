@@ -144,7 +144,7 @@ const TRIADS = [
   scenario:"A significant decision has been made at leadership level. Two weeks later, implementation is inconsistent - different teams are executing in different ways and no one is sure which interpretation is correct.",
   question:"How common is this, and how is it addressed?",
   A:"Rare - clear briefs and\naccountable owners from the start",
-  B:"Occasionally - caught in\nreview before it becomes a problem",
+  B:"Occasionally - caught in\nreview before it becomes\na problem",
   C:"A known pattern -\nstructural gap between decide and do",
   scores:{ R_execution:[0.9, 0.3, -0.8], P_execution:[0.8, 0.2, -0.7] }
 },
@@ -313,6 +313,29 @@ function w2score(raw) {
   return Math.min(5, Math.max(1, (raw+1)/2*4+1));
 }
 
+function wrapText(ctx, text, maxWidth) {
+  const words = text.split(' ');
+  const lines = [];
+  let line = '';
+
+  for (let i = 0; i < words.length; i++) {
+    const testLine = line ? line + ' ' + words[i] : words[i];
+    const width = ctx.measureText(testLine).width;
+
+    if (width > maxWidth && line) {
+      lines.push(line);
+      line = words[i];
+    } else {
+      line = testLine;
+    }
+  }
+
+  if (line) lines.push(line);
+  return lines;
+}
+const ctx = document.createElement('canvas').getContext('2d');
+ctx.font = FS + 'px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
+
 // ── State ─────────────────────────────────────────────────
 var current = 0;
 var placements = [];
@@ -340,15 +363,25 @@ function getQueryParam(name) {
   return new URLSearchParams(window.location.search).get(name);
 }
 
-function makeTspans(txt, anchor, x, startY) {
+/* function makeTspans(txt, anchor, x, startY) {
   var parts = txt.split('\n');
   var out = '';
   for (var i=0; i<parts.length; i++) {
     out += '<tspan x="'+x+'" dy="'+(i===0?'0':LH)+'" text-anchor="'+anchor+'">'+esc(parts[i])+'</tspan>';
   }
   return out;
-}
+} */
+function makeTspansAuto(txt, anchor, x, startY, maxWidth) {
+  const lines = wrapText(ctx, txt, maxWidth);
 
+  let out = '';
+  for (let i = 0; i < lines.length; i++) {
+    out += '<tspan x="'+x+'" dy="'+(i===0 ? '0' : LH)+'" text-anchor="'+anchor+'">'
+      + esc(lines[i]) +
+    '</tspan>';
+  }
+  return out;
+}
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -389,9 +422,9 @@ function makeSVG(idx) {
     +'<circle cx="'+TC.x+'" cy="'+TC.y+'" r="'+s(5)+'" fill="#770136" opacity="0.4"/>'
 
     // labels
-    +'<text '+fs+' y="'+aTopY+'">'+makeTspans(t.A,'middle',TA.x,aTopY)+'</text>'
-    +'<text '+fs+' y="'+bTopY+'">'+makeTspans(t.B,'start',TB.x + s(4), bTopY)+'</text>'
-    +'<text '+fs+' y="'+cTopY+'">'+makeTspans(t.C,'end',TC.x - s(4), cTopY)+'</text>'
+    +'<text '+fs+' y="'+aTopY+'">'+makeTspansAuto(t.A,'middle',TA.x, aTopY, s(140))+'</text>'
+    +'<text '+fs+' y="'+bTopY+'">'+makeTspansAuto(t.B,'start',TB.x + s(4), bTopY, s(120))+'</text>'
+    +'<text '+fs+' y="'+cTopY+'">'+makeTspansAuto(t.C,'end',TC.x - s(4), cTopY, s(120))+'</text>'
 
     // interaction markers
     +'<circle id="ring-'+idx+'" cx="-999" cy="-999" r="'+s(20)+'" fill="rgba(119,1,54,0.13)" opacity="0" style="pointer-events:none"/>'
