@@ -392,7 +392,8 @@ function shuffle(array) {
 
 function makeSVG(idx) {
   var t = SHUFFLED_TRIADS[idx];
-  var aLines = t.A.split('\n').length;
+  var aWrapped = wrapText(ctx, t.A, s(140));
+  var aLines = aWrapped.length;
   var aBottomY = TA.y - s(14);
   var aTopY    = aBottomY - (aLines - 1) * LH;
   var bTopY    = TB.y + s(16);
@@ -422,7 +423,7 @@ function makeSVG(idx) {
     +'<circle cx="'+TC.x+'" cy="'+TC.y+'" r="'+s(5)+'" fill="#770136" opacity="0.4"/>'
 
     // labels
-    +'<text '+fs+' y="'+aTopY+'">'+makeTspansAuto(t.A,'middle',TA.x, aTopY, s(110))+'</text>'
+    +'<text '+fs+' y="'+aTopY+'">'+makeTspansAuto(aWrapped,'middle',TA.x, aTopY, s(140))+'</text>'
     +'<text '+fs+' y="'+bTopY+'">'+makeTspansAuto(t.B,'start',TB.x + s(4), bTopY, s(90))+'</text>'
     +'<text '+fs+' y="'+cTopY+'">'+makeTspansAuto(t.C,'end',TC.x - s(4), cTopY, s(90))+'</text>'
 
@@ -432,7 +433,7 @@ function makeSVG(idx) {
     +'<circle id="pip-'+idx+'"  cx="-999" cy="-999" r="'+s(5)+'"  fill="#fff" opacity="0" style="pointer-events:none"/>'
 
     // hit area
-    +'<rect x="0" y="0" width="'+VW+'" height="'+VH+'" fill="transparent"/>'
+    +'<rect x="'+B.x+'" y="'+B.y+'" width="'+B.w+'" height="'+B.h+'" fill="transparent"/>'
 
     +'</svg>';
 }
