@@ -497,36 +497,34 @@ function attachEvents(idx) {
     var pt = svgPt(svg, e);
     if (!inTri(pt.x, pt.y)) return;
     placements[idx] = {x: pt.x, y: pt.y};
-
-    document.getElementById('ring-'+idx).setAttribute('cx', pt.x);
-    document.getElementById('ring-'+idx).setAttribute('cy', pt.y);
-    //document.getElementById('ring-'+idx).setAttribute('opacity', '1');
-    document.getElementById('dot-'+idx).setAttribute('cx', pt.x);
-    document.getElementById('dot-'+idx).setAttribute('cy', pt.y);
-    //document.getElementById('dot-'+idx).setAttribute('opacity', '1');
-    document.getElementById('pip-'+idx).setAttribute('cx', pt.x);
-    document.getElementById('pip-'+idx).setAttribute('cy', pt.y);
-    //document.getElementById('pip-'+idx).setAttribute('opacity', '1');
-
     var ring = document.getElementById('ring-'+idx);
     var dot  = document.getElementById('dot-'+idx);
     var pip  = document.getElementById('pip-'+idx);
 
-    gsap.set([ring, dot, pip], { opacity: 1 });
+    ring.setAttribute('cx', pt.x);
+    ring.setAttribute('cy', pt.y);
+    dot.setAttribute('cx', pt.x);
+    dot.setAttribute('cy', pt.y);
+    pip.setAttribute('cx', pt.x);
+    pip.setAttribute('cy', pt.y);
+
+    gsap.set(ring, { opacity: 0.35 });
+    gsap.set(dot,  { opacity: 1 });
+    gsap.set(pip,  { opacity: 1 });
 
     gsap.fromTo(dot,
-      { scale: 1.6, transformOrigin: "center" },
-      { scale: 1, duration: 0.25, ease: "power2.out" }
+      { attr: { r: s(16) } },
+      { attr: { r: s(11) }, duration: 0.25, ease: "power2.out" }
     );
 
     gsap.fromTo(ring,
-      { scale: 0.6, opacity: 0.35, transformOrigin: "center" },
-      { scale: 1.4, opacity: 0, duration: 0.4, ease: "power2.out" }
+      { attr: { r: s(12) }, opacity: 0.35 },
+      { attr: { r: s(20) }, opacity: 1, duration: 0.4, ease: "power2.out" }
     );
 
     gsap.fromTo(pip,
-      { scale: 0.5, transformOrigin: "center" },
-      { scale: 1, duration: 0.2, delay: 0.05, ease: "power2.out" }
+      { attr: { r: s(2) } },
+      { attr: { r: s(5) }, duration: 0.2, delay: 0.05, ease: "power2.out" }
     );
 
     var b = bary(pt.x, pt.y);
