@@ -402,9 +402,9 @@ function shuffle(array) {
 
 function makeSVG(idx) {
   var t = SHUFFLED_TRIADS[idx];
-  var aWrapped = wrapText(ctx, t.A, s(140));
-  var bWrapped = wrapText(ctx, t.B, s(90));
-  var cWrapped = wrapText(ctx, t.C, s(90));
+  var aWrapped = wrapText(ctx, t.A, s(200));
+  var bWrapped = wrapText(ctx, t.B, s(100));
+  var cWrapped = wrapText(ctx, t.C, s(100));
 
   var aLines = aWrapped.length;
   var aBottomY = TA.y - s(14);
