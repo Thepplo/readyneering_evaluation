@@ -314,25 +314,24 @@ function w2score(raw) {
 }
 
 function wrapText(ctx, text, maxWidth) {
-  const words = text.split(' ');
+  const words = text.split(/\s+/);
   const lines = [];
   let line = '';
 
   for (let i = 0; i < words.length; i++) {
-    const testLine = line ? line + ' ' + words[i] : words[i];
-    const width = ctx.measureText(testLine).width;
-
-    if (width > maxWidth && line) {
+    const test = line ? line + ' ' + words[i] : words[i];
+    if (ctx.measureText(test).width > maxWidth && line) {
       lines.push(line);
       line = words[i];
     } else {
-      line = testLine;
+      line = test;
     }
   }
 
   if (line) lines.push(line);
   return lines;
 }
+
 const ctx = document.createElement('canvas').getContext('2d');
 ctx.font = FS + 'px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
 
@@ -382,6 +381,15 @@ function makeTspansAuto(txt, anchor, x, startY, maxWidth) {
   }
   return out;
 }
+function tspansFromLines(lines, anchor, x) {
+  let out = '';
+  for (let i = 0; i < lines.length; i++) {
+    out += '<tspan x="'+x+'" dy="'+(i === 0 ? 0 : LH)+'" text-anchor="'+anchor+'">'
+      + esc(lines[i]) +
+      '</tspan>';
+  }
+  return out;
+}
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -406,34 +414,20 @@ function makeSVG(idx) {
 
   return '<svg id="svg-'+idx+'" viewBox="'+B.x+' '+B.y+' '+B.w+' '+B.h+'" xmlns="http://www.w3.org/2000/svg"'
     +' style="display:block;width:100%;cursor:crosshair;touch-action:none;user-select:none;overflow:hidden">'
-
-    // center → mid lines
     +'<line x1="'+gx+'" y1="'+gy+'" x2="'+mABx+'" y2="'+mABy+'" stroke="rgba(119,1,54,0.1)" stroke-width="'+s(1)+'"/>'
     +'<line x1="'+gx+'" y1="'+gy+'" x2="'+mBCx+'" y2="'+mBCy+'" stroke="rgba(119,1,54,0.1)" stroke-width="'+s(1)+'"/>'
     +'<line x1="'+gx+'" y1="'+gy+'" x2="'+mCAx+'" y2="'+mCAy+'" stroke="rgba(119,1,54,0.1)" stroke-width="'+s(1)+'"/>'
-
-    // triangle
-    +'<polygon points="'+TA.x+','+TA.y+' '+TB.x+','+TB.y+' '+TC.x+','+TC.y+'"'
-    +' fill="rgba(119,1,54,0.05)" stroke="rgba(119,1,54,0.3)" stroke-width="'+s(1.5)+'" stroke-linejoin="round"/>'
-
-    // corner dots
+    +'<polygon points="'+TA.x+','+TA.y+' '+TB.x+','+TB.y+' '+TC.x+','+TC.y+'" fill="rgba(119,1,54,0.05)" stroke="rgba(119,1,54,0.3)" stroke-width="'+s(1.5)+'" stroke-linejoin="round"/>'
     +'<circle cx="'+TA.x+'" cy="'+TA.y+'" r="'+s(5)+'" fill="#770136" opacity="0.4"/>'
     +'<circle cx="'+TB.x+'" cy="'+TB.y+'" r="'+s(5)+'" fill="#770136" opacity="0.4"/>'
     +'<circle cx="'+TC.x+'" cy="'+TC.y+'" r="'+s(5)+'" fill="#770136" opacity="0.4"/>'
-
-    // labels
-    +'<text '+fs+' y="'+aTopY+'">'+makeTspansAuto(t.A,'middle',TA.x, aTopY, s(140))+'</text>'
-    +'<text '+fs+' y="'+bTopY+'">'+makeTspansAuto(t.B,'start',TB.x + s(4), bTopY, s(120))+'</text>'
-    +'<text '+fs+' y="'+cTopY+'">'+makeTspansAuto(t.C,'end',TC.x - s(4), cTopY, s(120))+'</text>'
-
-    // interaction markers
+    +'<text '+fs+' y="'+aTopY+'">'+tspansFromLines(aWrap, 'middle', TA.x)+'</text>'
+    +'<text '+fs+' y="'+bTopY+'">'+tspansFromLines(bWrap, 'start', TB.x + s(4))+'</text>'
+    +'<text '+fs+' y="'+cTopY+'">'+tspansFromLines(cWrap, 'end', TC.x - s(4))+'</text>'
     +'<circle id="ring-'+idx+'" cx="-999" cy="-999" r="'+s(20)+'" fill="rgba(119,1,54,0.13)" opacity="0" style="pointer-events:none"/>'
     +'<circle id="dot-'+idx+'"  cx="-999" cy="-999" r="'+s(11)+'" fill="#770136" opacity="0" style="pointer-events:none"/>'
-    +'<circle id="pip-'+idx+'"  cx="-999" cy="-999" r="'+s(5)+'"  fill="#fff" opacity="0" style="pointer-events:none"/>'
-
-    // hit area
-    +'<rect x="0" y="0" width="'+VW+'" height="'+VH+'" fill="transparent"/>'
-
+    +'<circle id="pip-'+idx+'"  cx="-999" cy="-999" r="'+s(5)+'" fill="#fff" opacity="0" style="pointer-events:none"/>'
+    +'<rect x="'+B.x+'" y="'+B.y+'" width="'+B.w+'" height="'+B.h+'" fill="transparent"/>'
     +'</svg>';
 }
 
