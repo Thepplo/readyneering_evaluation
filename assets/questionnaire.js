@@ -500,13 +500,34 @@ function attachEvents(idx) {
 
     document.getElementById('ring-'+idx).setAttribute('cx', pt.x);
     document.getElementById('ring-'+idx).setAttribute('cy', pt.y);
-    document.getElementById('ring-'+idx).setAttribute('opacity', '1');
+    //document.getElementById('ring-'+idx).setAttribute('opacity', '1');
     document.getElementById('dot-'+idx).setAttribute('cx', pt.x);
     document.getElementById('dot-'+idx).setAttribute('cy', pt.y);
-    document.getElementById('dot-'+idx).setAttribute('opacity', '1');
+    //document.getElementById('dot-'+idx).setAttribute('opacity', '1');
     document.getElementById('pip-'+idx).setAttribute('cx', pt.x);
     document.getElementById('pip-'+idx).setAttribute('cy', pt.y);
-    document.getElementById('pip-'+idx).setAttribute('opacity', '1');
+    //document.getElementById('pip-'+idx).setAttribute('opacity', '1');
+
+    var ring = document.getElementById('ring-'+idx);
+    var dot  = document.getElementById('dot-'+idx);
+    var pip  = document.getElementById('pip-'+idx);
+
+    gsap.set([ring, dot, pip], { opacity: 1 });
+
+    gsap.fromTo(dot,
+      { scale: 1.6, transformOrigin: "center" },
+      { scale: 1, duration: 0.25, ease: "power2.out" }
+    );
+
+    gsap.fromTo(ring,
+      { scale: 0.6, opacity: 0.35, transformOrigin: "center" },
+      { scale: 1.4, opacity: 0, duration: 0.4, ease: "power2.out" }
+    );
+
+    gsap.fromTo(pip,
+      { scale: 0.5, transformOrigin: "center" },
+      { scale: 1, duration: 0.2, delay: 0.05, ease: "power2.out" }
+    );
 
     var b = bary(pt.x, pt.y);
     var tot = Math.max(b[0]+b[1]+b[2], 0.001);
