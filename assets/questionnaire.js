@@ -239,9 +239,9 @@ const TRIADS = [
   id:"execution-4",
   scenario:"Your organization has just completed a major initiative. There is pressure to move on immediately. Someone proposes a structured after-action review - to capture what worked and what needs to change before the next cycle.",
   question:"What happens to the after-action review?",
-  A:"It happens quickly and drives\nreal change in how we work next time",
-  B:"A debrief happens but insights\nrarely change how we operate",
-  C:"We move on - there is always\nsomething more urgent waiting",
+  A:"It happens quickly and drives real change in how we work next time",
+  B:"A debrief happens but insights rarely change how we operate",
+  C:"We move on - there is always something more urgent waiting",
   scores:{ R_execution:[0.9, 0.1, -0.8], P_execution:[0.8, 0.1, -0.8] }
 },
 
