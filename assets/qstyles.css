@@ -196,7 +196,7 @@
   border: 1px solid #bebdbd;
   border-radius: 10px;
 }
-.step-ind { font-size: 13px; color: #999; margin-left: auto; }
+.step-ind { font-size: 13px; color: transparent; margin-left: auto; }
 .warn { font-size: 12px; color: #993c1d; margin-top: 10px; display: none; }
 
 /* results */

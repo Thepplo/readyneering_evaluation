@@ -464,8 +464,8 @@ function buildSteps() {
     var t = SHUFFLED_TRIADS[i];
     var display = i===0 ? 'block' : 'none';
     html += '<div id="step-'+i+'" style="display:'+display+'">'
+      /* +'<div class="eyebrow">Situation '+(i+1)+' of '+SHUFFLED_TRIADS.length+'</div>' */
       +'<div class="card">'
-      +'<div class="eyebrow">Situation '+(i+1)+' of '+SHUFFLED_TRIADS.length+'</div>'
       +'<div class="scenario-text">'+esc(t.scenario)+'</div>'
       +'</div>'
       +'<div class="question">'+esc(t.question)
@@ -545,7 +545,7 @@ function attachEvents(idx) {
 function updateUI() {
   var pct = (current / SHUFFLED_TRIADS.length * 100);
   document.getElementById('prog').style.width = pct + '%';
-  document.getElementById('step-ind').textContent = (current+1) + ' of ' + SHUFFLED_TRIADS.length;
+  document.getElementById('step-ind').textContent = 'Situation ' + (current+1) + ' of ' + SHUFFLED_TRIADS.length;
   document.getElementById('btn-back').disabled = current === 0;
   document.getElementById('btn-next').innerHTML =
     current === SHUFFLED_TRIADS.length - 1
