@@ -508,7 +508,7 @@ function attachEvents(idx) {
     pip.setAttribute('cx', pt.x);
     pip.setAttribute('cy', pt.y);
 
-    gsap.set(ring, { opacity: 0.35 });
+    gsap.set(ring, { opacity: 0.7 });
     gsap.set(dot,  { opacity: 1 });
     gsap.set(pip,  { opacity: 1 });
 
@@ -518,7 +518,7 @@ function attachEvents(idx) {
     );
 
     gsap.fromTo(ring,
-      { attr: { r: s(12) }, opacity: 0.35 },
+      { attr: { r: s(12) }, opacity: 0.7 },
       { attr: { r: s(20) }, opacity: 0, duration: 0.4, ease: "power2.out" }
     );
 

@@ -9,7 +9,7 @@
     min-height: 100vh;
 }
 
- .wrap { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+ .wrap { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 4rem; position: relative;}
 /* h1 { font-size: 24px; font-weight: 600; margin-bottom: 8px; } */
 /* p  { font-size: 15px; line-height: 1.65; color: #5a5a58; margin-bottom: 12px; } */
 
@@ -162,6 +162,12 @@
   cursor: pointer;
   margin-bottom: 1.5rem;
   width: fit-content;
+}
+.logo-div { 
+  display: flex; 
+  justify-content: center; 
+  margin-bottom: 1.5rem; 
+  position: absolute; top: 20px; left: 0; right: 0;
 }
 
 #industry-other {
