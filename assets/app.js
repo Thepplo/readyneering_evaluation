@@ -529,7 +529,7 @@ fetch('./assets/images/atom-model.svg')
     const wrap = document.getElementById('atom-svg');
     wrap.innerHTML = svg;
 
-    gsap.to("#atom-svg .atom-path", {
+    gsap.to("#atom-svg .atom-path-1", {
       opacity: 0.45,
       duration: 4.5,
       ease: "sine.inOut",
@@ -537,7 +537,30 @@ fetch('./assets/images/atom-model.svg')
       yoyo: true,
       stagger: 0.6
     });
-
+    gsap.to("#atom-svg .atom-path-2", {
+      opacity: 0.45,
+      duration: 5.5,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+      stagger: 0.6
+    });
+    gsap.to("#atom-svg .atom-path-3", {
+      opacity: 0.45,
+      duration: 2.5,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+      stagger: 0.6
+    });
+    gsap.to("#atom-svg .atom-path-4", {
+      opacity: 0.45,
+      duration: 6.5,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+      stagger: 0.6
+    });
     gsap.to("#atom-svg .atom-core-1", {
       scale: 1.02,
       duration: 3.7,
