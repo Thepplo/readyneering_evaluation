@@ -359,21 +359,34 @@ function makeSVG(idx) {
 
   return '<svg id="svg-'+idx+'" viewBox="0 0 '+VW+' '+VH+'" xmlns="http://www.w3.org/2000/svg"'
     +' style="display:block;width:100%;cursor:crosshair;touch-action:none;user-select:none;overflow:hidden">'
-    +'<line x1="'+gx+'" y1="'+gy+'" x2="'+mABx+'" y2="'+mABy+'" stroke="rgba(119,1,54,0.1)" stroke-width="1"/>'
-    +'<line x1="'+gx+'" y1="'+gy+'" x2="'+mBCx+'" y2="'+mBCy+'" stroke="rgba(119,1,54,0.1)" stroke-width="1"/>'
-    +'<line x1="'+gx+'" y1="'+gy+'" x2="'+mCAx+'" y2="'+mCAy+'" stroke="rgba(119,1,54,0.1)" stroke-width="1"/>'
+
+    // center → mid lines
+    +'<line x1="'+gx+'" y1="'+gy+'" x2="'+mABx+'" y2="'+mABy+'" stroke="rgba(119,1,54,0.1)" stroke-width="'+s(1)+'"/>'
+    +'<line x1="'+gx+'" y1="'+gy+'" x2="'+mBCx+'" y2="'+mBCy+'" stroke="rgba(119,1,54,0.1)" stroke-width="'+s(1)+'"/>'
+    +'<line x1="'+gx+'" y1="'+gy+'" x2="'+mCAx+'" y2="'+mCAy+'" stroke="rgba(119,1,54,0.1)" stroke-width="'+s(1)+'"/>'
+
+    // triangle
     +'<polygon points="'+TA.x+','+TA.y+' '+TB.x+','+TB.y+' '+TC.x+','+TC.y+'"'
-    +' fill="rgba(119,1,54,0.05)" stroke="rgba(119,1,54,0.3)" stroke-width="1.5" stroke-linejoin="round"/>'
-    +'<circle cx="'+TA.x+'" cy="'+TA.y+'" r="5" fill="#770136" opacity="0.4"/>'
-    +'<circle cx="'+TB.x+'" cy="'+TB.y+'" r="5" fill="#770136" opacity="0.4"/>'
-    +'<circle cx="'+TC.x+'" cy="'+TC.y+'" r="5" fill="#770136" opacity="0.4"/>'
+    +' fill="rgba(119,1,54,0.05)" stroke="rgba(119,1,54,0.3)" stroke-width="'+s(1.5)+'" stroke-linejoin="round"/>'
+
+    // corner dots
+    +'<circle cx="'+TA.x+'" cy="'+TA.y+'" r="'+s(5)+'" fill="#770136" opacity="0.4"/>'
+    +'<circle cx="'+TB.x+'" cy="'+TB.y+'" r="'+s(5)+'" fill="#770136" opacity="0.4"/>'
+    +'<circle cx="'+TC.x+'" cy="'+TC.y+'" r="'+s(5)+'" fill="#770136" opacity="0.4"/>'
+
+    // labels
     +'<text '+fs+' y="'+aTopY+'">'+makeTspans(t.A,'middle',TA.x,aTopY)+'</text>'
-    +'<text '+fs+' y="'+bTopY+'">'+makeTspans(t.B,'start',TB.x+4,bTopY)+'</text>'
-    +'<text '+fs+' y="'+cTopY+'">'+makeTspans(t.C,'end',TC.x-4,cTopY)+'</text>'
-    +'<circle id="ring-'+idx+'" cx="-999" cy="-999" r="20" fill="rgba(119,1,54,0.13)" opacity="0" style="pointer-events:none"/>'
-    +'<circle id="dot-'+idx+'"  cx="-999" cy="-999" r="11" fill="#770136" opacity="0" style="pointer-events:none"/>'
-    +'<circle id="pip-'+idx+'"  cx="-999" cy="-999" r="5"  fill="#fff"    opacity="0" style="pointer-events:none"/>'
+    +'<text '+fs+' y="'+bTopY+'">'+makeTspans(t.B,'start',TB.x + s(4), bTopY)+'</text>'
+    +'<text '+fs+' y="'+cTopY+'">'+makeTspans(t.C,'end',TC.x - s(4), cTopY)+'</text>'
+
+    // interaction markers
+    +'<circle id="ring-'+idx+'" cx="-999" cy="-999" r="'+s(20)+'" fill="rgba(119,1,54,0.13)" opacity="0" style="pointer-events:none"/>'
+    +'<circle id="dot-'+idx+'"  cx="-999" cy="-999" r="'+s(11)+'" fill="#770136" opacity="0" style="pointer-events:none"/>'
+    +'<circle id="pip-'+idx+'"  cx="-999" cy="-999" r="'+s(5)+'"  fill="#fff" opacity="0" style="pointer-events:none"/>'
+
+    // hit area
     +'<rect x="0" y="0" width="'+VW+'" height="'+VH+'" fill="transparent"/>'
+
     +'</svg>';
 }
 
