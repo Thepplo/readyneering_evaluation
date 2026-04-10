@@ -527,10 +527,46 @@ fetch('./assets/images/atom-model.svg')
   .then(res => res.text())
   .then(svg => {
     const wrap = document.getElementById('atom-svg');
-    if (!wrap) return;
     wrap.innerHTML = svg;
-    wrap.querySelectorAll('.pulse-path').forEach(el => {
-      el.classList.add('animate-pulse-path');
+
+    gsap.to("#atom-svg .atom-path", {
+      opacity: 0.45,
+      duration: 4.5,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+      stagger: 0.6
     });
+
+    gsap.to("#atom-svg .atom-core-1", {
+      scale: 1.02,
+      duration: 3.7,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+      transformOrigin: "center center",
+      transformBox: "fill-box"
+    });
+
+    gsap.to("#atom-svg .atom-core-2", {
+      scale: 1.03,
+      duration: 4.1,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+      transformOrigin: "center center",
+      transformBox: "fill-box"
+    });
+
+    gsap.to("#atom-svg .atom-core-3", {
+      scale: 1.022,
+      duration: 3.9,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+      transformOrigin: "center center",
+      transformBox: "fill-box"
+    });
+
   });
 
