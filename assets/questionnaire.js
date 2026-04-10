@@ -23,9 +23,9 @@ const TRIADS = [
   id:"vitality-1",
   scenario:"Your team has just come through a demanding six-month delivery phase. Key deadlines were met - but at what cost? Looking at your team now, describe the energy level you observe.",
   question:"Where does the energy situation sit?",
-  A:"Visibly exhausted -\nrecovery has not happened",
-  B:"Energy restored;\nrecovery was built into the plan",
-  C:"Tired but bounces back;\nthe system absorbs pressure",
+  A:"Visibly exhausted - recovery has not happened",
+  B:"Energy restored; recovery was built into the plan",
+  C:"Tired but bounces back; the system absorbs pressure",
   scores:{ R_vitality:[-0.9, 0.9, 0.4], P_vitality:[-0.5, 0.9, 0.2] }
 },
 
@@ -35,9 +35,9 @@ const TRIADS = [
   id:"emotion-1",
   scenario:"During a difficult period - a restructuring, a failed project, or a leadership conflict - emotions ran high. Some things were said that created lasting tension between people.",
   question:"How did your organization handle the emotional aftermath?",
-  A:"Leaders named it openly;\nworked through it together",
-  B:"Stayed professional;\ntension faded on its own",
-  C:"Never properly addressed;\ndamage lingers",
+  A:"Leaders named it openly; worked through it together",
+  B:"Stayed professional; tension faded on its own",
+  C:"Never properly addressed; damage lingers",
   scores:{ R_emotion:[0.9, 0.1, -0.8], P_emotion:[0.7, 0.1, -0.6] }
 },
 
@@ -47,9 +47,9 @@ const TRIADS = [
   id:"mind-1",
   scenario:"Your organization is about to enter a period of significant uncertainty - a market shift, a new competitor, or a major strategic bet. Before the pressure arrives, how does the organization prepare its thinking?",
   question:"What best describes your planning approach?",
-  A:"Priorities defined clearly\nbefore things get hard",
-  B:"Plan for likely scenario;\nadapt as we go",
-  C:"Scenario planning and\npre-mortems are standard",
+  A:"Priorities defined clearly before things get hard",
+  B:"Plan for likely scenario adapt as we go",
+  C:"Scenario planning and pre-mortems are standard",
   scores:{ P_mind:[0.3, -0.8, 0.9], R_mind:[0.2, -0.5, 0.8] }
 },
 
@@ -59,9 +59,9 @@ const TRIADS = [
   id:"alignment-1",
   scenario:"A critical team leader is suddenly unavailable - illness, resignation, or an unexpected absence - right in the middle of a high-stakes delivery. No succession has been formally planned.",
   question:"What happens to operational stability?",
-  A:"Minimal disruption;\nshared clarity holds",
-  B:"Significant disruption -\ntoo much was in one person",
-  C:"Others step up; strain but\nthe system holds",
+  A:"Minimal disruption shared clarity holds",
+  B:"Significant disruption - too much was in one person",
+  C:"Others step up; strain but the system holds",
   scores:{ R_alignment:[0.9, -0.9, 0.1], P_alignment:[0.8, -0.9, -0.1] }
 },
 
@@ -71,9 +71,9 @@ const TRIADS = [
   id:"execution-1",
   scenario:"An unexpected external event - a regulatory change, a competitor move, a sudden client escalation - forces your organization to change direction mid-delivery. Speed and clarity of response matter enormously.",
   question:"What best describes how your organization responds?",
-  A:"Recalibrate within days;\nnot panicked, not paralyzed",
-  B:"Ownership defined fast;\nimplementation without drama",
-  C:"Overreact or freeze;\nno clear middle ground",
+  A:"Recalibrate within days; not panicked, not paralyzed",
+  B:"Ownership defined fast; implementation without drama",
+  C:"Overreact or freeze; no clear middle ground",
   scores:{ R_execution:[0.4, 0.9, -0.8], P_execution:[0.3, 0.8, -0.6] }
 },
 
@@ -83,9 +83,9 @@ const TRIADS = [
   id:"vitality-2",
   scenario:"You are in the planning phase for next year. The ambition is high, the timeline is tight, and the team is already running at close to full capacity. How does your organization approach this?",
   question:"What does capacity planning look like in practice?",
-  A:"Realistic workload with\ndeliberate recovery built in",
-  B:"Leaders model the pace\nthey expect from others",
-  C:"Plan at full capacity;\npeople absorb what is needed",
+  A:"Realistic workload with deliberate recovery built in",
+  B:"Leaders model the pace they expect from others",
+  C:"Plan at full capacity; people absorb what is needed",
   scores:{ P_vitality:[0.2, 0.9, -0.8], R_vitality:[0.2, 0.8, -0.6] }
 },
 
@@ -95,9 +95,9 @@ const TRIADS = [
   id:"emotion-2",
   scenario:"Someone on the leadership team needs to give difficult feedback to a peer - about behavior under pressure, a leadership blind spot, or impact on others. This is the kind of feedback that could cause friction.",
   question:"What typically happens in your organization?",
-  A:"Given carefully; sometimes\ntaken personally",
-  B:"Direct and normal;\nreceived without defensiveness",
-  C:"Feedback softened or avoided;\nrelationship comes first",
+  A:"Given carefully; sometimes taken personally",
+  B:"Direct and normal; received without defensiveness",
+  C:"Feedback softened or avoided; relationship comes first",
   scores:{ R_emotion:[0.1, 0.9, -0.7], P_emotion:[0.2, 0.7, -0.5] }
 },
 
@@ -107,9 +107,9 @@ const TRIADS = [
   id:"alignment-2",
   scenario:"Three teams are working toward the same goal but their priorities conflict. One team's urgent is another team's low priority. The pressure is building and no one has resolved the tension.",
   question:"How does your organization resolve cross-team priority conflicts?",
-  A:"Clear escalation;\nresolved quickly at right level",
-  B:"Informal negotiation;\ntakes time, creates friction",
-  C:"Persists until a failure\nforces the conversation",
+  A:"Clear escalation; resolved quickly at right level",
+  B:"Informal negotiation; takes time, creates friction",
+  C:"Persists until a failure forces the conversation",
   scores:{ R_alignment:[0.9, 0.2, -0.8], P_alignment:[0.7, 0.1, -0.7] }
 },
 
@@ -119,9 +119,9 @@ const TRIADS = [
   id:"execution-2",
   scenario:"Before a major initiative launches, your organization needs to decide how decisions will be made during implementation - especially when things go wrong and speed matters. How prepared is the organization?",
   question:"What is in place before the pressure starts?",
-  A:"Decision principles\ndocumented in advance",
-  B:"Crisis roles formally defined,\npracticed and known",
-  C:"Discussed in theory;\nnot documented or rehearsed",
+  A:"Decision principles documented in advance",
+  B:"Crisis roles formally defined, practiced and known",
+  C:"Discussed in theory; not documented or rehearsed",
   scores:{ P_execution:[0.9, 0.2, -0.8], R_execution:[0.8, 0.1, -0.7] }
 },
 
@@ -131,9 +131,9 @@ const TRIADS = [
   id:"vitality-3",
   scenario:"Over several months, a pattern emerges: some people look visibly drained, productivity is subtly declining, and a few key people show signs of disengagement. The workload has not decreased.",
   question:"How does your organization respond to these signals?",
-  A:"Signals normalized -\n‘this is just a demanding phase’",
-  B:"Leaders name it openly;\nacted on as a system issue",
-  C:"Individuals manage privately;\nsome speak up, others don’t",
+  A:"Signals normalized - ‘this is just a demanding phase’",
+  B:"Leaders name it openly; acted on as a system issue",
+  C:"Individuals manage privately; some speak up, others don’t",
   scores:{ R_vitality:[-0.6, 0.9, -0.1], P_vitality:[-0.4, 0.8, 0.0] }
 },
 
@@ -143,9 +143,9 @@ const TRIADS = [
   id:"execution-3",
   scenario:"A significant decision has been made at leadership level. Two weeks later, implementation is inconsistent - different teams are executing in different ways and no one is sure which interpretation is correct.",
   question:"How common is this, and how is it addressed?",
-  A:"Rare - clear briefs and\naccountable owners from the start",
-  B:"Occasionally - caught in\nreview before it becomes\na problem",
-  C:"A known pattern -\nstructural gap between decide and do",
+  A:"Rare - clear briefs and accountable owners from the start",
+  B:"Occasionally - caught in review before it becomes a problem",
+  C:"A known pattern - structural gap between decide and do",
   scores:{ R_execution:[0.9, 0.3, -0.8], P_execution:[0.8, 0.2, -0.7] }
 },
 
@@ -155,9 +155,9 @@ const TRIADS = [
   id:"emotion-3",
   scenario:"Before a known high-pressure phase - a major launch, a restructuring, a difficult negotiation - your leadership team has the opportunity to prepare not just operationally, but emotionally and relationally.",
   question:"What does that preparation look like?",
-  A:"Operational focus only;\nemotion is personal responsibility",
-  B:"Team discusses how to\nbehave under pressure - and revisits it",
-  C:"Individual reflection;\nnot a team conversation",
+  A:"Operational focus only; emotion is personal responsibility",
+  B:"Team discusses how to behave under pressure - and revisits it",
+  C:"Individual reflection; not a team conversation",
   scores:{ P_emotion:[-0.8, 0.9, 0.1], R_emotion:[-0.4, 0.7, 0.2] }
 },
 
@@ -167,9 +167,9 @@ const TRIADS = [
   id:"mind-2",
   scenario:"Your organization has just come through a significant setback - a strategy that did not work, a major project that failed to deliver, or a market bet that was wrong. The post-mortem conversation is about to happen.",
   question:"What does that conversation look like?",
-  A:"Structural analysis -\nwhat in our process allowed this",
-  B:"Outcome focus -\nwhat went wrong, who owns it",
-  C:"Limited and cautious;\nreal causes stay unspoken",
+  A:"Structural analysis - what in our process allowed this",
+  B:"Outcome focus - what went wrong, who owns it",
+  C:"Limited and cautious; real causes stay unspoken",
   scores:{ R_mind:[0.9, -0.3, -0.6], P_mind:[0.8, 0.1, -0.5] }
 },
 
@@ -179,9 +179,9 @@ const TRIADS = [
   id:"alignment-3",
   scenario:"Your organization has articulated a clear strategic direction. Six months into implementation, you ask people at different levels to describe what that strategy means in practice for their work.",
   question:"What do you find?",
-  A:"Consistent clarity\nat every level",
-  B:"Clear at the top;\nfragments going down",
-  C:"Significant divergence;\ncontradictory descriptions",
+  A:"Consistent clarity at every level",
+  B:"Clear at the top; fragments going down",
+  C:"Significant divergence; contradictory descriptions",
   scores:{ P_alignment:[0.9, 0.2, -0.8], R_alignment:[0.6, 0.1, -0.7] }
 },
 
@@ -191,7 +191,7 @@ const TRIADS = [
   id:"mind-3",
   scenario:"Your organization is under pressure and a dominant narrative has taken hold - a shared story about why things are difficult, who is responsible, and what is possible. The narrative may be partially true, but it is also limiting.",
   question:"How does your organization relate to its own dominant narrative under pressure?",
-  A:"We actively interrogate it -\ngroupthink is a leadership risk",
+  A:"We actively interrogate it - groupthink is a leadership risk",
   B:"We accept it -\nchallenging it feels naive",
   C:"Some question it privately;\nthe social cost is high",
   scores:{ R_mind:[0.9, -0.7, -0.2], P_mind:[0.7, -0.5, -0.1] }
@@ -203,9 +203,9 @@ const TRIADS = [
   id:"vitality-4",
   scenario:"After an intense period, your organization reviews how it manages energy and wellbeing over time. The question on the table: do we treat sustainable performance as a design question - or as an individual responsibility?",
   question:"What best describes your organization’s relationship with sustainable energy?",
-  A:"Individual endurance;\npeople manage their own limits",
-  B:"Wellbeing on the agenda\nbut not systematically managed",
-  C:"Sustainable performance\nis a design question we actively solve",
+  A:"Individual endurance; people manage their own limits",
+  B:"Wellbeing on the agenda but not systematically managed",
+  C:"Sustainable performance is a design question we actively solve",
   scores:{ R_vitality:[-0.9, 0.2, 0.9], P_vitality:[-0.8, 0.2, 0.9] }
 },
 
@@ -215,9 +215,9 @@ const TRIADS = [
   id:"emotion-4",
   scenario:"A senior leader reflects on how they personally behave when under significant pressure. Do they know their own stress patterns - and has the leadership team ever discussed this explicitly together?",
   question:"How emotionally self-aware and prepared is your leadership team?",
-  A:"Leaders know their patterns;\nteam has discussed this openly",
-  B:"Some self-awareness;\nnot yet a shared team conversation",
-  C:"Stress reactions noticed\nonly after they have caused damage",
+  A:"Leaders know their patterns; team has discussed this openly",
+  B:"Some self-awareness; not yet a shared team conversation",
+  C:"Stress reactions noticed only after they have caused damage",
   scores:{ R_emotion:[0.9, 0.2, -0.8], P_emotion:[0.9, 0.2, -0.9] }
 },
 
@@ -227,9 +227,9 @@ const TRIADS = [
   id:"mind-4",
   scenario:"In the middle of a fast-moving situation, your leadership team is trying to make sense of what is happening. Some information is confirmed, some is rumour, some is interpretation. How clearly does the team separate these?",
   question:"How does your team handle the mix of facts, assumptions and interpretations in real time?",
-  A:"We explicitly label what we know,\nwhat we assume, what we interpret",
-  B:"Facts and assumptions blend;\ndecisions made on incomplete picture",
-  C:"Mostly implicit - experienced\nleaders read the situation",
+  A:"We explicitly label what we know, what we assume, what we interpret",
+  B:"Facts and assumptions blend; decisions made on incomplete picture",
+  C:"Mostly implicit - experienced leaders read the situation",
   scores:{ R_mind:[0.9, -0.8, 0.2], P_mind:[0.8, -0.7, 0.1] }
 },
 
@@ -241,7 +241,7 @@ const TRIADS = [
   question:"What happens to the after-action review?",
   A:"It happens quickly and drives real change in how we work next time",
   B:"A debrief happens but insights rarely change how we operate",
-  C:"We move on - there is always\nsomething more urgent waiting",
+  C:"We move on - there is always something more urgent waiting",
   scores:{ R_execution:[0.9, 0.1, -0.8], P_execution:[0.8, 0.1, -0.8] }
 },
 
@@ -251,9 +251,9 @@ const TRIADS = [
   id:"alignment-4",
   scenario:"Your organization enters a period of significant ambiguity - a strategic shift is signalled but not yet defined, roles may change, and people are unsure who decides what. The formal structure has not caught up with the new reality.",
   question:"How does your organization maintain coherence during this ambiguous transition?",
-  A:"Leadership communicates clear intent;\npeople navigate from shared direction",
-  B:"Informal networks hold things;\nsome fill gaps, others wait",
-  C:"Confusion dominates until\nthe new structure is announced",
+  A:"Leadership communicates clear intent; people navigate from shared direction",
+  B:"Informal networks hold things; some fill gaps, others wait",
+  C:"Confusion dominates until the new structure is announced",
   scores:{ R_alignment:[0.9, 0.0, -0.8], P_alignment:[0.8, -0.1, -0.8] }
 }
 
