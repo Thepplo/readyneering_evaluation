@@ -17,23 +17,23 @@ async function saveAssessment(payload) {
 }
 const TRIADS = [
 
-/* 1 — Vitality (R) */
+/* 1 - Vitality (R) */
 {
   quotient:"Vitality",
   id:"vitality-1",
-  scenario:"Your team has just come through a demanding six-month delivery phase. Key deadlines were met — but at what cost? Looking at your team now, describe the energy level you observe.",
+  scenario:"Your team has just come through a demanding six-month delivery phase. Key deadlines were met - but at what cost? Looking at your team now, describe the energy level you observe.",
   question:"Where does the energy situation sit?",
-  A:"Visibly exhausted —\nrecovery has not happened",
+  A:"Visibly exhausted -\nrecovery has not happened",
   B:"Energy restored;\nrecovery was built into the plan",
   C:"Tired but bounces back;\nthe system absorbs pressure",
   scores:{ R_vitality:[-0.9, 0.9, 0.4], P_vitality:[-0.5, 0.9, 0.2] }
 },
 
-/* 2 — Emotion (R) */
+/* 2 - Emotion (R) */
 {
   quotient:"Emotion",
   id:"emotion-1",
-  scenario:"During a difficult period — a restructuring, a failed project, or a leadership conflict — emotions ran high. Some things were said that created lasting tension between people.",
+  scenario:"During a difficult period - a restructuring, a failed project, or a leadership conflict - emotions ran high. Some things were said that created lasting tension between people.",
   question:"How did your organization handle the emotional aftermath?",
   A:"Leaders named it openly;\nworked through it together",
   B:"Stayed professional;\ntension faded on its own",
@@ -41,11 +41,11 @@ const TRIADS = [
   scores:{ R_emotion:[0.9, 0.1, -0.8], P_emotion:[0.7, 0.1, -0.6] }
 },
 
-/* 3 — Mind (P) */
+/* 3 - Mind (P) */
 {
   quotient:"Mind",
   id:"mind-1",
-  scenario:"Your organization is about to enter a period of significant uncertainty — a market shift, a new competitor, or a major strategic bet. Before the pressure arrives, how does the organization prepare its thinking?",
+  scenario:"Your organization is about to enter a period of significant uncertainty - a market shift, a new competitor, or a major strategic bet. Before the pressure arrives, how does the organization prepare its thinking?",
   question:"What best describes your planning approach?",
   A:"Priorities defined clearly\nbefore things get hard",
   B:"Plan for likely scenario;\nadapt as we go",
@@ -53,23 +53,23 @@ const TRIADS = [
   scores:{ P_mind:[0.3, -0.8, 0.9], R_mind:[0.2, -0.5, 0.8] }
 },
 
-/* 4 — Alignment (R) */
+/* 4 - Alignment (R) */
 {
   quotient:"Alignment",
   id:"alignment-1",
-  scenario:"A critical team leader is suddenly unavailable — illness, resignation, or an unexpected absence — right in the middle of a high-stakes delivery. No succession has been formally planned.",
+  scenario:"A critical team leader is suddenly unavailable - illness, resignation, or an unexpected absence - right in the middle of a high-stakes delivery. No succession has been formally planned.",
   question:"What happens to operational stability?",
   A:"Minimal disruption;\nshared clarity holds",
-  B:"Significant disruption —\ntoo much was in one person",
+  B:"Significant disruption -\ntoo much was in one person",
   C:"Others step up; strain but\nthe system holds",
   scores:{ R_alignment:[0.9, -0.9, 0.1], P_alignment:[0.8, -0.9, -0.1] }
 },
 
-/* 5 — Execution (R) */
+/* 5 - Execution (R) */
 {
   quotient:"Execution",
   id:"execution-1",
-  scenario:"An unexpected external event — a regulatory change, a competitor move, a sudden client escalation — forces your organization to change direction mid-delivery. Speed and clarity of response matter enormously.",
+  scenario:"An unexpected external event - a regulatory change, a competitor move, a sudden client escalation - forces your organization to change direction mid-delivery. Speed and clarity of response matter enormously.",
   question:"What best describes how your organization responds?",
   A:"Recalibrate within days;\nnot panicked, not paralyzed",
   B:"Ownership defined fast;\nimplementation without drama",
@@ -77,7 +77,7 @@ const TRIADS = [
   scores:{ R_execution:[0.4, 0.9, -0.8], P_execution:[0.3, 0.8, -0.6] }
 },
 
-/* 6 — Vitality (P) */
+/* 6 - Vitality (P) */
 {
   quotient:"Vitality",
   id:"vitality-2",
@@ -89,11 +89,11 @@ const TRIADS = [
   scores:{ P_vitality:[0.2, 0.9, -0.8], R_vitality:[0.2, 0.8, -0.6] }
 },
 
-/* 7 — Emotion (R) */
+/* 7 - Emotion (R) */
 {
   quotient:"Emotion",
   id:"emotion-2",
-  scenario:"Someone on the leadership team needs to give difficult feedback to a peer — about behavior under pressure, a leadership blind spot, or impact on others. This is the kind of feedback that could cause friction.",
+  scenario:"Someone on the leadership team needs to give difficult feedback to a peer - about behavior under pressure, a leadership blind spot, or impact on others. This is the kind of feedback that could cause friction.",
   question:"What typically happens in your organization?",
   A:"Given carefully; sometimes\ntaken personally",
   B:"Direct and normal;\nreceived without defensiveness",
@@ -101,7 +101,7 @@ const TRIADS = [
   scores:{ R_emotion:[0.1, 0.9, -0.7], P_emotion:[0.2, 0.7, -0.5] }
 },
 
-/* 8 — Alignment (R) */
+/* 8 - Alignment (R) */
 {
   quotient:"Alignment",
   id:"alignment-2",
@@ -113,11 +113,11 @@ const TRIADS = [
   scores:{ R_alignment:[0.9, 0.2, -0.8], P_alignment:[0.7, 0.1, -0.7] }
 },
 
-/* 9 — Execution (P) */
+/* 9 - Execution (P) */
 {
   quotient:"Execution",
   id:"execution-2",
-  scenario:"Before a major initiative launches, your organization needs to decide how decisions will be made during implementation — especially when things go wrong and speed matters. How prepared is the organization?",
+  scenario:"Before a major initiative launches, your organization needs to decide how decisions will be made during implementation - especially when things go wrong and speed matters. How prepared is the organization?",
   question:"What is in place before the pressure starts?",
   A:"Decision principles\ndocumented in advance",
   B:"Crisis roles formally defined,\npracticed and known",
@@ -125,55 +125,55 @@ const TRIADS = [
   scores:{ P_execution:[0.9, 0.2, -0.8], R_execution:[0.8, 0.1, -0.7] }
 },
 
-/* 10 — Vitality (R) */
+/* 10 - Vitality (R) */
 {
   quotient:"Vitality",
   id:"vitality-3",
   scenario:"Over several months, a pattern emerges: some people look visibly drained, productivity is subtly declining, and a few key people show signs of disengagement. The workload has not decreased.",
   question:"How does your organization respond to these signals?",
-  A:"Signals normalized —\n‘this is just a demanding phase’",
+  A:"Signals normalized -\n‘this is just a demanding phase’",
   B:"Leaders name it openly;\nacted on as a system issue",
   C:"Individuals manage privately;\nsome speak up, others don’t",
   scores:{ R_vitality:[-0.6, 0.9, -0.1], P_vitality:[-0.4, 0.8, 0.0] }
 },
 
-/* 11 — Execution (R) */
+/* 11 - Execution (R) */
 {
   quotient:"Execution",
   id:"execution-3",
-  scenario:"A significant decision has been made at leadership level. Two weeks later, implementation is inconsistent — different teams are executing in different ways and no one is sure which interpretation is correct.",
+  scenario:"A significant decision has been made at leadership level. Two weeks later, implementation is inconsistent - different teams are executing in different ways and no one is sure which interpretation is correct.",
   question:"How common is this, and how is it addressed?",
-  A:"Rare — clear briefs and\naccountable owners from the start",
-  B:"Occasionally — caught in\nreview before it becomes a problem",
-  C:"A known pattern —\nstructural gap between decide and do",
+  A:"Rare - clear briefs and\naccountable owners from the start",
+  B:"Occasionally - caught in\nreview before it becomes a problem",
+  C:"A known pattern -\nstructural gap between decide and do",
   scores:{ R_execution:[0.9, 0.3, -0.8], P_execution:[0.8, 0.2, -0.7] }
 },
 
-/* 12 — Emotion (P) */
+/* 12 - Emotion (P) */
 {
   quotient:"Emotion",
   id:"emotion-3",
-  scenario:"Before a known high-pressure phase — a major launch, a restructuring, a difficult negotiation — your leadership team has the opportunity to prepare not just operationally, but emotionally and relationally.",
+  scenario:"Before a known high-pressure phase - a major launch, a restructuring, a difficult negotiation - your leadership team has the opportunity to prepare not just operationally, but emotionally and relationally.",
   question:"What does that preparation look like?",
   A:"Operational focus only;\nemotion is personal responsibility",
-  B:"Team discusses how to\nbehave under pressure — and revisits it",
+  B:"Team discusses how to\nbehave under pressure - and revisits it",
   C:"Individual reflection;\nnot a team conversation",
   scores:{ P_emotion:[-0.8, 0.9, 0.1], R_emotion:[-0.4, 0.7, 0.2] }
 },
 
-/* 13 — Mind (R) */
+/* 13 - Mind (R) */
 {
   quotient:"Mind",
   id:"mind-2",
-  scenario:"Your organization has just come through a significant setback — a strategy that did not work, a major project that failed to deliver, or a market bet that was wrong. The post-mortem conversation is about to happen.",
+  scenario:"Your organization has just come through a significant setback - a strategy that did not work, a major project that failed to deliver, or a market bet that was wrong. The post-mortem conversation is about to happen.",
   question:"What does that conversation look like?",
-  A:"Structural analysis —\nwhat in our process allowed this",
-  B:"Outcome focus —\nwhat went wrong, who owns it",
+  A:"Structural analysis -\nwhat in our process allowed this",
+  B:"Outcome focus -\nwhat went wrong, who owns it",
   C:"Limited and cautious;\nreal causes stay unspoken",
   scores:{ R_mind:[0.9, -0.3, -0.6], P_mind:[0.8, 0.1, -0.5] }
 },
 
-/* 14 — Alignment (P) */
+/* 14 - Alignment (P) */
 {
   quotient:"Alignment",
   id:"alignment-3",
@@ -185,23 +185,23 @@ const TRIADS = [
   scores:{ P_alignment:[0.9, 0.2, -0.8], R_alignment:[0.6, 0.1, -0.7] }
 },
 
-/* 15 — Mind (R) */
+/* 15 - Mind (R) */
 {
   quotient:"Mind",
   id:"mind-3",
-  scenario:"Your organization is under pressure and a dominant narrative has taken hold — a shared story about why things are difficult, who is responsible, and what is possible. The narrative may be partially true, but it is also limiting.",
+  scenario:"Your organization is under pressure and a dominant narrative has taken hold - a shared story about why things are difficult, who is responsible, and what is possible. The narrative may be partially true, but it is also limiting.",
   question:"How does your organization relate to its own dominant narrative under pressure?",
-  A:"We actively interrogate it —\ngroupthink is a leadership risk",
-  B:"We accept it —\nchallenging it feels naive",
+  A:"We actively interrogate it -\ngroupthink is a leadership risk",
+  B:"We accept it -\nchallenging it feels naive",
   C:"Some question it privately;\nthe social cost is high",
   scores:{ R_mind:[0.9, -0.7, -0.2], P_mind:[0.7, -0.5, -0.1] }
 },
 
-/* 16 — Vitality */
+/* 16 - Vitality */
 {
   quotient:"Vitality",
   id:"vitality-4",
-  scenario:"After an intense period, your organization reviews how it manages energy and wellbeing over time. The question on the table: do we treat sustainable performance as a design question — or as an individual responsibility?",
+  scenario:"After an intense period, your organization reviews how it manages energy and wellbeing over time. The question on the table: do we treat sustainable performance as a design question - or as an individual responsibility?",
   question:"What best describes your organization’s relationship with sustainable energy?",
   A:"Individual endurance;\npeople manage their own limits",
   B:"Wellbeing on the agenda\nbut not systematically managed",
@@ -209,11 +209,11 @@ const TRIADS = [
   scores:{ R_vitality:[-0.9, 0.2, 0.9], P_vitality:[-0.8, 0.2, 0.9] }
 },
 
-/* 17 — Emotion */
+/* 17 - Emotion */
 {
   quotient:"Emotion",
   id:"emotion-4",
-  scenario:"A senior leader reflects on how they personally behave when under significant pressure. Do they know their own stress patterns — and has the leadership team ever discussed this explicitly together?",
+  scenario:"A senior leader reflects on how they personally behave when under significant pressure. Do they know their own stress patterns - and has the leadership team ever discussed this explicitly together?",
   question:"How emotionally self-aware and prepared is your leadership team?",
   A:"Leaders know their patterns;\nteam has discussed this openly",
   B:"Some self-awareness;\nnot yet a shared team conversation",
@@ -221,7 +221,7 @@ const TRIADS = [
   scores:{ R_emotion:[0.9, 0.2, -0.8], P_emotion:[0.9, 0.2, -0.9] }
 },
 
-/* 18 — Mind */
+/* 18 - Mind */
 {
   quotient:"Mind",
   id:"mind-4",
@@ -229,27 +229,27 @@ const TRIADS = [
   question:"How does your team handle the mix of facts, assumptions and interpretations in real time?",
   A:"We explicitly label what we know,\nwhat we assume, what we interpret",
   B:"Facts and assumptions blend;\ndecisions made on incomplete picture",
-  C:"Mostly implicit — experienced\nleaders read the situation",
+  C:"Mostly implicit - experienced\nleaders read the situation",
   scores:{ R_mind:[0.9, -0.8, 0.2], P_mind:[0.8, -0.7, 0.1] }
 },
 
-/* 19 — Execution */
+/* 19 - Execution */
 {
   quotient:"Execution",
   id:"execution-4",
-  scenario:"Your organization has just completed a major initiative. There is pressure to move on immediately. Someone proposes a structured after-action review — to capture what worked and what needs to change before the next cycle.",
+  scenario:"Your organization has just completed a major initiative. There is pressure to move on immediately. Someone proposes a structured after-action review - to capture what worked and what needs to change before the next cycle.",
   question:"What happens to the after-action review?",
   A:"It happens quickly and drives\nreal change in how we work next time",
   B:"A debrief happens but insights\nrarely change how we operate",
-  C:"We move on — there is always\nsomething more urgent waiting",
+  C:"We move on - there is always\nsomething more urgent waiting",
   scores:{ R_execution:[0.9, 0.1, -0.8], P_execution:[0.8, 0.1, -0.8] }
 },
 
-/* 20 — Alignment */
+/* 20 - Alignment */
 {
   quotient:"Alignment",
   id:"alignment-4",
-  scenario:"Your organization enters a period of significant ambiguity — a strategic shift is signalled but not yet defined, roles may change, and people are unsure who decides what. The formal structure has not caught up with the new reality.",
+  scenario:"Your organization enters a period of significant ambiguity - a strategic shift is signalled but not yet defined, roles may change, and people are unsure who decides what. The formal structure has not caught up with the new reality.",
   question:"How does your organization maintain coherence during this ambiguous transition?",
   A:"Leadership communicates clear intent;\npeople navigate from shared direction",
   B:"Informal networks hold things;\nsome fill gaps, others wait",
@@ -418,7 +418,7 @@ function buildSteps() {
     var display = i===0 ? 'block' : 'none';
     html += '<div id="step-'+i+'" style="display:'+display+'">'
       +'<div class="card">'
-      +'<div class="eyebrow">Situation '+(i+1)+' of '+SHUFFLED_TRIADS.length+' &nbsp;&middot;&nbsp; </div>'
+      +'<div class="eyebrow">Situation '+(i+1)+' of '+SHUFFLED_TRIADS.length+'</div>'
       +'<div class="scenario-text">'+esc(t.scenario)+'</div>'
       +'</div>'
       +'<div class="question">'+esc(t.question)+'</div>'
@@ -465,7 +465,7 @@ function attachEvents(idx) {
     document.getElementById('pa-'+idx).textContent = Math.round(b[0]/tot*100)+'%';
     document.getElementById('pb-'+idx).textContent = Math.round(b[1]/tot*100)+'%';
     document.getElementById('pc-'+idx).textContent = Math.round(b[2]/tot*100)+'%';
-    document.getElementById('placed-'+idx).textContent = 'Dot placed — click to reposition';
+    document.getElementById('placed-'+idx).textContent = 'Dot placed - click to reposition';
     document.getElementById('warn').style.display = 'none';
   }
 
