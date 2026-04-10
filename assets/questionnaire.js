@@ -553,26 +553,30 @@ function updateUI() {
       : 'Next <span class="arrow"></span>';
   }
 
-function showStep(idx) {
-  var currentEl = document.getElementById('step-'+current);
-  var nextEl = document.getElementById('step-'+idx);
+function showStep(idx, direction) {
+  var currentEl = document.getElementById('step-' + current);
+  var nextEl = document.getElementById('step-' + idx);
+
+  var outY = direction === 'back' ? 8 : -8;
+  var inY  = direction === 'back' ? -8 : 8;
 
   gsap.to(currentEl, {
     opacity: 0,
-    y: -8,
-    duration: 0.2,
+    y: outY,
+    duration: 0.18,
     ease: "power1.out",
-    onComplete: function() {
-
-      for (var i=0; i<SHUFFLED_TRIADS.length; i++) {
-        document.getElementById('step-'+i).style.display = 'none';
+    onComplete: function () {
+      for (var i = 0; i < SHUFFLED_TRIADS.length; i++) {
+        var el = document.getElementById('step-' + i);
+        el.style.display = 'none';
+        gsap.set(el, { clearProps: 'opacity,transform' });
       }
 
       nextEl.style.display = 'block';
 
       gsap.fromTo(nextEl,
-        { opacity: 0, y: 8 },
-        { opacity: 1, y: 0, duration: 0.25, ease: "power1.out" }
+        { opacity: 0, y: inY },
+        { opacity: 1, y: 0, duration: 0.22, ease: "power1.out" }
       );
     }
   });
@@ -587,8 +591,9 @@ document.getElementById('btn-next').addEventListener('click', function() {
     showResults();
     return;
   }
+
   var next = current + 1;
-  showStep(next);
+  showStep(next, 'forward');
   current = next;
   setTimeout(updateUI, 100);
   window.scrollTo(0, 0);
@@ -597,7 +602,7 @@ document.getElementById('btn-next').addEventListener('click', function() {
 document.getElementById('btn-back').addEventListener('click', function() {
   if (current > 0) {
     var prev = current - 1;
-    showStep(prev);
+    showStep(prev, 'back');
     current = prev;
     setTimeout(updateUI, 100);
     window.scrollTo(0, 0);
