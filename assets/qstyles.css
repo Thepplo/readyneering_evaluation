@@ -94,7 +94,8 @@
     background: #fce373;
     gap: 14px;
 }
-.btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.btn:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+
 
 .pdf-button {
   background: rgba(255, 255, 255, 0.02);
