@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="assets/qstyles.css">
 </head>
 <body>
-<div class="wrap">
+<div class="bg">
   <div class="logo-div">
     <svg class= "logo" width="478" height="116" viewBox="0 0 478 116" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path fill-rule="evenodd" clip-rule="evenodd" d="M32.2587 3.26127C43.8868 -3.45215 58.7556 0.531553 65.4692 12.1594C67.6954 16.0152 68.7505 20.2494 68.7295 24.4221L53.8791 24.3477C53.8872 22.7357 53.4832 21.0999 52.6083 19.5846C49.9955 15.0596 44.2091 13.5096 39.684 16.1222C35.1862 18.7192 33.6293 24.4503 36.1762 28.9631L57.1204 61.9569C58.5987 57.9027 59.4017 53.1986 59.4018 48.0057H74.2522C74.2522 58.3665 71.7546 68.3821 66.3212 76.4521L77.1324 93.4824L59.5452 93.4851L55.5106 87.1295C49.1849 91.2179 41.4313 93.4851 32.4853 93.4851C14.7377 93.4851 0.000203344 81.1643 0 63.3202C3.08098e-05 49.7292 8.81726 37.5185 21.7327 33.0764C17.4736 22.0895 21.7365 9.33649 32.2587 3.26127ZM29.6347 46.3678C20.9411 47.7179 14.8505 55.1477 14.8504 63.3202C14.8506 71.6185 21.5274 78.6347 32.4853 78.6347C38.7527 78.6347 43.6994 77.1083 47.5497 74.5885L29.6347 46.3678Z" fill="black"/>
@@ -17,93 +17,95 @@
       <path d="M200.479 55.4297C200.479 61.395 201.177 65.0511 201.992 67.7031C202.887 70.6156 204.037 72.8168 205.949 76.6536C207.796 80.3609 210.055 85.077 211.741 91.5888C213.425 98.0939 214.401 105.82 214.401 115.76L195.838 115.76C195.838 107.918 195.074 102.863 194.148 99.2867C193.224 95.7174 192.001 93.051 190.368 89.773C188.799 86.6244 186.469 82.2368 184.754 76.6559C182.959 70.814 181.916 64.0706 181.916 55.4297L200.479 55.4297Z" fill="black"/>
     </svg>
   </div>
-<!-- INTRO -->
-<div id="scr-intro" class="screen active">
-  <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:6px">andQfive &middot; READYNEERING</div>
-  <h1>Organizational Readiness Diagnostic</h1>
-  <p style="margin-top:8px">You will encounter 20 real organizational situations. For each one, place your dot inside the triangle — closer to whichever corner rings most true. No right answers. The geometry reveals your readiness profile.</p>
-  <div class="stat-row">
-    <div class="stat"><div class="stat-num">20</div><div class="stat-lbl">Situations</div></div>
-    <div class="stat"><div class="stat-num">~20</div><div class="stat-lbl">Minutes</div></div>
-    <div class="stat"><div class="stat-num">5</div><div class="stat-lbl">Quotients scored</div></div>
-  </div>
-  <div class="cta-div">
-  <div class="sec-title">First, select your industry</div>
-  <div style="display:flex;align-items:start;gap:12px;margin-top:8px;">
-  <select class="form-select"id="industry-select">
-  <option value="">Select industry</option>
-  <option value="adhesives-and-tapes">Adhesives and Tapes</option>
-  <option value="aerospace-and-defense">Aerospace and Defense</option>
-  <option value="healthcare">Healthcare</option>
-  <option value="consumer-packaged-goods-cpg">Consumer Packaged Goods (CPG)</option>
-  <option value="management-strategy-consulting">Management & Strategy Consulting</option>
-  <option value="payments-fintech">Payments & Fintech</option>
-  <option value="power-cable-solutions-hvdc-hvac">Power Cable Solutions (HVDC, HVAC)</option>
-  <option value="technology">Technology</option>
-  <option value="other">Other</option>
-  </select>
-  <input id="industry-other" type="text" placeholder="Please specify"
-        style="display:none;" />
-  </div>
-  <a class="btn primary" id="start-btn" style="margin-bottom:1.5rem;">
-        Begin diagnostic <span class="arrow"></span>
-  </a>
-  <div id="industry-warn" style="display:none;color:red;margin-top:8px;">
-    Please select an industry before continuing.
-  </div>
-  <div id="data-note" class="note-div"><b>NOTE:</b> No personal data will be saved, only the results of the assessment.</div>
-</div>
-</div>
-
-<!-- ASSESSMENT -->
-<div id="scr-assess" class="screen">
-  <div class="pbar"><div class="pfill" id="prog" style="width:0%"></div></div>
-  <div id="steps-wrap"></div>
-  <div class="warn" id="warn">Please place your dot in the triangle before continuing.</div>
-  <div class="nav">
-    <button class="btn" id="btn-back"><span class="arrow-back"></span> Back</button>
-    <!-- <a class="btn primary" id="btn-next">Next <span class="arrow"></span></a> -->
-    <a class="btn primary" id="btn-next">
-        Next <span class="arrow"></span>
+  <div class="wrap">
+  <!-- INTRO -->
+  <div id="scr-intro" class="screen active">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:6px">andQfive &middot; READYNEERING</div>
+    <h1>Organizational Readiness Diagnostic</h1>
+    <p style="margin-top:8px">You will encounter 20 real organizational situations. For each one, place your dot inside the triangle — closer to whichever corner rings most true. No right answers. The geometry reveals your readiness profile.</p>
+    <div class="stat-row">
+      <div class="stat"><div class="stat-num">20</div><div class="stat-lbl">Situations</div></div>
+      <div class="stat"><div class="stat-num">~20</div><div class="stat-lbl">Minutes</div></div>
+      <div class="stat"><div class="stat-num">5</div><div class="stat-lbl">Quotients scored</div></div>
+    </div>
+    <div class="cta-div">
+    <div class="sec-title">First, select your industry</div>
+    <div style="display:flex;align-items:start;gap:12px;margin-top:8px;">
+    <select class="form-select"id="industry-select">
+    <option value="">Select industry</option>
+    <option value="adhesives-and-tapes">Adhesives and Tapes</option>
+    <option value="aerospace-and-defense">Aerospace and Defense</option>
+    <option value="healthcare">Healthcare</option>
+    <option value="consumer-packaged-goods-cpg">Consumer Packaged Goods (CPG)</option>
+    <option value="management-strategy-consulting">Management & Strategy Consulting</option>
+    <option value="payments-fintech">Payments & Fintech</option>
+    <option value="power-cable-solutions-hvdc-hvac">Power Cable Solutions (HVDC, HVAC)</option>
+    <option value="technology">Technology</option>
+    <option value="other">Other</option>
+    </select>
+    <input id="industry-other" type="text" placeholder="Please specify"
+          style="display:none;" />
+    </div>
+    <a class="btn primary" id="start-btn" style="margin-bottom:1.5rem;">
+          Begin diagnostic <span class="arrow"></span>
     </a>
-    <span class="step-ind" id="step-ind"></span>
+    <div id="industry-warn" style="display:none;color:red;margin-top:8px;">
+      Please select an industry before continuing.
+    </div>
+    <div id="data-note" class="note-div"><b>NOTE:</b> No personal data will be saved, only the results of the assessment.</div>
   </div>
-</div>
+  </div>
 
-<!-- RESULTS -->
-<div id="scr-results" class="screen">
-  <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:6px">andQfive &middot; READYNEERING</div>
-  <h1 style="margin-bottom:20px">Your readiness profile</h1>
-  <div class="score-row">
-    <div class="scard-hero"><div class="scard-lbl">Overall Readiness</div><div class="scard-val" id="r-overall">-</div><div class="scard-sub">R &times; P</div></div>
-    <div class="scard"><div class="scard-lbl">Resilience</div><div class="scard-val" id="r-resil">-</div><div class="scard-sub">Under pressure</div></div>
-    <div class="scard"><div class="scard-lbl">Preparedness</div><div class="scard-val" id="r-prep">-</div><div class="scard-sub">Structural readiness</div></div>
+  <!-- ASSESSMENT -->
+  <div id="scr-assess" class="screen">
+    <div class="pbar"><div class="pfill" id="prog" style="width:0%"></div></div>
+    <div id="steps-wrap"></div>
+    <div class="warn" id="warn">Please place your dot in the triangle before continuing.</div>
+    <div class="nav">
+      <button class="btn" id="btn-back"><span class="arrow-back"></span> Back</button>
+      <!-- <a class="btn primary" id="btn-next">Next <span class="arrow"></span></a> -->
+      <a class="btn primary" id="btn-next">
+          Next <span class="arrow"></span>
+      </a>
+      <span class="step-ind" id="step-ind"></span>
+    </div>
   </div>
-  <div class="verdict" id="verdict"><div class="verdict-lbl" id="v-lbl"></div><div class="verdict-title" id="v-title"></div><div class="verdict-desc" id="v-desc"></div></div>
-  <div class="sec-title">The 5 quotients</div>
-  <div class="q-grid" id="q-grid"></div>
-  <div class="debrief">
-    <div class="debrief-lbl">The question that matters</div>
-    <div class="debrief-q">Where are we currently surviving on competence &mdash; but not on system design?</div>
-    <div class="debrief-n">Because competence leaves when people leave. System design stays.</div>
-  </div>
-  <div class="no-print button-div">
-  <button class="pdf-button" onclick="window.print()">
-    <svg class="icon" width="40" height="40" viewBox="0 0 24 24" fill="none">
-      <path d="M13.5 3H12H7C5.89543 3 5 3.89543 5 5V19C5 20.1046 5.89543 21 7 21H7.5M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V9.75V12V19C19 20.1046 18.1046 21 17 21H16.5"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M12 12V20M12 20L9.5 17.5M12 20L14.5 17.5"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
-  <p>Download PDF</p>
-</div>
-  <div class="nav">
-    <a class="btn no-print" id="btn-restart"><span class="arrow-back"></span> Retake Assessment</a>
-  </div>
-</div>
 
-</div><!-- .wrap -->
+  <!-- RESULTS -->
+  <div id="scr-results" class="screen">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:6px">andQfive &middot; READYNEERING</div>
+    <h1 style="margin-bottom:20px">Your readiness profile</h1>
+    <div class="score-row">
+      <div class="scard-hero"><div class="scard-lbl">Overall Readiness</div><div class="scard-val" id="r-overall">-</div><div class="scard-sub">R &times; P</div></div>
+      <div class="scard"><div class="scard-lbl">Resilience</div><div class="scard-val" id="r-resil">-</div><div class="scard-sub">Under pressure</div></div>
+      <div class="scard"><div class="scard-lbl">Preparedness</div><div class="scard-val" id="r-prep">-</div><div class="scard-sub">Structural readiness</div></div>
+    </div>
+    <div class="verdict" id="verdict"><div class="verdict-lbl" id="v-lbl"></div><div class="verdict-title" id="v-title"></div><div class="verdict-desc" id="v-desc"></div></div>
+    <div class="sec-title">The 5 quotients</div>
+    <div class="q-grid" id="q-grid"></div>
+    <div class="debrief">
+      <div class="debrief-lbl">The question that matters</div>
+      <div class="debrief-q">Where are we currently surviving on competence &mdash; but not on system design?</div>
+      <div class="debrief-n">Because competence leaves when people leave. System design stays.</div>
+    </div>
+    <div class="no-print button-div">
+    <button class="pdf-button" onclick="window.print()">
+      <svg class="icon" width="40" height="40" viewBox="0 0 24 24" fill="none">
+        <path d="M13.5 3H12H7C5.89543 3 5 3.89543 5 5V19C5 20.1046 5.89543 21 7 21H7.5M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V9.75V12V19C19 20.1046 18.1046 21 17 21H16.5"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 12V20M12 20L9.5 17.5M12 20L14.5 17.5"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <p>Download PDF</p>
+  </div>
+    <div class="nav">
+      <a class="btn no-print" id="btn-restart"><span class="arrow-back"></span> Retake Assessment</a>
+    </div>
+  </div>
+
+  </div><!-- .wrap -->
+</div>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 <script src="assets/questionnaire.js"></script>
 </body>
