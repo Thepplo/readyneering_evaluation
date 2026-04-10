@@ -369,7 +369,7 @@ function makeSVG(idx) {
   var mABx = ((TA.x+TB.x)/2).toFixed(1), mABy = ((TA.y+TB.y)/2).toFixed(1);
   var mBCx = ((TB.x+TC.x)/2).toFixed(1), mBCy = ((TB.y+TC.y)/2).toFixed(1);
   var mCAx = ((TC.x+TA.x)/2).toFixed(1), mCAy = ((TC.y+TA.y)/2).toFixed(1);
-  const B = getBounds(s(40));
+  const B = getBounds(s(60));
 
   return '<svg id="svg-'+idx+'" viewBox="'+B.x+' '+B.y+' '+B.w+' '+B.h+'" xmlns="http://www.w3.org/2000/svg"'
     +' style="display:block;width:100%;cursor:crosshair;touch-action:none;user-select:none;overflow:hidden">'
