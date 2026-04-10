@@ -519,7 +519,7 @@ function attachEvents(idx) {
 
     gsap.fromTo(ring,
       { attr: { r: s(12) }, opacity: 0.35 },
-      { attr: { r: s(20) }, opacity: 1, duration: 0.4, ease: "power2.out" }
+      { attr: { r: s(20) }, opacity: 0, duration: 0.4, ease: "power2.out" }
     );
 
     gsap.fromTo(pip,
@@ -554,9 +554,28 @@ function updateUI() {
   }
 
 function showStep(idx) {
-  for (var i=0; i<SHUFFLED_TRIADS.length; i++) {
-    document.getElementById('step-'+i).style.display = i===idx ? 'block' : 'none';
-  }
+  var currentEl = document.getElementById('step-'+current);
+  var nextEl = document.getElementById('step-'+idx);
+
+  gsap.to(currentEl, {
+    opacity: 0,
+    y: -8,
+    duration: 0.2,
+    ease: "power1.out",
+    onComplete: function() {
+
+      for (var i=0; i<SHUFFLED_TRIADS.length; i++) {
+        document.getElementById('step-'+i).style.display = 'none';
+      }
+
+      nextEl.style.display = 'block';
+
+      gsap.fromTo(nextEl,
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.25, ease: "power1.out" }
+      );
+    }
+  });
 }
 
 document.getElementById('btn-next').addEventListener('click', function() {
@@ -568,17 +587,19 @@ document.getElementById('btn-next').addEventListener('click', function() {
     showResults();
     return;
   }
-  current++;
-  showStep(current);
-  updateUI();
+  var next = current + 1;
+  showStep(next);
+  current = next;
+  setTimeout(updateUI, 100);
   window.scrollTo(0, 0);
 });
 
 document.getElementById('btn-back').addEventListener('click', function() {
   if (current > 0) {
-    current--;
-    showStep(current);
-    updateUI();
+    var prev = current - 1;
+    showStep(prev);
+    current = prev;
+    setTimeout(updateUI, 100);
     window.scrollTo(0, 0);
   }
 });
