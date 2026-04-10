@@ -260,7 +260,7 @@ const TRIADS = [
 ];
 
 // ── Geometry ──────────────────────────────────────────────
-var SCALE = 1.3;
+var SCALE = 1.8;
 function s(n) { return n * SCALE; }
 
 var TA = {x:250 * SCALE, y:130 * SCALE};
