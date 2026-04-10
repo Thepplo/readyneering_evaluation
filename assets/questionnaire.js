@@ -441,7 +441,7 @@ function makeSVG(idx) {
     +'<text '+fs+' y="'+cTopY+'">'+tspansFromLines(cWrapped,'end',TC.x - s(4))+'</text>'
 
     // interaction markers
-    +'<circle id="ring-'+idx+'" cx="-999" cy="-999" r="'+s(20)+'" fill="rgba(119,1,54,0.13)" opacity="0" style="pointer-events:none"/>'
+    +'<circle id="ring-'+idx+'" cx="-999" cy="-999" r="'+s(20)+'" fill="rgba(119,1,54,0.8)" opacity="0" style="pointer-events:none"/>'
     +'<circle id="dot-'+idx+'"  cx="-999" cy="-999" r="'+s(11)+'" fill="#770136" opacity="0" style="pointer-events:none"/>'
     +'<circle id="pip-'+idx+'"  cx="-999" cy="-999" r="'+s(5)+'"  fill="#fff" opacity="0" style="pointer-events:none"/>'
 
