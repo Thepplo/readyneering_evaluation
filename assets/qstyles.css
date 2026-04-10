@@ -10,12 +10,15 @@
 }
 
 .bg {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  position: relative; width: 100%; height: 100%;
   background: radial-gradient(circle at center, #fff, #f3eef6);
-  z-index: -1;}
+  z-index: -1;
+}
+.logo{
+  width: 250px;
+}
 
-
- .wrap { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 4rem; position: relative;}
+.wrap { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 4rem; position: relative;}
 
 /* screens */
 .screen { display: none; }
@@ -171,7 +174,7 @@
   display: flex; 
   justify-content: center; 
   margin-bottom: 1.5rem; 
-  position: absolute; top: 20px; left: 0; right: 0;
+  position: absolute; top: 20px; left: 5%;
 }
 
 #industry-other {
