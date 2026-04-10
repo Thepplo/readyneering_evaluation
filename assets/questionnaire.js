@@ -546,7 +546,7 @@ function updateUI() {
   var pct = (current / SHUFFLED_TRIADS.length * 100);
 
   const isLast = current === SHUFFLED_TRIADS.length - 1;
-  const isHalfway = current === Math.floor(SHUFFLED_TRIADS.length / 2);
+  const isHalfway = (current + 1) === Math.ceil(SHUFFLED_TRIADS.length / 2);
   let label = 'Next';
   
   if (isLast) {
