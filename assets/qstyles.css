@@ -94,6 +94,14 @@
     gap: 14px;
 }
 .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.cta-div { 
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; 
+}
+
 .step-ind { font-size: 13px; color: #999; margin-left: auto; }
 .warn { font-size: 12px; color: #993c1d; margin-top: 10px; display: none; }
 
