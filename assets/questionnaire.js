@@ -260,7 +260,7 @@ const TRIADS = [
 ];
 
 // ── Geometry ──────────────────────────────────────────────
-var SCALE = 1.8;
+var SCALE = 1.5;
 function s(n) { return n * SCALE; }
 
 var TA = {x:250 * SCALE, y:130 * SCALE};
@@ -293,6 +293,20 @@ function svgPt(svg, e) {
   pt.x = src.clientX;
   pt.y = src.clientY;
   return pt.matrixTransform(svg.getScreenCTM().inverse());
+}
+
+function getBounds(pad) {
+  const minX = Math.min(TA.x, TB.x, TC.x) - pad;
+  const maxX = Math.max(TA.x, TB.x, TC.x) + pad;
+  const minY = Math.min(TA.y, TB.y, TC.y) - pad;
+  const maxY = Math.max(TA.y, TB.y, TC.y) + pad;
+
+  return {
+    x: minX,
+    y: minY,
+    w: maxX - minX,
+    h: maxY - minY
+  };
 }
 
 function w2score(raw) {
@@ -351,13 +365,13 @@ function makeSVG(idx) {
   var bTopY    = TB.y + s(16);
   var cTopY    = TC.y + s(16);
   var fs = 'font-size="'+FS+'" fill="#2a2a28" font-weight="500" font-family="-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif"';
-
   var gx = GX.toFixed(1), gy = GY.toFixed(1);
   var mABx = ((TA.x+TB.x)/2).toFixed(1), mABy = ((TA.y+TB.y)/2).toFixed(1);
   var mBCx = ((TB.x+TC.x)/2).toFixed(1), mBCy = ((TB.y+TC.y)/2).toFixed(1);
   var mCAx = ((TC.x+TA.x)/2).toFixed(1), mCAy = ((TC.y+TA.y)/2).toFixed(1);
+  const B = getBounds(s(40));
 
-  return '<svg id="svg-'+idx+'" viewBox="0 0 '+VW+' '+VH+'" xmlns="http://www.w3.org/2000/svg"'
+  return '<svg id="svg-'+idx+'" viewBox="'+B.x+' '+B.y+' '+B.w+' '+B.h+'" xmlns="http://www.w3.org/2000/svg"'
     +' style="display:block;width:100%;cursor:crosshair;touch-action:none;user-select:none;overflow:hidden">'
 
     // center → mid lines
