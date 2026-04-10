@@ -314,7 +314,7 @@ function w2score(raw) {
 }
 
 function wrapText(ctx, text, maxWidth) {
-  const words = text.split('\n');
+  const words = text.split(/\s+/);
   const lines = [];
   let line = '';
 
@@ -333,8 +333,7 @@ function wrapText(ctx, text, maxWidth) {
   if (line) lines.push(line);
   return lines;
 }
-const ctx = document.createElement('canvas').getContext('2d');
-ctx.font = FS + 'px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
+
 
 // ── State ─────────────────────────────────────────────────
 var current = 0;
@@ -343,9 +342,11 @@ var placements = [];
 // ── SVG builder ───────────────────────────────────────────
 
 var VW = s(500), VH = s(520), LH = s(18), FS = s(13);
+
 var GX = (TA.x+TB.x+TC.x)/3;
 var GY = (TA.y+TB.y+TC.y)/3;
-
+const ctx = document.createElement('canvas').getContext('2d');
+ctx.font = FS + 'px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
 function esc(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
@@ -382,6 +383,15 @@ function makeTspansAuto(txt, anchor, x, startY, maxWidth) {
   }
   return out;
 }
+function tspansFromLines(lines, anchor, x) {
+  let out = '';
+  for (let i = 0; i < lines.length; i++) {
+    out += '<tspan x="'+x+'" dy="'+(i === 0 ? '0' : LH)+'" text-anchor="'+anchor+'">'
+      + esc(lines[i]) +
+      '</tspan>';
+  }
+  return out;
+}
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -393,11 +403,14 @@ function shuffle(array) {
 function makeSVG(idx) {
   var t = SHUFFLED_TRIADS[idx];
   var aWrapped = wrapText(ctx, t.A, s(140));
+  var bWrapped = wrapText(ctx, t.B, s(90));
+  var cWrapped = wrapText(ctx, t.C, s(90));
+
   var aLines = aWrapped.length;
   var aBottomY = TA.y - s(14);
-  var aTopY    = aBottomY - (aLines - 1) * LH;
-  var bTopY    = TB.y + s(16);
-  var cTopY    = TC.y + s(16);
+  var aTopY = aBottomY - (aLines - 1) * LH;
+  var bTopY = TB.y + s(16);
+  var cTopY = TC.y + s(16);
   var fs = 'font-size="'+FS+'" fill="#2a2a28" font-weight="500" font-family="-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif"';
   var gx = GX.toFixed(1), gy = GY.toFixed(1);
   var mABx = ((TA.x+TB.x)/2).toFixed(1), mABy = ((TA.y+TB.y)/2).toFixed(1);
@@ -423,9 +436,9 @@ function makeSVG(idx) {
     +'<circle cx="'+TC.x+'" cy="'+TC.y+'" r="'+s(5)+'" fill="#770136" opacity="0.4"/>'
 
     // labels
-    +'<text '+fs+' y="'+aTopY+'">'+makeTspansAuto(aWrapped,'middle',TA.x, aTopY, s(140))+'</text>'
-    +'<text '+fs+' y="'+bTopY+'">'+makeTspansAuto(t.B,'start',TB.x + s(4), bTopY, s(90))+'</text>'
-    +'<text '+fs+' y="'+cTopY+'">'+makeTspansAuto(t.C,'end',TC.x - s(4), cTopY, s(90))+'</text>'
+    +'<text '+fs+' y="'+aTopY+'">'+tspansFromLines(aWrapped,'middle',TA.x)+'</text>'
+    +'<text '+fs+' y="'+bTopY+'">'+tspansFromLines(bWrapped,'start',TB.x + s(4))+'</text>'
+    +'<text '+fs+' y="'+cTopY+'">'+tspansFromLines(cWrapped,'end',TC.x - s(4))+'</text>'
 
     // interaction markers
     +'<circle id="ring-'+idx+'" cx="-999" cy="-999" r="'+s(20)+'" fill="rgba(119,1,54,0.13)" opacity="0" style="pointer-events:none"/>'
