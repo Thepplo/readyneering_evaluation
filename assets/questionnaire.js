@@ -314,7 +314,7 @@ function w2score(raw) {
 }
 
 function wrapText(ctx, text, maxWidth) {
-  const words = text.split(' ');
+  const words = text.split('\n');
   const lines = [];
   let line = '';
 
