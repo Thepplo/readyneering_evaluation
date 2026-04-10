@@ -41,7 +41,7 @@
   transition: width 0.3s;
   box-shadow: 0 0 6px rgba(255, 218, 51, 0.25);
 }
-.pbar::after {
+.pfill::after {
   content: '';
   position: absolute;
   left: 50%;
