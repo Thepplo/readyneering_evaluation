@@ -37,18 +37,18 @@
 .card { background: #fff; border: 1px solid #e0dfd8; border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; }
 .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #888; margin-bottom: 8px; }
 .scenario-text { font-size: 15px; color: #2a2a28; line-height: 1.7; font-style: italic; }
-.question { 
+.question {
+  display: flex; flex-direction: column;
+  gap: 0.75rem;
   font-size: 1.1rem; 
   font-weight: 600; 
   color: #1a1a18; 
   margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
-  min-height: 50px;
+  min-height: 85px;
 }
 .hint { 
   font-size: 12px; 
   color: rgba(0,0,0,0.45); 
-  margin-bottom: 16px; 
 }
 
 /* SVG triangle wrapper */
