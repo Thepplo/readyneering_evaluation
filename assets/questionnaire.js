@@ -818,7 +818,7 @@ function buildSubmissionPayload(res, verdict) {
 function makeRing(score, max, color, trackColor, size){
   const R=size/2, r=R-11, cx=R, cy=R;
   const circ=2*Math.PI*r;
-  const filled=((score-1)/(max-1))*circ; // map 1–max to 0–circumference
+  const filled = (score / max) * circ;
   const pct=Math.round((score-1)/(max-1)*100);
   return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block;margin:0 auto">
     <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${trackColor}" stroke-width="10"/>
@@ -920,10 +920,47 @@ async function showResults() {
       +'</div>';
   }
   qg.innerHTML = qhtml;
+  buildSignals(res.dim,res.R,res.P);
 
   window.scrollTo(0, 0);
 }
 
+function buildSignals(dim,R,P){
+  const sg=document.getElementById('signal-grid');
+  const qScores=QDIMS.map(q=>({q,r:dim[`R_${q.toLowerCase()}`],p:dim[`P_${q.toLowerCase()}`],avg:(dim[`R_${q.toLowerCase()}`]+dim[`P_${q.toLowerCase()}`])/2}));
+  qScores.sort((a,b)=>b.avg-a.avg);
+  const strengths=qScores.slice(0,2);
+  const risks=qScores.slice(-2).reverse();
+
+  const gaps=QDIMS.map(q=>({q,gap:dim[`R_${q.toLowerCase()}`]-dim[`P_${q.toLowerCase()}`]}));
+  gaps.sort((a,b)=>Math.abs(b.gap)-Math.abs(a.gap));
+  const bigGap=gaps[0];
+
+  const rHigh=R>=P, rLow=R<P;
+
+  sg.innerHTML=`
+    <div class="signal-card">
+      <div class="sc-head">Strengths</div>
+      ${strengths.map(s=>`<div class="signal-item"><div class="signal-dot" style="background:#1D9E75"></div><div class="signal-text">${s.q} — performing well in both resilience and preparedness (avg ${s.avg.toFixed(1)})</div></div>`).join('')}
+    </div>
+    <div class="signal-card">
+      <div class="sc-head">Priority gaps</div>
+      ${risks.map(s=>`<div class="signal-item"><div class="signal-dot" style="background:#D85A30"></div><div class="signal-text">${s.q} — lowest combined score (avg ${s.avg.toFixed(1)}); review both structural and behavioral dimensions</div></div>`).join('')}
+    </div>
+    <div class="signal-card">
+      <div class="sc-head">Structural pattern</div>
+      <div class="signal-item"><div class="signal-dot" style="background:#534AB7"></div>
+        <div class="signal-text">${rHigh?`Resilience (${R.toFixed(2)}) exceeds Preparedness (${P.toFixed(2)}) — you rely on in-the-moment capability more than structural design. Risk: when individuals leave, the system is exposed.`:`Preparedness (${P.toFixed(2)}) exceeds Resilience (${R.toFixed(2)}) — plans exist but behavior under pressure doesn't match structural intent. Focus on rehearsal and real-conditions practice.`}</div>
+      </div>
+      ${Math.abs(bigGap.gap)>0.5?`<div class="signal-item"><div class="signal-dot" style="background:#BA7517"></div><div class="signal-text">Largest gap in ${bigGap.q}: ${bigGap.gap>0?`stronger under pressure than structurally designed for — check if this is sustainable`:`stronger structural design than actual under-pressure behavior — implementation fidelity needs attention`}</div></div>`:''}
+    </div>
+    <div class="signal-card">
+      <div class="sc-head">The multiplication effect</div>
+      <div class="signal-item"><div class="signal-dot" style="background:#534AB7"></div>
+        <div class="signal-text">Overall Readiness = Resilience × Preparedness. A score of ${R.toFixed(1)} × ${P.toFixed(1)} = ${(R*P).toFixed(2)}. ${R*P<R&&R*P<P?`Both dimensions are pulling the score down. Improving either will have compound effect.`:`Even a 0.3 point gain in your weaker dimension (${P<R?'Preparedness':'Resilience'}) would lift Overall Readiness by approximately ${(0.3*Math.max(R,P)).toFixed(2)} points.`}</div>
+      </div>
+    </div>`;
+}
 // ── Start ─────────────────────────────────────────────────
 function startAssessment() {
   var industrySelect = document.getElementById('industry-select');

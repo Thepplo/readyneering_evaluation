@@ -238,6 +238,18 @@
 .debrief-lbl { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #534ab7; margin-bottom: 8px; }
 .debrief-q { font-size: 15px; font-weight: 600; color: #26215c; margin-bottom: 6px; line-height: 1.5; }
 .debrief-n { font-size: 13px; color: #534ab7; line-height: 1.65; }
+.ring-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:1.5rem}
+.ring-card{background:#fff;border:1px solid #e8e7e0;border-radius:12px;padding:1.25rem 1rem;text-align:center}
+.ring-card.hero{border-color:#534AB7;background:#EEEDFE}
+.ring-card .rl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888780;margin-bottom:10px}
+.ring-card.hero .rl{color:#534AB7}
+.ring-card .rs{font-size:11px;color:#888780;margin-top:8px}
+.signal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
+.signal-card{background:#fff;border:1px solid #e8e7e0;border-radius:10px;padding:1rem 1.1rem}
+.signal-card .sc-head{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888780;margin-bottom:8px}
+.signal-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px}
+.signal-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.signal-text{font-size:13px;color:#444441;line-height:1.4}
 
 @media print {
   .btn, .nav, .note-div, .no-print { display: none; }
