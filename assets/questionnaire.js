@@ -815,21 +815,37 @@ function buildSubmissionPayload(res, verdict) {
   };
 }
 
-function makeRing(score, max, color, trackColor, size){
-  const R=size/2, r=R-11, cx=R, cy=R;
-  const circ=2*Math.PI*r;
-  const filled = (score / max) * circ;
-  const pct=Math.round((score-1)/(max-1)*100);
-  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block;margin:0 auto">
-    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${trackColor}" stroke-width="10"/>
-    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="10"
-      stroke-dasharray="${filled.toFixed(2)} ${circ.toFixed(2)}"
-      stroke-dashoffset="${(circ/4).toFixed(2)}"
-      stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/>
-    <text x="${cx}" y="${cy+2}" text-anchor="middle" dominant-baseline="middle"
-      font-size="20" font-weight="500" fill="${color}"
-      font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">${score.toFixed(2)}</text>
-  </svg>`;
+function makeRing(score, max, color, trackColor, size) {
+  const min = 1;
+  const R = size / 2, r = R - 11, cx = R, cy = R;
+  const circ = 2 * Math.PI * r;
+  const progress = Math.max(0, Math.min(1, (score - min) / (max - min)));
+  const filled = progress * circ;
+
+  return `
+    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block;margin:0 auto">
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${trackColor}" stroke-width="10" />
+      <circle
+        cx="${cx}" cy="${cy}" r="${r}"
+        fill="none"
+        stroke="${color}"
+        stroke-width="10"
+        stroke-dasharray="${filled.toFixed(2)} ${circ.toFixed(2)}"
+        stroke-dashoffset="${(circ / 4).toFixed(2)}"
+        stroke-linecap="round"
+        transform="rotate(-90 ${cx} ${cy})"
+      />
+      <text
+        x="${cx}" y="${cy + 2}"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        font-size="20"
+        font-weight="500"
+        fill="${color}"
+        font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+      >${score.toFixed(2)}</text>
+    </svg>
+  `;
 }
 
 
@@ -861,7 +877,6 @@ async function showResults() {
   document.getElementById('r-prep').textContent    = res.P.toFixed(2);
 
   const rr=document.getElementById('ring-row');
-  const overallMax=5*5; // R×P max = 25
   rr.innerHTML=`
     <div class="ring-card hero">
       <div class="rl">Overall Readiness</div>
