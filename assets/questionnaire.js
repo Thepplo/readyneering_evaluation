@@ -855,27 +855,32 @@ async function showResults() {
   } catch (err) {
     console.error('Failed to save assessment:', err);
   }
-
+  var rOverall = res.O.toFixed(0);
+  var rResil = res.R.toFixed(0);
+  var rPrep = res.P.toFixed(0);
   document.getElementById('r-overall').textContent = res.O.toFixed(0);
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
   document.getElementById('r-prep').textContent    = res.P.toFixed(2);
 
+
+
   const rr=document.getElementById('ring-row');
-  const overallMax=5*5; // R×P max = 25
+  const overallMax=5*5;
+
   rr.innerHTML=`
     <div class="ring-card hero">
       <div class="rl">Overall Readiness</div>
-      ${makeRing(res.O.toFixed(0),25,'#534AB7','#d3cef5',110)}
+      ${makeRing(rOverall,25,'#534AB7','#d3cef5',110)}
       <div class="rs">Resilience × Preparedness</div>
     </div>
     <div class="ring-card">
       <div class="rl">Resilience</div>
-      ${makeRing(res.R,5,'#534AB7','#e8e7e0',110)}
+      ${makeRing(rResil,5,'#534AB7','#e8e7e0',110)}
       <div class="rs">Behavior under pressure</div>
     </div>
     <div class="ring-card">
       <div class="rl">Preparedness</div>
-      ${makeRing(res.P,5,'#1D9E75','#e8e7e0',110)}
+      ${makeRing(rPrep,5,'#1D9E75','#e8e7e0',110)}
       <div class="rs">Structural readiness</div>
     </div>`;
 
