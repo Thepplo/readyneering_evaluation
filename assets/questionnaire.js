@@ -830,8 +830,8 @@ function makeRing(score, max, color, trackColor, size) {
         fill="none"
         stroke="${color}"
         stroke-width="10"
-        stroke-dasharray="${filled.toFixed(2)} ${circ.toFixed(2)}"
-        stroke-dashoffset="${(circ / 4).toFixed(2)}"
+        stroke-dasharray="${filled} ${circ}"
+        stroke-dashoffset="${(circ / 4)}"
         stroke-linecap="round"
         transform="rotate(-90 ${cx} ${cy})"
       />
