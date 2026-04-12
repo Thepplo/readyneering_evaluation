@@ -865,7 +865,7 @@ async function showResults() {
   rr.innerHTML=`
     <div class="ring-card hero">
       <div class="rl">Overall Readiness</div>
-      ${makeRing(res.O,25,'#534AB7','#d3cef5',110)}
+      ${makeRing(res.O.toFixed(0),25,'#534AB7','#d3cef5',110)}
       <div class="rs">Resilience × Preparedness</div>
     </div>
     <div class="ring-card">
