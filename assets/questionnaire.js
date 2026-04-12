@@ -815,6 +815,22 @@ function buildSubmissionPayload(res, verdict) {
   };
 }
 
+function makeRing(score, max, color, trackColor, size){
+  const R=size/2, r=R-11, cx=R, cy=R;
+  const circ=2*Math.PI*r;
+  const filled=((score-1)/(max-1))*circ; // map 1–max to 0–circumference
+  const pct=Math.round((score-1)/(max-1)*100);
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block;margin:0 auto">
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${trackColor}" stroke-width="10"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="10"
+      stroke-dasharray="${filled.toFixed(2)} ${circ.toFixed(2)}"
+      stroke-dashoffset="${(circ/4).toFixed(2)}"
+      stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/>
+    <text x="${cx}" y="${cy+2}" text-anchor="middle" dominant-baseline="middle"
+      font-size="20" font-weight="500" fill="${color}"
+      font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">${score.toFixed(2)}</text>
+  </svg>`;
+}
 
 
 // ── Results ───────────────────────────────────────────────
@@ -840,9 +856,29 @@ async function showResults() {
     console.error('Failed to save assessment:', err);
   }
 
-  document.getElementById('r-overall').textContent = res.O.toFixed(2);
+  document.getElementById('r-overall').textContent = res.O.toFixed(0);
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
   document.getElementById('r-prep').textContent    = res.P.toFixed(2);
+
+  const rr=document.getElementById('ring-row');
+  const overallMax=5*5; // R×P max = 25
+  rr.innerHTML=`
+    <div class="ring-card hero">
+      <div class="rl">Overall Readiness</div>
+      ${makeRing(res.O,25,'#534AB7','#d3cef5',110)}
+      <div class="rs">Resilience × Preparedness</div>
+    </div>
+    <div class="ring-card">
+      <div class="rl">Resilience</div>
+      ${makeRing(res.R,5,'#534AB7','#e8e7e0',110)}
+      <div class="rs">Behavior under pressure</div>
+    </div>
+    <div class="ring-card">
+      <div class="rl">Preparedness</div>
+      ${makeRing(res.P,5,'#1D9E75','#e8e7e0',110)}
+      <div class="rs">Structural readiness</div>
+    </div>`;
+
 
   var levels = [
     {min:16.0, cls:'v-s1', label:'Strategic Readiness',
