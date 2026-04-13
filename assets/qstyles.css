@@ -291,7 +291,7 @@
   overflow: hidden;
   border: none;
   border-radius: 18px;
-  padding: 24px 20px;
+  padding: 40px 20px 24px 20px;
   min-height: 180px;
   display: flex;
   flex-direction: column;
@@ -358,7 +358,7 @@
   opacity: 0.45;
 }
 
-.q-card.vitality { background: var(--vitality-bg); color: #fff; }
+.q-card.vitality { background: var(--vitality-bg); color: #000; }
 .q-card.emotion  { background: var(--emotion-bg); color: #fff; }
 .q-card.mind     { background: var(--mind-bg); color: #fff; }
 .q-card.execution{ background: var(--execution-bg); color: #fff; }
@@ -375,10 +375,36 @@
   font-family: 'q5-heading', sans-serif;
   text-transform: uppercase;
   font-size: 1.5rem;
+  border-bottom: 1px solid #ffffff9f;
+  width: 100%;
+}
+.q-card.alignment .q-head {
+  border-bottom: 1px solid #000000a9;
 }
 
-.q-card .q-bar {
-  display: flex; justify-content: space-between; align-items: center; gap:6px;
+
+.q-card .q-bars {
+  display: flex; justify-content: space-between; align-items: center; gap:2px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.q-card .q-metrics {
+  display: flex; align-items: start; gap: 4px;
+}
+
+.q-card .q-role {
+  font-size: 12px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.q-section {
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .qcard-lbl { font-size: 11px; color: #888; margin-bottom: 4px; }

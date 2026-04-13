@@ -1012,10 +1012,12 @@ function renderQuotientCard(q, isLast) {
       <span class="orb orb-3"></span>
       <div class="q-head">
         <div class="q-label">${q.label}</div>
-        <div class="q-score">${q.score.toFixed(1)}</div>
-        <div class="q-bars">
-          <div>(R ${q.resilience.toFixed(1)}</div>
-          <div>P ${q.preparedness.toFixed(1)})</div>
+        <div class="q-metrics">
+          <div class="q-score">${q.score.toFixed(1)}</div>
+          <div class="q-bars">
+            <div>(R ${q.resilience.toFixed(1)}</div>
+            <div>P ${q.preparedness.toFixed(1)})</div>
+          </div>
         </div>
       </div>
 
