@@ -1093,9 +1093,10 @@ async function showResults() {
 
   const centerX = orbitCx - centerSize / 2;
   const centerY = orbitCy - centerSize / 2 - 5;
-  document.getElementById('r-overall').textContent = res.O.toFixed(0);
+  
+/*   document.getElementById('r-overall').textContent = res.O.toFixed(0);
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
-  document.getElementById('r-prep').textContent    = res.P.toFixed(2);
+  document.getElementById('r-prep').textContent    = res.P.toFixed(2); */
 
   const rr = document.getElementById('ring-row');
   rr.innerHTML = `

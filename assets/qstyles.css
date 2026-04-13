@@ -300,13 +300,6 @@
   text-align: left;
   gap: 12px;
 }
-.q-card::before {
-  width: 180px;
-  height: 180px;
-  left: -40px;
-  top: -40px;
-  background: radial-gradient(circle, rgba(255,255,255,.28) 0%, rgba(255,255,255,.08) 35%, rgba(255,255,255,0) 70%);
-}
 
 .q-card::after {
   width: 220px;
@@ -542,4 +535,10 @@
 }
 @media print {
   .btn, .nav, .note-div, .no-print { display: none; }
+  .q-card .q-head {
+    border-color: 1px solid #000;
+  }
+  .q-card {
+    border-color: 1px solid #000;
+  }
 }
