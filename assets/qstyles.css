@@ -28,12 +28,28 @@
   width: 200px;
 }
 
-.wrap { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 4rem; position: relative; z-index: 1;}
+.wrap { 
+  margin: 0 auto; 
+  padding: 2rem 1.5rem 4rem; 
+  position: relative; 
+  z-index: 1;
+}
 
 /* screens */
 .screen { display: none; }
 .screen.active { display: block; }
 
+#scr-intro {
+  max-width: 700px; 
+}
+
+#scr-assess {
+  max-width: 700px; 
+}
+
+#scr-results {
+  max-width: 900px; 
+}
 /* intro stats */
 .stat-row { display: flex; gap: 12px; margin: 20px 0;}
 .stat { background: #fff; border: 1px solid #e0dfd8; border-radius: 10px; padding: 14px 18px; flex: 1; }
@@ -246,7 +262,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
 }
-.qcard {
+.q-card {
   width: 100%;
   display: flex; flex-direction: column; gap: 8px;
   border: 1px solid #000; 
@@ -271,6 +287,11 @@
 .qcard.span-2 {
   grid-column: span 2;
 }
+
+.q-card .q-head {
+  display: flex; justify-content: space-between; align-items: center;
+}
+
 
 .qcard-lbl { font-size: 11px; color: #888; margin-bottom: 4px; }
 .qcard-val { font-size: 20px; font-weight: 600; margin-bottom: 8px; }

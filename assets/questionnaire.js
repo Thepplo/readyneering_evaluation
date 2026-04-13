@@ -1038,7 +1038,7 @@ function renderQuotientCard(q, isLast) {
 }
 function renderQuotientGrid(quotients) {
   return `
-    <div class="quotients-grid">
+    <div class="q-grid">
       ${quotients.map(function(q, i) {
         return renderQuotientCard(q, i === quotients.length - 1);
       }).join('')}
