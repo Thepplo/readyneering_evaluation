@@ -306,6 +306,16 @@
   bottom: -70px;
   background: radial-gradient(circle, rgba(255,255,255,.18) 0%, rgba(255,255,255,.05) 40%, rgba(255,255,255,0) 72%);
 }
+
+.q-card::before,
+.q-card::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+
 .q-card.vitality .orb,
 .q-card.emotion .orb,
 .q-card.mind .orb,
@@ -317,6 +327,28 @@
   filter: blur(1px);
   opacity: .9;
 }
+.orb-1 {
+  width: 26px;
+  height: 26px;
+  top: 18px;
+  right: 24px;
+}
+
+.orb-2 {
+  width: 14px;
+  height: 14px;
+  bottom: 24px;
+  left: 28px;
+}
+
+.orb-3 {
+  width: 42px;
+  height: 42px;
+  bottom: 18px;
+  right: 38px;
+  opacity: 0.45;
+}
+
 .q-card.vitality { background: var(--vitality-bg); color: #fff; }
 .q-card.emotion  { background: var(--emotion-bg); color: #fff; }
 .q-card.mind     { background: var(--mind-bg); color: #fff; }
