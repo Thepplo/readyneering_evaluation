@@ -814,31 +814,33 @@ function buildSubmissionPayload(res, verdict) {
     scores
   };
 }
+function pointOnEllipse(cx, cy, rx, ry, deg) {
+  const rad = (deg * Math.PI) / 180;
+  return {
+    x: cx + rx * Math.cos(rad),
+    y: cy + ry * Math.sin(rad)
+  };
+}
 
-function makeRing(score, max, color, trackColor, size) {
-  const min = 1;
-  const R = size / 2, r = R - 11, cx = R, cy = R;
+function makeRing(score, min, max, color, trackColor, size) {
+  const R = size / 2;
+  const r = R - 11;
+  const cx = R;
+  const cy = R;
   const circ = 2 * Math.PI * r;
   const progress = Math.max(0, Math.min(1, (score - min) / (max - min)));
-  const filled = progress * circ;
-  console.log({
-    score,
-    min,
-    max,
-    progress,
-    circ,
-    filled
-  });
+  const dashOffset = circ * (1 - progress);
+
   return `
-    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block;margin:0 auto">
+    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block">
       <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${trackColor}" stroke-width="10" />
       <circle
         cx="${cx}" cy="${cy}" r="${r}"
         fill="none"
         stroke="${color}"
         stroke-width="10"
-        stroke-dasharray="${filled} ${circ}"
-        stroke-dashoffset="0"
+        stroke-dasharray="${circ}"
+        stroke-dashoffset="${dashOffset}"
         stroke-linecap="round"
         transform="rotate(-90 ${cx} ${cy})"
       />
@@ -846,7 +848,7 @@ function makeRing(score, max, color, trackColor, size) {
         x="${cx}" y="${cy + 2}"
         text-anchor="middle"
         dominant-baseline="middle"
-        font-size="20"
+        font-size="${size > 100 ? 20 : 16}"
         font-weight="500"
         fill="${color}"
         font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
@@ -878,49 +880,70 @@ async function showResults() {
   } catch (err) {
     console.error('Failed to save assessment:', err);
   }
+  const orbitCx = 315;
+  const orbitCy = 138;
+  const rx = 250;
+  const ry = 95;
 
+  const centerSize = 130;
+  const smallSize = 92;
+
+  const resiliencePos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 205);
+  const preparednessPos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 335);
+  const resilienceX = resiliencePos.x - smallSize / 2;
+  const resilienceY = resiliencePos.y - smallSize / 2;
+
+  const preparednessX = preparednessPos.x - smallSize / 2;
+  const preparednessY = preparednessPos.y - smallSize / 2;
+
+  const centerX = orbitCx - centerSize / 2;
+  const centerY = orbitCy - centerSize / 2 + 20;
   document.getElementById('r-overall').textContent = res.O.toFixed(0);
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
   document.getElementById('r-prep').textContent    = res.P.toFixed(2);
 
  const rr = document.getElementById('ring-row');
     rr.innerHTML = `
-      <svg class="orbit-svg" viewBox="0 0 630 320" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M314.825 276.535C227.929 276.535 149.278 261.044 92.3652 236.014C63.9085 223.498 40.9037 208.605 25.0186 192.088C9.13547 175.572 0.386828 157.451 0.386731 138.461C0.386733 119.471 9.13528 101.349 25.0186 84.833C40.9036 68.3155 63.9086 53.4235 92.3653 40.9082C149.278 15.8778 227.929 0.385707 314.825 0.385715C401.721 0.385744 480.372 15.8779 537.284 40.9082C565.741 53.4235 588.746 68.3156 604.631 84.833C620.514 101.349 629.264 119.471 629.264 138.461C629.264 157.451 620.514 175.572 604.631 192.088C588.746 208.605 565.741 223.498 537.284 236.014C480.372 261.044 401.721 276.535 314.825 276.535Z"
-          class="q-track q-track-bg"
-        />
-        <path
-          d="M314.825 276.535C227.929 276.535 149.278 261.044 92.3652 236.014C63.9085 223.498 40.9037 208.605 25.0186 192.088C9.13547 175.572 0.386828 157.451 0.386731 138.461C0.386733 119.471 9.13528 101.349 25.0186 84.833C40.9036 68.3155 63.9086 53.4235 92.3653 40.9082C149.278 15.8778 227.929 0.385707 314.825 0.385715C401.721 0.385744 480.372 15.8779 537.284 40.9082C565.741 53.4235 588.746 68.3156 604.631 84.833C620.514 101.349 629.264 119.471 629.264 138.461C629.264 157.451 620.514 175.572 604.631 192.088C588.746 208.605 565.741 223.498 537.284 236.014C480.372 261.044 401.721 276.535 314.825 276.535Z"
-          class="q-track q-track-fill"
-        />
+  <svg class="orbit-svg" viewBox="0 0 630 320" xmlns="http://www.w3.org/2000/svg">
+    <ellipse
+      cx="${orbitCx}"
+      cy="${orbitCy}"
+      rx="${rx}"
+      ry="${ry}"
+      class="q-track q-track-bg"
+    />
 
-        <!-- center ring -->
-        <foreignObject x="250" y="95" width="130" height="130">
-          <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
-            ${makeRing(res.O, 25, '#F4A623', '#F1E7D0', 130)}
-          </div>
-        </foreignObject>
-        <text x="315" y="240" text-anchor="middle" class="score-label">OVERALL READINESS</text>
-        <text x="315" y="258" text-anchor="middle" class="score-sub">Resilience × Preparedness</text>
+    <foreignObject x="${resilienceX}" y="${resilienceY}" width="${smallSize}" height="${smallSize}">
+      <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
+        ${makeRing(res.R, 5, '#534AB7', '#E8E7E0', smallSize)}
+      </div>
+    </foreignObject>
+    <text x="${resiliencePos.x}" y="${resiliencePos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
+      RESILIENCE
+    </text>
 
-        <!-- resilience -->
-        <foreignObject x="120" y="28" width="92" height="92">
-          <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-            ${makeRing(res.R, 5, '#534AB7', '#E8E7E0', 92)}
-          </div>
-        </foreignObject>
-        <text x="166" y="132" text-anchor="middle" class="score-label">RESILIENCE</text>
+    <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
+      <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
+        ${makeRing(res.P, 5, '#1D9E75', '#E8E7E0', smallSize)}
+      </div>
+    </foreignObject>
+    <text x="${preparednessPos.x}" y="${preparednessPos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
+      PREPAREDNESS
+    </text>
 
-        <!-- preparedness -->
-        <foreignObject x="418" y="28" width="92" height="92">
-          <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-            ${makeRing(res.P, 5, '#1D9E75', '#E8E7E0', 92)}
-          </div>
-        </foreignObject>
-        <text x="464" y="132" text-anchor="middle" class="score-label">PREPAREDNESS</text>
-      </svg>
-    `;
+    <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
+      <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
+        ${makeRing(res.O, 25, '#F4A623', '#F1E7D0', centerSize)}
+      </div>
+    </foreignObject>
+    <text x="${orbitCx}" y="${centerY + centerSize + 18}" text-anchor="middle" class="score-label">
+      OVERALL READINESS
+    </text>
+    <text x="${orbitCx}" y="${centerY + centerSize + 34}" text-anchor="middle" class="score-sub">
+      Resilience × Preparedness
+    </text>
+  </svg>
+`;
 
   var levels = [
     {min:16.0, cls:'v-s1', label:'Strategic Readiness',
