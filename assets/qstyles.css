@@ -5,11 +5,11 @@
   --mind: #770136;
   --alignment: #1B74CD;
 
-  --vitality-bg: #ffd00057;
-  --emotion-bg: #e538473a;
-  --execution-bg: #2d51b556;
-  --mind-bg: #77013641;
-  --alignment-bg: #1b74cd38;
+  --vitality-bg: linear-gradient(135deg, #f6bf14 0%, #ffcf1f 60%, #eab308 100%);
+  --emotion-bg: linear-gradient(135deg, #ff4d67 0%, #ff1f49 55%, #d9133a 100%);
+  --mind-bg: linear-gradient(135deg, #5d0026 0%, #7a0138 55%, #99004a 100%);
+  --execution-bg: linear-gradient(135deg, #4b43d1 0%, #3757d7 45%, #2a63de 100%);
+  --alignment-bg: linear-gradient(135deg, #47a4ff 0%, #1f7fe5 50%, #0f5fbc 100%);
 
   --vitality-text: #f5f5f5;
   --emotion-text: #f5f5f5;
@@ -278,37 +278,24 @@
   gap: 8px;
 }
 .q-card {
-  width: 100%;
-  display: flex; flex-direction: column; gap: 8px;
-  border: 1px solid #000; 
-  border-radius: 10px; 
-  padding: 12px; 
+  position: relative;
+  overflow: hidden;
+  border: none;
+  border-radius: 18px;
+  padding: 24px 20px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
 }
-.q-card.vitality {
-  border-color: var(--vitality);
-  background-color: var(--vitality-bg);
-  color: var(--vitality-text);
-} 
-.q-card.emotion {
-  border-color: var(--emotion);
-  background-color: var(--emotion-bg);
-  color: var(--emotion-text);
-}
-.q-card.execution {
-  border-color: var(--execution);
-  background-color: var(--execution-bg);
-  color: var(--execution-text);
-}
-.q-card.mind {
-  border-color: var(--mind);
-  background-color: var(--mind-bg);
-  color: var(--mind-text);
-}
-.q-card.alignment {
-  border-color: var(--alignment);
-  background-color: var(--alignment-bg);
-  color: var(--alignment-text);
-}
+.q-card.vitality { background: var(--vitality-bg); color: #fff; }
+.q-card.emotion  { background: var(--emotion-bg); color: #fff; }
+.q-card.mind     { background: var(--mind-bg); color: #fff; }
+.q-card.execution{ background: var(--execution-bg); color: #fff; }
+.q-card.alignment{ background: var(--alignment-bg); color: #fff; }
 .q-card.span-2 {
   grid-column: span 2;
 }
