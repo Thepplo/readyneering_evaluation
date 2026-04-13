@@ -1,3 +1,11 @@
+:root {
+  --vitality: #FFD000;
+  --emotion: #E53846;
+  --execution: #2D52B5;
+  --mind: #770136;
+  --alignment: #1B74CD;
+}
+
 
  * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -226,8 +234,37 @@
 .v-s4 .verdict-lbl, .v-s4 .verdict-desc { color: #a32d2d; }
 .v-s4 .verdict-title { color: #501313; }
 .sec-title { font-size: 13px; font-weight: 600; color: #888; padding-bottom: 8px; border-bottom: 1px solid #e0dfd8; margin-bottom: 14px; }
-.q-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 20px; }
-.qcard { background: #fff; border: 1px solid #e0dfd8; border-radius: 10px; padding: 12px; }
+
+.q-grid { 
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.qcard {
+  width: 100%;
+  display: flex; flex-direction: column; gap: 8px;
+  border: 1px solid #000; 
+  border-radius: 10px; 
+  padding: 12px; 
+}
+.qcard.vitality {
+  border-color: var(--vitality);
+} 
+.qcard.emotion {
+  border-color: var(--emotion);
+}
+.qcard.execution {
+  border-color: var(--execution);
+}
+.qcard.mind {
+  border-color: var(--mind);
+}
+.qcard.alignment {
+  border-color: var(--alignment);
+}
+
+
 .qcard-lbl { font-size: 11px; color: #888; margin-bottom: 4px; }
 .qcard-val { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
 .qbar-row { display: flex; align-items: center; gap: 4px; margin-bottom: 4px; }

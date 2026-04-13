@@ -15,6 +15,108 @@ async function saveAssessment(payload) {
 
   return data;
 }
+
+const QUOTIENT_META = {
+  vitality: {
+    label: 'Vitality',
+    role: 'Energy and capacity to perform under pressure',
+    signal: {
+      high: 'Energy and capacity are sustaining performance well.',
+      mid: 'Energy is generally present, but not consistently sustained.',
+      low: 'Energy and capacity are limiting consistent performance.'
+    },
+    failure: {
+      high: 'Strong energy can hide structural overload if effort keeps compensating for weak design.',
+      mid: 'Performance may depend too much on conditions or key people.',
+      low: 'Pressure is more likely to drain capacity than be absorbed effectively.'
+    },
+    question: {
+      high: 'Where are we still relying on effort instead of reducing load?',
+      mid: 'Where does performance drop when pressure rises?',
+      low: 'Where is limited capacity constraining outcomes most?'
+    }
+  },
+
+  emotion: {
+    label: 'Emotion',
+    role: 'Emotional steadiness and awareness in leadership situations',
+    signal: {
+      high: 'Emotional dynamics are being handled with steadiness and awareness.',
+      mid: 'Emotional awareness is present, but not consistently shaping better responses.',
+      low: 'Emotional dynamics are likely affecting consistency and judgment.'
+    },
+    failure: {
+      high: 'Composure can become detachment if signals from people are missed.',
+      mid: 'Emotional steadiness may hold in normal conditions but weaken under strain.',
+      low: 'Reactivity is more likely to shape outcomes than deliberate response.'
+    },
+    question: {
+      high: 'Where do we need more candor, not just calm?',
+      mid: 'Where do emotions start influencing decisions more than we intend?',
+      low: 'Where are reactions shaping outcomes more than reflection?'
+    }
+  },
+
+  mind: {
+    label: 'Mind',
+    role: 'Clarity of thinking, judgment, and sense-making',
+    signal: {
+      high: 'Thinking and judgment are creating clear direction.',
+      mid: 'There is some clarity, but not enough to guide action consistently.',
+      low: 'Unclear thinking is likely reducing consistency and confidence.'
+    },
+    failure: {
+      high: 'Strong conviction can become rigidity if assumptions are not challenged.',
+      mid: 'Different people may be working from different interpretations.',
+      low: 'Ambiguity is more likely to produce hesitation or conflicting judgments.'
+    },
+    question: {
+      high: 'Where might our certainty be preventing better questions?',
+      mid: 'Where are people interpreting the same situation differently?',
+      low: 'Where does lack of clarity create drift or confusion?'
+    }
+  },
+
+  execution: {
+    label: 'Execution',
+    role: 'Turning intent into coordinated action',
+    signal: {
+      high: 'Intent is translating into action with consistency.',
+      mid: 'Execution happens, but not always with enough reliability or follow-through.',
+      low: 'Execution is not consistently converting intent into results.'
+    },
+    failure: {
+      high: 'Strong execution can mask overdependence on a few capable people.',
+      mid: 'Things move, but not always in a repeatable or dependable way.',
+      low: 'Important work is more likely to stall, fragment, or depend on heroics.'
+    },
+    question: {
+      high: 'Where does execution still depend too heavily on specific individuals?',
+      mid: 'Where do plans lose momentum after decisions are made?',
+      low: 'Where are we deciding without reliably following through?'
+    }
+  },
+
+  alignment: {
+    label: 'Alignment',
+    role: 'Consistency of direction across people and teams',
+    signal: {
+      high: 'People are acting in a shared direction with consistency.',
+      mid: 'Alignment exists, but it weakens under pressure or ambiguity.',
+      low: 'People are not consistently acting in the same direction.'
+    },
+    failure: {
+      high: 'Strong alignment can suppress useful challenge if it goes unquestioned.',
+      mid: 'Shared direction may exist in principle, but not in practice.',
+      low: 'Different people are likely making different decisions in similar situations.'
+    },
+    question: {
+      high: 'Where might strong alignment be preventing useful dissent?',
+      mid: 'Where does alignment hold, and where does it start to break?',
+      low: 'Where do we see different decisions being made in the same situation?'
+    }
+  }
+};
 const TRIADS = [
 
 /* 1 - Vitality (R) */
@@ -622,6 +724,20 @@ document.getElementById('btn-back').addEventListener('click', function() {
   }
 });
 
+function getLevel(score) {
+  if (score >= 3.3) return 'high';
+  if (score >= 3.0) return 'mid';
+  return 'low';
+}
+
+function getDominantPole(r, p, threshold) {
+  threshold = threshold || 0.2;
+  if (p - r > threshold) return 'preparedness';
+  if (r - p > threshold) return 'resilience';
+  return 'balanced';
+}
+
+
 // ── Scoring ───────────────────────────────────────────────
 var DIMS = ['R_vitality','R_emotion','R_mind','R_execution','R_alignment',
             'P_vitality','P_emotion','P_mind','P_execution','P_alignment'];
@@ -715,6 +831,38 @@ function getAnswerBreakdown() {
 
   return out;
 }
+
+function buildQuotients(results) {
+  var out = [];
+
+  for (var i = 0; i < QDIMS.length; i++) {
+    var key = QDIMS[i];
+    var r = results.dim['R_' + key];
+    var p = results.dim['P_' + key];
+    var score = (r + p) / 2;
+    var level = getLevel(score);
+    var dominant = getDominantPole(r, p);
+    var meta = QUOTIENT_META[key];
+
+    out.push({
+      key: key,
+      label: meta.label,
+      resilience: r,
+      preparedness: p,
+      score: score,
+      gap: Math.abs(p - r),
+      dominant: dominant,
+      level: level,
+      role: meta.role,
+      signal: meta.signal[level],
+      failure: meta.failure[level],
+      question: meta.question[level]
+    });
+  }
+
+  return out;
+}
+
 function computeVerdict(overallScore) {
   const levels = [
     {min:16.0, cls:'v-s1', label:'Strategic Readiness',
@@ -856,8 +1004,47 @@ function makeRing(score, min, max, color, trackColor, size) {
     </svg>
   `;
 }
+function renderQuotientCard(q, isLast) {
+  return `
+    <div class="q-card ${q.level} ${isLast ? 'span-2' : ''}">
+      <div class="q-head">
+        <div class="q-label">${q.label}</div>
+        <div class="q-score">${q.score.toFixed(1)}</div>
+      </div>
 
+      <div class="q-role">${q.role}</div>
 
+      <div class="q-section">
+        <div class="q-section-label">Current signal</div>
+        <div class="q-copy">${q.signal}</div>
+      </div>
+
+      <div class="q-section">
+        <div class="q-section-label">Failure mode</div>
+        <div class="q-copy">${q.failure}</div>
+      </div>
+
+      <div class="q-section">
+        <div class="q-section-label">Reflection question</div>
+        <div class="q-copy">${q.question}</div>
+      </div>
+
+      <div class="q-bars">
+        <div>R ${q.resilience.toFixed(1)}</div>
+        <div>P ${q.preparedness.toFixed(1)}</div>
+      </div>
+    </div>
+  `;
+}
+function renderQuotientGrid(quotients) {
+  return `
+    <div class="quotients-grid">
+      ${quotients.map(function(q, i) {
+        return renderQuotientCard(q, i === quotients.length - 1);
+      }).join('')}
+    </div>
+  `;
+}
 // ── Results ───────────────────────────────────────────────
 async function showResults() {
   document.getElementById('scr-assess').style.display = 'none';
@@ -868,6 +1055,7 @@ async function showResults() {
   console.table(answers);
 
   var res = computeAll();
+  var quotientData = buildQuotients(res);
   var verdict = computeVerdict(res.O);
   var payload = buildSubmissionPayload(res, verdict);
 
@@ -915,7 +1103,7 @@ async function showResults() {
         <stop offset="82%" stop-color="#7d5c6e" stop-opacity="0.78" />
         <stop offset="100%" stop-color="#7d5c6e" stop-opacity="1" />
       </linearGradient>
-      
+
       <linearGradient id="linkLeft" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" stop-color="#534AB7" stop-opacity="0.28" />
         <stop offset="100%" stop-color="#534AB7" stop-opacity="0.06" />
@@ -967,7 +1155,7 @@ async function showResults() {
 
       <foreignObject x="${resilienceX}" y="${resilienceY}" width="${smallSize}" height="${smallSize}">
         <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-          ${makeRing(res.R, 1, 5, '#534AB7', '#E8E7E0', smallSize)}
+          ${makeRing(res.R, 0, 5, '#534AB7', '#E8E7E0', smallSize)}
         </div>
       </foreignObject>
       <text x="${resiliencePos.x}" y="${resiliencePos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
@@ -976,7 +1164,7 @@ async function showResults() {
 
       <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
         <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-          ${makeRing(res.P, 1, 5, '#1D9E75', '#E8E7E0', smallSize)}
+          ${makeRing(res.P, 0, 5, '#1D9E75', '#E8E7E0', smallSize)}
         </div>
       </foreignObject>
       <text x="${preparednessPos.x}" y="${preparednessPos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
@@ -1019,8 +1207,10 @@ async function showResults() {
   document.getElementById('v-title').textContent = lv.label;
   document.getElementById('v-desc').textContent  = lv.desc;
 
+
+  document.getElementById('quotient-grid').innerHTML = renderQuotientGrid(quotientData);
   // Quotient cards
-  var qg = document.getElementById('q-grid');
+/*   var qg = document.getElementById('q-grid');
   var qhtml = '';
   var qnames = ['Vitality','Emotion','Mind','Execution','Alignment'];
   for (var i=0; i<QDIMS.length; i++) {
@@ -1036,7 +1226,7 @@ async function showResults() {
       +'<div class="qbar-row"><span class="qbar-l">P</span><div class="qbar-t"><div class="qbar-f" style="width:'+pw+'%;background:#1d9e75"></div></div></div>'
       +'</div>';
   }
-  qg.innerHTML = qhtml;
+  qg.innerHTML = qhtml; */
   buildSignals(res.dim,res.R,res.P);
 
   window.scrollTo(0, 0);
