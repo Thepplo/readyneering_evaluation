@@ -279,9 +279,19 @@
   fill: #7c776f;
   font-weight: 600;
 }
-
+.score-label.center-label {
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  fill: #4e4b46;
+  font-weight: 700;
+}
 .score-sub {
   font-size: 10px;
+  fill: #a39d93;
+}
+
+.score-sub.center-sub {
+  font-size: 12px;
   fill: #a39d93;
 }
 .q-track-bg {

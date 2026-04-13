@@ -883,9 +883,9 @@ async function showResults() {
   const orbitCx = 315;
   const orbitCy = 200;
   const rx = 250;
-  const ry = 120;
+  const ry = 155;
 
-  const centerSize = 130;
+  const centerSize = 140;
   const smallSize = 92;
 
   const resiliencePos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 215);
@@ -936,10 +936,10 @@ async function showResults() {
         ${makeRing(res.O, 0, 25, '#F4A623', '#F1E7D0', centerSize)}
       </div>
     </foreignObject>
-    <text x="${orbitCx}" y="${centerY + centerSize + 18}" text-anchor="middle" class="score-label">
+    <text x="${orbitCx}" y="${centerY + centerSize + 18}" text-anchor="middle" class="score-label center-label">
       OVERALL READINESS
     </text>
-    <text x="${orbitCx}" y="${centerY + centerSize + 34}" text-anchor="middle" class="score-sub">
+    <text x="${orbitCx}" y="${centerY + centerSize + 34}" text-anchor="middle" class="score-sub center-sub">
       Resilience × Preparedness
     </text>
   </svg>
