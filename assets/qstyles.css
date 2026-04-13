@@ -378,7 +378,7 @@
   border-bottom: 1px solid #ffffff9f;
   width: 100%;
 }
-.q-card.alignment .q-head {
+.q-card.vitality .q-head {
   border-bottom: 1px solid #000000a9;
 }
 
@@ -391,21 +391,30 @@
 }
 
 .q-card .q-metrics {
-  display: flex; align-items: start; gap: 4px;
+  display: flex; align-items: baseline; gap: 8px;
+  justify-content: end;
+  
 }
 
 .q-card .q-role {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   font-style: italic;
+  margin-bottom: 8px;
 }
 
 .q-section {
-  font-size: 11px;
+  font-size: 14px;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
+
+.q-section-label {
+  font-weight: 600;
+  letter-spacing: .08em;
+}
+
 
 .qcard-lbl { font-size: 11px; color: #888; margin-bottom: 4px; }
 .qcard-val { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
