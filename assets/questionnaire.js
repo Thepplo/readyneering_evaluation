@@ -1006,6 +1006,9 @@ function makeRing(score, min, max, color, trackColor, size) {
 }
 function renderQuotientCard(q, isLast) {
   return `
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
     <div class="q-card ${q.level} ${q.key} ${isLast ? 'span-2' : ''}">
       <div class="q-head">
         <div class="q-label">${q.label}</div>

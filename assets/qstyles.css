@@ -291,6 +291,32 @@
   text-align: center;
   gap: 10px;
 }
+.q-card::before {
+  width: 180px;
+  height: 180px;
+  left: -40px;
+  top: -40px;
+  background: radial-gradient(circle, rgba(255,255,255,.28) 0%, rgba(255,255,255,.08) 35%, rgba(255,255,255,0) 70%);
+}
+
+.q-card::after {
+  width: 220px;
+  height: 220px;
+  right: -70px;
+  bottom: -70px;
+  background: radial-gradient(circle, rgba(255,255,255,.18) 0%, rgba(255,255,255,.05) 40%, rgba(255,255,255,0) 72%);
+}
+.q-card.vitality .orb,
+.q-card.emotion .orb,
+.q-card.mind .orb,
+.q-card.execution .orb,
+.q-card.alignment .orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.95), rgba(255,255,255,.28) 30%, rgba(255,255,255,0) 68%);
+  filter: blur(1px);
+  opacity: .9;
+}
 .q-card.vitality { background: var(--vitality-bg); color: #fff; }
 .q-card.emotion  { background: var(--emotion-bg); color: #fff; }
 .q-card.mind     { background: var(--mind-bg); color: #fff; }
