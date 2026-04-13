@@ -881,7 +881,7 @@ async function showResults() {
     console.error('Failed to save assessment:', err);
   }
   const orbitCx = 315;
-  const orbitCy = 180;
+  const orbitCy = 200;
   const rx = 250;
   const ry = 120;
 
