@@ -1093,7 +1093,7 @@ async function showResults() {
 
   const centerX = orbitCx - centerSize / 2;
   const centerY = orbitCy - centerSize / 2 - 5;
-  
+
 /*   document.getElementById('r-overall').textContent = res.O.toFixed(0);
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
   document.getElementById('r-prep').textContent    = res.P.toFixed(2); */
@@ -1179,7 +1179,7 @@ async function showResults() {
 
       <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
         <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
-          ${makeRing(res.O, 0, 25, '#F4A623', '#F1E7D0', centerSize)}
+          ${makeRing(res.O, 0, 25, '#770136', '#7701363f', centerSize)}
         </div>
       </foreignObject>
       <text x="${orbitCx}" y="${centerY + centerSize + 18}" text-anchor="middle" class="score-label center-label">

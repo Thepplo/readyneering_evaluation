@@ -508,7 +508,8 @@
 .score-label.center-label {
   font-size: 12px;
   letter-spacing: 1.4px;
-  fill: #4e4b46;
+  text-decoration: underline;
+  fill: #770136;
   font-weight: 700;
 }
 .score-sub {
