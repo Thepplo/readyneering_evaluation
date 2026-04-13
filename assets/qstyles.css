@@ -20,7 +20,7 @@
   width: 200px;
 }
 
-.wrap { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 4rem; position: relative; z-index: 1;}
+.wrap { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem 4rem; position: relative; z-index: 1;}
 
 /* screens */
 .screen { display: none; }
@@ -239,7 +239,7 @@
 .debrief-q { font-size: 15px; font-weight: 600; color: #26215c; margin-bottom: 6px; line-height: 1.5; }
 .debrief-n { font-size: 13px; color: #534ab7; line-height: 1.65; }
 .ring-row{
-  width: 85%; height: 320px;
+  width: 100%; height: 400px;
   flex-shrink: 0;
   margin-bottom: 1.75rem;
 }
