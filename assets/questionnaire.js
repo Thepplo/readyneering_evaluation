@@ -1015,8 +1015,9 @@ function renderQuotientCard(q, isLast) {
         <div class="q-metrics">
           <div class="q-score">${q.score.toFixed(1)}</div>
           <div class="q-bars">
-            <div>(R ${q.resilience.toFixed(1)}</div>
-            <div>P ${q.preparedness.toFixed(1)})</div>
+            <div>R ${q.resilience.toFixed(1)}</div>
+            <span>·</span>
+            <div>P ${q.preparedness.toFixed(1)}</div>
           </div>
         </div>
       </div>
