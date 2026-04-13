@@ -887,7 +887,9 @@ async function showResults() {
 
   const centerSize = 140;
   const smallSize = 92;
-
+  const leftX = orbitCx - rx;
+  const rightX = orbitCx + rx;
+  const cy = orbitCy;
   const resiliencePos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 215);
   const preparednessPos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 325);
   const resilienceX = resiliencePos.x - smallSize / 2;
@@ -905,45 +907,32 @@ async function showResults() {
   const rr = document.getElementById('ring-row');
   rr.innerHTML = `
     <svg class="orbit-svg" viewBox="0 0 630 420" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="orbitFade" x1="0%" y1="50%" x2="100%" y2="50%">
-          <stop offset="0%" stop-color="#7d5c6e" stop-opacity="0.05" />
-          <stop offset="20%" stop-color="#7d5c6e" stop-opacity="0.16" />
-          <stop offset="50%" stop-color="#7d5c6e" stop-opacity="0.28" />
-          <stop offset="80%" stop-color="#7d5c6e" stop-opacity="0.16" />
-          <stop offset="100%" stop-color="#7d5c6e" stop-opacity="0.05" />
-        </linearGradient>
+    <defs>
+      <linearGradient id="backArcFade" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#7d5c6e" stop-opacity="0.18" />
+        <stop offset="18%" stop-color="#7d5c6e" stop-opacity="0.08" />
+        <stop offset="50%" stop-color="#7d5c6e" stop-opacity="0.05" />
+        <stop offset="82%" stop-color="#7d5c6e" stop-opacity="0.08" />
+        <stop offset="100%" stop-color="#7d5c6e" stop-opacity="0.18" />
+      </linearGradient>
+    </defs>
 
-        <linearGradient id="linkLeft" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#534AB7" stop-opacity="0.28" />
-          <stop offset="100%" stop-color="#534AB7" stop-opacity="0.06" />
-        </linearGradient>
-
-        <linearGradient id="linkRight" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#1D9E75" stop-opacity="0.28" />
-          <stop offset="100%" stop-color="#1D9E75" stop-opacity="0.06" />
-        </linearGradient>
-      </defs>
-
-      <ellipse
-        cx="${orbitCx}"
-        cy="${orbitCy}"
-        rx="${rx}"
-        ry="${ry}"
-        stroke="#7d5c6e"
-        stroke-opacity="0.04"
-        stroke-width="8"
+      <path
+        d="M ${leftX} ${cy}
+          A ${rx} ${ry} 0 0 1 ${rightX} ${cy}"
         fill="none"
+        stroke="url(#backArcFade)"
+        stroke-opacity="0.12"
+        stroke-width="1.5"
       />
 
-      <ellipse
-        cx="${orbitCx}"
-        cy="${orbitCy}"
-        rx="${rx}"
-        ry="${ry}"
-        class="q-track"
-        stroke="url(#orbitFade)"
+      <path
+        d="M ${rightX} ${cy}
+          A ${rx} ${ry} 0 0 1 ${leftX} ${cy}"
         fill="none"
+        stroke="#7d5c6e"
+        stroke-opacity="0.28"
+        stroke-width="1.5"
       />
 
       <path
