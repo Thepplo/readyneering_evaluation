@@ -915,7 +915,7 @@ async function showResults() {
 
     <foreignObject x="${resilienceX}" y="${resilienceY}" width="${smallSize}" height="${smallSize}">
       <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-        ${makeRing(res.R, 5, '#534AB7', '#E8E7E0', smallSize)}
+        ${makeRing(res.R, 1, 5, '#534AB7', '#E8E7E0', smallSize)}
       </div>
     </foreignObject>
     <text x="${resiliencePos.x}" y="${resiliencePos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
@@ -924,7 +924,7 @@ async function showResults() {
 
     <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
       <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-        ${makeRing(res.P, 5, '#1D9E75', '#E8E7E0', smallSize)}
+        ${makeRing(res.P, 1, 5, '#1D9E75', '#E8E7E0', smallSize)}
       </div>
     </foreignObject>
     <text x="${preparednessPos.x}" y="${preparednessPos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
@@ -933,7 +933,7 @@ async function showResults() {
 
     <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
       <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
-        ${makeRing(res.O, 25, '#F4A623', '#F1E7D0', centerSize)}
+        ${makeRing(res.O, 0, 25, '#F4A623', '#F1E7D0', centerSize)}
       </div>
     </foreignObject>
     <text x="${orbitCx}" y="${centerY + centerSize + 18}" text-anchor="middle" class="score-label">
