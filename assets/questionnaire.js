@@ -902,48 +902,101 @@ async function showResults() {
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
   document.getElementById('r-prep').textContent    = res.P.toFixed(2);
 
- const rr = document.getElementById('ring-row');
-    rr.innerHTML = `
-  <svg class="orbit-svg" viewBox="0 0 630 420" xmlns="http://www.w3.org/2000/svg">
-    <ellipse
-      cx="${orbitCx}"
-      cy="${orbitCy}"
-      rx="${rx}"
-      ry="${ry}"
-      class="q-track q-track-bg"
-    />
+  const rr = document.getElementById('ring-row');
+  rr.innerHTML = `
+    <svg class="orbit-svg" viewBox="0 0 630 420" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="orbitFade" x1="0%" y1="50%" x2="100%" y2="50%">
+          <stop offset="0%" stop-color="#7d5c6e" stop-opacity="0.05" />
+          <stop offset="20%" stop-color="#7d5c6e" stop-opacity="0.16" />
+          <stop offset="50%" stop-color="#7d5c6e" stop-opacity="0.28" />
+          <stop offset="80%" stop-color="#7d5c6e" stop-opacity="0.16" />
+          <stop offset="100%" stop-color="#7d5c6e" stop-opacity="0.05" />
+        </linearGradient>
 
-    <foreignObject x="${resilienceX}" y="${resilienceY}" width="${smallSize}" height="${smallSize}">
-      <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-        ${makeRing(res.R, 1, 5, '#534AB7', '#E8E7E0', smallSize)}
-      </div>
-    </foreignObject>
-    <text x="${resiliencePos.x}" y="${resiliencePos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
-      RESILIENCE
-    </text>
+        <linearGradient id="linkLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#534AB7" stop-opacity="0.28" />
+          <stop offset="100%" stop-color="#534AB7" stop-opacity="0.06" />
+        </linearGradient>
 
-    <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
-      <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-        ${makeRing(res.P, 1, 5, '#1D9E75', '#E8E7E0', smallSize)}
-      </div>
-    </foreignObject>
-    <text x="${preparednessPos.x}" y="${preparednessPos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
-      PREPAREDNESS
-    </text>
+        <linearGradient id="linkRight" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#1D9E75" stop-opacity="0.28" />
+          <stop offset="100%" stop-color="#1D9E75" stop-opacity="0.06" />
+        </linearGradient>
+      </defs>
 
-    <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
-      <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
-        ${makeRing(res.O, 0, 25, '#F4A623', '#F1E7D0', centerSize)}
-      </div>
-    </foreignObject>
-    <text x="${orbitCx}" y="${centerY + centerSize + 18}" text-anchor="middle" class="score-label center-label">
-      OVERALL READINESS
-    </text>
-    <text x="${orbitCx}" y="${centerY + centerSize + 34}" text-anchor="middle" class="score-sub center-sub">
-      Resilience × Preparedness
-    </text>
-  </svg>
-`;
+      <ellipse
+        cx="${orbitCx}"
+        cy="${orbitCy}"
+        rx="${rx}"
+        ry="${ry}"
+        stroke="#7d5c6e"
+        stroke-opacity="0.04"
+        stroke-width="8"
+        fill="none"
+      />
+
+      <ellipse
+        cx="${orbitCx}"
+        cy="${orbitCy}"
+        rx="${rx}"
+        ry="${ry}"
+        class="q-track"
+        stroke="url(#orbitFade)"
+        fill="none"
+      />
+
+      <path
+        d="M ${resiliencePos.x} ${resiliencePos.y}
+          Q ${orbitCx - 95} ${orbitCy - 35}
+            ${orbitCx} ${orbitCy}"
+        fill="none"
+        stroke="url(#linkLeft)"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+
+      <path
+        d="M ${preparednessPos.x} ${preparednessPos.y}
+          Q ${orbitCx + 95} ${orbitCy - 35}
+            ${orbitCx} ${orbitCy}"
+        fill="none"
+        stroke="url(#linkRight)"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+
+      <foreignObject x="${resilienceX}" y="${resilienceY}" width="${smallSize}" height="${smallSize}">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
+          ${makeRing(res.R, 1, 5, '#534AB7', '#E8E7E0', smallSize)}
+        </div>
+      </foreignObject>
+      <text x="${resiliencePos.x}" y="${resiliencePos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
+        RESILIENCE
+      </text>
+
+      <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
+          ${makeRing(res.P, 1, 5, '#1D9E75', '#E8E7E0', smallSize)}
+        </div>
+      </foreignObject>
+      <text x="${preparednessPos.x}" y="${preparednessPos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
+        PREPAREDNESS
+      </text>
+
+      <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
+          ${makeRing(res.O, 0, 25, '#F4A623', '#F1E7D0', centerSize)}
+        </div>
+      </foreignObject>
+      <text x="${orbitCx}" y="${centerY + centerSize + 18}" text-anchor="middle" class="score-label center-label">
+        OVERALL READINESS
+      </text>
+      <text x="${orbitCx}" y="${centerY + centerSize + 34}" text-anchor="middle" class="score-sub center-sub">
+        Resilience × Preparedness
+      </text>
+    </svg>
+  `;
 
   var levels = [
     {min:16.0, cls:'v-s1', label:'Strategic Readiness',
