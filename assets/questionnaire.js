@@ -1013,6 +1013,10 @@ function renderQuotientCard(q, isLast) {
       <div class="q-head">
         <div class="q-label">${q.label}</div>
         <div class="q-score">${q.score.toFixed(1)}</div>
+        <div class="q-bars">
+          <div>(R ${q.resilience.toFixed(1)}</div>
+          <div>P ${q.preparedness.toFixed(1)})</div>
+        </div>
       </div>
 
       <div class="q-role">${q.role}</div>
@@ -1030,11 +1034,6 @@ function renderQuotientCard(q, isLast) {
       <div class="q-section">
         <div class="q-section-label">Reflection question</div>
         <div class="q-copy">${q.question}</div>
-      </div>
-
-      <div class="q-bars">
-        <div>R ${q.resilience.toFixed(1)}</div>
-        <div>P ${q.preparedness.toFixed(1)}</div>
       </div>
     </div>
   `;
