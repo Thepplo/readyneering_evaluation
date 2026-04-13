@@ -883,24 +883,44 @@ async function showResults() {
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
   document.getElementById('r-prep').textContent    = res.P.toFixed(2);
 
-  const rr=document.getElementById('ring-row');
-  rr.innerHTML=`
-    <div class="ring-card hero">
-      <div class="rl">Overall Readiness</div>
-      ${makeRing(res.O,25,'#534AB7','#d3cef5',110)}
-      <div class="rs">Resilience × Preparedness</div>
-    </div>
-    <div class="ring-card">
-      <div class="rl">Resilience</div>
-      ${makeRing(res.R,5,'#534AB7','#e8e7e0',110)}
-      <div class="rs">Behavior under pressure</div>
-    </div>
-    <div class="ring-card">
-      <div class="rl">Preparedness</div>
-      ${makeRing(res.P,5,'#1D9E75','#e8e7e0',110)}
-      <div class="rs">Structural readiness</div>
-    </div>`;
+ const rr = document.getElementById('ring-row');
+    rr.innerHTML = `
+      <svg class="orbit-svg" viewBox="0 0 630 320" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M314.825 276.535C227.929 276.535 149.278 261.044 92.3652 236.014C63.9085 223.498 40.9037 208.605 25.0186 192.088C9.13547 175.572 0.386828 157.451 0.386731 138.461C0.386733 119.471 9.13528 101.349 25.0186 84.833C40.9036 68.3155 63.9086 53.4235 92.3653 40.9082C149.278 15.8778 227.929 0.385707 314.825 0.385715C401.721 0.385744 480.372 15.8779 537.284 40.9082C565.741 53.4235 588.746 68.3156 604.631 84.833C620.514 101.349 629.264 119.471 629.264 138.461C629.264 157.451 620.514 175.572 604.631 192.088C588.746 208.605 565.741 223.498 537.284 236.014C480.372 261.044 401.721 276.535 314.825 276.535Z"
+          class="q-track q-track-bg"
+        />
+        <path
+          d="M314.825 276.535C227.929 276.535 149.278 261.044 92.3652 236.014C63.9085 223.498 40.9037 208.605 25.0186 192.088C9.13547 175.572 0.386828 157.451 0.386731 138.461C0.386733 119.471 9.13528 101.349 25.0186 84.833C40.9036 68.3155 63.9086 53.4235 92.3653 40.9082C149.278 15.8778 227.929 0.385707 314.825 0.385715C401.721 0.385744 480.372 15.8779 537.284 40.9082C565.741 53.4235 588.746 68.3156 604.631 84.833C620.514 101.349 629.264 119.471 629.264 138.461C629.264 157.451 620.514 175.572 604.631 192.088C588.746 208.605 565.741 223.498 537.284 236.014C480.372 261.044 401.721 276.535 314.825 276.535Z"
+          class="q-track q-track-fill"
+        />
 
+        <!-- center ring -->
+        <foreignObject x="250" y="95" width="130" height="130">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
+            ${makeRing(res.O, 25, '#F4A623', '#F1E7D0', 130)}
+          </div>
+        </foreignObject>
+        <text x="315" y="240" text-anchor="middle" class="score-label">OVERALL READINESS</text>
+        <text x="315" y="258" text-anchor="middle" class="score-sub">Resilience × Preparedness</text>
+
+        <!-- resilience -->
+        <foreignObject x="120" y="28" width="92" height="92">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
+            ${makeRing(res.R, 5, '#534AB7', '#E8E7E0', 92)}
+          </div>
+        </foreignObject>
+        <text x="166" y="132" text-anchor="middle" class="score-label">RESILIENCE</text>
+
+        <!-- preparedness -->
+        <foreignObject x="418" y="28" width="92" height="92">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
+            ${makeRing(res.P, 5, '#1D9E75', '#E8E7E0', 92)}
+          </div>
+        </foreignObject>
+        <text x="464" y="132" text-anchor="middle" class="score-label">PREPAREDNESS</text>
+      </svg>
+    `;
 
   var levels = [
     {min:16.0, cls:'v-s1', label:'Strategic Readiness',
