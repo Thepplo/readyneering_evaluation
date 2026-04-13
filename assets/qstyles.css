@@ -284,7 +284,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  gap: 12px;
 }
 .q-card {
   position: relative;
@@ -357,12 +357,17 @@
   right: 38px;
   opacity: 0.45;
 }
+
 .q-card.vitality .orb-1 { top: 14px; right: 18px; }
 .q-card.emotion  .orb-1 { top: 22px; right: 30px; }
 .q-card.mind     .orb-1 { top: 10px; right: 26px; }
-.q-card.execution.orb-1 { top: 18px; right: 22px; }
-.q-card.alignment.orb-1 { top: 12px; right: 40px; }
-
+.q-card.execution .orb-1 { top: 18px; right: 22px; }
+.q-card.alignment .orb-1 { top: 12px; right: 40px; }
+.q-card.vitality .orb { opacity: 0.7; }
+.q-card.emotion  .orb { opacity: 0.85; }
+.q-card.mind     .orb { opacity: 0.6; }
+.q-card.execution .orb { opacity: 0.75; }
+.q-card.alignment .orb { opacity: 0.8; }
 
 .q-card.vitality { background: var(--vitality-bg); color: #000; }
 .q-card.emotion  { background: var(--emotion-bg); color: #fff; }
@@ -372,11 +377,16 @@
 .q-card.span-2 {
   grid-column: span 2;
 }
-
+.q-card.vitality .q-copy {
+  color: rgba(0,0,0,0.85);
+}
+.q-card.vitality .q-section-label {
+  color: rgba(0,0,0,0.65);
+}
 .q-card .q-head {
   display: flex; 
   justify-content: space-between; 
-  align-items: center; 
+  align-items: baseline; 
   gap:6px;
   font-family: 'q5-heading', sans-serif;
   text-transform: uppercase;
@@ -388,17 +398,25 @@
   border-bottom: 1px solid #000000a9;
 }
 
+.q-section:first-of-type {
+  margin-top: 2px;
+}
 
+.q-section:last-of-type {
+  margin-top: 10px;
+}
 .q-card .q-bars {
   display: flex; justify-content: space-between; align-items: center; gap:2px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.8;
 }
 
 .q-card .q-metrics {
-  display: flex; align-items: baseline; gap: 8px;
-  justify-content: end;
+  display: flex; 
+  align-items: baseline; 
+  gap: 8px;
   
 }
 
@@ -426,7 +444,8 @@
 
 .q-section:last-of-type .q-copy {
   font-style: italic;
-  opacity: 0.9;
+  opacity: 0.95;
+  font-weight: 500;
 }
 
 .q-section-label {
@@ -446,6 +465,8 @@
 .qbar-l { font-size: 10px; color: #aaa; width: 10px; }
 .qbar-t { flex: 1; height: 4px; background: #e0dfd8; border-radius: 2px; overflow: hidden; }
 .qbar-f { height: 100%; border-radius: 2px; }
+
+
 .debrief { background: #eeedfe; border: 1px solid #afa9ec; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
 .debrief-lbl { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #534ab7; margin-bottom: 8px; }
 .debrief-q { font-size: 15px; font-weight: 600; color: #26215c; margin-bottom: 6px; line-height: 1.5; }
