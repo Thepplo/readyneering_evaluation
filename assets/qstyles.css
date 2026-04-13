@@ -418,6 +418,8 @@
   font-weight: 500;
   font-style: italic;
   margin-bottom: 8px;
+  opacity: 0.9;
+  max-width: 85%;
 }
 
 .q-section {

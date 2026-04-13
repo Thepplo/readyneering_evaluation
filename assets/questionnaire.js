@@ -19,7 +19,7 @@ async function saveAssessment(payload) {
 const QUOTIENT_META = {
   vitality: {
     label: 'Vitality',
-    role: 'Energy and capacity to perform under pressure',
+    role: 'Sustaining energy, focus, and resilience for what matters most.',
     signal: {
       high: 'Energy and capacity are sustaining performance well.',
       mid: 'Energy is generally present, but not consistently sustained.',
@@ -39,7 +39,7 @@ const QUOTIENT_META = {
 
   emotion: {
     label: 'Emotion',
-    role: 'Emotional steadiness and awareness in leadership situations',
+    role: 'Managing emotional response to relate, collaborate, and respond effectively.',
     signal: {
       high: 'Emotional dynamics are being handled with steadiness and awareness.',
       mid: 'Emotional awareness is present, but not consistently shaping better responses.',
@@ -59,7 +59,7 @@ const QUOTIENT_META = {
 
   mind: {
     label: 'Mind',
-    role: 'Clarity of thinking, judgment, and sense-making',
+    role: 'Clarity of thinking, perception, and judgment in the present moment.',
     signal: {
       high: 'Thinking and judgment are creating clear direction.',
       mid: 'There is some clarity, but not enough to guide action consistently.',
@@ -79,7 +79,7 @@ const QUOTIENT_META = {
 
   execution: {
     label: 'Execution',
-    role: 'Turning intent into coordinated action',
+    role: 'Turning intent into focused, consistent action.',
     signal: {
       high: 'Intent is translating into action with consistency.',
       mid: 'Execution happens, but not always with enough reliability or follow-through.',
@@ -99,7 +99,7 @@ const QUOTIENT_META = {
 
   alignment: {
     label: 'Alignment',
-    role: 'Consistency of direction across people and teams',
+    role: 'Connecting actions to a shared direction and broader system.',
     signal: {
       high: 'People are acting in a shared direction with consistency.',
       mid: 'Alignment exists, but it weakens under pressure or ambiguity.',
