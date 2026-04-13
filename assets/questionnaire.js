@@ -1006,7 +1006,7 @@ function makeRing(score, min, max, color, trackColor, size) {
 }
 function renderQuotientCard(q, isLast) {
   return `
-    <div class="q-card ${q.level} ${isLast ? 'span-2' : ''}">
+    <div class="q-card ${q.level} ${q.quotient} ${isLast ? 'span-2' : ''}">
       <div class="q-head">
         <div class="q-label">${q.label}</div>
         <div class="q-score">${q.score.toFixed(1)}</div>
@@ -1208,7 +1208,7 @@ async function showResults() {
   document.getElementById('v-desc').textContent  = lv.desc;
 
 
-  document.getElementById('quotient-grid').innerHTML = renderQuotientGrid(quotientData);
+  document.getElementById('q-grid').innerHTML = renderQuotientGrid(quotientData);
   // Quotient cards
 /*   var qg = document.getElementById('q-grid');
   var qhtml = '';
