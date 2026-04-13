@@ -909,11 +909,21 @@ async function showResults() {
     <svg class="orbit-svg" viewBox="0 0 630 420" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="backArcFade" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#7d5c6e" stop-opacity="0.18" />
-        <stop offset="18%" stop-color="#7d5c6e" stop-opacity="0.08" />
+        <stop offset="0%" stop-color="#7d5c6e" stop-opacity="1" />
+        <stop offset="18%" stop-color="#7d5c6e" stop-opacity="0.78" />
         <stop offset="50%" stop-color="#7d5c6e" stop-opacity="0.05" />
-        <stop offset="82%" stop-color="#7d5c6e" stop-opacity="0.08" />
-        <stop offset="100%" stop-color="#7d5c6e" stop-opacity="0.18" />
+        <stop offset="82%" stop-color="#7d5c6e" stop-opacity="0.78" />
+        <stop offset="100%" stop-color="#7d5c6e" stop-opacity="1" />
+      </linearGradient>
+      
+      <linearGradient id="linkLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#534AB7" stop-opacity="0.28" />
+        <stop offset="100%" stop-color="#534AB7" stop-opacity="0.06" />
+      </linearGradient>
+
+      <linearGradient id="linkRight" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#1D9E75" stop-opacity="0.28" />
+        <stop offset="100%" stop-color="#1D9E75" stop-opacity="0.06" />
       </linearGradient>
     </defs>
 
@@ -922,7 +932,7 @@ async function showResults() {
           A ${rx} ${ry} 0 0 1 ${rightX} ${cy}"
         fill="none"
         stroke="url(#backArcFade)"
-        stroke-opacity="0.12"
+        stroke-opacity="0.28"
         stroke-width="1.5"
       />
 
