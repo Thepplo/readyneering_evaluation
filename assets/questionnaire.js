@@ -821,7 +821,14 @@ function makeRing(score, max, color, trackColor, size) {
   const circ = 2 * Math.PI * r;
   const progress = Math.max(0, Math.min(1, (score - min) / (max - min)));
   const filled = progress * circ;
-
+  console.log({
+    score,
+    min,
+    max,
+    progress,
+    circ,
+    filled
+  });
   return `
     <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block;margin:0 auto">
       <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${trackColor}" stroke-width="10" />
@@ -831,7 +838,7 @@ function makeRing(score, max, color, trackColor, size) {
         stroke="${color}"
         stroke-width="10"
         stroke-dasharray="${filled} ${circ}"
-        stroke-dashoffset="${(circ / 4)}"
+        stroke-dashoffset="0"
         stroke-linecap="round"
         transform="rotate(-90 ${cx} ${cy})"
       />
