@@ -20,7 +20,7 @@
   width: 200px;
 }
 
-.wrap { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem 4rem; position: relative; z-index: 1;}
+.wrap { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 4rem; position: relative; z-index: 1;}
 
 /* screens */
 .screen { display: none; }

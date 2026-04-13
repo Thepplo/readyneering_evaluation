@@ -833,7 +833,7 @@ function makeRing(score, min, max, color, trackColor, size) {
 
   return `
     <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block">
-      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${trackColor}" stroke-width="10" />
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="white" stroke="${trackColor}" stroke-width="10" />
       <circle
         cx="${cx}" cy="${cy}" r="${r}"
         fill="none"
@@ -881,15 +881,15 @@ async function showResults() {
     console.error('Failed to save assessment:', err);
   }
   const orbitCx = 315;
-  const orbitCy = 138;
+  const orbitCy = 180;
   const rx = 250;
-  const ry = 95;
+  const ry = 120;
 
   const centerSize = 130;
   const smallSize = 92;
 
-  const resiliencePos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 205);
-  const preparednessPos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 335);
+  const resiliencePos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 215);
+  const preparednessPos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 325);
   const resilienceX = resiliencePos.x - smallSize / 2;
   const resilienceY = resiliencePos.y - smallSize / 2;
 
@@ -897,14 +897,14 @@ async function showResults() {
   const preparednessY = preparednessPos.y - smallSize / 2;
 
   const centerX = orbitCx - centerSize / 2;
-  const centerY = orbitCy - centerSize / 2 + 20;
+  const centerY = orbitCy - centerSize / 2 - 5;
   document.getElementById('r-overall').textContent = res.O.toFixed(0);
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
   document.getElementById('r-prep').textContent    = res.P.toFixed(2);
 
  const rr = document.getElementById('ring-row');
     rr.innerHTML = `
-  <svg class="orbit-svg" viewBox="0 0 630 320" xmlns="http://www.w3.org/2000/svg">
+  <svg class="orbit-svg" viewBox="0 0 630 420" xmlns="http://www.w3.org/2000/svg">
     <ellipse
       cx="${orbitCx}"
       cy="${orbitCy}"
