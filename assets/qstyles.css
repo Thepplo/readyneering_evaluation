@@ -235,6 +235,11 @@
 .v-s4 .verdict-title { color: #501313; }
 .sec-title { font-size: 13px; font-weight: 600; color: #888; padding-bottom: 8px; border-bottom: 1px solid #e0dfd8; margin-bottom: 14px; }
 
+.q-grid-wrapper {
+  width: 100%;
+  display: block;
+}
+
 .q-grid { 
   width: 100%;
   display: grid;
@@ -263,7 +268,9 @@
 .qcard.alignment {
   border-color: var(--alignment);
 }
-
+.qcard.span-2 {
+  grid-column: span 2;
+}
 
 .qcard-lbl { font-size: 11px; color: #888; margin-bottom: 4px; }
 .qcard-val { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
