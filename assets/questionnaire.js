@@ -576,6 +576,43 @@ function getBounds(pad) {
   };
 }
 
+function getTightBounds(aWrapped, bFit, cFit) {
+  const aTopY = TA.y - s(14) - (aWrapped.length - 1) * LH;
+  const aLeft = TA.x - Math.max(...aWrapped.map(line => ctx.measureText(line).width)) / 2;
+  const aRight = TA.x + Math.max(...aWrapped.map(line => ctx.measureText(line).width)) / 2;
+
+  const bLeft = TB.x + s(4);
+  const bRight = bLeft + bFit.textWidth;
+  const bBottom = (TB.y + s(16)) + bFit.textHeight;
+
+  const cRight = TC.x - s(4);
+  const cLeft = cRight - cFit.textWidth;
+  const cBottom = (TC.y + s(16)) + cFit.textHeight;
+
+  const minX = Math.min(TA.x, TB.x, TC.x, aLeft, bLeft, cLeft) - s(16);
+  const maxX = Math.max(TA.x, TB.x, TC.x, aRight, bRight, cRight) + s(16);
+  const minY = Math.min(TA.y, TB.y, TC.y, aTopY) - s(16);
+  const maxY = Math.max(TA.y, TB.y, TC.y, bBottom, cBottom) + s(16);
+
+  return {
+    x: minX,
+    y: minY,
+    w: maxX - minX,
+    h: maxY - minY
+  };
+}
+
+function measureLines(lines) {
+  let width = 0;
+  for (let i = 0; i < lines.length; i++) {
+    width = Math.max(width, ctx.measureText(lines[i]).width);
+  }
+  return {
+    width,
+    height: Math.max(1, lines.length) * LH
+  };
+}
+
 function makeSVG(idx) {
   var t = SHUFFLED_TRIADS[idx];
   var fs = 'font-size="' + FS + '" fill="#2a2a28" font-weight="500" font-family="-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif"';
@@ -637,12 +674,47 @@ function makeSVG(idx) {
     sideTextBottom - TB.y + s(20)
   );
 
-  const B = getBounds({
+  /* const B = getBounds({
     top: s(80),
     right: s(90),
     bottom: extraBottomPad,
     left: s(90)
-  });
+  }); */
+  const B = {
+    x: Math.min(
+      TB.x,
+      TA.x - aSize.width / 2,
+      TB.x + s(4),
+      TC.x - s(4) - cSize.width
+    ) - s(16),
+
+    y: Math.min(
+      TA.y,
+      aTopY
+    ) - s(16),
+
+    w: Math.max(
+      TC.x,
+      TA.x + aSize.width / 2,
+      TB.x + s(4) + bSize.width,
+      TC.x - s(4)
+    ) - Math.min(
+      TB.x,
+      TA.x - aSize.width / 2,
+      TB.x + s(4),
+      TC.x - s(4) - cSize.width
+    ) + s(32),
+
+    h: Math.max(
+      TB.y,
+      TC.y,
+      bTopY + bSize.height,
+      cTopY + cSize.height
+    ) - Math.min(
+      TA.y,
+      aTopY
+    ) + s(32)
+  };
 
   return '<svg id="svg-' + idx + '" viewBox="' + B.x + ' ' + B.y + ' ' + B.w + ' ' + B.h + '" xmlns="http://www.w3.org/2000/svg"'
     + ' style="display:block;width:100%;cursor:crosshair;touch-action:none;user-select:none;overflow:visible">'
