@@ -514,8 +514,8 @@ function shuffle(array) {
 function makeSVG(idx) {
   var t = SHUFFLED_TRIADS[idx];
   var aWrapped = wrapText(ctx, t.A, s(250));
-  var bWrapped = wrapText(ctx, t.B, s(100));
-  var cWrapped = wrapText(ctx, t.C, s(100));
+  var bWrapped = wrapText(ctx, t.B, s(110));
+  var cWrapped = wrapText(ctx, t.C, s(110));
 
   var aLines = aWrapped.length;
   var aBottomY = TA.y - s(14);
