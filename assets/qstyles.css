@@ -287,11 +287,52 @@
 .scard-val { font-size: 22px; font-weight: 600; color: #1a1a18; }
 .scard-hero .scard-val { color: #770136; }
 .scard-sub { font-size: 11px; color: #aaa; margin-top: 2px; }
-.verdict { border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; border: 1px solid; }
-.verdict-lbl { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; }
-.verdict-title { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
-.verdict-desc { font-size: 14px; line-height: 1.65; }
-.v-s1 { background: #eaf3de; border-color: #97c459; }
+
+.verdict {
+  border-radius: 18px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(60,40,30,0.08);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+  position: relative;
+}
+
+.verdict-lbl {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: rgba(40,32,28,0.55);
+}
+
+.verdict-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #2b211d;
+}
+
+.verdict-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(43,33,29,0.72);
+  max-width: 52ch;
+}
+
+.verdict::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  background: var(--verdict-accent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--verdict-accent) 30%, transparent);
+}
+/* .v-s1 { background: #eaf3de; border-color: #97c459; }
 .v-s1 .verdict-lbl, .v-s1 .verdict-desc { color: #3b6d11; }
 .v-s1 .verdict-title { color: #27500a; }
 .v-s2 { background: #faeeda; border-color: #ef9f27; }
@@ -302,7 +343,28 @@
 .v-s3 .verdict-title { color: #4a1b0c; }
 .v-s4 { background: #fcebeb; border-color: #f09595; }
 .v-s4 .verdict-lbl, .v-s4 .verdict-desc { color: #a32d2d; }
-.v-s4 .verdict-title { color: #501313; }
+.v-s4 .verdict-title { color: #501313; } */
+
+.v-s1 {
+  --verdict-accent: #78b84c;
+  background: #f6f8f2;
+}
+
+.v-s2 {
+  --verdict-accent: #d59a33;
+  background: #f8f5ef;
+}
+
+.v-s3 {
+  --verdict-accent: #cf7b5d;
+  background: #f8f3f1;
+}
+
+.v-s4 {
+  --verdict-accent: #cf6a6a;
+  background: #f8f1f1;
+}
+
 .sec-title { font-size: 13px; font-weight: 600; color: #888; padding-bottom: 8px; border-bottom: 1px solid #e0dfd8; margin-bottom: 14px; }
 
 .q-grid-wrapper {
