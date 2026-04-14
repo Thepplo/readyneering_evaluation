@@ -406,7 +406,7 @@ function svgPt(svg, e) {
   return pt.matrixTransform(svg.getScreenCTM().inverse());
 }
 
-function getBounds(pad) {
+/* function getBounds(pad) {
   const minX = Math.min(TA.x, TB.x, TC.x) - pad;
   const maxX = Math.max(TA.x, TB.x, TC.x) + pad;
   const minY = Math.min(TA.y, TB.y, TC.y) - pad;
@@ -418,7 +418,7 @@ function getBounds(pad) {
     w: maxX - minX,
     h: maxY - minY
   };
-}
+} */
 
 function w2score(raw) {
   return Math.min(5, Math.max(1, (raw+1)/2*4+1));
@@ -511,6 +511,24 @@ function shuffle(array) {
   return array;
 }
 
+function getBounds(pad) {
+  if (typeof pad === 'number') {
+    pad = { top: pad, right: pad, bottom: pad, left: pad };
+  }
+
+  const minX = Math.min(TA.x, TB.x, TC.x) - pad.left;
+  const maxX = Math.max(TA.x, TB.x, TC.x) + pad.right;
+  const minY = Math.min(TA.y, TB.y, TC.y) - pad.top;
+  const maxY = Math.max(TA.y, TB.y, TC.y) + pad.bottom;
+
+  return {
+    x: minX,
+    y: minY,
+    w: maxX - minX,
+    h: maxY - minY
+  };
+}
+
 function makeSVG(idx) {
   var t = SHUFFLED_TRIADS[idx];
   var aWrapped = wrapText(ctx, t.A, s(250));
@@ -518,6 +536,8 @@ function makeSVG(idx) {
   var cWrapped = wrapText(ctx, t.C, s(110));
 
   var aLines = aWrapped.length;
+  var sideMaxLines = Math.max(bWrapped.length, cWrapped.length);
+  var extraBottomPad = Math.max(s(60), s(16) + (sideMaxLines - 1) * LH + s(20));
   var aBottomY = TA.y - s(14);
   var aTopY = aBottomY - (aLines - 1) * LH;
   var bTopY = TB.y + s(16);
@@ -527,10 +547,15 @@ function makeSVG(idx) {
   var mABx = ((TA.x+TB.x)/2).toFixed(1), mABy = ((TA.y+TB.y)/2).toFixed(1);
   var mBCx = ((TB.x+TC.x)/2).toFixed(1), mBCy = ((TB.y+TC.y)/2).toFixed(1);
   var mCAx = ((TC.x+TA.x)/2).toFixed(1), mCAy = ((TC.y+TA.y)/2).toFixed(1);
-  const B = getBounds(s(60));
+  const B = getBounds({
+    top: s(80),
+    right: s(90),
+    bottom: extraBottomPad,
+    left: s(90)
+  });
 
   return '<svg id="svg-'+idx+'" viewBox="'+B.x+' '+B.y+' '+B.w+' '+B.h+'" xmlns="http://www.w3.org/2000/svg"'
-    +' style="display:block;width:100%;cursor:crosshair;touch-action:none;user-select:none;overflow:hidden">'
+    +' style="display:block;width:100%;cursor:crosshair;touch-action:none;user-select:none;overflow:visible">'
 
     // center → mid lines
     +'<line x1="'+gx+'" y1="'+gy+'" x2="'+mABx+'" y2="'+mABy+'" stroke="rgba(119,1,54,0.1)" stroke-width="'+s(1)+'"/>'
