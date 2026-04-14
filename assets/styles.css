@@ -51,7 +51,7 @@ body::after {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 4rem 10% 4rem 10%;
+  padding: 4rem 10% 72px 10%;
   position: relative;
   overflow: hidden;
   animation: fadeLeft 0.9s cubic-bezier(.4,0,.2,1) both;
@@ -86,7 +86,13 @@ body::after {
   50%      { transform: translate(-50%,-50%) scale(1.05); opacity: 1; }
 } */
 
-.left-top { position: relative; z-index: 2; }
+
+.left-top {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+}
+
 .logo { width: 300px; filter: brightness(0) invert(1); opacity: 0.92; margin-bottom: 3rem; }
 
 .tagline {
@@ -360,9 +366,12 @@ body::after {
   display: flex; 
   align-items: center; 
   justify-content: space-between;
-  padding: 0 3.5rem; gap: 2rem;
+  padding: 0 3.5rem; 
+  gap: 2rem;
   position: absolute; bottom: 0; left: 0; right: 0;
 }
+
+
 .strip span {
   font-size: 0.68rem; letter-spacing: 0.12em;
   text-transform: uppercase; color: rgba(255,255,255,0.3);
@@ -376,26 +385,17 @@ body::after {
 
 @media (max-width: 780px) {
   .hero { grid-template-columns: 1fr; }
-  .left { padding: 2.5rem 2rem; }
+  .left { padding: 2.5rem 2rem;
+  min-height: auto; }
   .right { padding: 2.5rem 2rem; }
   .orbit-stage { width: 85%; height: 270px; }
-  .strip { padding: 0 2rem; flex-wrap: wrap; height: auto; padding: 0.75rem 2rem; }
-  .calc-grid {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-
-  .calc-op {
-    display: none;
-  }
-
-  .calc-item {
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(255,255,255,0.15);
-  }
-
-  .calc-item:last-child {
-    border-bottom: none;
+  .strip {
+    position: static;
+    height: auto;
+    margin-top: 1.25rem;
+    padding: 0;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
   }
 }
 
