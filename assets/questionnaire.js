@@ -117,6 +117,15 @@ const QUOTIENT_META = {
     }
   }
 };
+
+const QUOTIENT_ICONS = {
+  vitality: 'assets/images/q-vitality.svg',
+  emotion: 'assets/images/q-emotion.svg',
+  mind: 'assets/images/q-mind.svg',
+  execution: 'assets/images/q-execution.svg',
+  alignment: 'assets/images/q-alignment.svg'
+};
+
 const TRIADS = [
 
 /* 1 - Vitality (R) */
@@ -1146,12 +1155,21 @@ async function showResults() {
   }); */
 
   function makeQNodes(qPos) {
+    const size = 20;
+
     return Object.keys(qPos).map(key => {
       const p = qPos[key];
-      const color = qColors[key];
+      const href = QUOTIENT_ICONS[key];
+
       return `
-        <circle cx="${p.x}" cy="${p.y}" r="7" fill="none" stroke="${color}" stroke-width="2.5" stroke-opacity="0.95" />
-        <circle cx="${p.x}" cy="${p.y}" r="3" fill="${color}" fill-opacity="0.18" />
+        <image
+          href="${href}"
+          x="${p.x - size / 2}"
+          y="${p.y - size / 2}"
+          width="${size}"
+          height="${size}"
+          preserveAspectRatio="xMidYMid meet"
+        />
       `;
     }).join('');
   }
