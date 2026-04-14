@@ -674,13 +674,17 @@ function makeSVG(idx) {
     sideTextBottom - TB.y + s(20)
   );
 
-  const B = getTightBounds({
+/*   const B = getBounds({
     top: s(80),
     right: s(90),
     bottom: extraBottomPad,
     left: s(90)
+  }); */
+  const B = getTightBounds({
+    aWrapped,
+    bFit,
+    cFit
   });
-
   return '<svg id="svg-' + idx + '" viewBox="' + B.x + ' ' + B.y + ' ' + B.w + ' ' + B.h + '" xmlns="http://www.w3.org/2000/svg"'
     + ' style="display:block;width:100%;cursor:crosshair;touch-action:none;user-select:none;overflow:visible">'
 
