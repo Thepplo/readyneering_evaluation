@@ -655,9 +655,13 @@ function makeSVG(idx) {
     step: 4
   });
 
-  var bTopY = bRegion.y;
-  var cTopY = cRegion.y;
-
+/*   var bTopY = bRegion.y; */
+  var bTopY = TB.y + s(16);
+  /* var cTopY = cRegion.y; */
+  var cTopY = TC.y + s(16);
+  var aSize = measureLines(aWrapped);
+  var bSize = measureLines(bWrapped);
+  var cSize = measureLines(cWrapped);
   var gx = GX.toFixed(1), gy = GY.toFixed(1);
   var mABx = ((TA.x + TB.x) / 2).toFixed(1), mABy = ((TA.y + TB.y) / 2).toFixed(1);
   var mBCx = ((TB.x + TC.x) / 2).toFixed(1), mBCy = ((TB.y + TC.y) / 2).toFixed(1);
