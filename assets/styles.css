@@ -418,3 +418,8 @@ body::after {
     border-bottom: none;
   }
 }
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+}
