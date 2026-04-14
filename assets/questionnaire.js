@@ -1534,7 +1534,7 @@ async function showResults() {
 
   var vbox = document.getElementById('verdict');
   vbox.className = 'verdict ' + lv.cls;
-  document.getElementById('v-lbl').textContent   = lv.label;
+  /* document.getElementById('v-lbl').textContent   = lv.label; */
   document.getElementById('v-title').textContent = lv.label;
   document.getElementById('v-desc').textContent  = lv.desc;
 

@@ -332,6 +332,23 @@
   background: var(--verdict-accent);
   box-shadow: 0 0 18px color-mix(in srgb, var(--verdict-accent) 30%, transparent);
 }
+
+.verdict::after {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  right: -120px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(200,120,90,0.08) 0%,
+    rgba(200,120,90,0.04) 40%,
+    transparent 70%
+  );
+}
 /* .v-s1 { background: #eaf3de; border-color: #97c459; }
 .v-s1 .verdict-lbl, .v-s1 .verdict-desc { color: #3b6d11; }
 .v-s1 .verdict-title { color: #27500a; }
