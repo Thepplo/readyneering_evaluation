@@ -102,8 +102,9 @@ body::after {
 .calc-grid {
   margin-top: 6.5rem;
   display: grid; 
-  grid-template-columns: 1fr 1fr 1fr; 
-  gap: 2rem;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
 }
 .calc-item {
   display: flex; 
@@ -112,11 +113,12 @@ body::after {
   justify-content: start;
   text-align: left;
   color: var(--cream);
+  min-width: 0;
 }
 .calc-title {
-  font-size: 1.3rem;
+  font-size: clamp(1.1rem, 2vw, 2rem);
   font-family: 'q5-heading', sans-serif;
-  font-weight: 500; 
+  font-weight: 700; 
   margin-bottom: 0.25rem;
   width: 100%;
   display: flex; 
@@ -127,6 +129,19 @@ body::after {
 .calc-title em {
   font-style: italic;
   opacity: 0.9;
+}
+
+.calc-content {
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  line-height: 1.5;
+  max-width: 28ch;
+}
+
+.calc-op {
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  line-height: 1;
+  align-self: start;
+  padding-top: 0.1em;
 }
 
 .sub-tag {
@@ -362,5 +377,41 @@ body::after {
   .right { padding: 2.5rem 2rem; }
   .orbit-stage { width: 85%; height: 270px; }
   .strip { padding: 0 2rem; flex-wrap: wrap; height: auto; padding: 0.75rem 2rem; }
+  .calc-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .calc-op {
+    display: none;
+  }
+
+  .calc-item {
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .calc-item:last-child {
+    border-bottom: none;
+  }
 }
 
+@media (max-width: 900px) {
+  .calc-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .calc-op {
+    display: none;
+  }
+
+  .calc-item {
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .calc-item:last-child {
+    border-bottom: none;
+  }
+}
