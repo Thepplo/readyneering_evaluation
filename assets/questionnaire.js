@@ -384,7 +384,10 @@ var SHUFFLED_TRIADS = [];
 const STORAGE_KEY = 'readyneering_assessment_state';
 
 function saveAssessmentState() {
+  const prevState = loadAssessmentState() || {};
+
   localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    ...prevState,
     current,
     placements,
     triadOrder: SHUFFLED_TRIADS.map(t => t.id),
@@ -1288,13 +1291,9 @@ async function showResults() {
   document.getElementById('scr-assess').style.display = 'none';
   document.getElementById('scr-results').style.display = 'block';
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({
-    current,
-    placements,
-    triadOrder: SHUFFLED_TRIADS.map(t => t.id),
-    selectedIndustry,
-    screen: 'results'
-  }));
+  saveAssessmentState();
+
+  const state = loadAssessmentState() || {};
 
   var answers = getAnswerBreakdown();
   console.log('--- ANSWER BREAKDOWN ---');
@@ -1308,21 +1307,20 @@ async function showResults() {
   console.log('Assessment Results:', res);
   console.log('Submission Payload:', payload);
 
-  const state = loadAssessmentState() || {};
-
   if (!state.submitted) {
     try {
       const saved = await saveAssessment(payload);
       console.log('Saved assessment:', saved);
 
-      // mark as submitted
-      const updatedState = {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
         ...state,
+        current,
+        placements,
+        triadOrder: SHUFFLED_TRIADS.map(t => t.id),
+        selectedIndustry,
+        screen: 'results',
         submitted: true
-      };
-
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedState));
-
+      }));
     } catch (err) {
       console.error('Failed to save assessment:', err);
     }
