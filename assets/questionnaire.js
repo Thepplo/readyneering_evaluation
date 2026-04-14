@@ -655,13 +655,9 @@ function makeSVG(idx) {
     step: 4
   });
 
-/*   var bTopY = bRegion.y; */
-  var bTopY = TB.y + s(16);
-  /* var cTopY = cRegion.y; */
-  var cTopY = TC.y + s(16);
-  var aSize = measureLines(aWrapped);
-  var bSize = measureLines(bWrapped);
-  var cSize = measureLines(cWrapped);
+  var bTopY = bRegion.y;
+  var cTopY = cRegion.y;
+
   var gx = GX.toFixed(1), gy = GY.toFixed(1);
   var mABx = ((TA.x + TB.x) / 2).toFixed(1), mABy = ((TA.y + TB.y) / 2).toFixed(1);
   var mBCx = ((TB.x + TC.x) / 2).toFixed(1), mBCy = ((TB.y + TC.y) / 2).toFixed(1);
@@ -678,47 +674,12 @@ function makeSVG(idx) {
     sideTextBottom - TB.y + s(20)
   );
 
-  /* const B = getBounds({
+  const B = getTightBounds({
     top: s(80),
     right: s(90),
     bottom: extraBottomPad,
     left: s(90)
-  }); */
-  const B = {
-    x: Math.min(
-      TB.x,
-      TA.x - aSize.width / 2,
-      TB.x + s(4),
-      TC.x - s(4) - cSize.width
-    ) - s(16),
-
-    y: Math.min(
-      TA.y,
-      aTopY
-    ) - s(16),
-
-    w: Math.max(
-      TC.x,
-      TA.x + aSize.width / 2,
-      TB.x + s(4) + bSize.width,
-      TC.x - s(4)
-    ) - Math.min(
-      TB.x,
-      TA.x - aSize.width / 2,
-      TB.x + s(4),
-      TC.x - s(4) - cSize.width
-    ) + s(32),
-
-    h: Math.max(
-      TB.y,
-      TC.y,
-      bTopY + bSize.height,
-      cTopY + cSize.height
-    ) - Math.min(
-      TA.y,
-      aTopY
-    ) + s(32)
-  };
+  });
 
   return '<svg id="svg-' + idx + '" viewBox="' + B.x + ' ' + B.y + ' ' + B.w + ' ' + B.h + '" xmlns="http://www.w3.org/2000/svg"'
     + ' style="display:block;width:100%;cursor:crosshair;touch-action:none;user-select:none;overflow:visible">'
