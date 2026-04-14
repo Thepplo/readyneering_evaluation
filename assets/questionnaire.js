@@ -1093,8 +1093,48 @@ async function showResults() {
 
   const centerX = orbitCx - centerSize / 2;
   const centerY = orbitCy - centerSize / 2 - 5;
+  const qRx = rx - 22;
+  const qRy = ry - 16;
 
-/*   document.getElementById('r-overall').textContent = res.O.toFixed(0);
+  const qAngles = {
+    mind: -145 * Math.PI / 180,
+    vitality: -205 * Math.PI / 180,
+    emotion: -235 * Math.PI / 180,
+    execution: -35 * Math.PI / 180,
+    alignment: -95 * Math.PI / 180
+  };
+
+  const qColors = {
+    vitality: '#FFD000',
+    emotion: '#E53846',
+    mind: '#770136',
+    execution: '#2D52B5',
+    alignment: '#1B74CD'
+  };
+
+  function ellipsePoint(cx, cy, rx, ry, angle) {
+    return {
+      x: cx + rx * Math.cos(angle),
+      y: cy + ry * Math.sin(angle)
+    };
+  }
+
+  const qPos = {};
+  Object.keys(qAngles).forEach(key => {
+    qPos[key] = ellipsePoint(orbitCx, orbitCy, qRx, qRy, qAngles[key]);
+  });
+
+  function makeQNodes(qPos) {
+    return Object.keys(qPos).map(key => {
+      const p = qPos[key];
+      const color = qColors[key];
+      return `
+        <circle cx="${p.x}" cy="${p.y}" r="7" fill="none" stroke="${color}" stroke-width="2.5" stroke-opacity="0.95" />
+        <circle cx="${p.x}" cy="${p.y}" r="3" fill="${color}" fill-opacity="0.18" />
+      `;
+    }).join('');
+  }
+  /*   document.getElementById('r-overall').textContent = res.O.toFixed(0);
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
   document.getElementById('r-prep').textContent    = res.P.toFixed(2); */
 
@@ -1188,6 +1228,7 @@ async function showResults() {
       <text x="${orbitCx}" y="${centerY + centerSize + 34}" text-anchor="middle" class="score-sub center-sub">
         Resilience × Preparedness
       </text>
+      ${makeQNodes(qPos)}
     </svg>
   `;
 
