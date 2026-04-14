@@ -1,4 +1,5 @@
 async function saveAssessment(payload) {
+  
   const response = await fetch('/assessments/submit', {
     method: 'POST',
     headers: {
@@ -380,6 +381,35 @@ var TC = {x:452 * SCALE, y:360 * SCALE};
 
 var SHUFFLED_TRIADS = [];
 
+const STORAGE_KEY = 'readyneering_assessment_state';
+
+function saveAssessmentState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    current,
+    placements,
+    triadOrder: SHUFFLED_TRIADS.map(t => t.id),
+    selectedIndustry,
+    screen: getCurrentScreen()
+  }));
+}
+
+function loadAssessmentState() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+  } catch {
+    return null;
+  }
+}
+
+function clearAssessmentState() {
+  localStorage.removeItem(STORAGE_KEY);
+}
+
+function getCurrentScreen() {
+  if (document.getElementById('scr-results').style.display === 'block') return 'results';
+  if (document.getElementById('scr-assess').style.display === 'block') return 'assess';
+  return 'intro';
+}
 
 document.getElementById('industry-select').addEventListener('change', function () {
   var other = document.getElementById('industry-other');
@@ -708,19 +738,31 @@ function makeSVG(idx) {
 }
 
 // ── Build all steps ───────────────────────────────────────
-function buildSteps() {
+function buildSteps(savedState) {
   var wrap = document.getElementById('steps-wrap');
   var html = '';
 
-  SHUFFLED_TRIADS = shuffle([...TRIADS]);
-  placements = new Array(SHUFFLED_TRIADS.length).fill(null);
-  current = 0;
+  if (savedState && savedState.triadOrder && savedState.triadOrder.length) {
+    SHUFFLED_TRIADS = savedState.triadOrder
+      .map(id => TRIADS.find(t => t.id === id))
+      .filter(Boolean);
+  } else {
+    SHUFFLED_TRIADS = shuffle([...TRIADS]);
+  }
 
-  for (var i=0; i<SHUFFLED_TRIADS.length; i++) {
+  placements = (savedState && savedState.placements) 
+    ? savedState.placements 
+    : new Array(SHUFFLED_TRIADS.length).fill(null);
+
+  current = (savedState && typeof savedState.current === 'number')
+    ? savedState.current
+    : 0;
+
+  for (var i = 0; i < SHUFFLED_TRIADS.length; i++) {
     var t = SHUFFLED_TRIADS[i];
-    var display = i===0 ? 'block' : 'none';
+    var display = i === current ? 'block' : 'none';
+
     html += '<div id="step-'+i+'" style="display:'+display+'">'
-      /* +'<div class="eyebrow">Situation '+(i+1)+' of '+SHUFFLED_TRIADS.length+'</div>' */
       +'<div class="card">'
       +'<div class="scenario-text">'+esc(t.scenario)+'</div>'
       +'</div>'
@@ -739,8 +781,42 @@ function buildSteps() {
 
   wrap.innerHTML = html;
 
-  for (var j=0; j<SHUFFLED_TRIADS.length; j++) {
+  for (var j = 0; j < SHUFFLED_TRIADS.length; j++) {
     attachEvents(j);
+  }
+
+  rehydratePlacements();
+}
+
+function rehydratePlacements() {
+  for (var idx = 0; idx < placements.length; idx++) {
+    var pt = placements[idx];
+    if (!pt) continue;
+
+    var ring = document.getElementById('ring-' + idx);
+    var dot  = document.getElementById('dot-' + idx);
+    var pip  = document.getElementById('pip-' + idx);
+
+    if (!ring || !dot || !pip) continue;
+
+    ring.setAttribute('cx', pt.x);
+    ring.setAttribute('cy', pt.y);
+    dot.setAttribute('cx', pt.x);
+    dot.setAttribute('cy', pt.y);
+    pip.setAttribute('cx', pt.x);
+    pip.setAttribute('cy', pt.y);
+
+    gsap.set(ring, { opacity: 0.7 });
+    gsap.set(dot,  { opacity: 1 });
+    gsap.set(pip,  { opacity: 1 });
+
+    var b = bary(pt.x, pt.y);
+    var tot = Math.max(b[0] + b[1] + b[2], 0.001);
+
+    document.getElementById('pa-' + idx).textContent = Math.round(b[0] / tot * 100) + '%';
+    document.getElementById('pb-' + idx).textContent = Math.round(b[1] / tot * 100) + '%';
+    document.getElementById('pc-' + idx).textContent = Math.round(b[2] / tot * 100) + '%';
+    document.getElementById('placed-' + idx).textContent = 'Dot placed - click to reposition';
   }
 }
 
@@ -790,6 +866,7 @@ function attachEvents(idx) {
     document.getElementById('pc-'+idx).textContent = Math.round(b[2]/tot*100)+'%';
     document.getElementById('placed-'+idx).textContent = 'Dot placed - click to reposition';
     document.getElementById('warn').style.display = 'none';
+    saveAssessmentState();
   }
 
   svg.addEventListener('click', place);
@@ -864,6 +941,7 @@ document.getElementById('btn-next').addEventListener('click', function() {
   var next = current + 1;
   showStep(next, 'forward');
   current = next;
+  saveAssessmentState();
   setTimeout(updateUI, 100);
   window.scrollTo(0, 0);
 });
@@ -873,6 +951,7 @@ document.getElementById('btn-back').addEventListener('click', function() {
     var prev = current - 1;
     showStep(prev, 'back');
     current = prev;
+    saveAssessmentState();
     setTimeout(updateUI, 100);
     window.scrollTo(0, 0);
   }
@@ -1209,6 +1288,14 @@ async function showResults() {
   document.getElementById('scr-assess').style.display = 'none';
   document.getElementById('scr-results').style.display = 'block';
 
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    current,
+    placements,
+    triadOrder: SHUFFLED_TRIADS.map(t => t.id),
+    selectedIndustry,
+    screen: 'results'
+  }));
+
   var answers = getAnswerBreakdown();
   console.log('--- ANSWER BREAKDOWN ---');
   console.table(answers);
@@ -1221,11 +1308,26 @@ async function showResults() {
   console.log('Assessment Results:', res);
   console.log('Submission Payload:', payload);
 
-  try {
-    const saved = await saveAssessment(payload);
-    console.log('Saved assessment:', saved);
-  } catch (err) {
-    console.error('Failed to save assessment:', err);
+  const state = loadAssessmentState() || {};
+
+  if (!state.submitted) {
+    try {
+      const saved = await saveAssessment(payload);
+      console.log('Saved assessment:', saved);
+
+      // mark as submitted
+      const updatedState = {
+        ...state,
+        submitted: true
+      };
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedState));
+
+    } catch (err) {
+      console.error('Failed to save assessment:', err);
+    }
+  } else {
+    console.log('Assessment already submitted, skipping save.');
   }
   const orbitCx = 315;
   const orbitCy = 200;
@@ -1524,13 +1626,35 @@ function startAssessment() {
   updateUI();
   window.scrollTo(0, 0);
 }
+function restoreAssessment() {
+  const saved = loadAssessmentState();
+  if (!saved) return;
 
+  selectedIndustry = saved.selectedIndustry || '';
+  const industrySelect = document.getElementById('industry-select');
+  if (industrySelect && selectedIndustry) {
+    industrySelect.value = selectedIndustry;
+  }
+
+  document.getElementById('scr-intro').style.display = 'none';
+  document.getElementById('scr-assess').style.display = 'block';
+
+  buildSteps(saved);
+  updateUI();
+
+  if (saved.screen === 'results') {
+    showResults();
+  }
+}
+
+restoreAssessment();
 document.getElementById('start-btn').addEventListener('click', startAssessment);
 
 document.getElementById('btn-restart').addEventListener('click', function() {
   placements = [];
   for (var i=0; i<SHUFFLED_TRIADS.length; i++) placements.push(null);
   current = 0;
+  clearAssessmentState();
   document.getElementById('scr-results').style.display = 'none';
   document.getElementById('scr-intro').style.display = 'block';
   window.scrollTo(0, 0);
