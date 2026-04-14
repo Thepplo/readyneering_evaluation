@@ -1093,8 +1093,29 @@ async function showResults() {
 
   const centerX = orbitCx - centerSize / 2;
   const centerY = orbitCy - centerSize / 2 - 5;
-  const qRx = rx - 22;
-  const qRy = ry - 16;
+  const qRx = rx;
+  const qRy = ry;
+
+  function ellipsePointDeg(cx, cy, rx, ry, deg) {
+    const a = deg * Math.PI / 180;
+    return {
+      x: cx + rx * Math.cos(a),
+      y: cy + ry * Math.sin(a)
+    };
+  }
+
+  const qDegrees = {
+    mind: 235,
+    alignment: 270,
+    execution: 305,
+    vitality: 150,
+    emotion: 30
+  };
+
+  const qPos = {};
+  Object.keys(qDegrees).forEach(key => {
+    qPos[key] = ellipsePointDeg(orbitCx, orbitCy, qRx, qRy, qDegrees[key]);
+  });
 
   const qAngles = {
     mind: -145 * Math.PI / 180,
@@ -1119,10 +1140,10 @@ async function showResults() {
     };
   }
 
-  const qPos = {};
+/*   const qPos = {};
   Object.keys(qAngles).forEach(key => {
     qPos[key] = ellipsePoint(orbitCx, orbitCy, qRx, qRy, qAngles[key]);
-  });
+  }); */
 
   function makeQNodes(qPos) {
     return Object.keys(qPos).map(key => {
