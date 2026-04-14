@@ -425,23 +425,23 @@ function w2score(raw) {
 }
 
 function wrapText(ctx, text, maxWidth) {
-  const words = text.split(/\s+/);
+  const words = String(text || '').split(/\s+/).filter(Boolean);
+  if (!words.length) return [''];
+
   const lines = [];
-  let line = '';
+  let line = words[0];
 
-  for (let i = 0; i < words.length; i++) {
-    const testLine = line ? line + ' ' + words[i] : words[i];
-    const width = ctx.measureText(testLine).width;
-
-    if (width > maxWidth && line) {
+  for (let i = 1; i < words.length; i++) {
+    const test = line + ' ' + words[i];
+    if (ctx.measureText(test).width <= maxWidth) {
+      line = test;
+    } else {
       lines.push(line);
       line = words[i];
-    } else {
-      line = testLine;
     }
   }
 
-  if (line) lines.push(line);
+  lines.push(line);
   return lines;
 }
 
@@ -494,15 +494,62 @@ function makeTspansAuto(txt, anchor, x, startY, maxWidth) {
   }
   return out;
 }
-function tspansFromLines(lines, anchor, x) {
-  let out = '';
+function measureWrappedBlock(ctx, text, maxWidth, lineHeight) {
+  const lines = wrapText(ctx, text, maxWidth);
+  let width = 0;
+
   for (let i = 0; i < lines.length; i++) {
-    out += '<tspan x="'+x+'" dy="'+(i === 0 ? '0' : LH)+'" text-anchor="'+anchor+'">'
+    width = Math.max(width, ctx.measureText(lines[i]).width);
+  }
+
+  return {
+    lines,
+    width,
+    height: Math.max(1, lines.length) * lineHeight
+  };
+}
+function fitTextToRegion(ctx, text, region, lineHeight, opts) {
+  const minWidth = opts.minWidth;
+  const maxWidth = Math.min(opts.maxWidth, region.width);
+
+  let best = null;
+
+  for (let w = maxWidth; w >= minWidth; w -= opts.step || 4) {
+    const block = measureWrappedBlock(ctx, text, w, lineHeight);
+
+    if (block.width <= region.width && block.height <= region.height) {
+      best = {
+        lines: block.lines,
+        textWidth: block.width,
+        textHeight: block.height,
+        wrapWidth: w
+      };
+      break;
+    }
+  }
+
+  if (!best) {
+    const fallback = measureWrappedBlock(ctx, text, maxWidth, lineHeight);
+    best = {
+      lines: fallback.lines,
+      textWidth: Math.min(fallback.width, region.width),
+      textHeight: fallback.height,
+      wrapWidth: maxWidth
+    };
+  }
+
+  return best;
+}
+function tspansFromLines(lines, anchor, x) {
+  var out = '';
+  for (var i = 0; i < lines.length; i++) {
+    out += '<tspan x="' + x + '" dy="' + (i === 0 ? '0' : LH) + '" text-anchor="' + anchor + '">'
       + esc(lines[i]) +
       '</tspan>';
   }
   return out;
 }
+
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -531,22 +578,65 @@ function getBounds(pad) {
 
 function makeSVG(idx) {
   var t = SHUFFLED_TRIADS[idx];
-  var aWrapped = wrapText(ctx, t.A, s(250));
-  var bWrapped = wrapText(ctx, t.B, s(120));
-  var cWrapped = wrapText(ctx, t.C, s(120));
+  var fs = 'font-size="' + FS + '" fill="#2a2a28" font-weight="500" font-family="-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif"';
 
-  var aLines = aWrapped.length;
-  var sideMaxLines = Math.max(bWrapped.length, cWrapped.length);
-  var extraBottomPad = Math.max(s(60), s(16) + (sideMaxLines - 1) * LH + s(20));
+  // top label
+  var aWrapped = wrapText(ctx, t.A, s(250));
   var aBottomY = TA.y - s(14);
-  var aTopY = aBottomY - (aLines - 1) * LH;
-  var bTopY = TB.y + s(16);
-  var cTopY = TC.y + s(16);
-  var fs = 'font-size="'+FS+'" fill="#2a2a28" font-weight="500" font-family="-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif"';
+  var aTopY = aBottomY - (aWrapped.length - 1) * LH;
+
+  // Explicit safe regions for side labels
+  // B region: starts just right of left vertex, extends downward
+  // C region: ends just left of right vertex, extends downward
+  var sideTop = TB.y + s(16);
+  var sideBottom = TB.y + s(108); // adjust this if you want more/less allowed height
+  var sideHeight = sideBottom - sideTop;
+
+  var bRegion = {
+    x: TB.x + s(6),
+    y: sideTop,
+    width: GX - TB.x - s(28),
+    height: sideHeight
+  };
+
+  var cRegion = {
+    x: GX + s(28),
+    y: sideTop,
+    width: TC.x - GX - s(34),
+    height: sideHeight
+  };
+
+  var bFit = fitTextToRegion(ctx, t.B, bRegion, LH, {
+    minWidth: s(70),
+    maxWidth: s(150),
+    step: 4
+  });
+
+  var cFit = fitTextToRegion(ctx, t.C, cRegion, LH, {
+    minWidth: s(70),
+    maxWidth: s(150),
+    step: 4
+  });
+
+  var bTopY = bRegion.y;
+  var cTopY = cRegion.y;
+
   var gx = GX.toFixed(1), gy = GY.toFixed(1);
-  var mABx = ((TA.x+TB.x)/2).toFixed(1), mABy = ((TA.y+TB.y)/2).toFixed(1);
-  var mBCx = ((TB.x+TC.x)/2).toFixed(1), mBCy = ((TB.y+TC.y)/2).toFixed(1);
-  var mCAx = ((TC.x+TA.x)/2).toFixed(1), mCAy = ((TC.y+TA.y)/2).toFixed(1);
+  var mABx = ((TA.x + TB.x) / 2).toFixed(1), mABy = ((TA.y + TB.y) / 2).toFixed(1);
+  var mBCx = ((TB.x + TC.x) / 2).toFixed(1), mBCy = ((TB.y + TC.y) / 2).toFixed(1);
+  var mCAx = ((TC.x + TA.x) / 2).toFixed(1), mCAy = ((TC.y + TA.y) / 2).toFixed(1);
+
+  // Bottom padding is driven by actual fitted block height, not just line count
+  var sideTextBottom = Math.max(
+    bRegion.y + bFit.textHeight,
+    cRegion.y + cFit.textHeight
+  );
+
+  var extraBottomPad = Math.max(
+    s(60),
+    sideTextBottom - TB.y + s(20)
+  );
+
   const B = getBounds({
     top: s(80),
     right: s(90),
@@ -554,37 +644,30 @@ function makeSVG(idx) {
     left: s(90)
   });
 
-  return '<svg id="svg-'+idx+'" viewBox="'+B.x+' '+B.y+' '+B.w+' '+B.h+'" xmlns="http://www.w3.org/2000/svg"'
-    +' style="display:block;width:100%;cursor:crosshair;touch-action:none;user-select:none;overflow:visible">'
+  return '<svg id="svg-' + idx + '" viewBox="' + B.x + ' ' + B.y + ' ' + B.w + ' ' + B.h + '" xmlns="http://www.w3.org/2000/svg"'
+    + ' style="display:block;width:100%;cursor:crosshair;touch-action:none;user-select:none;overflow:visible">'
 
-    // center → mid lines
-    +'<line x1="'+gx+'" y1="'+gy+'" x2="'+mABx+'" y2="'+mABy+'" stroke="rgba(119,1,54,0.1)" stroke-width="'+s(1)+'"/>'
-    +'<line x1="'+gx+'" y1="'+gy+'" x2="'+mBCx+'" y2="'+mBCy+'" stroke="rgba(119,1,54,0.1)" stroke-width="'+s(1)+'"/>'
-    +'<line x1="'+gx+'" y1="'+gy+'" x2="'+mCAx+'" y2="'+mCAy+'" stroke="rgba(119,1,54,0.1)" stroke-width="'+s(1)+'"/>'
+    + '<line x1="' + gx + '" y1="' + gy + '" x2="' + mABx + '" y2="' + mABy + '" stroke="rgba(119,1,54,0.1)" stroke-width="' + s(1) + '"/>'
+    + '<line x1="' + gx + '" y1="' + gy + '" x2="' + mBCx + '" y2="' + mBCy + '" stroke="rgba(119,1,54,0.1)" stroke-width="' + s(1) + '"/>'
+    + '<line x1="' + gx + '" y1="' + gy + '" x2="' + mCAx + '" y2="' + mCAy + '" stroke="rgba(119,1,54,0.1)" stroke-width="' + s(1) + '"/>'
 
-    // triangle
-    +'<polygon points="'+TA.x+','+TA.y+' '+TB.x+','+TB.y+' '+TC.x+','+TC.y+'"'
-    +' fill="rgba(119,1,54,0.05)" stroke="rgba(119,1,54,0.3)" stroke-width="'+s(1.5)+'" stroke-linejoin="round"/>'
+    + '<polygon points="' + TA.x + ',' + TA.y + ' ' + TB.x + ',' + TB.y + ' ' + TC.x + ',' + TC.y + '"'
+    + ' fill="rgba(119,1,54,0.05)" stroke="rgba(119,1,54,0.3)" stroke-width="' + s(1.5) + '" stroke-linejoin="round"/>'
 
-    // corner dots
-    +'<circle cx="'+TA.x+'" cy="'+TA.y+'" r="'+s(5)+'" fill="#770136" opacity="0.4"/>'
-    +'<circle cx="'+TB.x+'" cy="'+TB.y+'" r="'+s(5)+'" fill="#770136" opacity="0.4"/>'
-    +'<circle cx="'+TC.x+'" cy="'+TC.y+'" r="'+s(5)+'" fill="#770136" opacity="0.4"/>'
+    + '<circle cx="' + TA.x + '" cy="' + TA.y + '" r="' + s(5) + '" fill="#770136" opacity="0.4"/>'
+    + '<circle cx="' + TB.x + '" cy="' + TB.y + '" r="' + s(5) + '" fill="#770136" opacity="0.4"/>'
+    + '<circle cx="' + TC.x + '" cy="' + TC.y + '" r="' + s(5) + '" fill="#770136" opacity="0.4"/>'
 
-    // labels
-    +'<text '+fs+' y="'+aTopY+'">'+tspansFromLines(aWrapped,'middle',TA.x)+'</text>'
-    +'<text '+fs+' y="'+bTopY+'">'+tspansFromLines(bWrapped,'start',TB.x + s(4))+'</text>'
-    +'<text '+fs+' y="'+cTopY+'">'+tspansFromLines(cWrapped,'end',TC.x - s(4))+'</text>'
+    + '<text ' + fs + ' y="' + aTopY + '">' + tspansFromLines(aWrapped, 'middle', TA.x) + '</text>'
+    + '<text ' + fs + ' y="' + bTopY + '">' + tspansFromLines(bFit.lines, 'start', bRegion.x) + '</text>'
+    + '<text ' + fs + ' y="' + cTopY + '">' + tspansFromLines(cFit.lines, 'end', cRegion.x + cRegion.width) + '</text>'
 
-    // interaction markers
-    +'<circle id="ring-'+idx+'" cx="-999" cy="-999" r="'+s(20)+'" fill="rgba(119,1,54,0.8)" opacity="0" style="pointer-events:none"/>'
-    +'<circle id="dot-'+idx+'"  cx="-999" cy="-999" r="'+s(11)+'" fill="#770136" opacity="0" style="pointer-events:none"/>'
-    +'<circle id="pip-'+idx+'"  cx="-999" cy="-999" r="'+s(5)+'"  fill="#fff" opacity="0" style="pointer-events:none"/>'
+    + '<circle id="ring-' + idx + '" cx="-999" cy="-999" r="' + s(20) + '" fill="rgba(119,1,54,0.8)" opacity="0" style="pointer-events:none"/>'
+    + '<circle id="dot-' + idx + '"  cx="-999" cy="-999" r="' + s(11) + '" fill="#770136" opacity="0" style="pointer-events:none"/>'
+    + '<circle id="pip-' + idx + '"  cx="-999" cy="-999" r="' + s(5) + '"  fill="#fff" opacity="0" style="pointer-events:none"/>'
 
-    // hit area
-    +'<rect x="'+B.x+'" y="'+B.y+'" width="'+B.w+'" height="'+B.h+'" fill="transparent"/>'
-
-    +'</svg>';
+    + '<rect x="' + B.x + '" y="' + B.y + '" width="' + B.w + '" height="' + B.h + '" fill="transparent"/>'
+    + '</svg>';
 }
 
 // ── Build all steps ───────────────────────────────────────
