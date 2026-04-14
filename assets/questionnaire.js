@@ -532,8 +532,8 @@ function getBounds(pad) {
 function makeSVG(idx) {
   var t = SHUFFLED_TRIADS[idx];
   var aWrapped = wrapText(ctx, t.A, s(250));
-  var bWrapped = wrapText(ctx, t.B, s(110));
-  var cWrapped = wrapText(ctx, t.C, s(110));
+  var bWrapped = wrapText(ctx, t.B, s(120));
+  var cWrapped = wrapText(ctx, t.C, s(120));
 
   var aLines = aWrapped.length;
   var sideMaxLines = Math.max(bWrapped.length, cWrapped.length);
