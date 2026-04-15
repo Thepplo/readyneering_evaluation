@@ -59,7 +59,7 @@ const MODE_META = {
 const QUOTIENT_META = {
   vitality: {
     label: 'Vitality',
-    role: 'Sustaining energy, focus, and resilience for what matters most.',
+    role: 'Physiological regulation underlying sustained cognitive and emotional capacity',
     signal: {
       high: 'Energy and capacity are sustaining performance well.',
       mid: 'Energy is generally present, but not consistently sustained.',
@@ -79,7 +79,7 @@ const QUOTIENT_META = {
 
   emotion: {
     label: 'Emotion',
-    role: 'Managing emotional response to relate, collaborate, and respond effectively.',
+    role: 'Emotional regulation shaping decisions before conscious awareness',
     signal: {
       high: 'Emotional dynamics are being handled with steadiness and awareness.',
       mid: 'Emotional awareness is present, but not consistently shaping better responses.',
@@ -99,7 +99,7 @@ const QUOTIENT_META = {
 
   mind: {
     label: 'Mind',
-    role: 'Clarity of thinking, perception, and judgment in the present moment.',
+    role: 'Mental models and pattern recognition under uncertainty',
     signal: {
       high: 'Thinking and judgment are creating clear direction.',
       mid: 'There is some clarity, but not enough to guide action consistently.',
@@ -119,7 +119,7 @@ const QUOTIENT_META = {
 
   execution: {
     label: 'Execution',
-    role: 'Turning intent into focused, consistent action.',
+    role: 'The biological gap between intention and action',
     signal: {
       high: 'Intent is translating into action with consistency.',
       mid: 'Execution happens, but not always with enough reliability or follow-through.',
@@ -139,7 +139,7 @@ const QUOTIENT_META = {
 
   alignment: {
     label: 'Alignment',
-    role: 'Connecting actions to a shared direction and broader system.',
+    role: 'Coherence, belonging, and clarity across the system',
     signal: {
       high: 'People are acting in a shared direction with consistency.',
       mid: 'Alignment exists, but it weakens under pressure or ambiguity.',

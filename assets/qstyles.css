@@ -30,6 +30,11 @@
 
  * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  .intro-meta {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #6f6e68;
+  }
 
  body {
     font-family: 'Montserrat', sans-serif; 
@@ -980,7 +985,7 @@
     border-color: 1px solid #000;
   }
 
-  
+
 }
 
 @media (max-width: 700px) {
