@@ -1488,8 +1488,8 @@ async function showResults() {
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
   document.getElementById('r-prep').textContent    = res.P.toFixed(2); */
 
-  
-  const signals = getDebriefSignals(res, quotients);
+
+  const signals = getDebriefSignals(res, QDIMS);
   const d = getDebrief(signals);
 
   document.getElementById('d-q').innerHTML = d.q;
