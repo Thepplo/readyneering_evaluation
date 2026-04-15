@@ -925,46 +925,7 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-
-
-.results-spinner {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  position: relative;
-  animation: rotate 1s linear infinite
-}
-.results-spinner::before , .results-spinner::after {
-  content: "";
-  box-sizing: border-box;
-  position: absolute;
-  inset: 0px;
-  border-radius: 50%;
-  border: 5px solid black;
-  animation: prixClipFix 2s linear infinite ;
-}
-.results-spinner::after{
-  border-color: #ffda33;
-  animation: prixClipFix 2s linear infinite , rotate 0.5s linear infinite reverse;
-  inset: 6px;
-} 
-
 .results-shell {
-  position: relative;
-}
- @keyframes rotate {
-  0%   {transform: rotate(0deg)}
-  100%   {transform: rotate(360deg)}
-}
-
-@keyframes prixClipFix {
-    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
-    25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
-    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
-    75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
-    100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
-} 
-/* .results-shell {
   position: relative;
   min-height: 420px;
 }
@@ -993,6 +954,28 @@
   align-items: center;
   gap: 10px;
 }
+
+.results-spinner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s linear infinite
+}
+.results-spinner::before , .results-spinner::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 5px solid black;
+  animation: prixClipFix 2s linear infinite ;
+}
+.results-spinner::after{
+  border-color: #ffda33;
+  animation: prixClipFix 2s linear infinite , rotate 0.5s linear infinite reverse;
+  inset: 6px;
+}
 .results-loader-title {
   font-size: 18px;
   font-weight: 600;
@@ -1004,81 +987,21 @@
   line-height: 1.5;
   color: #6f6e68;
 }
-
-.results-spinner {
+.results-shell {
   position: relative;
-  width: 48px;
-  height: 48px;
-  color: #111;
-  transform: rotateZ(45deg);
-  perspective: 1000px;
-  border-radius: 50%;
 }
-
-.results-spinner::before,
-.results-spinner::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  color: inherit;
-  transform: rotateX(70deg);
-  animation: spin 1s linear infinite;
-}
-
-.results-spinner::after {
-  color: #ffda33;
-  transform: rotateY(70deg);
-  animation-delay: 0.4s;
-} */
-
-
 @keyframes rotate {
-  0% {
-    transform: translate(-50%, -50%) rotateZ(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotateZ(360deg);
-  }
+  0%   {transform: rotate(0deg)}
+  100%   {transform: rotate(360deg)}
 }
 
-@keyframes rotateccw {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(-360deg);
-  }
+@keyframes prixClipFix {
+    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+    25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+    75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+    100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
 }
-
-@keyframes spin {
-  0%,
-  100% {
-    box-shadow: .2em 0px 0 0px currentcolor;
-  }
-  12% {
-    box-shadow: .2em .2em 0 0 currentcolor;
-  }
-  25% {
-    box-shadow: 0 .2em 0 0px currentcolor;
-  }
-  37% {
-    box-shadow: -.2em .2em 0 0 currentcolor;
-  }
-  50% {
-    box-shadow: -.2em 0 0 0 currentcolor;
-  }
-  62% {
-    box-shadow: -.2em -.2em 0 0 currentcolor;
-  }
-  75% {
-    box-shadow: 0px -.2em 0 0 currentcolor;
-  }
-  87% {
-    box-shadow: .2em -.2em 0 0 currentcolor;
-  }
-}
-   
 
 #results-content.is-hidden {
   visibility: hidden;
