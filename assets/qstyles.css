@@ -771,7 +771,7 @@
 .signal-text .q-chip {
   font-weight: 600;
   position: relative;
-  padding-left: 10px;
+  padding-left: 0px;
   text-transform: capitalize;
 }
 .signal-text .q-chip::before {
@@ -979,6 +979,8 @@
   .q-card {
     border-color: 1px solid #000;
   }
+
+  
 }
 
 @media (max-width: 700px) {
