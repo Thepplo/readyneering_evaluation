@@ -1671,6 +1671,7 @@ async function showResults() {
 
   var res = computeAll();
   var quotientData = buildQuotients(res);
+  quotientData.sort((a, b) => b.score - a.score);
   var verdict = computeVerdict(res.O);
   var payload = buildSubmissionPayload(res, verdict);
   const signals = getDebriefSignals(res, quotientData);

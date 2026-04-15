@@ -793,17 +793,17 @@
 }
 
 
-.signal-card.strength.execution .signal-dot { background: var(--execution); }
-.signal-card.strength.emotion .signal-dot { background: var(--emotion); }
-.signal-card.strength.mind .signal-dot { background: var(--mind); }
-.signal-card.strength.vitality .signal-dot { background: var(--vitality); }
-.signal-card.strength.alignment .signal-dot { background: var(--alignment); }
+.signal-card.strength.execution .signal-dot { background: var(--execution) !important; }
+.signal-card.strength.emotion .signal-dot { background: var(--emotion) !important; }
+.signal-card.strength.mind .signal-dot { background: var(--mind) !important; }
+.signal-card.strength.vitality .signal-dot { background: var(--vitality) !important; }
+.signal-card.strength.alignment .signal-dot { background: var(--alignment) !important; }
 
-.signal-card.constraint.execution .signal-dot { background: var(--execution); }
-.signal-card.constraint.emotion .signal-dot { background: var(--emotion); }
-.signal-card.constraint.mind .signal-dot { background: var(--mind); }
-.signal-card.constraint.vitality .signal-dot { background: var(--vitality); }
-.signal-card.constraint.alignment .signal-dot { background: var(--alignment); }
+.signal-card.constraint.execution .signal-dot { background: var(--execution) !important; }
+.signal-card.constraint.emotion .signal-dot { background: var(--emotion) !important; }
+.signal-card.constraint.mind .signal-dot { background: var(--mind) !important; }
+.signal-card.constraint.vitality .signal-dot { background: var(--vitality) !important; }
+.signal-card.constraint.alignment .signal-dot { background: var(--alignment) !important; }
 
 .signal-card.pattern .signal-dot { background: #534AB7; }
 .signal-card.leverage .signal-dot { background: #2D52B5; }
