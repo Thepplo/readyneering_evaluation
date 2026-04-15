@@ -1944,14 +1944,14 @@ async function showResults() {
 
 function getStructuralSignal(structure, R, P) {
   if (structure === 'preparedness-heavy') {
-    return `Preparedness (${P.toFixed(2)}) is ahead of Resilience (${R.toFixed(2)}). Plans and intended standards may be stronger than live performance under pressure.`;
+    return `<strong>Preparedness</strong> (${P.toFixed(2)}) is ahead of <strong>Resilience</strong> (${R.toFixed(2)}). Plans and intended standards may be stronger than live performance under pressure.`;
   }
 
   if (structure === 'resilience-heavy') {
-    return `Resilience (${R.toFixed(2)}) is ahead of Preparedness (${P.toFixed(2)}). The system is coping in the moment more than it is designing in advance.`;
+    return `<strong>Resilience</strong> (${R.toFixed(2)}) is ahead of <strong>Preparedness</strong> (${P.toFixed(2)}). The system is coping in the moment more than it is designing in advance.`;
   }
 
-  return `Resilience (${R.toFixed(2)}) and Preparedness (${P.toFixed(2)}) are relatively balanced. The main constraint is less about mode imbalance and more about where specific quotients are lagging.`;
+  return `<strong>Resilience</strong> (${R.toFixed(2)}) and <strong>Preparedness</strong> (${P.toFixed(2)}) are relatively balanced. The main constraint is less about mode imbalance and more about where specific quotients are lagging.`;
 }
 
 function getGapSignal(item) {
@@ -2004,7 +2004,7 @@ function buildSignals(dim, R, P) {
       <div class="signal-item">
         <div class="signal-dot" style="background:#1D9E75"></div>
         <div class="signal-text">
-          <strong>${strongest.q}</strong> is currently your most reliable strength across both resilience and preparedness
+          <strong><span class="q-chip ${strongest.q.toLowerCase()}">${strongest.q}</span></strong> is currently your most reliable strength across both resilience and preparedness
           <span class="signal-meta">(avg ${strongest.avg.toFixed(1)})</span>.
         </div>
       </div>
@@ -2015,7 +2015,7 @@ function buildSignals(dim, R, P) {
       <div class="signal-item">
         <div class="signal-dot" style="background:#D85A30"></div>
         <div class="signal-text">
-          <strong>${weakest.q}</strong> is the main constraint in the system right now
+          <strong><span class="q-chip ${weakest.q.toLowerCase()}">${weakest.q}</span></strong> is the main constraint in the system right now
           <span class="signal-meta">(avg ${weakest.avg.toFixed(1)})</span>.
           This is the most likely place where performance breaks first.
         </div>
