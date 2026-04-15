@@ -1671,6 +1671,7 @@ async function showResults() {
   const signals = getDebriefSignals(res, quotientData);
   const d = getDebrief(signals);
   var modeHtml = renderModeGrid(res);
+  document.getElementById('mode-grid').innerHTML = modeHtml;
 
   document.getElementById('d-lbl').textContent = 'The question that matters';
   document.getElementById('d-q').innerHTML = d.q;
