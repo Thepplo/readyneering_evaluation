@@ -815,10 +815,10 @@ function buildSteps(savedState) {
       +'</div>'
       +'<div class="tri-wrap">'+makeSVG(i)+'</div>'
       +'<div class="placed" id="placed-'+i+'"></div>'
-      +'<div class="pills">'
+/*       +'<div class="pills">'
       +'<div class="pill">A: <b id="pa-'+i+'">-</b></div>'
       +'<div class="pill">B: <b id="pb-'+i+'">-</b></div>'
-      +'<div class="pill">C: <b id="pc-'+i+'">-</b></div>'
+      +'<div class="pill">C: <b id="pc-'+i+'">-</b></div>' */
       +'</div>'
       +'</div>';
   }
@@ -857,10 +857,10 @@ function rehydratePlacements() {
     var b = bary(pt.x, pt.y);
     var tot = Math.max(b[0] + b[1] + b[2], 0.001);
 
-    document.getElementById('pa-' + idx).textContent = Math.round(b[0] / tot * 100) + '%';
+/*     document.getElementById('pa-' + idx).textContent = Math.round(b[0] / tot * 100) + '%';
     document.getElementById('pb-' + idx).textContent = Math.round(b[1] / tot * 100) + '%';
-    document.getElementById('pc-' + idx).textContent = Math.round(b[2] / tot * 100) + '%';
-    document.getElementById('placed-' + idx).textContent = 'Dot placed - click to reposition';
+    document.getElementById('pc-' + idx).textContent = Math.round(b[2] / tot * 100) + '%'; */
+    /* document.getElementById('placed-' + idx).textContent = 'Dot placed - click to reposition'; */
   }
 }
 
@@ -905,10 +905,10 @@ function attachEvents(idx) {
 
     var b = bary(pt.x, pt.y);
     var tot = Math.max(b[0]+b[1]+b[2], 0.001);
-    document.getElementById('pa-'+idx).textContent = Math.round(b[0]/tot*100)+'%';
+    /* document.getElementById('pa-'+idx).textContent = Math.round(b[0]/tot*100)+'%';
     document.getElementById('pb-'+idx).textContent = Math.round(b[1]/tot*100)+'%';
     document.getElementById('pc-'+idx).textContent = Math.round(b[2]/tot*100)+'%';
-    document.getElementById('placed-'+idx).textContent = 'Dot placed - click to reposition';
+    /* document.getElementById('placed-'+idx).textContent = 'Dot placed - click to reposition'; */
     document.getElementById('warn').style.display = 'none';
     saveAssessmentState();
   }
