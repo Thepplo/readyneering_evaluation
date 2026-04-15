@@ -1231,8 +1231,13 @@ function buildModeInsights(results) {
     }
   };
 }
+
 function getModeSupportLine(mode) {
-  return "Supported most by " + mode.strongest.label + ", constrained most by " + mode.weakest.label + ".";
+  function styledLabel(q) {
+    return `<span class="q-chip ${q.key}">${q.label}</span>`;
+  }
+
+  return `Supported most by ${styledLabel(mode.strongest)}, constrained most by ${styledLabel(mode.weakest)}.`;
 }
 
 function getModeSpreadLine(mode) {
