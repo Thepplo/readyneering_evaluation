@@ -735,12 +735,65 @@
 .ring-card .rl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888780;margin-bottom:10px}
 .ring-card.hero .rl{color:#534AB7}
 .ring-card .rs{font-size:11px;color:#888780;margin-top:8px}
+
+
 .signal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
-.signal-card{background:#fff;border:1px solid #e8e7e0;border-radius:10px;padding:1rem 1.1rem}
+.signal-card{background:#fff;border:1px solid #e8e7e0;border-radius:10px;padding:1rem 1.1rem; overflow:hidden;position:relative}
 .signal-card .sc-head{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888780;margin-bottom:8px}
 .signal-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px}
 .signal-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:3px}
 .signal-text{font-size:13px;color:#444441;line-height:1.4}
+
+.signal-text strong {
+  font-weight: 600;
+  color: #222;
+}
+
+.signal-meta {
+  opacity: 0.7;
+  font-size: 12px;
+}
+
+.signal-card.strength {
+  background: #f4fbf7;
+  border-color: #cfe9dc;
+}
+
+.signal-card.constraint {
+  background: #fdf4f2;
+  border-color: #f1d0c8;
+}
+
+.signal-card.pattern {
+  background: #f4f3fc;
+  border-color: #d9d6f4;
+}
+
+.signal-card.leverage {
+  background: #f4f6fb;
+  border-color: #d6def4;
+}
+
+.signal-card.strength .signal-dot { background: #1D9E75; }
+.signal-card.constraint .signal-dot { background: #D85A30; }
+.signal-card.pattern .signal-dot { background: #534AB7; }
+.signal-card.leverage .signal-dot { background: #2D52B5; }
+
+.signal-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  opacity: 0.8;
+}
+
+.signal-card.strength::before { background: #1D9E75; }
+.signal-card.constraint::before { background: #D85A30; }
+.signal-card.pattern::before { background: #534AB7; }
+.signal-card.leverage::before { background: #2D52B5; }
+
 
 .orbit-svg {
   width: 100%;
