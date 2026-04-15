@@ -973,6 +973,72 @@ function getDominantPole(r, p, threshold) {
   return 'balanced';
 }
 
+function getDebriefSignals(res, quotients) {
+  const delta = res.P - res.R;
+
+  let structure;
+  if (delta > 0.25) structure = 'preparedness-heavy';
+  else if (delta < -0.25) structure = 'resilience-heavy';
+  else structure = 'balanced';
+
+  const sorted = [...quotients].sort((a,b)=>a.score-b.score);
+  const weakest = sorted[0];
+
+  const spread = sorted[sorted.length-1].score - sorted[0].score;
+
+  return { structure, weakest, spread };
+}
+
+function getDebrief(signals) {
+  const { structure, weakest, spread } = signals;
+
+  if (spread > 0.6) {
+    return {
+      q: "Why does our effectiveness change so much depending on the situation?",
+      n: "Because performance is being driven more by context than by a consistent system."
+    };
+  }
+
+  if (structure === 'preparedness-heavy') {
+    return {
+      q: "Where are we planning effectively—but failing to follow through under real conditions?",
+      n: "Plans only create value when they hold under pressure."
+    };
+  }
+
+  if (structure === 'resilience-heavy') {
+    return {
+      q: "Where are we relying on people to stay effective—without enough supporting structure?",
+      n: "Resilience sustains performance, but systems make it repeatable."
+    };
+  }
+
+  // fallback → use weakest quotient
+  return quotientDebriefs[weakest.key];
+}
+
+const quotientDebriefs = {
+  vitality: {
+    q: "Where does our energy or capacity limit consistent performance?",
+    n: "Without sustained energy, even strong systems break down."
+  },
+  emotion: {
+    q: "Where do emotional reactions influence outcomes more than intended?",
+    n: "Unmanaged emotion introduces variability into decisions."
+  },
+  mind: {
+    q: "Where do different people interpret the same situation differently?",
+    n: "Lack of clarity leads to inconsistent judgment."
+  },
+  execution: {
+    q: "Where do decisions fail to translate into consistent action?",
+    n: "Execution is what turns intent into results."
+  },
+  alignment: {
+    q: "Where are people making different decisions in the same situation?",
+    n: "Alignment determines whether effort compounds or fragments."
+  }
+};
 
 // ── Scoring ───────────────────────────────────────────────
 var DIMS = ['R_vitality','R_emotion','R_mind','R_execution','R_alignment',
@@ -1421,6 +1487,13 @@ async function showResults() {
   /*   document.getElementById('r-overall').textContent = res.O.toFixed(0);
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
   document.getElementById('r-prep').textContent    = res.P.toFixed(2); */
+
+  
+  const signals = getDebriefSignals(res, quotients);
+  const d = getDebrief(signals);
+
+  document.getElementById('d-q').innerHTML = d.q;
+  document.getElementById('d-n').innerHTML = d.n;
 
   const rr = document.getElementById('ring-row');
   rr.innerHTML = `
