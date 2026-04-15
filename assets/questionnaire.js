@@ -1670,8 +1670,8 @@ async function showResults() {
   var payload = buildSubmissionPayload(res, verdict);
   const signals = getDebriefSignals(res, quotientData);
   const d = getDebrief(signals);
-  var modeHtml = renderModeGrid(results);
-  
+  var modeHtml = renderModeGrid(res);
+
   document.getElementById('d-lbl').textContent = 'The question that matters';
   document.getElementById('d-q').innerHTML = d.q;
   document.getElementById('d-n').innerHTML = d.n;
