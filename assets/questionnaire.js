@@ -1010,7 +1010,7 @@ function getDebriefSignals(results, quotients) {
 function getDebrief(signals) {
   const { structure, weakest, spread, biggestGap } = signals || {};
 
-  if (typeof spread === 'number' && spread > 0.6) {
+  if (typeof spread === 'number' && spread > 1) {
     return {
       q: "Why does our effectiveness change so much depending on the situation?",
       n: "Because performance appears to depend more on context and conditions than on a consistently reliable system."
