@@ -624,8 +624,6 @@
 }
 
 .mode-head {
-  font-family: 'q5-heading', sans-serif;
-  text-transform: uppercase;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -635,11 +633,13 @@
 }
 
 .mode-label {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
 }
 
 .mode-score {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 .mode-role {
