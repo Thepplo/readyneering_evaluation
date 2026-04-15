@@ -1296,7 +1296,7 @@ function renderModeCard(m) {
     <div class="mode-card ${m.key} ${m.level}">
       <div class="mode-head">
         <div class="mode-label">${m.label}</div>
-        <div class="mode-score">${m.score.toFixed(1)}</div>
+        <div class="mode-score">${m.score.toFixed(2)}</div>
       </div>
 
       <div class="mode-role">${m.role}</div>
