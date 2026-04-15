@@ -1067,6 +1067,44 @@ function getDebrief(signals) {
   return quotientDebriefs.default;
 }
 
+function getDebriefReason(signals) {
+  const { structure, weakest, biggestGap, spread } = signals || {};
+
+  if (spread > 0.6) {
+    return "Driven by: high variability across quotients";
+  }
+
+  let primary = null;
+
+  if (biggestGap && biggestGap.gap > 0.35) {
+    primary = `gap in ${biggestGap.label}`;
+  } else if (weakest) {
+    primary = `low ${weakest.label}`;
+  }
+
+  let secondary = null;
+
+  if (structure === 'preparedness-heavy') {
+    secondary = "Preparedness > Resilience";
+  } else if (structure === 'resilience-heavy') {
+    secondary = "Resilience > Preparedness";
+  }
+
+  if (primary && secondary) {
+    return `Driven by: ${primary} + ${secondary}`;
+  }
+
+  if (primary) {
+    return `Driven by: ${primary}`;
+  }
+
+  if (secondary) {
+    return `Driven by: ${secondary}`;
+  }
+
+  return "";
+}
+
 const quotientDebriefs = {
   vitality: {
     q: "Where is energy or capacity limiting consistent performance?",
@@ -1429,6 +1467,7 @@ async function showResults() {
   document.getElementById('d-lbl').textContent = 'The question that matters';
   document.getElementById('d-q').innerHTML = d.q;
   document.getElementById('d-n').innerHTML = d.n;
+  document.getElementById('d-r').textContent = getDebriefReason(signals);
   console.log('Assessment Results:', res);
   console.log('Submission Payload:', payload);
 
