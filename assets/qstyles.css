@@ -594,7 +594,80 @@
   margin-bottom: 12px;
   border-radius: 2px;
 }
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
 
+.mode-card {
+  border-radius: 16px;
+  padding: 18px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 220px;
+  border: 1px solid #e0dfd8;
+  background: #fff;
+}
+
+.mode-card.resilience {
+  background: linear-gradient(180deg, #f3f0ff 0%, #ffffff 100%);
+  border-color: #c9c3f3;
+}
+
+.mode-card.preparedness {
+  background: linear-gradient(180deg, #effaf6 0%, #ffffff 100%);
+  border-color: #b9e3d3;
+}
+
+.mode-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding-bottom: 6px;
+}
+
+.mode-label {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.mode-score {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.mode-role {
+  font-size: 14px;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.mode-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mode-section-label {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.mode-copy {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.mode-section:last-child .mode-copy {
+  font-style: italic;
+}
 .debrief-lbl { 
   font-size: 11px; 
   font-weight: 600; 

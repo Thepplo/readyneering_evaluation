@@ -16,6 +16,45 @@ async function saveAssessment(payload) {
 
   return data;
 }
+const MODE_META = {
+  resilience: {
+    role: "Staying effective under pressure, disruption, and uncertainty.",
+    signal: {
+      high: "The system tends to stay functional and effective when conditions get difficult.",
+      mid: "The system absorbs some pressure, but not always with consistency.",
+      low: "Pressure is more likely to disrupt consistency, judgment, or follow-through."
+    },
+    risk: {
+      high: "Strong resilience can hide where people are compensating for weak structure.",
+      mid: "Resilience may hold in some conditions, but break in others.",
+      low: "When pressure rises, performance is more likely to depend on individuals than on the system."
+    },
+    question: {
+      high: "Where does the system still hold mainly because capable people absorb the strain?",
+      mid: "What tends to break first when conditions become difficult?",
+      low: "Where does pressure expose weak points faster than the system can absorb them?"
+    }
+  },
+
+  preparedness: {
+    role: "Building readiness, clarity, and structure before pressure arrives.",
+    signal: {
+      high: "The system appears well prepared, with expectations and structure in place ahead of time.",
+      mid: "Preparation exists, but not always at the level needed to create consistency.",
+      low: "The system is more reactive than designed, with readiness gaps showing up too late."
+    },
+    risk: {
+      high: "Strong preparedness can still fail if plans do not hold under live conditions.",
+      mid: "Preparedness may be present in principle, but not fully embedded in practice.",
+      low: "Too much depends on reaction and memory rather than design and readiness."
+    },
+    question: {
+      high: "Where do we know what good looks like—but fail to make it hold in practice?",
+      mid: "What are we repeatedly reacting to that should already be designed for?",
+      low: "Where is readiness depending more on memory than on structure?"
+    }
+  }
+};
 
 const QUOTIENT_META = {
   vitality: {
@@ -1134,6 +1173,172 @@ const quotientDebriefs = {
   }
 };
 
+function buildModeInsights(results) {
+  function avgLabel(key) {
+    return key.charAt(0).toUpperCase() + key.slice(1);
+  }
+
+  var rParts = [];
+  var pParts = [];
+
+  for (var i = 0; i < QDIMS.length; i++) {
+    var q = QDIMS[i];
+    rParts.push({
+      key: q,
+      label: avgLabel(q),
+      value: results.dim['R_' + q]
+    });
+    pParts.push({
+      key: q,
+      label: avgLabel(q),
+      value: results.dim['P_' + q]
+    });
+  }
+
+  var rAsc = rParts.slice().sort(function(a, b) { return a.value - b.value; });
+  var rDesc = rParts.slice().sort(function(a, b) { return b.value - a.value; });
+  var pAsc = pParts.slice().sort(function(a, b) { return a.value - b.value; });
+  var pDesc = pParts.slice().sort(function(a, b) { return b.value - a.value; });
+
+  var delta = results.P - results.R;
+
+  var structure = 'balanced';
+  if (delta > 0.25) structure = 'preparedness-heavy';
+  else if (delta < -0.25) structure = 'resilience-heavy';
+
+  return {
+    delta: delta,
+    structure: structure,
+    resilience: {
+      key: 'resilience',
+      label: 'Resilience',
+      score: results.R,
+      level: getLevel(results.R),
+      strongest: rDesc[0],
+      weakest: rAsc[0],
+      spread: rDesc[0].value - rAsc[0].value,
+      parts: rParts
+    },
+    preparedness: {
+      key: 'preparedness',
+      label: 'Preparedness',
+      score: results.P,
+      level: getLevel(results.P),
+      strongest: pDesc[0],
+      weakest: pAsc[0],
+      spread: pDesc[0].value - pAsc[0].value,
+      parts: pParts
+    }
+  };
+}
+function getModeSupportLine(mode) {
+  return "Supported most by " + mode.strongest.label + ", constrained most by " + mode.weakest.label + ".";
+}
+
+function getModeSpreadLine(mode) {
+  if (mode.spread > 0.6) {
+    return "This pattern is uneven across quotients, suggesting it depends on a few stronger areas more than a complete system.";
+  }
+  if (mode.spread > 0.35) {
+    return "This pattern is somewhat uneven across quotients, with a few visible weak points.";
+  }
+  return "This pattern is relatively coherent across quotients.";
+}
+
+function getModeStructureLine(modeKey, structure) {
+  if (modeKey === 'resilience' && structure === 'preparedness-heavy') {
+    return "Preparedness is currently stronger than resilience, suggesting intended standards may not always hold under pressure.";
+  }
+
+  if (modeKey === 'preparedness' && structure === 'preparedness-heavy') {
+    return "Preparedness is currently the stronger mode, suggesting expectations and structure are ahead of live consistency.";
+  }
+
+  if (modeKey === 'resilience' && structure === 'resilience-heavy') {
+    return "Resilience is currently the stronger mode, suggesting people may be coping well even where structure is less developed.";
+  }
+
+  if (modeKey === 'preparedness' && structure === 'resilience-heavy') {
+    return "Preparedness currently trails resilience, suggesting performance may depend more on coping than on design.";
+  }
+
+  return "Resilience and preparedness are relatively balanced in the current profile.";
+}
+
+function buildModeCards(results) {
+  var insights = buildModeInsights(results);
+
+  return ['resilience', 'preparedness'].map(function(modeKey) {
+    var mode = insights[modeKey];
+    var meta = MODE_META[modeKey];
+    var level = mode.level;
+
+    return {
+      key: mode.key,
+      label: mode.label,
+      score: mode.score,
+      level: level,
+      role: meta.role,
+      signal: meta.signal[level],
+      risk: meta.risk[level],
+      question: meta.question[level],
+      supportLine: getModeSupportLine(mode),
+      spreadLine: getModeSpreadLine(mode),
+      structureLine: getModeStructureLine(modeKey, insights.structure),
+      strongest: mode.strongest,
+      weakest: mode.weakest,
+      spread: mode.spread
+    };
+  });
+}
+function renderModeCard(m) {
+  return `
+    <div class="mode-card ${m.key} ${m.level}">
+      <div class="mode-head">
+        <div class="mode-label">${m.label}</div>
+        <div class="mode-score">${m.score.toFixed(1)}</div>
+      </div>
+
+      <div class="mode-role">${m.role}</div>
+
+      <div class="mode-section">
+        <div class="mode-section-label">Current signal</div>
+        <div class="mode-copy">${m.signal}</div>
+      </div>
+
+      <div class="mode-section">
+        <div class="mode-section-label">Composition</div>
+        <div class="mode-copy">${m.supportLine}</div>
+      </div>
+
+      <div class="mode-section">
+        <div class="mode-section-label">Structural pattern</div>
+        <div class="mode-copy">${m.structureLine}</div>
+      </div>
+
+      <div class="mode-section">
+        <div class="mode-section-label">Risk</div>
+        <div class="mode-copy">${m.risk}</div>
+      </div>
+
+      <div class="mode-section">
+        <div class="mode-section-label">Reflection question</div>
+        <div class="mode-copy">${m.question}</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderModeGrid(results) {
+  var modes = buildModeCards(results);
+
+  return `
+    <div class="mode-grid">
+      ${modes.map(renderModeCard).join('')}
+    </div>
+  `;
+}
+
 // ── Scoring ───────────────────────────────────────────────
 var DIMS = ['R_vitality','R_emotion','R_mind','R_execution','R_alignment',
             'P_vitality','P_emotion','P_mind','P_execution','P_alignment'];
@@ -1465,7 +1670,8 @@ async function showResults() {
   var payload = buildSubmissionPayload(res, verdict);
   const signals = getDebriefSignals(res, quotientData);
   const d = getDebrief(signals);
-
+  var modeHtml = renderModeGrid(results);
+  
   document.getElementById('d-lbl').textContent = 'The question that matters';
   document.getElementById('d-q').innerHTML = d.q;
   document.getElementById('d-n').innerHTML = d.n;
