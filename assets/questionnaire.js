@@ -1942,41 +1942,116 @@ async function showResults() {
   window.scrollTo(0, 0);
 }
 
-function buildSignals(dim,R,P){
-  const sg=document.getElementById('signal-grid');
-  const qScores=QDIMS.map(q=>({q,r:dim[`R_${q.toLowerCase()}`],p:dim[`P_${q.toLowerCase()}`],avg:(dim[`R_${q.toLowerCase()}`]+dim[`P_${q.toLowerCase()}`])/2}));
-  qScores.sort((a,b)=>b.avg-a.avg);
-  const strengths=qScores.slice(0,2);
-  const risks=qScores.slice(-2).reverse();
+function getStructuralSignal(structure, R, P) {
+  if (structure === 'preparedness-heavy') {
+    return `Preparedness (${P.toFixed(2)}) is ahead of Resilience (${R.toFixed(2)}). Plans and intended standards may be stronger than live performance under pressure.`;
+  }
 
-  const gaps=QDIMS.map(q=>({q,gap:dim[`R_${q.toLowerCase()}`]-dim[`P_${q.toLowerCase()}`]}));
-  gaps.sort((a,b)=>Math.abs(b.gap)-Math.abs(a.gap));
-  const bigGap=gaps[0];
+  if (structure === 'resilience-heavy') {
+    return `Resilience (${R.toFixed(2)}) is ahead of Preparedness (${P.toFixed(2)}). The system is coping in the moment more than it is designing in advance.`;
+  }
 
-  const rHigh=R>=P, rLow=R<P;
+  return `Resilience (${R.toFixed(2)}) and Preparedness (${P.toFixed(2)}) are relatively balanced. The main constraint is less about mode imbalance and more about where specific quotients are lagging.`;
+}
 
-  sg.innerHTML=`
+function getGapSignal(item) {
+  if (item.gap > 0.35) {
+    return `it is stronger under pressure than it is structurally prepared for, which may not be sustainable.`;
+  }
+  if (item.gap < -0.35) {
+    return `it is better designed in principle than it is enacted under pressure, suggesting an implementation gap.`;
+  }
+  return `resilience and preparedness are reasonably aligned here.`;
+}
+
+function buildSignals(dim, R, P) {
+  const sg = document.getElementById('signal-grid');
+
+  const qScores = QDIMS.map(q => {
+    const key = q.toLowerCase();
+    const r = dim[`R_${key}`];
+    const p = dim[`P_${key}`];
+    return {
+      q,
+      r,
+      p,
+      avg: (r + p) / 2,
+      gap: r - p,
+      absGap: Math.abs(r - p)
+    };
+  });
+
+  const byAvgDesc = qScores.slice().sort((a, b) => b.avg - a.avg);
+  const byAvgAsc = qScores.slice().sort((a, b) => a.avg - b.avg);
+  const byGapDesc = qScores.slice().sort((a, b) => b.absGap - a.absGap);
+
+  const strongest = byAvgDesc[0];
+  const weakest = byAvgAsc[0];
+  const biggestGap = byGapDesc[0];
+
+  const delta = P - R;
+  const structure =
+    delta > 0.25 ? 'preparedness-heavy' :
+    delta < -0.25 ? 'resilience-heavy' :
+    'balanced';
+
+  const weakerMode = R < P ? 'Resilience' : 'Preparedness';
+  const leverageLift = (0.3 * Math.max(R, P)).toFixed(2);
+
+  sg.innerHTML = `
     <div class="signal-card">
-      <div class="sc-head">Strengths</div>
-      ${strengths.map(s=>`<div class="signal-item"><div class="signal-dot" style="background:#1D9E75"></div><div class="signal-text">${s.q} — performing well in both resilience and preparedness (avg ${s.avg.toFixed(1)})</div></div>`).join('')}
+      <div class="sc-head">Consistent strength</div>
+      <div class="signal-item">
+        <div class="signal-dot" style="background:#1D9E75"></div>
+        <div class="signal-text">
+          <strong>${strongest.q}</strong> is currently your most reliable strength across both resilience and preparedness
+          <span class="signal-meta">(avg ${strongest.avg.toFixed(1)})</span>.
+        </div>
+      </div>
     </div>
+
     <div class="signal-card">
-      <div class="sc-head">Priority gaps</div>
-      ${risks.map(s=>`<div class="signal-item"><div class="signal-dot" style="background:#D85A30"></div><div class="signal-text">${s.q} — lowest combined score (avg ${s.avg.toFixed(1)}); review both structural and behavioral dimensions</div></div>`).join('')}
+      <div class="sc-head">Primary constraint</div>
+      <div class="signal-item">
+        <div class="signal-dot" style="background:#D85A30"></div>
+        <div class="signal-text">
+          <strong>${weakest.q}</strong> is the main constraint in the system right now
+          <span class="signal-meta">(avg ${weakest.avg.toFixed(1)})</span>.
+          This is the most likely place where performance breaks first.
+        </div>
+      </div>
     </div>
+
     <div class="signal-card">
       <div class="sc-head">Structural pattern</div>
-      <div class="signal-item"><div class="signal-dot" style="background:#534AB7"></div>
-        <div class="signal-text">${rHigh?`Resilience (${R.toFixed(2)}) exceeds Preparedness (${P.toFixed(2)}) — you rely on in-the-moment capability more than structural design. Risk: when individuals leave, the system is exposed.`:`Preparedness (${P.toFixed(2)}) exceeds Resilience (${R.toFixed(2)}) — plans exist but behavior under pressure doesn't match structural intent. Focus on rehearsal and real-conditions practice.`}</div>
+      <div class="signal-item">
+        <div class="signal-dot" style="background:#534AB7"></div>
+        <div class="signal-text">
+          ${getStructuralSignal(structure, R, P)}
+        </div>
       </div>
-      ${Math.abs(bigGap.gap)>0.5?`<div class="signal-item"><div class="signal-dot" style="background:#BA7517"></div><div class="signal-text">Largest gap in ${bigGap.q}: ${bigGap.gap>0?`stronger under pressure than structurally designed for — check if this is sustainable`:`stronger structural design than actual under-pressure behavior — implementation fidelity needs attention`}</div></div>`:''}
+      ${biggestGap.absGap > 0.35 ? `
+        <div class="signal-item">
+          <div class="signal-dot" style="background:#BA7517"></div>
+          <div class="signal-text">
+            The largest internal imbalance is in <strong>${biggestGap.q}</strong>:
+            ${getGapSignal(biggestGap)}.
+          </div>
+        </div>
+      ` : ''}
     </div>
+
     <div class="signal-card">
-      <div class="sc-head">The multiplication effect</div>
-      <div class="signal-item"><div class="signal-dot" style="background:#534AB7"></div>
-        <div class="signal-text">Overall Readiness = Resilience × Preparedness. A score of ${R.toFixed(1)} × ${P.toFixed(1)} = ${(R*P).toFixed(2)}. ${R*P<R&&R*P<P?`Both dimensions are pulling the score down. Improving either will have compound effect.`:`Even a 0.3 point gain in your weaker dimension (${P<R?'Preparedness':'Resilience'}) would lift Overall Readiness by approximately ${(0.3*Math.max(R,P)).toFixed(2)} points.`}</div>
+      <div class="sc-head">Highest leverage</div>
+      <div class="signal-item">
+        <div class="signal-dot" style="background:#534AB7"></div>
+        <div class="signal-text">
+          Small gains in <strong>${weakerMode}</strong> will have outsized impact on overall readiness.
+          A +0.3 increase would lift the total by approximately <strong>${leverageLift}</strong>.
+        </div>
       </div>
-    </div>`;
+    </div>
+  `;
 }
 // ── Start ─────────────────────────────────────────────────
 function startAssessment() {
