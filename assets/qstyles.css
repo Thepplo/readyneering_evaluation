@@ -66,6 +66,9 @@
   .brand {
     display: none;
   }
+  .wrap {
+    padding: 2rem 1rem 3rem;
+  }
 }
 
 .bg {
@@ -81,7 +84,7 @@
 
 .wrap { 
   margin: 0 auto; 
-  padding: 4rem 1.5rem 4rem; 
+  padding: 3rem 1.5rem 4rem; 
   position: relative; 
   z-index: 1;
   display: flex;
