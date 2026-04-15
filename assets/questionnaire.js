@@ -1684,7 +1684,7 @@ async function showResultsPage() {
   await renderResults();
 
   const elapsed = performance.now() - started;
-  const minDuration = 800;
+  const minDuration = 5000;
 
   if (elapsed < minDuration) {
     await wait(minDuration - elapsed);

@@ -890,7 +890,7 @@
 
 .results-loader {
   position: absolute;
-  inset: 0; /* top:0 right:0 bottom:0 left:0 */
+  inset: 0;
   display: none;
 
   align-items: center;
@@ -898,7 +898,7 @@
   text-align: center;
 
   padding: 32px 20px;
-  background: #fff; /* optional: prevents flicker of content underneath */
+  background: #fff;
   z-index: 10;
 }
 
