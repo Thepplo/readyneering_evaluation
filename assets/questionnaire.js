@@ -973,70 +973,124 @@ function getDominantPole(r, p, threshold) {
   return 'balanced';
 }
 
-function getDebriefSignals(res, quotients) {
-  const delta = res.P - res.R;
+function getDebriefSignals(results, quotients) {
+  const safeQuotients = Array.isArray(quotients) ? [...quotients] : [];
 
-  let structure;
+  const delta = results.P - results.R;
+
+  let structure = 'balanced';
   if (delta > 0.25) structure = 'preparedness-heavy';
   else if (delta < -0.25) structure = 'resilience-heavy';
-  else structure = 'balanced';
 
-  const sorted = [...quotients].sort((a,b)=>a.score-b.score);
-  const weakest = sorted[0];
+  const sortedByScore = [...safeQuotients].sort((a, b) => a.score - b.score);
+  const weakest = sortedByScore.length ? sortedByScore[0] : null;
+  const strongest = sortedByScore.length ? sortedByScore[sortedByScore.length - 1] : null;
 
-  const spread = sorted[sorted.length-1].score - sorted[0].score;
+  const spread =
+    weakest && strongest
+      ? strongest.score - weakest.score
+      : 0;
 
-  return { structure, weakest, spread };
+  const sortedByGap = [...safeQuotients].sort((a, b) => b.gap - a.gap);
+  const biggestGap = sortedByGap.length ? sortedByGap[0] : null;
+
+  return {
+    structure,
+    weakest,
+    strongest,
+    spread,
+    biggestGap,
+    delta,
+    overall: results.O
+  };
 }
 
 function getDebrief(signals) {
-  const { structure, weakest, spread } = signals;
+  const { structure, weakest, spread, biggestGap } = signals || {};
 
-  if (spread > 0.6) {
+  if (typeof spread === 'number' && spread > 0.6) {
     return {
       q: "Why does our effectiveness change so much depending on the situation?",
-      n: "Because performance is being driven more by context than by a consistent system."
+      n: "Because performance appears to depend more on context and conditions than on a consistently reliable system."
     };
   }
 
   if (structure === 'preparedness-heavy') {
+    if (weakest && weakest.key === 'execution') {
+      return {
+        q: "Where are we planning effectively—but failing to follow through under real conditions?",
+        n: "Plans only create value when they survive pressure, ambiguity, and time."
+      };
+    }
+
     return {
-      q: "Where are we planning effectively—but failing to follow through under real conditions?",
-      n: "Plans only create value when they hold under pressure."
+      q: "Where are we more prepared on paper than reliable in practice?",
+      n: "Preparedness matters most when it can be enacted consistently under pressure."
     };
   }
 
   if (structure === 'resilience-heavy') {
+    if (weakest && weakest.key === 'alignment') {
+      return {
+        q: "Where are strong individuals compensating for a lack of shared direction?",
+        n: "Resilience can sustain performance temporarily, but without alignment results vary by person and context."
+      };
+    }
+
     return {
-      q: "Where are we relying on people to stay effective—without enough supporting structure?",
-      n: "Resilience sustains performance, but systems make it repeatable."
+      q: "Where are we relying on people to stay effective without enough supporting structure?",
+      n: "Resilience can carry performance for a while, but systems are what make it repeatable."
     };
   }
 
-  // fallback → use weakest quotient
-  return quotientDebriefs[weakest.key];
+  if (biggestGap && biggestGap.gap > 0.35) {
+    if (biggestGap.dominant === 'preparedness') {
+      return {
+        q: `Where does ${biggestGap.label.toLowerCase()} look stronger in planning than in live conditions?`,
+        n: "A gap between preparedness and resilience often means the intended standard is not yet holding under pressure."
+      };
+    }
+
+    if (biggestGap.dominant === 'resilience') {
+      return {
+        q: `Where does ${biggestGap.label.toLowerCase()} depend on coping more than design?`,
+        n: "When resilience outruns preparedness, people may be compensating for structure that is not fully in place."
+      };
+    }
+  }
+
+  const key = weakest?.key;
+  if (key && quotientDebriefs[key]) {
+    return quotientDebriefs[key];
+  }
+
+  return quotientDebriefs.default;
 }
 
 const quotientDebriefs = {
   vitality: {
-    q: "Where does our energy or capacity limit consistent performance?",
-    n: "Without sustained energy, even strong systems break down."
+    q: "Where is energy or capacity limiting consistent performance?",
+    n: "Without sustained energy, even strong intentions and plans become harder to maintain."
   },
   emotion: {
-    q: "Where do emotional reactions influence outcomes more than intended?",
-    n: "Unmanaged emotion introduces variability into decisions."
+    q: "Where are emotional reactions shaping outcomes more than intended?",
+    n: "Emotional steadiness influences how consistently people respond under pressure."
   },
   mind: {
-    q: "Where do different people interpret the same situation differently?",
-    n: "Lack of clarity leads to inconsistent judgment."
+    q: "Where are people interpreting the same situation differently?",
+    n: "When clarity is weak, judgment and decision-making begin to drift."
   },
   execution: {
-    q: "Where do decisions fail to translate into consistent action?",
-    n: "Execution is what turns intent into results."
+    q: "Where are decisions failing to translate into reliable action?",
+    n: "Execution is what turns intent into consistent results."
   },
   alignment: {
     q: "Where are people making different decisions in the same situation?",
     n: "Alignment determines whether effort compounds or fragments."
+  },
+  default: {
+    q: "Where is performance depending more on individuals than on the system?",
+    n: "The most useful reflection is often where consistency still depends on people rather than design."
   }
 };
 
@@ -1369,7 +1423,12 @@ async function showResults() {
   var quotientData = buildQuotients(res);
   var verdict = computeVerdict(res.O);
   var payload = buildSubmissionPayload(res, verdict);
+  const signals = getDebriefSignals(results, quotients);
+  const d = getDebrief(signals);
 
+  document.getElementById('d-lbl').textContent = 'The question that matters';
+  document.getElementById('d-q').innerHTML = d.q;
+  document.getElementById('d-n').innerHTML = d.n;
   console.log('Assessment Results:', res);
   console.log('Submission Payload:', payload);
 
@@ -1488,12 +1547,6 @@ async function showResults() {
   document.getElementById('r-resil').textContent   = res.R.toFixed(2);
   document.getElementById('r-prep').textContent    = res.P.toFixed(2); */
 
-
-  const signals = getDebriefSignals(res, QDIMS);
-  const d = getDebrief(signals);
-
-  document.getElementById('d-q').innerHTML = d.q;
-  document.getElementById('d-n').innerHTML = d.n;
 
   const rr = document.getElementById('ring-row');
   rr.innerHTML = `
