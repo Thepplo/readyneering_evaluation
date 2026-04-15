@@ -979,8 +979,20 @@
 }
 
 @media (max-width: 600px) {
+  .screen {
+    max-width: 100%;
+  }
   .q-grid {
     grid-template-columns: 1fr;
+  }
+  .mode-grid {
+    grid-template-columns: 1fr;
+  }
+  .signal-grid {
+    grid-template-columns: 1fr;
+  }
+  .q-card.span-2 {
+    grid-column: span 1;
   }
   .ring-row {
     height: 250px;
