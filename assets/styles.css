@@ -167,6 +167,12 @@ body::after {
   font-weight: 400;
   margin-bottom: 5rem;
 }
+
+.sub-tag ul {
+  padding-left: 10px;
+  margin-top: 0.5rem;
+}
+
 .top-tag {
   font-size: 1rem;
   letter-spacing: 0.16em;
