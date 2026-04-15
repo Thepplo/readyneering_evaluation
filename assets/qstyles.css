@@ -382,7 +382,7 @@
   background: #f8f1f1;
 }
 
-.sec-title { font-size: 14px; font-weight: 600; color: #4a4944; padding-bottom: 8px; border-bottom: 1px solid #e0dfd8; margin-bottom: 20px; }
+.sec-title { font-size: 14px; font-weight: 600; color: #4a4944; padding-bottom: 8px; margin-bottom: 20px; margin-top: 30px;}
 
 .sec-title::after {
   content: "";
