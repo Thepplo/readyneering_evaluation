@@ -571,10 +571,40 @@
 .qbar-f { height: 100%; border-radius: 2px; }
 
 
-.debrief { background: #eeedfe; border: 1px solid #afa9ec; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-.debrief-lbl { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #534ab7; margin-bottom: 8px; }
-.debrief-q { font-size: 15px; font-weight: 600; color: #26215c; margin-bottom: 6px; line-height: 1.5; }
-.debrief-n { font-size: 13px; color: #534ab7; line-height: 1.65; }
+.debrief { 
+  background: linear-gradient(180deg, #f1f0ff 0%, #eceafd 100%); 
+  border: 1px solid #afa9ec; 
+  border-radius: 18px; 
+  padding: 24px 28px; 
+  margin: 28px 0;
+}
+.debrief-lbl { 
+  font-size: 11px; 
+  font-weight: 600; 
+
+  text-transform: uppercase; 
+  color: rgba(83,74,183,0.6);
+  letter-spacing: .12em;
+  margin-bottom: 8px; 
+}
+.debrief-q { 
+  font-size: 18px; 
+  font-weight: 600; 
+  color: #26215c; 
+  margin-bottom: 6px; 
+  line-height: 1.45; 
+}
+.debrief-n { 
+  font-size: 13px; 
+  color: rgba(38,33,92,0.75);
+  line-height: 1.65; 
+}
+.debrief-r { 
+  color: #534ab7;
+  font-weight: 500;
+}
+
+
 .ring-row {
   width: 100%;
   height: auto;

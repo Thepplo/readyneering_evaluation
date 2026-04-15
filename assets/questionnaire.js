@@ -147,10 +147,12 @@ const TRIADS = [
   id:"emotion-1",
   scenario:"During a difficult period - a restructuring, a failed project, or a leadership conflict - emotions ran high. Some things were said that created lasting tension between people.",
   question:"How did your organization handle the emotional aftermath?",
-  A:"Leaders named it openly; worked through it together",
+  A:"Never properly addressed; damage lingers",
   B:"Stayed professional; tension faded on its own",
-  C:"Never properly addressed; damage lingers",
-  scores:{ R_emotion:[0.9, 0.1, -0.8], P_emotion:[0.7, 0.1, -0.6] }
+  C:"Leaders named it openly; worked through it together",
+
+
+  scores:{ R_emotion:[-0.8, 0.1, 0.9], P_emotion:[-0.6, 0.1, 0.7] }
 },
 
 /* 3 - Mind (P) */
@@ -171,10 +173,10 @@ const TRIADS = [
   id:"alignment-1",
   scenario:"A critical team leader is suddenly unavailable - illness, resignation, or an unexpected absence - right in the middle of a high-stakes delivery. No succession has been formally planned.",
   question:"What happens to operational stability?",
-  A:"Minimal disruption shared clarity holds",
+  A:"Others step up; strain but the system holds",
   B:"Significant disruption - too much was in one person",
-  C:"Others step up; strain but the system holds",
-  scores:{ R_alignment:[0.9, -0.9, 0.1], P_alignment:[0.8, -0.9, -0.1] }
+  C:"Minimal disruption shared clarity holds",
+  scores:{ R_alignment:[-0.1, -0.9, 0.9], P_alignment:[-0.1, -0.9, 0.8] }
 },
 
 /* 5 - Execution (R) */
@@ -219,10 +221,10 @@ const TRIADS = [
   id:"alignment-2",
   scenario:"Three teams are working toward the same goal but their priorities conflict. One team's urgent is another team's low priority. The pressure is building and no one has resolved the tension.",
   question:"How does your organization resolve cross-team priority conflicts?",
-  A:"Clear escalation; resolved quickly at right level",
+  A:"Persists until a failure forces the conversation",
   B:"Informal negotiation; takes time, creates friction",
-  C:"Persists until a failure forces the conversation",
-  scores:{ R_alignment:[0.9, 0.2, -0.8], P_alignment:[0.7, 0.1, -0.7] }
+  C:"Clear escalation; resolved quickly at right level",
+  scores:{ R_alignment:[-0.8, 0.2, 0.9], P_alignment:[-0.7, 0.1, 0.7] }
 },
 
 /* 9 - Execution (P) */
