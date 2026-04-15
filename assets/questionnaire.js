@@ -1999,7 +1999,7 @@ function buildSignals(dim, R, P) {
   const leverageLift = (0.3 * Math.max(R, P)).toFixed(2);
 
   sg.innerHTML = `
-    <div class="signal-card strength">
+    <div class="signal-card strength ${strongest.q.toLowerCase()}">
       <div class="sc-head">Consistent strength</div>
       <div class="signal-item">
         <div class="signal-dot" style="background:#1D9E75"></div>
@@ -2010,7 +2010,7 @@ function buildSignals(dim, R, P) {
       </div>
     </div>
 
-    <div class="signal-card constraint">
+    <div class="signal-card constraint ${weakest.q.toLowerCase()}">
       <div class="sc-head">Primary constraint</div>
       <div class="signal-item">
         <div class="signal-dot" style="background:#D85A30"></div>

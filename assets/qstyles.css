@@ -738,7 +738,7 @@
 
 
 .signal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
-.signal-card{background:#fff;border:1px solid #e8e7e0;border-radius:10px;padding: 1.1rem 1.2rem; overflow:hidden;position:relative}
+.signal-card{background:#fff;border:none;box-shadow: 0 0 0 1px rgba(0,0,0,0.06);border-radius:10px;padding: 1.1rem 1.2rem; overflow:hidden;position:relative}
 .signal-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
 .signal-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:3px}
 .signal-text{font-size:13px;color:#444441;line-height:1.4}
@@ -790,8 +790,19 @@
   border-color: #d6def4;
 }
 
-.signal-card.strength .signal-dot { background: #1D9E75; }
-.signal-card.constraint .signal-dot { background: #D85A30; }
+
+.signal-card.strength.q-card.execution .signal-dot { background: var(--execution); }
+.signal-card.strength.q-card.emotion .signal-dot { background: var(--emotion); }
+.signal-card.strength.q-card.mind .signal-dot { background: var(--mind); }
+.signal-card.strength.q-card.vitality .signal-dot { background: var(--vitality); }
+.signal-card.strength.q-card.alignment .signal-dot { background: var(--alignment); }
+
+.signal-card.constraint.q-card.execution .signal-dot { background: var(--execution); }
+.signal-card.constraint.q-card.emotion .signal-dot { background: var(--emotion); }
+.signal-card.constraint.q-card.mind .signal-dot { background: var(--mind); }
+.signal-card.constraint.q-card.vitality .signal-dot { background: var(--vitality); }
+.signal-card.constraint.q-card.alignment .signal-dot { background: var(--alignment); }
+
 .signal-card.pattern .signal-dot { background: #534AB7; }
 .signal-card.leverage .signal-dot { background: #2D52B5; }
 
