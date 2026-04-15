@@ -382,8 +382,16 @@
   background: #f8f1f1;
 }
 
-.sec-title { font-size: 13px; font-weight: 600; color: #888; padding-bottom: 8px; border-bottom: 1px solid #e0dfd8; margin-bottom: 14px; }
+.sec-title { font-size: 14px; font-weight: 600; color: #4a4944; padding-bottom: 8px; border-bottom: 1px solid #e0dfd8; margin-bottom: 20px; }
 
+.sec-title::after {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 2px;
+  margin-top: 6px;
+  background: rgba(0,0,0,0.12);
+}
 .q-grid-wrapper {
   width: 100%;
   display: block;
