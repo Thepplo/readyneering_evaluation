@@ -589,7 +589,7 @@
   content: "";
   width: 40px;
   height: 2px;
-  background: rgba(125,92,110,0.25); /* muted blend tone */
+  background: rgba(125,92,110,0.25);
   display: block;
   margin-bottom: 12px;
   border-radius: 2px;

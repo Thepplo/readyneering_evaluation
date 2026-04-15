@@ -1072,7 +1072,7 @@ function getDebrief(signals) {
 function getDebriefReason(signals) {
   const { structure, weakest, biggestGap, spread } = signals || {};
 
-  if (spread > 0.6) {
+  if (spread > 1) {
     return "Driven by: high variability across quotients";
   }
 
@@ -1081,7 +1081,7 @@ function getDebriefReason(signals) {
   if (biggestGap && biggestGap.gap > 0.35) {
     primary = `gap in ${biggestGap.label}`;
   } else if (weakest) {
-    primary = `low ${weakest.label}`;
+    primary = `lower ${weakest.label}`;
   }
 
   let secondary = null;
