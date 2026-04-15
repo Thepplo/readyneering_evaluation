@@ -978,7 +978,7 @@ document.getElementById('btn-next').addEventListener('click', function() {
     return;
   }
   if (current === SHUFFLED_TRIADS.length - 1) {
-    showResults();
+    showResultsPage();
     return;
   }
 
@@ -1656,11 +1656,97 @@ function renderQuotientGrid(quotients) {
     </div>
   `;
 }
-// ── Results ───────────────────────────────────────────────
-async function showResults() {
-  document.getElementById('scr-assess').style.display = 'none';
-  document.getElementById('scr-results').style.display = 'block';
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
+function nextFrame() {
+  return new Promise(resolve => requestAnimationFrame(() => resolve()));
+}
+
+async function showResultsPage() {
+  const assess = document.getElementById('scr-assess');
+  const results = document.getElementById('scr-results');
+  const loader = document.getElementById('results-loader');
+  const content = document.getElementById('results-content');
+
+  assess.style.display = 'none';
+  results.style.display = 'block';
+
+  loader.classList.add('active');
+  content.classList.add('is-hidden');
+
+  await nextFrame();
+  await nextFrame();
+
+  const started = performance.now();
+
+  await renderResults();
+
+  const elapsed = performance.now() - started;
+  const minDuration = 500;
+
+  if (elapsed < minDuration) {
+    await wait(minDuration - elapsed);
+  }
+
+  await nextFrame();
+
+  loader.classList.remove('active');
+  content.classList.remove('is-hidden');
+
+  if (window.gsap) {
+    revealResults();
+  }
+
+  window.scrollTo(0, 0);
+}
+
+function revealResults() {
+  if (!window.gsap) return;
+
+  gsap.set('.reveal-hero, .reveal-modes, .reveal-debrief', {
+    opacity: 0,
+    y: 18
+  });
+
+  gsap.set('.reveal-quotients .q-card, .reveal-signals .signal-card', {
+    opacity: 0,
+    y: 18
+  });
+
+  gsap.timeline({ defaults: { ease: 'power2.out' } })
+    .to('.reveal-hero', {
+      opacity: 1,
+      y: 0,
+      duration: 0.45
+    })
+    .to('.reveal-modes', {
+      opacity: 1,
+      y: 0,
+      duration: 0.4
+    }, '-=0.18')
+    .to('.reveal-quotients .q-card', {
+      opacity: 1,
+      y: 0,
+      duration: 0.35,
+      stagger: 0.06
+    }, '-=0.08')
+    .to('.reveal-signals .signal-card', {
+      opacity: 1,
+      y: 0,
+      duration: 0.3,
+      stagger: 0.05
+    }, '-=0.12')
+    .to('.reveal-debrief', {
+      opacity: 1,
+      y: 0,
+      duration: 0.35
+    }, '-=0.08');
+}
+
+// ── Results ───────────────────────────────────────────────
+async function renderResults() {
   saveAssessmentState();
 
   const state = loadAssessmentState() || {};
@@ -1672,10 +1758,13 @@ async function showResults() {
   var res = computeAll();
   var quotientData = buildQuotients(res);
   quotientData.sort((a, b) => b.score - a.score);
+
   var verdict = computeVerdict(res.O);
   var payload = buildSubmissionPayload(res, verdict);
+
   const signals = getDebriefSignals(res, quotientData);
   const d = getDebrief(signals);
+
   var modeHtml = renderModeGrid(res);
   document.getElementById('mode-grid').innerHTML = modeHtml;
 
@@ -1683,6 +1772,7 @@ async function showResults() {
   document.getElementById('d-q').innerHTML = d.q;
   document.getElementById('d-n').innerHTML = d.n;
   document.getElementById('d-r').textContent = getDebriefReason(signals);
+
   console.log('Assessment Results:', res);
   console.log('Submission Payload:', payload);
 
@@ -1706,6 +1796,14 @@ async function showResults() {
   } else {
     console.log('Assessment already submitted, skipping save.');
   }
+
+  renderOrbit(res);
+  renderVerdict(res);
+  document.getElementById('q-grid-wrapper').innerHTML = renderQuotientGrid(quotientData);
+  buildSignals(res.dim, res.R, res.P);
+}
+
+function renderOrbit(res) {
   const orbitCx = 315;
   const orbitCy = 200;
   const rx = 250;
@@ -1716,16 +1814,17 @@ async function showResults() {
   const leftX = orbitCx - rx;
   const rightX = orbitCx + rx;
   const cy = orbitCy;
+
   const resiliencePos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 215);
   const preparednessPos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 325);
   const resilienceX = resiliencePos.x - smallSize / 2;
   const resilienceY = resiliencePos.y - smallSize / 2;
-
   const preparednessX = preparednessPos.x - smallSize / 2;
   const preparednessY = preparednessPos.y - smallSize / 2;
 
   const centerX = orbitCx - centerSize / 2;
   const centerY = orbitCy - centerSize / 2 - 5;
+
   const qRx = rx;
   const qRy = ry;
 
@@ -1750,34 +1849,6 @@ async function showResults() {
     qPos[key] = ellipsePointDeg(orbitCx, orbitCy, qRx, qRy, qDegrees[key]);
   });
 
-  const qAngles = {
-    mind: -145 * Math.PI / 180,
-    vitality: -205 * Math.PI / 180,
-    emotion: -235 * Math.PI / 180,
-    execution: -35 * Math.PI / 180,
-    alignment: -95 * Math.PI / 180
-  };
-
-  const qColors = {
-    vitality: '#FFD000',
-    emotion: '#E53846',
-    mind: '#770136',
-    execution: '#2D52B5',
-    alignment: '#1B74CD'
-  };
-
-  function ellipsePoint(cx, cy, rx, ry, angle) {
-    return {
-      x: cx + rx * Math.cos(angle),
-      y: cy + ry * Math.sin(angle)
-    };
-  }
-
-/*   const qPos = {};
-  Object.keys(qAngles).forEach(key => {
-    qPos[key] = ellipsePoint(orbitCx, orbitCy, qRx, qRy, qAngles[key]);
-  }); */
-
   function makeQNodes(qPos) {
     const size = 20;
 
@@ -1797,37 +1868,32 @@ async function showResults() {
       `;
     }).join('');
   }
-  /*   document.getElementById('r-overall').textContent = res.O.toFixed(0);
-  document.getElementById('r-resil').textContent   = res.R.toFixed(2);
-  document.getElementById('r-prep').textContent    = res.P.toFixed(2); */
-
 
   const rr = document.getElementById('ring-row');
   rr.innerHTML = `
     <svg class="orbit-svg" viewBox="0 0 630 420" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="backArcFade" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#7d5c6e" stop-opacity="1" />
-        <stop offset="18%" stop-color="#7d5c6e" stop-opacity="0.78" />
-        <stop offset="50%" stop-color="#7d5c6e" stop-opacity="0.05" />
-        <stop offset="82%" stop-color="#7d5c6e" stop-opacity="0.78" />
-        <stop offset="100%" stop-color="#7d5c6e" stop-opacity="1" />
-      </linearGradient>
+      <defs>
+        <linearGradient id="backArcFade" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#7d5c6e" stop-opacity="1" />
+          <stop offset="18%" stop-color="#7d5c6e" stop-opacity="0.78" />
+          <stop offset="50%" stop-color="#7d5c6e" stop-opacity="0.05" />
+          <stop offset="82%" stop-color="#7d5c6e" stop-opacity="0.78" />
+          <stop offset="100%" stop-color="#7d5c6e" stop-opacity="1" />
+        </linearGradient>
 
-      <linearGradient id="linkLeft" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#534AB7" stop-opacity="0.28" />
-        <stop offset="100%" stop-color="#534AB7" stop-opacity="0.06" />
-      </linearGradient>
+        <linearGradient id="linkLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#534AB7" stop-opacity="0.28" />
+          <stop offset="100%" stop-color="#534AB7" stop-opacity="0.06" />
+        </linearGradient>
 
-      <linearGradient id="linkRight" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#1D9E75" stop-opacity="0.28" />
-        <stop offset="100%" stop-color="#1D9E75" stop-opacity="0.06" />
-      </linearGradient>
-    </defs>
+        <linearGradient id="linkRight" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#1D9E75" stop-opacity="0.28" />
+          <stop offset="100%" stop-color="#1D9E75" stop-opacity="0.06" />
+        </linearGradient>
+      </defs>
 
       <path
-        d="M ${leftX} ${cy}
-          A ${rx} ${ry} 0 0 1 ${rightX} ${cy}"
+        d="M ${leftX} ${cy} A ${rx} ${ry} 0 0 1 ${rightX} ${cy}"
         fill="none"
         stroke="url(#backArcFade)"
         stroke-opacity="0.28"
@@ -1835,8 +1901,7 @@ async function showResults() {
       />
 
       <path
-        d="M ${rightX} ${cy}
-          A ${rx} ${ry} 0 0 1 ${leftX} ${cy}"
+        d="M ${rightX} ${cy} A ${rx} ${ry} 0 0 1 ${leftX} ${cy}"
         fill="none"
         stroke="#7d5c6e"
         stroke-opacity="0.28"
@@ -1845,8 +1910,7 @@ async function showResults() {
 
       <path
         d="M ${resiliencePos.x} ${resiliencePos.y}
-          Q ${orbitCx - 95} ${orbitCy - 35}
-            ${orbitCx} ${orbitCy}"
+          Q ${orbitCx - 95} ${orbitCy - 35} ${orbitCx} ${orbitCy}"
         fill="none"
         stroke="url(#linkLeft)"
         stroke-width="2"
@@ -1855,8 +1919,7 @@ async function showResults() {
 
       <path
         d="M ${preparednessPos.x} ${preparednessPos.y}
-          Q ${orbitCx + 95} ${orbitCy - 35}
-            ${orbitCx} ${orbitCy}"
+          Q ${orbitCx + 95} ${orbitCy - 35} ${orbitCx} ${orbitCy}"
         fill="none"
         stroke="url(#linkRight)"
         stroke-width="2"
@@ -1868,6 +1931,7 @@ async function showResults() {
           ${makeRing(res.R, 0, 5, '#534AB7', '#E8E7E0', smallSize)}
         </div>
       </foreignObject>
+
       <text x="${resiliencePos.x}" y="${resiliencePos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
         RESILIENCE
       </text>
@@ -1877,6 +1941,7 @@ async function showResults() {
           ${makeRing(res.P, 0, 5, '#1D9E75', '#E8E7E0', smallSize)}
         </div>
       </foreignObject>
+
       <text x="${preparednessPos.x}" y="${preparednessPos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
         PREPAREDNESS
       </text>
@@ -1886,16 +1951,20 @@ async function showResults() {
           ${makeRing(res.O, 0, 25, '#770136', '#7701363f', centerSize)}
         </div>
       </foreignObject>
+
       <text x="${orbitCx}" y="${centerY + centerSize + 18}" text-anchor="middle" class="score-label center-label">
         OVERALL READINESS
       </text>
       <text x="${orbitCx}" y="${centerY + centerSize + 34}" text-anchor="middle" class="score-sub center-sub">
         Resilience × Preparedness
       </text>
+
       ${makeQNodes(qPos)}
     </svg>
   `;
+}
 
+function renderVerdict(res) {
   var levels = [
     {min:16.0, cls:'v-s1', label:'Strategic Readiness',
      desc:'You operate as a deliberately designed system. Pressure reveals capability, not fragility.'},
@@ -1907,40 +1976,18 @@ async function showResults() {
      desc:'Instability is likely under sustained stress. Immediate structural intervention required.'}
   ];
 
-  var lv = levels[levels.length-1];
-  for (var i=0; i<levels.length; i++) {
-    if (res.O >= levels[i].min) { lv = levels[i]; break; }
+  var lv = levels[levels.length - 1];
+  for (var i = 0; i < levels.length; i++) {
+    if (res.O >= levels[i].min) {
+      lv = levels[i];
+      break;
+    }
   }
 
   var vbox = document.getElementById('verdict');
   vbox.className = 'verdict ' + lv.cls;
-  /* document.getElementById('v-lbl').textContent   = lv.label; */
   document.getElementById('v-title').textContent = lv.label;
-  document.getElementById('v-desc').textContent  = lv.desc;
-
-
-  document.getElementById('q-grid-wrapper').innerHTML = renderQuotientGrid(quotientData);
-  // Quotient cards
-/*   var qg = document.getElementById('q-grid');
-  var qhtml = '';
-  var qnames = ['Vitality','Emotion','Mind','Execution','Alignment'];
-  for (var i=0; i<QDIMS.length; i++) {
-    var q = QDIMS[i];
-    var rv = res.dim['R_'+q], pv = res.dim['P_'+q];
-    var avg = (rv+pv)/2;
-    var col = avg>=4 ? '#1d9e75' : avg>=3 ? '#770136' : avg>=2 ? '#ba7517' : '#d85a30';
-    var rw = ((rv-1)/4*100).toFixed(0), pw = ((pv-1)/4*100).toFixed(0);
-    qhtml += '<div class="qcard">'
-      +'<div class="qcard-lbl">'+qnames[i]+'</div>'
-      +'<div class="qcard-val" style="color:'+col+'">'+avg.toFixed(1)+'</div>'
-      +'<div class="qbar-row"><span class="qbar-l">R</span><div class="qbar-t"><div class="qbar-f" style="width:'+rw+'%;background:#770136"></div></div></div>'
-      +'<div class="qbar-row"><span class="qbar-l">P</span><div class="qbar-t"><div class="qbar-f" style="width:'+pw+'%;background:#1d9e75"></div></div></div>'
-      +'</div>';
-  }
-  qg.innerHTML = qhtml; */
-  buildSignals(res.dim,res.R,res.P);
-
-  window.scrollTo(0, 0);
+  document.getElementById('v-desc').textContent = lv.desc;
 }
 
 function getStructuralSignal(structure, R, P) {
@@ -2096,7 +2143,7 @@ function restoreAssessment() {
   updateUI();
 
   if (saved.screen === 'results') {
-    showResults();
+    showResultsPage();
   }
 }
 

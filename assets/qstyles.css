@@ -883,6 +883,59 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.results-shell {
+  position: relative;
+  min-height: 320px;
+}
+
+.results-loader {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 320px;
+  padding: 32px 20px;
+}
+
+.results-loader.active {
+  display: flex;
+}
+
+.results-loader-inner {
+  max-width: 420px;
+}
+
+.results-spinner {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  border: 3px solid rgba(0,0,0,0.08);
+  border-top-color: #534AB7;
+  animation: spin 0.9s linear infinite;
+}
+
+.results-loader-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a18;
+  margin-bottom: 6px;
+}
+
+.results-loader-copy {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6f6e68;
+}
+
+.results-content.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 @media print {
   .btn, .nav, .note-div, .no-print { display: none; }
   .q-card .q-head {
