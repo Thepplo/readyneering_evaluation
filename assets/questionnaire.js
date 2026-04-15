@@ -1423,7 +1423,7 @@ async function showResults() {
   var quotientData = buildQuotients(res);
   var verdict = computeVerdict(res.O);
   var payload = buildSubmissionPayload(res, verdict);
-  const signals = getDebriefSignals(res, quotients);
+  const signals = getDebriefSignals(res, quotientData);
   const d = getDebrief(signals);
 
   document.getElementById('d-lbl').textContent = 'The question that matters';
