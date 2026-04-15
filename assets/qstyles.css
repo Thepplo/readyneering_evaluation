@@ -927,7 +927,7 @@
 }
 
 
-/* .results-spinner {
+.results-spinner {
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -947,12 +947,12 @@
   border-color: #ffda33;
   animation: prixClipFix 2s linear infinite , rotate 0.5s linear infinite reverse;
   inset: 6px;
-} */
+} 
 
 .results-shell {
   position: relative;
 }
-/* @keyframes rotate {
+ @keyframes rotate {
   0%   {transform: rotate(0deg)}
   100%   {transform: rotate(360deg)}
 }
@@ -963,8 +963,8 @@
     50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
     75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
     100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
-} */
-.results-shell {
+} 
+/* .results-shell {
   position: relative;
   min-height: 420px;
 }
@@ -1030,7 +1030,7 @@
   color: #ffda33;
   transform: rotateY(70deg);
   animation-delay: 0.4s;
-}
+} */
 
 
 @keyframes rotate {
