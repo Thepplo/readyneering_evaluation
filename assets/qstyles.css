@@ -888,18 +888,17 @@
   min-height: 420px;
 }
 
+
 .results-loader {
-  position: absolute;
+  position: fixed;
   inset: 0;
   display: none;
-
   align-items: center;
   justify-content: center;
   text-align: center;
-
   padding: 32px 20px;
-  background: #fff;
-  z-index: 10;
+  background: rgba(255,255,255,0.96);
+  z-index: 999;
 }
 
 .results-loader.active {
@@ -946,7 +945,9 @@
   line-height: 1.5;
   color: #6f6e68;
 }
-
+.results-shell {
+  position: relative;
+}
 @keyframes rotate {
   0%   {transform: rotate(0deg)}
   100%   {transform: rotate(360deg)}
