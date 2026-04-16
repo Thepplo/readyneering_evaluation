@@ -462,8 +462,8 @@
 
 .q-last {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 20px;
+  left: 20px;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: .08em;
@@ -540,6 +540,12 @@
 .q-card.span-2 {
   grid-column: span 2;
 }
+
+.q-card.span-2 .q-head {
+  justify-content: flex-start;
+  gap: 12px;
+}
+
 .q-card.vitality .q-copy {
   color: rgba(0,0,0,0.85);
 }
@@ -1049,6 +1055,9 @@
   }
   .q-card.span-2 {
     grid-column: span 1;
+  }
+  .q-card.span-2 .q-head {
+    justify-content: space-between;
   }
   .ring-row {
     height: 250px;
