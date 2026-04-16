@@ -1031,6 +1031,16 @@
 @media print {
   .btn, .nav, .note-div, .no-print { display: none; }
   
+
+  .brand {
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    width: clamp(96px, 10vw, 180px);
+    height: auto;
+    display: block;
+    opacity: 1;
+  }
   .q-card .q-head {
     border-color: #000 !important;
     color: #000 !important;
@@ -1059,7 +1069,7 @@
   }
 
   .signal-card {
-    border-color: #000 !important;
+    border: 1px solid #000 !important;
     color: #000 !important;
     break-inside: avoid;
   }
