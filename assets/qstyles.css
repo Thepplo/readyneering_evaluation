@@ -1064,22 +1064,32 @@
   .q-card.vitality {
     background-color: #ffda33 !important;
     border-color: #ffda33 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
   .q-card.emotion {
     background-color: #E53846 !important;
     border-color: #E53846 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
   .q-card.execution {
     background-color: #2D52B5 !important;
     border-color: #2D52B5 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
   .q-card.mind {
     background-color: #770136 !important;
     border-color: #770136 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
   .q-card.alignment {
     background-color: #1B74CD !important;
     border-color: #1B74CD !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
 
