@@ -408,6 +408,7 @@ body::after {
     flex-wrap: wrap;
     gap: 0.5rem 1.25rem;
   }
+  .tagline { font-size: 2rem; }
 }
 
 @media (max-width: 900px) {
