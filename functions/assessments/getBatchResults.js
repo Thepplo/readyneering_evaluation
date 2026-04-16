@@ -118,7 +118,7 @@ export async function onRequestGet(context) {
     // Fetch broadly first, then filter in JS to avoid JSON-path query issues
     const { data: allSubmissions, error: submissionsError } = await supabase
       .from('submissions')
-      .select('id, metadata, created_at')
+      .select('id, metadata, submitted_at')
       .not('metadata', 'is', null);
 
     if (submissionsError) {
@@ -166,7 +166,7 @@ export async function onRequestGet(context) {
 
     const shapedSubmissions = submissions.map(submission => ({
       id: submission.id,
-      created_at: submission.created_at,
+      submitted_at: submission.submitted_at,
       metadata: submission.metadata || {},
       scores: scoresBySubmissionId[submission.id] || {}
     }));
