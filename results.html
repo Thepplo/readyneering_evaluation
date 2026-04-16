@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Session Results</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --surface-2: #f1f4f9;
+      --text: #172033;
+      --muted: #5e6a84;
+      --border: #dbe2ee;
+      --accent: #2b6ef2;
+      --accent-soft: #eaf1ff;
+      --good: #188750;
+      --warn: #a66a00;
+      --bad: #b42318;
+      --shadow: 0 10px 30px rgba(23, 32, 51, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1f4fbf 0%, #2b6ef2 55%, #5d91ff 100%);
+      color: white;
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-size: clamp(2rem, 4vw, 3.25rem); margin-bottom: 12px; }
+    h2 { font-size: 1.35rem; margin-bottom: 14px; }
+    h3 { font-size: 1rem; margin-bottom: 10px; }
+    .hero p { max-width: 740px; color: rgba(255,255,255,0.92); }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .input,
+    .button,
+    .select {
+      border: 1px solid transparent;
+      border-radius: 12px;
+      min-height: 46px;
+      font: inherit;
+    }
+
+    .input,
+    .select {
+      padding: 0 14px;
+      background: rgba(255,255,255,0.95);
+      color: var(--text);
+      min-width: 220px;
+    }
+
+    .button {
+      padding: 0 18px;
+      background: white;
+      color: var(--accent);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .button.secondary {
+      background: rgba(255,255,255,0.14);
+      color: white;
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid.metrics {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-bottom: 24px;
+    }
+
+    .grid.two {
+      grid-template-columns: 1.2fr 1fr;
+      margin-bottom: 24px;
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .metric-note,
+    .subtle {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.92rem;
+    }
+
+    .bar-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .bar-item { display: grid; gap: 6px; }
+    .bar-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.95rem;
+    }
+
+    .bar-track {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #7aa2ff, #2b6ef2);
+    }
+
+    .list {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--surface-2);
+      border-radius: 12px;
+    }
+
+    .highlight {
+      background: var(--accent-soft);
+      border: 1px solid #cfe0ff;
+      color: #12336f;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-top: 12px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th { color: var(--muted); font-weight: 600; }
+
+    .empty {
+      padding: 18px;
+      text-align: center;
+      color: var(--muted);
+      background: var(--surface-2);
+      border-radius: 14px;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 26px;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 960px) {
+      .grid.metrics,
+      .grid.two,
+      .grid.three {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Aggregate Session Results</div>
+      <h1>Batch-level diagnostic view</h1>
+      <p>
+        This page is set up to display a compiled view of all submissions inside one batch.
+        Plug your batch results endpoint into the script at the bottom and replace the sample
+        data with live values.
+      </p>
+
+      <div class="toolbar">
+        <input id="batchIdInput" class="input" type="text" placeholder="Enter batch_id" value="demo-batch-001" />
+        <button id="loadButton" class="button">Load batch</button>
+        <button id="demoButton" class="button secondary">Use sample data</button>
+      </div>
+    </section>
+
+    <section class="grid metrics">
+      <div class="card">
+        <div class="metric-label">Batch ID</div>
+        <div id="metricBatchId" class="metric-value" style="font-size:1.4rem;">—</div>
+        <div class="metric-note">Current session grouping</div>
+      </div>
+      <div class="card">
+        <div class="metric-label">Submissions</div>
+        <div id="metricCount" class="metric-value">—</div>
+        <div class="metric-note">Total responses in this batch</div>
+      </div>
+      <div class="card">
+        <div class="metric-label">Average overall score</div>
+        <div id="metricOverall" class="metric-value">—</div>
+        <div class="metric-note">Mean across all submissions</div>
+      </div>
+      <div class="card">
+        <div class="metric-label">Operating pattern</div>
+        <div id="metricPattern" class="metric-value" style="font-size:1.2rem; line-height:1.2;">—</div>
+        <div class="metric-note">Preparedness vs resilience read</div>
+      </div>
+    </section>
+
+    <section class="grid two">
+      <div class="card">
+        <div class="section-head">
+          <h2>Session overview</h2>
+          <div id="overviewNote" class="subtle">Waiting for data</div>
+        </div>
+        <div class="bar-list">
+          <div class="bar-item">
+            <div class="bar-top"><span>Preparedness</span><strong id="preparednessValue">—</strong></div>
+            <div class="bar-track"><div id="preparednessBar" class="bar-fill" style="width:0%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-top"><span>Resilience</span><strong id="resilienceValue">—</strong></div>
+            <div class="bar-track"><div id="resilienceBar" class="bar-fill" style="width:0%"></div></div>
+          </div>
+        </div>
+        <div id="overviewHighlight" class="highlight">Load a batch to generate a simple narrative summary.</div>
+      </div>
+
+      <div class="card">
+        <div class="section-head">
+          <h2>Metadata mix</h2>
+          <div class="subtle">From submissions.metadata</div>
+        </div>
+        <h3>Industries</h3>
+        <div id="industriesPills" class="pill-row"></div>
+        <h3 style="margin-top:18px;">Sources</h3>
+        <div id="sourcesPills" class="pill-row"></div>
+      </div>
+    </section>
+
+    <section class="grid three">
+      <div class="card">
+        <div class="section-head">
+          <h2>Top numeric strengths</h2>
+          <div class="subtle">Highest average score keys</div>
+        </div>
+        <ul id="strengthsList" class="list"></ul>
+      </div>
+
+      <div class="card">
+        <div class="section-head">
+          <h2>Primary constraints</h2>
+          <div class="subtle">Lowest average score keys</div>
+        </div>
+        <ul id="constraintsList" class="list"></ul>
+      </div>
+
+      <div class="card">
+        <div class="section-head">
+          <h2>Verdict distribution</h2>
+          <div class="subtle">Text score keys</div>
+        </div>
+        <ul id="distributionList" class="list"></ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>Average scores</h2>
+        <div class="subtle">All numeric score keys returned by the batch endpoint</div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Score key</th>
+              <th>Average</th>
+              <th>Median</th>
+              <th>Std dev</th>
+            </tr>
+          </thead>
+          <tbody id="averagesTableBody">
+            <tr><td colspan="4"><div class="empty">No batch loaded yet.</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      Starter template for Cloudflare Pages. Replace the sample endpoint in <code>fetchBatchResults()</code> when your function is live.
+    </p>
+  </div>
+
+  <script>
+    const sampleData = {
+      ok: true,
+      batch_id: 'demo-batch-001',
+      session: {
+        batch_id: 'demo-batch-001',
+        submission_count: 14,
+        industries: {
+          Healthcare: 6,
+          Finance: 4,
+          Technology: 4
+        },
+        sources: {
+          web: 9,
+          facilitated: 5
+        },
+        averages: {
+          overall_score: 71.4,
+          preparedness_score: 74.9,
+          resilience_score: 67.8,
+          vitality_overall: 64.2,
+          emotion_overall: 69.7,
+          mind_overall: 73.8,
+          execution_overall: 76.1,
+          alignment_overall: 72.4
+        },
+        medians: {
+          overall_score: 72.1,
+          preparedness_score: 75.8,
+          resilience_score: 67.2,
+          vitality_overall: 64.6,
+          emotion_overall: 70.3,
+          mind_overall: 73.2,
+          execution_overall: 77.5,
+          alignment_overall: 71.8
+        },
+        std_devs: {
+          overall_score: 8.7,
+          preparedness_score: 7.9,
+          resilience_score: 10.8,
+          vitality_overall: 9.6,
+          emotion_overall: 8.4,
+          mind_overall: 7.5,
+          execution_overall: 8.2,
+          alignment_overall: 9.1
+        },
+        distributions: {
+          overall_band: {
+            'Strategic Readiness': 4,
+            'Functional but Vulnerable': 7,
+            'Reactive Mode': 3
+          }
+        },
+        strongest_numeric_score: {
+          score_key: 'execution_overall',
+          average: 76.1
+        },
+        weakest_numeric_score: {
+          score_key: 'vitality_overall',
+          average: 64.2
+        }
+      }
+    };
+
+    const els = {
+      batchIdInput: document.getElementById('batchIdInput'),
+      loadButton: document.getElementById('loadButton'),
+      demoButton: document.getElementById('demoButton'),
+      metricBatchId: document.getElementById('metricBatchId'),
+      metricCount: document.getElementById('metricCount'),
+      metricOverall: document.getElementById('metricOverall'),
+      metricPattern: document.getElementById('metricPattern'),
+      preparednessValue: document.getElementById('preparednessValue'),
+      resilienceValue: document.getElementById('resilienceValue'),
+      preparednessBar: document.getElementById('preparednessBar'),
+      resilienceBar: document.getElementById('resilienceBar'),
+      overviewNote: document.getElementById('overviewNote'),
+      overviewHighlight: document.getElementById('overviewHighlight'),
+      industriesPills: document.getElementById('industriesPills'),
+      sourcesPills: document.getElementById('sourcesPills'),
+      strengthsList: document.getElementById('strengthsList'),
+      constraintsList: document.getElementById('constraintsList'),
+      distributionList: document.getElementById('distributionList'),
+      averagesTableBody: document.getElementById('averagesTableBody')
+    };
+
+    function formatNumber(value) {
+      if (typeof value !== 'number' || Number.isNaN(value)) return '—';
+      return value.toFixed(1);
+    }
+
+    function titleize(key) {
+      return key
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, c => c.toUpperCase());
+    }
+
+    function toEntriesSorted(obj = {}, direction = 'desc') {
+      return Object.entries(obj).sort((a, b) => {
+        const av = a[1];
+        const bv = b[1];
+        return direction === 'asc' ? av - bv : bv - av;
+      });
+    }
+
+    function renderPills(container, obj = {}) {
+      container.innerHTML = '';
+      const entries = Object.entries(obj);
+
+      if (!entries.length) {
+        container.innerHTML = '<div class="empty" style="width:100%;">No data</div>';
+        return;
+      }
+
+      for (const [key, value] of entries) {
+        const pill = document.createElement('div');
+        pill.className = 'pill';
+        pill.textContent = `${key}: ${value}`;
+        container.appendChild(pill);
+      }
+    }
+
+    function renderList(container, entries, valueFormatter = v => v) {
+      container.innerHTML = '';
+      if (!entries.length) {
+        container.innerHTML = '<li><span>No data</span><strong>—</strong></li>';
+        return;
+      }
+
+      for (const [key, value] of entries) {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${titleize(key)}</span><strong>${valueFormatter(value)}</strong>`;
+        container.appendChild(li);
+      }
+    }
+
+    function derivePattern(preparedness, resilience) {
+      if (typeof preparedness !== 'number' || typeof resilience !== 'number') return 'Unknown';
+      const diff = preparedness - resilience;
+      if (Math.abs(diff) < 3) return 'Balanced';
+      return diff > 0 ? 'Preparedness-heavy' : 'Resilience-heavy';
+    }
+
+    function buildHighlight(preparedness, resilience, strongest, weakest) {
+      const pattern = derivePattern(preparedness, resilience).toLowerCase();
+      const strongestLabel = strongest ? titleize(strongest.score_key) : 'No clear strength yet';
+      const weakestLabel = weakest ? titleize(weakest.score_key) : 'No clear constraint yet';
+
+      return `This batch reads as ${pattern}. The strongest shared area is ${strongestLabel}, while ${weakestLabel} looks like the main collective constraint.`;
+    }
+
+    function renderAveragesTable(session) {
+      const averages = session.averages || {};
+      const medians = session.medians || {};
+      const stdDevs = session.std_devs || {};
+      const keys = Object.keys(averages);
+
+      if (!keys.length) {
+        els.averagesTableBody.innerHTML = '<tr><td colspan="4"><div class="empty">No numeric scores available.</div></td></tr>';
+        return;
+      }
+
+      els.averagesTableBody.innerHTML = keys
+        .sort((a, b) => (averages[b] ?? 0) - (averages[a] ?? 0))
+        .map(key => `
+          <tr>
+            <td>${titleize(key)}</td>
+            <td>${formatNumber(averages[key])}</td>
+            <td>${formatNumber(medians[key])}</td>
+            <td>${formatNumber(stdDevs[key])}</td>
+          </tr>
+        `)
+        .join('');
+    }
+
+    function renderSession(payload) {
+      const session = payload.session || {};
+      const averages = session.averages || {};
+      const preparedness = averages.preparedness_score;
+      const resilience = averages.resilience_score;
+      const overall = averages.overall_score;
+      const strongest = session.strongest_numeric_score;
+      const weakest = session.weakest_numeric_score;
+      const pattern = derivePattern(preparedness, resilience);
+
+      els.metricBatchId.textContent = payload.batch_id || session.batch_id || '—';
+      els.metricCount.textContent = session.submission_count ?? '—';
+      els.metricOverall.textContent = formatNumber(overall);
+      els.metricPattern.textContent = pattern;
+
+      els.preparednessValue.textContent = formatNumber(preparedness);
+      els.resilienceValue.textContent = formatNumber(resilience);
+      els.preparednessBar.style.width = `${Math.max(0, Math.min(100, preparedness || 0))}%`;
+      els.resilienceBar.style.width = `${Math.max(0, Math.min(100, resilience || 0))}%`;
+
+      els.overviewNote.textContent = `${session.submission_count ?? 0} submissions loaded`;
+      els.overviewHighlight.textContent = buildHighlight(preparedness, resilience, strongest, weakest);
+
+      renderPills(els.industriesPills, session.industries || {});
+      renderPills(els.sourcesPills, session.sources || {});
+
+      renderList(
+        els.strengthsList,
+        toEntriesSorted(averages, 'desc').slice(0, 5),
+        v => formatNumber(v)
+      );
+
+      renderList(
+        els.constraintsList,
+        toEntriesSorted(averages, 'asc').slice(0, 5),
+        v => formatNumber(v)
+      );
+
+      const firstDistribution = Object.entries(session.distributions || {})[0]?.[1] || {};
+      renderList(els.distributionList, Object.entries(firstDistribution), v => v);
+
+      renderAveragesTable(session);
+    }
+
+    async function fetchBatchResults(batchId) {
+      const response = await fetch(`/assessments/getBatchResults?batch_id=${encodeURIComponent(batchId)}`);
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+      return response.json();
+    }
+
+    els.loadButton.addEventListener('click', async () => {
+      const batchId = els.batchIdInput.value.trim();
+      if (!batchId) return;
+
+      els.overviewNote.textContent = 'Loading...';
+
+      try {
+        const data = await fetchBatchResults(batchId);
+        renderSession(data);
+      } catch (error) {
+        console.error(error);
+        els.overviewNote.textContent = 'Load failed';
+        els.overviewHighlight.textContent = 'Could not load this batch yet. Check the endpoint path and returned JSON shape.';
+      }
+    });
+
+    els.demoButton.addEventListener('click', () => {
+      renderSession(sampleData);
+    });
+
+    renderSession(sampleData);
+  </script>
+</body>
+</html>
