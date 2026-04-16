@@ -60,11 +60,11 @@ const QUOTIENT_META = {
   vitality: {
     label: 'Vitality',
     role: 'Physiological regulation underlying sustained cognitive and emotional capacity',
-    signal: {
-      high: 'Energy and capacity are sustaining performance well.',
-      mid: 'Energy is generally present, but not consistently sustained.',
-      low: 'Energy and capacity are limiting consistent performance.'
-    },
+  signal: {
+    high: 'The system sustains energy and capacity well under demand.',
+    mid: 'Energy is generally present, but not consistently sustained under pressure.',
+    low: 'Limited energy and capacity are constraining consistency.'
+  },
     failure: {
       high: 'Strong energy can hide structural overload if effort keeps compensating for weak design.',
       mid: 'Performance may depend too much on conditions or key people.',
@@ -81,9 +81,9 @@ const QUOTIENT_META = {
     label: 'Emotion',
     role: 'Emotional regulation shaping decisions before conscious awareness',
     signal: {
-      high: 'Emotional dynamics are being handled with steadiness and awareness.',
+      high: 'Emotional dynamics are handled with steadiness and awareness.',
       mid: 'Emotional awareness is present, but not consistently shaping better responses.',
-      low: 'Emotional dynamics are likely affecting consistency and judgment.'
+      low: 'Emotional dynamics are affecting consistency and judgment.'
     },
     failure: {
       high: 'Composure can become detachment if signals from people are missed.',
@@ -103,7 +103,7 @@ const QUOTIENT_META = {
     signal: {
       high: 'Thinking and judgment are creating clear direction.',
       mid: 'There is some clarity, but not enough to guide action consistently.',
-      low: 'Unclear thinking is likely reducing consistency and confidence.'
+      low: 'Unclear thinking is reducing consistency and confidence.'
     },
     failure: {
       high: 'Strong conviction can become rigidity if assumptions are not challenged.',
@@ -123,7 +123,7 @@ const QUOTIENT_META = {
     signal: {
       high: 'Intent is translating into action with consistency.',
       mid: 'Execution happens, but not always with enough reliability or follow-through.',
-      low: 'Execution is not consistently converting intent into results.'
+      low: 'Intent is not consistently converting into results.'
     },
     failure: {
       high: 'Strong execution can mask overdependence on a few capable people.',
@@ -142,7 +142,7 @@ const QUOTIENT_META = {
     role: 'Coherence, belonging, and clarity across the system',
     signal: {
       high: 'People are acting in a shared direction with consistency.',
-      mid: 'Alignment exists, but it weakens under pressure or ambiguity.',
+      mid: 'Alignment exists, but weakens under pressure or ambiguity.',
       low: 'People are not consistently acting in the same direction.'
     },
     failure: {
@@ -1632,7 +1632,7 @@ function renderQuotientCard(q, isLast) {
       <div class="q-role">${q.role}</div>
 
       <div class="q-section">
-        <div class="q-section-label">Current signal</div>
+        <div class="q-section-label">What this layer reveals</div>
         <div class="q-copy">${q.signal}</div>
       </div>
 
