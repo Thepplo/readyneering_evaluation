@@ -1062,8 +1062,27 @@
     break-inside: avoid;
   }
   .q-card.vitality {
+    background-color: #ffda33 !important;
     border-color: #ffda33 !important;
   }
+  .q-card.emotion {
+    background-color: #E53846 !important;
+    border-color: #E53846 !important;
+  }
+  .q-card.execution {
+    background-color: #2D52B5 !important;
+    border-color: #2D52B5 !important;
+  }
+  .q-card.mind {
+    background-color: #770136 !important;
+    border-color: #770136 !important;
+  }
+  .q-card.alignment {
+    background-color: #1B74CD !important;
+    border-color: #1B74CD !important;
+  }
+
+
   .mode-card {
     border-color: #000 !important;
     color: #000 !important;
