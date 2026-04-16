@@ -1041,7 +1041,12 @@
     color: #000;
   }
 
-
+  .q-card::after {
+    display: none;
+  }
+  .q-card::before {
+    display: none;
+  }
   .q-card {
     border:1px solid #000;
     color: #000;
