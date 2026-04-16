@@ -218,10 +218,12 @@
 
     async function fetchBatchResults(batchId) {
       const response = await fetch(`functions/assessments/getBatchResults?batch_id=${encodeURIComponent(batchId)}`);
+      const text = await response.text();
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`);
       }
-      return response.json();
+      console.log(text);
+      return JSON.parse(text);
     }
 
     els.loadButton.addEventListener('click', async () => {
