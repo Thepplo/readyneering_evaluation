@@ -1616,7 +1616,7 @@ function renderQuotientCard(q, isLast) {
       <span class="orb orb-1"></span>
       <span class="orb orb-2"></span>
       <span class="orb orb-3"></span>
-      {isLast && '<div class="q-last">Your Primary Constraint</div>'}
+      ${isLast ? '<div class="q-last">Your Primary Constraint</div>' : ''}
       <div class="q-head">
         <div class="q-label">${q.label}</div>
         <div class="q-metrics">
