@@ -217,12 +217,18 @@
     }
 
     async function fetchBatchResults(batchId) {
-      const response = await fetch(`/assessments/getBatchResults?batch_id=${encodeURIComponent(batchId)}`);
+      const response = await fetch(
+        `/assessments/getBatchResults?batch_id=${encodeURIComponent(batchId)}`
+      );
+
       const text = await response.text();
+      console.log('status:', response.status);
+      console.log('body:', text);
+
       if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`);
+        throw new Error(`Request failed with status ${response.status}: ${text}`);
       }
-      console.log(text);
+
       return JSON.parse(text);
     }
 
