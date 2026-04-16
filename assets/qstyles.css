@@ -1035,8 +1035,14 @@
     border-color: #000;
     color: #000;
   }
+
+  .q-card .q-copy {
+    color: #000;
+  }
+
+  
   .q-card {
-    border-color:#000;
+    border:1px solid #000;
     color: #000;
   }
 
@@ -1049,7 +1055,7 @@
     border-color: #000;
     color: #000;
   }
-  
+
 
 }
 
