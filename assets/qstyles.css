@@ -1104,7 +1104,7 @@
     color: #000 !important;
     break-inside: avoid;
   }
-  .q-card .q-copy {
+/*   .q-card .q-copy {
     color: rgba(0,0,0,0.85) !important;
   }
   .q-card .q-section-label {
@@ -1115,7 +1115,7 @@
   }
   .q-card .q-last {
     color: rgba(0,0,0,0.65) !important;
-  }
+  } */
 }
 
 @media (max-width: 700px) {
