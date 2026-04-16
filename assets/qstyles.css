@@ -1031,24 +1031,20 @@
 }
 @media print {
   .btn, .nav, .note-div, .no-print { display: none; }
-
-/*   .q-card .q-head {
+  
+  .q-card .q-head {
     border-color: #000;
     color: #000;
   }
 
   .q-card .q-copy {
     color: #000;
-  } */
-  .q-card.vitality { background: var(--vitality); color: #000; }
-  .q-card.emotion  { background: var(--emotion); color: #fff; }
-  .q-card.mind     { background: var(--mind); color: #fff; }
-  .q-card.execution{ background: var(--execution); color: #fff; }
-  .q-card.alignment{ background: var(--alignment); color: #fff; }
+  }
+
 
   .q-card {
-/*     border:1px solid #000;
-    color: #000; */
+    border:1px solid #000;
+    color: #000;
     break-inside: avoid;
   }
 
