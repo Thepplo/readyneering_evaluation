@@ -1061,7 +1061,9 @@
     color: #000 !important;
     break-inside: avoid;
   }
-
+  .q-card.vitality {
+    border-color: #ffda33 !important;
+  }
   .mode-card {
     border-color: #000 !important;
     color: #000 !important;
