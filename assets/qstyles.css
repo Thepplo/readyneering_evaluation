@@ -1032,12 +1032,24 @@
 @media print {
   .btn, .nav, .note-div, .no-print { display: none; }
   .q-card .q-head {
-    border-color: 1px solid #000;
+    border-color: #000;
+    color: #000;
   }
   .q-card {
-    border-color: 1px solid #000;
+    border-color:#000;
+    color: #000;
   }
 
+  .mode-card {
+    border-color: #000;
+    color: #000;
+  }
+
+  .signal-card {
+    border-color: #000;
+    color: #000;
+  }
+  
 
 }
 
