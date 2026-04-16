@@ -1042,12 +1042,12 @@
     opacity: 1;
   }
   .q-card .q-head {
-    border-color: #000 !important;
-    color: #000 !important;
+/*     border-color: #000 !important;
+    color: #000 !important; */
   }
 
   .q-card .q-copy {
-    color: #000 !important;
+/*     color: #000 !important; */
   }
 
   .q-card::after {
@@ -1057,8 +1057,8 @@
     display: none !important;
   }
   .q-card {
-    border:1px solid #000 !important;
-    color: #000 !important;
+/*     border:1px solid #000 !important;
+    color: #000 !important; */
     break-inside: avoid;
   }
   .q-card.vitality {
