@@ -107,6 +107,18 @@
     width: 84px;
     opacity: 0.5;
   }
+  .nav {
+    position: fixed;
+    bottom: calc(15px + env(safe-area-inset-bottom));
+    left: 0;
+    right: 0;
+
+    padding: 12px 24px;
+  }
+
+  #scr-assess {
+    padding-bottom: 50px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -1140,4 +1152,5 @@
   .ring-row {
     height: 250px;
   }
+
 }
