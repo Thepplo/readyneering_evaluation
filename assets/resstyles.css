@@ -54,7 +54,7 @@
       display: inline-block;
       padding: 6px 10px;
       border-radius: 999px;
-      background: var(--text);
+      background: rgba(255,255,255,0.16);
       font-size: 13px;
       letter-spacing: 0.02em;
       margin-bottom: 16px;
@@ -65,7 +65,7 @@
     h1 { font-size: clamp(2rem, 4vw, 3.25rem); margin-bottom: 12px; }
     h2 { font-size: 1.35rem; margin-bottom: 14px; }
     h3 { font-size: 1rem; margin-bottom: 10px; }
-    .hero p { max-width: 740px; color: rgba(255,255,255,0.92); }
+    .hero p { max-width: 740px; color: var(--text); opacity: 0.9; }
 
     .toolbar {
       display: flex;

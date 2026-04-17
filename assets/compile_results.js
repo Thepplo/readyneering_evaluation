@@ -189,8 +189,8 @@
 
       els.preparednessValue.textContent = formatNumber(preparedness);
       els.resilienceValue.textContent = formatNumber(resilience);
-      els.preparednessBar.style.width = `${Math.max(0, Math.min(100, preparedness || 0))}%`;
-      els.resilienceBar.style.width = `${Math.max(0, Math.min(100, resilience || 0))}%`;
+      els.preparednessBar.style.width = `${Math.max(0, Math.min(5, preparedness || 0)) / 5 * 100}%`;
+      els.resilienceBar.style.width = `${Math.max(0, Math.min(5, resilience || 0)) / 5 * 100}%`;
 
       els.overviewNote.textContent = `${session.submission_count ?? 0} submissions loaded`;
       els.overviewHighlight.textContent = buildHighlight(preparedness, resilience, strongest, weakest);
