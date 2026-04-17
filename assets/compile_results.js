@@ -81,9 +81,9 @@
       constraintsList: document.getElementById('constraintsList'),
       distributionList: document.getElementById('distributionList'),
       averagesTableBody: document.getElementById('averagesTableBody'),
-      preparednessRing = document.getElementById('preparednessRing'),
-      resilienceRing = document.getElementById('resilienceRing'),
-      overallRing = document.getElementById('overallRing'),
+      preparednessRing: document.getElementById('preparednessRing'),
+      resilienceRing: document.getElementById('resilienceRing'),
+      overallRing: document.getElementById('overallRing'),
     };
 
     function formatNumber(value) {
