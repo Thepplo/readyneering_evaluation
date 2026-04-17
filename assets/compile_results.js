@@ -283,7 +283,13 @@
         </svg>
       `;
     }
-
+    function pointOnEllipse(cx, cy, rx, ry, deg) {
+      const rad = (deg * Math.PI) / 180;
+      return {
+        x: cx + rx * Math.cos(rad),
+        y: cy + ry * Math.sin(rad)
+      };
+    }
     function renderOrbit(res) {
       const orbitCx = 315;
       const orbitCy = 200;
