@@ -56,6 +56,16 @@ function countBy(values) {
   }, {});
 }
 
+function stdDev(values) {
+  const mean = values.reduce((a, b) => a + b, 0) / values.length;
+  
+  const variance = values.reduce((sum, v) => {
+    return sum + Math.pow(v - mean, 2);
+  }, 0) / values.length;
+
+  return Math.sqrt(variance);
+}
+
 function buildSessionSummary(batchId, submissions) {
   const allScoreKeys = new Set();
   for (const submission of submissions) {
@@ -66,6 +76,7 @@ function buildSessionSummary(batchId, submissions) {
 
   const averages = {};
   const distributions = {};
+  const standardDevs = {};
 
   for (const key of allScoreKeys) {
     const values = submissions.map(s => s.scores[key]).filter(v => v !== null && v !== undefined);
@@ -73,6 +84,7 @@ function buildSessionSummary(batchId, submissions) {
     const numericValues = values.filter(v => typeof v === 'number' && !Number.isNaN(v));
     if (numericValues.length) {
       averages[key] = round(average(numericValues));
+      standardDevs[key] = stdDev(numericValues);
       continue;
     }
 
