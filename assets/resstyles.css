@@ -63,6 +63,8 @@ body {
 
 .hero-content {
   max-width: 1180px;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   flex-direction: column;
   justify-content: start;
