@@ -15,8 +15,8 @@
         },
         averages: {
           overall_score: 71.4,
-          preparedness_score: 74.9,
-          resilience_score: 67.8,
+          preparedness_score: 3.3,
+          resilience_score: 3.5,
           vitality_overall: 64.2,
           emotion_overall: 69.7,
           mind_overall: 73.8,
@@ -80,7 +80,10 @@
       strengthsList: document.getElementById('strengthsList'),
       constraintsList: document.getElementById('constraintsList'),
       distributionList: document.getElementById('distributionList'),
-      averagesTableBody: document.getElementById('averagesTableBody')
+      averagesTableBody: document.getElementById('averagesTableBody'),
+      preparednessRing = document.getElementById('preparednessRing'),
+      resilienceRing = document.getElementById('resilienceRing'),
+      overallRing = document.getElementById('overallRing'),
     };
 
     function formatNumber(value) {
@@ -171,7 +174,40 @@
         `)
         .join('');
     }
+    function makeRing(score, min, max, color, trackColor, size) {
+      const R = size / 2;
+      const r = R - 11;
+      const cx = R;
+      const cy = R;
+      const circ = 2 * Math.PI * r;
+      const progress = Math.max(0, Math.min(1, (score - min) / (max - min)));
+      const dashOffset = circ * (1 - progress);
 
+      return `
+        <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block">
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="white" stroke="${trackColor}" stroke-width="10" />
+          <circle
+            cx="${cx}" cy="${cy}" r="${r}"
+            fill="none"
+            stroke="${color}"
+            stroke-width="10"
+            stroke-dasharray="${circ}"
+            stroke-dashoffset="${dashOffset}"
+            stroke-linecap="round"
+            transform="rotate(-90 ${cx} ${cy})"
+          />
+          <text
+            x="${cx}" y="${cy + 2}"
+            text-anchor="middle"
+            dominant-baseline="middle"
+            font-size="${size > 100 ? 20 : 16}"
+            font-weight="500"
+            fill="${color}"
+            font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+          >${score.toFixed(2)}</text>
+        </svg>
+      `;
+    }
     function renderSession(payload) {
       const session = payload.session || {};
       const averages = session.averages || {};
@@ -189,6 +225,8 @@
 
       els.preparednessValue.textContent = formatNumber(preparedness);
       els.resilienceValue.textContent = formatNumber(resilience);
+
+      
       els.preparednessBar.style.width = `${Math.max(0, Math.min(5, preparedness || 0)) / 5 * 100}%`;
       els.resilienceBar.style.width = `${Math.max(0, Math.min(5, resilience || 0)) / 5 * 100}%`;
 
@@ -209,7 +247,35 @@
         toEntriesSorted(averages, 'asc').slice(0, 5),
         v => formatNumber(v)
       );
+      const min = 0;
+      const max = 5;
 
+      els.preparednessRing.innerHTML = makeRing(
+        preparedness,
+        min,
+        max,
+        '#2ecc71',
+        '#e5e7eb',
+        120
+      );
+
+      els.resilienceRing.innerHTML = makeRing(
+        resilience,
+        min,
+        max,
+        '#6366f1',
+        '#e5e7eb',
+        120
+      );
+
+      els.overallRing.innerHTML = makeRing(
+        overall,
+        min,
+        max,
+        '#9b1c31',
+        '#e5e7eb',
+        140
+      );
       const firstDistribution = Object.entries(session.distributions || {})[0]?.[1] || {};
       renderList(els.distributionList, Object.entries(firstDistribution), v => v);
 
