@@ -748,11 +748,15 @@ function makeSVG(idx) {
     sideTextBottom - TB.y + s(20)
   );
 
+  var vw = window.innerWidth;
+
+  var sidePad = vw <= 1023 ? s(28) : s(90);
+
   const B = getBounds({
     top: s(80),
-    right: s(28),
+    right: sidePad,
     bottom: extraBottomPad,
-    left: s(28)
+    left: sidePad
   });
 
   return '<svg id="svg-' + idx + '" viewBox="' + B.x + ' ' + B.y + ' ' + B.w + ' ' + B.h + '" xmlns="http://www.w3.org/2000/svg"'
@@ -777,7 +781,7 @@ function makeSVG(idx) {
     + '<circle id="dot-' + idx + '"  cx="-999" cy="-999" r="' + s(11) + '" fill="#770136" opacity="0" style="pointer-events:none"/>'
     + '<circle id="pip-' + idx + '"  cx="-999" cy="-999" r="' + s(5) + '"  fill="#fff" opacity="0" style="pointer-events:none"/>'
 
-    /* + '<rect x="' + B.x + '" y="' + B.y + '" width="' + B.w + '" height="' + B.h + '" fill="transparent"/>' */
+    + '<rect x="' + B.x + '" y="' + B.y + '" width="' + B.w + '" height="' + B.h + '" fill="transparent"/>'
     + '</svg>';
 }
 
