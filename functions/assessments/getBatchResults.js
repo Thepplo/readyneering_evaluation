@@ -88,7 +88,7 @@ function buildSessionSummary(batchId, submissions) {
   const averages = {};
   const distributions = {};
   const std_devs = {};
-  const meadians = {};
+  const medians = {};
 
   for (const key of allScoreKeys) {
     const values = submissions.map(s => s.scores[key]).filter(v => v !== null && v !== undefined);
