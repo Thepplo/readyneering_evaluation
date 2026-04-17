@@ -1,3 +1,11 @@
+   const QUOTIENT_ICONS = {
+  vitality: 'assets/images/q-vitality.svg',
+  emotion: 'assets/images/q-emotion.svg',
+  mind: 'assets/images/q-mind.svg',
+  execution: 'assets/images/q-execution.svg',
+  alignment: 'assets/images/q-alignment.svg'
+};
+
    const sampleData = {
       ok: true,
       batch_id: 'demo-batch-001',
@@ -415,7 +423,7 @@
 
           <foreignObject x="${resilienceX}" y="${resilienceY}" width="${smallSize}" height="${smallSize}">
             <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-              ${makeRing(res.resilience_score, 0, 5, '#534AB7', '#E8E7E0', smallSize)}
+              ${makeRing(res.averages.resilience_score, 0, 5, '#534AB7', '#E8E7E0', smallSize)}
             </div>
           </foreignObject>
 
@@ -425,7 +433,7 @@
 
           <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
             <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-              ${makeRing(res.preparedness_score, 0, 5, '#1D9E75', '#E8E7E0', smallSize)}
+              ${makeRing(res.averages.preparedness_score, 0, 5, '#1D9E75', '#E8E7E0', smallSize)}
             </div>
           </foreignObject>
 
@@ -435,7 +443,7 @@
 
           <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
             <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
-              ${makeRing(res.overall_score, 0, 25, '#770136', '#7701363f', centerSize)}
+              ${makeRing(res.averages.overall_score, 0, 25, '#770136', '#7701363f', centerSize)}
             </div>
           </foreignObject>
 
