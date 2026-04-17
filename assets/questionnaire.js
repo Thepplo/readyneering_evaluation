@@ -750,9 +750,9 @@ function makeSVG(idx) {
 
   const B = getBounds({
     top: s(80),
-    right: s(90),
+    right: s(28),
     bottom: extraBottomPad,
-    left: s(90)
+    left: s(28)
   });
 
   return '<svg id="svg-' + idx + '" viewBox="' + B.x + ' ' + B.y + ' ' + B.w + ' ' + B.h + '" xmlns="http://www.w3.org/2000/svg"'
