@@ -756,7 +756,7 @@ function makeSVG(idx) {
   });
 
   return '<svg id="svg-' + idx + '" viewBox="' + B.x + ' ' + B.y + ' ' + B.w + ' ' + B.h + '" xmlns="http://www.w3.org/2000/svg"'
-    + ' style="display:block;width:100%;cursor:crosshair;touch-action:none;user-select:none;overflow:visible">'
+    + ' style="display:block;width:100%;cursor:crosshair;touch-action:pan-y;user-select:none;overflow:visible">'
 
     + '<line x1="' + gx + '" y1="' + gy + '" x2="' + mABx + '" y2="' + mABy + '" stroke="rgba(119,1,54,0.1)" stroke-width="' + s(1) + '"/>'
     + '<line x1="' + gx + '" y1="' + gy + '" x2="' + mBCx + '" y2="' + mBCy + '" stroke="rgba(119,1,54,0.1)" stroke-width="' + s(1) + '"/>'
@@ -777,7 +777,7 @@ function makeSVG(idx) {
     + '<circle id="dot-' + idx + '"  cx="-999" cy="-999" r="' + s(11) + '" fill="#770136" opacity="0" style="pointer-events:none"/>'
     + '<circle id="pip-' + idx + '"  cx="-999" cy="-999" r="' + s(5) + '"  fill="#fff" opacity="0" style="pointer-events:none"/>'
 
-    + '<rect x="' + B.x + '" y="' + B.y + '" width="' + B.w + '" height="' + B.h + '" fill="transparent"/>'
+    /* + '<rect x="' + B.x + '" y="' + B.y + '" width="' + B.w + '" height="' + B.h + '" fill="transparent"/>' */
     + '</svg>';
 }
 
@@ -869,9 +869,10 @@ function attachEvents(idx) {
   if (!svg) return;
 
   function place(e) {
-    e.preventDefault();
     var pt = svgPt(svg, e);
     if (!inTri(pt.x, pt.y)) return;
+    e.preventDefault();
+
     placements[idx] = {x: pt.x, y: pt.y};
     var ring = document.getElementById('ring-'+idx);
     var dot  = document.getElementById('dot-'+idx);
@@ -915,7 +916,7 @@ function attachEvents(idx) {
 
   svg.addEventListener('click', place);
   svg.addEventListener('touchstart', place, {passive:false});
-  svg.addEventListener('touchmove', place, {passive:false});
+  //svg.addEventListener('touchmove', place, {passive:false});
 }
 
 // ── Navigation ────────────────────────────────────────────
