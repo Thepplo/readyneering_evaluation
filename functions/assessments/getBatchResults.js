@@ -56,12 +56,23 @@ function countBy(values) {
   }, {});
 }
 
-function stdDev(values) {
-  const mean = values.reduce((a, b) => a + b, 0) / values.length;
-  
+function median(values) {
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+
+  if (sorted.length % 2 === 0) {
+    return (sorted[mid - 1] + sorted[mid]) / 2;
+  }
+
+  return sorted[mid];
+}
+
+function stdDev(values, useSample = false) {
+  const avg = average(values);
+
   const variance = values.reduce((sum, v) => {
-    return sum + Math.pow(v - mean, 2);
-  }, 0) / values.length;
+    return sum + Math.pow(v - avg, 2);
+  }, 0) / (useSample ? (values.length - 1) : values.length);
 
   return Math.sqrt(variance);
 }
@@ -76,7 +87,8 @@ function buildSessionSummary(batchId, submissions) {
 
   const averages = {};
   const distributions = {};
-  const standardDevs = {};
+  const std_devs = {};
+  const meadians = {};
 
   for (const key of allScoreKeys) {
     const values = submissions.map(s => s.scores[key]).filter(v => v !== null && v !== undefined);
@@ -84,7 +96,8 @@ function buildSessionSummary(batchId, submissions) {
     const numericValues = values.filter(v => typeof v === 'number' && !Number.isNaN(v));
     if (numericValues.length) {
       averages[key] = round(average(numericValues));
-      standardDevs[key] = stdDev(numericValues);
+      medians[key] = median(numericValues);
+      std_devs[key] = stdDev(numericValues);
       continue;
     }
 
@@ -99,6 +112,8 @@ function buildSessionSummary(batchId, submissions) {
     submission_count: submissions.length,
     averages,
     distributions,
+    std_devs,
+    medians,
     industries: countBy(submissions.map(s => s.metadata?.industry).filter(Boolean)),
     sources: countBy(submissions.map(s => s.metadata?.source).filter(Boolean))
   };
