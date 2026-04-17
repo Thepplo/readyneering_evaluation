@@ -70,6 +70,13 @@ body {
   justify-content: start;
   align-items: start;
 }
+.circles {
+  position: absolute;
+  top: 0%; right: 0%;
+  pointer-events: none;
+  width: 50%;
+  height: auto;
+}
 
 .eyebrow {
   display: inline-block;

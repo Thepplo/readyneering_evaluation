@@ -85,7 +85,82 @@
       resilienceRing: document.getElementById('resilienceRing'),
       overallRing: document.getElementById('overallRing'),
     };
+  document.addEventListener('DOMContentLoaded', () => {
+    initAtomAnimation();
+  });
 
+  function initAtomAnimation() {
+    const wrap = document.getElementById('atom-svg');
+    if (!wrap) return;
+    fetch('./assets/images/atom-model.svg')
+      .then(res => res.text())
+      .then(svg => {
+        wrap.innerHTML = svg;
+
+        gsap.to("#atom-svg .atom-path-1", {
+          opacity: 0.45,
+          duration: 4.5,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          stagger: 0.6
+        });
+        gsap.to("#atom-svg .atom-path-2", {
+          opacity: 0.45,
+          duration: 5.5,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          stagger: 0.6
+        });
+        gsap.to("#atom-svg .atom-path-3", {
+          opacity: 0.45,
+          duration: 2.5,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          stagger: 0.6
+        });
+        gsap.to("#atom-svg .atom-path-4", {
+          opacity: 0.45,
+          duration: 6.5,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          stagger: 0.6
+        });
+        gsap.to("#atom-svg .atom-core-1", {
+          scale: 1.02,
+          duration: 3.7,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          transformOrigin: "center center",
+          transformBox: "fill-box"
+        });
+
+        gsap.to("#atom-svg .atom-core-2", {
+          scale: 1.03,
+          duration: 4.1,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          transformOrigin: "center center",
+          transformBox: "fill-box"
+        });
+
+        gsap.to("#atom-svg .atom-core-3", {
+          scale: 1.022,
+          duration: 3.9,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          transformOrigin: "center center",
+          transformBox: "fill-box"
+        });
+
+      });
+  }
     function formatNumber(value) {
       if (typeof value !== 'number' || Number.isNaN(value)) return '—';
       return value.toFixed(1);
