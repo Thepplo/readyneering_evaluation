@@ -7,128 +7,127 @@
   <link rel="stylesheet" href="assets/resstyles.css" />
 </head>
 <body>
-  <div class="wrap">
-    <section class="hero">
-      <div class="eyebrow">Aggregate Session Results</div>
-      <h1>Batch-level diagnostic view</h1>
-      <p>
-        This page is set up to display a compiled view of all submissions inside one batch.
-        Plug your batch results endpoint into the script at the bottom and replace the sample
-        data with live values.
+  <div class ="bg">
+    <div class="wrap">
+      <section class="hero">
+        <div class="eyebrow">Aggregate Session Results</div>
+        <h1>Session-wide diagnostic view</h1>
+        <p>
+          This page is set up to display a compiled view of all submissions inside one batch.
+        </p>
+
+        <div class="toolbar">
+          <input id="batchIdInput" class="input" type="text" placeholder="Enter batch_id" value="demo-batch-001" />
+          <button id="loadButton" class="button">Load batch</button>
+          <button id="demoButton" class="button secondary">Use sample data</button>
+        </div>
+      </section>
+
+      <section class="grid metrics">
+        <div class="card">
+          <div class="metric-label">Batch ID</div>
+          <div id="metricBatchId" class="metric-value" style="font-size:1.4rem;">—</div>
+          <div class="metric-note">Current session grouping</div>
+        </div>
+        <div class="card">
+          <div class="metric-label">Submissions</div>
+          <div id="metricCount" class="metric-value">—</div>
+          <div class="metric-note">Total responses in this batch</div>
+        </div>
+        <div class="card">
+          <div class="metric-label">Average overall score</div>
+          <div id="metricOverall" class="metric-value">—</div>
+          <div class="metric-note">Mean across all submissions</div>
+        </div>
+        <div class="card">
+          <div class="metric-label">Operating pattern</div>
+          <div id="metricPattern" class="metric-value" style="font-size:1.2rem; line-height:1.2;">—</div>
+          <div class="metric-note">Preparedness vs resilience read</div>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <div class="card">
+          <div class="section-head">
+            <h2>Session overview</h2>
+            <div id="overviewNote" class="subtle">Waiting for data</div>
+          </div>
+          <div class="bar-list">
+            <div class="bar-item">
+              <div class="bar-top"><span>Preparedness</span><strong id="preparednessValue">—</strong></div>
+              <div class="bar-track"><div id="preparednessBar" class="bar-fill" style="width:0%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-top"><span>Resilience</span><strong id="resilienceValue">—</strong></div>
+              <div class="bar-track"><div id="resilienceBar" class="bar-fill" style="width:0%"></div></div>
+            </div>
+          </div>
+          <div id="overviewHighlight" class="highlight">Load a batch to generate a simple narrative summary.</div>
+        </div>
+
+        <div class="card">
+          <div class="section-head">
+            <h2>Metadata mix</h2>
+            <div class="subtle">From submissions.metadata</div>
+          </div>
+          <h3>Industries</h3>
+          <div id="industriesPills" class="pill-row"></div>
+          <h3 style="margin-top:18px;">Sources</h3>
+          <div id="sourcesPills" class="pill-row"></div>
+        </div>
+      </section>
+
+      <section class="grid three">
+        <div class="card">
+          <div class="section-head">
+            <h2>Top numeric strengths</h2>
+            <div class="subtle">Highest average score keys</div>
+          </div>
+          <ul id="strengthsList" class="list"></ul>
+        </div>
+
+        <div class="card">
+          <div class="section-head">
+            <h2>Primary constraints</h2>
+            <div class="subtle">Lowest average score keys</div>
+          </div>
+          <ul id="constraintsList" class="list"></ul>
+        </div>
+
+        <div class="card">
+          <div class="section-head">
+            <h2>Verdict distribution</h2>
+            <div class="subtle">Text score keys</div>
+          </div>
+          <ul id="distributionList" class="list"></ul>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-head">
+          <h2>Average scores</h2>
+          <div class="subtle">All numeric score keys returned by the batch endpoint</div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Score key</th>
+                <th>Average</th>
+                <th>Median</th>
+                <th>Std dev</th>
+              </tr>
+            </thead>
+            <tbody id="averagesTableBody">
+              <tr><td colspan="4"><div class="empty">No batch loaded yet.</div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <p class="footer-note">
       </p>
-
-      <div class="toolbar">
-        <input id="batchIdInput" class="input" type="text" placeholder="Enter batch_id" value="demo-batch-001" />
-        <button id="loadButton" class="button">Load batch</button>
-        <button id="demoButton" class="button secondary">Use sample data</button>
-      </div>
-    </section>
-
-    <section class="grid metrics">
-      <div class="card">
-        <div class="metric-label">Batch ID</div>
-        <div id="metricBatchId" class="metric-value" style="font-size:1.4rem;">—</div>
-        <div class="metric-note">Current session grouping</div>
-      </div>
-      <div class="card">
-        <div class="metric-label">Submissions</div>
-        <div id="metricCount" class="metric-value">—</div>
-        <div class="metric-note">Total responses in this batch</div>
-      </div>
-      <div class="card">
-        <div class="metric-label">Average overall score</div>
-        <div id="metricOverall" class="metric-value">—</div>
-        <div class="metric-note">Mean across all submissions</div>
-      </div>
-      <div class="card">
-        <div class="metric-label">Operating pattern</div>
-        <div id="metricPattern" class="metric-value" style="font-size:1.2rem; line-height:1.2;">—</div>
-        <div class="metric-note">Preparedness vs resilience read</div>
-      </div>
-    </section>
-
-    <section class="grid two">
-      <div class="card">
-        <div class="section-head">
-          <h2>Session overview</h2>
-          <div id="overviewNote" class="subtle">Waiting for data</div>
-        </div>
-        <div class="bar-list">
-          <div class="bar-item">
-            <div class="bar-top"><span>Preparedness</span><strong id="preparednessValue">—</strong></div>
-            <div class="bar-track"><div id="preparednessBar" class="bar-fill" style="width:0%"></div></div>
-          </div>
-          <div class="bar-item">
-            <div class="bar-top"><span>Resilience</span><strong id="resilienceValue">—</strong></div>
-            <div class="bar-track"><div id="resilienceBar" class="bar-fill" style="width:0%"></div></div>
-          </div>
-        </div>
-        <div id="overviewHighlight" class="highlight">Load a batch to generate a simple narrative summary.</div>
-      </div>
-
-      <div class="card">
-        <div class="section-head">
-          <h2>Metadata mix</h2>
-          <div class="subtle">From submissions.metadata</div>
-        </div>
-        <h3>Industries</h3>
-        <div id="industriesPills" class="pill-row"></div>
-        <h3 style="margin-top:18px;">Sources</h3>
-        <div id="sourcesPills" class="pill-row"></div>
-      </div>
-    </section>
-
-    <section class="grid three">
-      <div class="card">
-        <div class="section-head">
-          <h2>Top numeric strengths</h2>
-          <div class="subtle">Highest average score keys</div>
-        </div>
-        <ul id="strengthsList" class="list"></ul>
-      </div>
-
-      <div class="card">
-        <div class="section-head">
-          <h2>Primary constraints</h2>
-          <div class="subtle">Lowest average score keys</div>
-        </div>
-        <ul id="constraintsList" class="list"></ul>
-      </div>
-
-      <div class="card">
-        <div class="section-head">
-          <h2>Verdict distribution</h2>
-          <div class="subtle">Text score keys</div>
-        </div>
-        <ul id="distributionList" class="list"></ul>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="section-head">
-        <h2>Average scores</h2>
-        <div class="subtle">All numeric score keys returned by the batch endpoint</div>
-      </div>
-      <div style="overflow-x:auto;">
-        <table>
-          <thead>
-            <tr>
-              <th>Score key</th>
-              <th>Average</th>
-              <th>Median</th>
-              <th>Std dev</th>
-            </tr>
-          </thead>
-          <tbody id="averagesTableBody">
-            <tr><td colspan="4"><div class="empty">No batch loaded yet.</div></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <p class="footer-note">
-      Starter template for Cloudflare Pages. Replace the sample endpoint in <code>fetchBatchResults()</code> when your function is live.
-    </p>
+    </div>
   </div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
