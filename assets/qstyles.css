@@ -115,7 +115,12 @@
 
     padding: 12px 24px;
   }
-
+  .nav.retake {
+    display: flex; 
+    gap: 10px; 
+    align-items: center; 
+    margin-top: 24px; 
+  }
   #scr-assess {
     padding-bottom: 50px;
   }
