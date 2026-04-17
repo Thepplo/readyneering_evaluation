@@ -48,6 +48,13 @@
       padding: 32px;
       box-shadow: var(--shadow);
       margin-bottom: 24px;
+      position: relative;
+      background: url("../assets/images/V2.jpg") center / cover no-repeat;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .eyebrow {

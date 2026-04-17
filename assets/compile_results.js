@@ -14,7 +14,7 @@
           facilitated: 5
         },
         averages: {
-          overall_score: 71.4,
+          overall_score: 10.4,
           preparedness_score: 3.3,
           resilience_score: 3.5,
           vitality_overall: 64.2,
@@ -24,7 +24,7 @@
           alignment_overall: 72.4
         },
         medians: {
-          overall_score: 72.1,
+          overall_score: 10.1,
           preparedness_score: 75.8,
           resilience_score: 67.2,
           vitality_overall: 64.6,
@@ -227,8 +227,8 @@
       els.resilienceValue.textContent = formatNumber(resilience);
 
       
-      els.preparednessBar.style.width = `${Math.max(0, Math.min(5, preparedness || 0)) / 5 * 100}%`;
-      els.resilienceBar.style.width = `${Math.max(0, Math.min(5, resilience || 0)) / 5 * 100}%`;
+/*       els.preparednessBar.style.width = `${Math.max(0, Math.min(5, preparedness || 0)) / 5 * 100}%`;
+      els.resilienceBar.style.width = `${Math.max(0, Math.min(5, resilience || 0)) / 5 * 100}%`; */
 
       els.overviewNote.textContent = `${session.submission_count ?? 0} submissions loaded`;
       els.overviewHighlight.textContent = buildHighlight(preparedness, resilience, strongest, weakest);
