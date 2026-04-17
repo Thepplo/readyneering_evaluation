@@ -75,7 +75,7 @@
       demoButton: document.getElementById('demoButton'),
       metricBatchId: document.getElementById('metricBatchId'),
       metricCount: document.getElementById('metricCount'),
-      metricOverall: document.getElementById('metricOverall'),
+      //metricOverall: document.getElementById('metricOverall'),
       metricPattern: document.getElementById('metricPattern'),
       preparednessValue: document.getElementById('preparednessValue'),
       resilienceValue: document.getElementById('resilienceValue'),
@@ -473,7 +473,7 @@
 
       els.metricBatchId.textContent = payload.batch_id || session.batch_id || '—';
       els.metricCount.textContent = session.submission_count ?? '—';
-      els.metricOverall.textContent = formatNumber(overall);
+      //els.metricOverall.textContent = formatNumber(overall);
       els.metricPattern.textContent = pattern;
 
       els.preparednessValue.textContent = formatNumber(preparedness);

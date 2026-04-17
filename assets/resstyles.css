@@ -196,6 +196,17 @@ h3 { font-size: 1rem; margin-bottom: 10px; }
   padding: 22px;
   box-shadow: var(--shadow);
 }
+.stat-card {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.stat-card:not(:first-child) {
+  border-left: 1px solid #1a1a1841;
+}
 
 .metric-label {
   color: var(--muted);
