@@ -283,6 +283,167 @@
         </svg>
       `;
     }
+
+    function renderOrbit(res) {
+      const orbitCx = 315;
+      const orbitCy = 200;
+      const rx = 250;
+      const ry = 155;
+
+      const centerSize = 140;
+      const smallSize = 92;
+      const leftX = orbitCx - rx;
+      const rightX = orbitCx + rx;
+      const cy = orbitCy;
+
+      const resiliencePos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 215);
+      const preparednessPos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 325);
+      const resilienceX = resiliencePos.x - smallSize / 2;
+      const resilienceY = resiliencePos.y - smallSize / 2;
+      const preparednessX = preparednessPos.x - smallSize / 2;
+      const preparednessY = preparednessPos.y - smallSize / 2;
+
+      const centerX = orbitCx - centerSize / 2;
+      const centerY = orbitCy - centerSize / 2 - 5;
+
+      const qRx = rx;
+      const qRy = ry;
+
+      function ellipsePointDeg(cx, cy, rx, ry, deg) {
+        const a = deg * Math.PI / 180;
+        return {
+          x: cx + rx * Math.cos(a),
+          y: cy + ry * Math.sin(a)
+        };
+      }
+
+      const qDegrees = {
+        mind: 235,
+        alignment: 270,
+        execution: 305,
+        vitality: 150,
+        emotion: 30
+      };
+
+      const qPos = {};
+      Object.keys(qDegrees).forEach(key => {
+        qPos[key] = ellipsePointDeg(orbitCx, orbitCy, qRx, qRy, qDegrees[key]);
+      });
+
+      function makeQNodes(qPos) {
+        const size = 20;
+
+        return Object.keys(qPos).map(key => {
+          const p = qPos[key];
+          const href = QUOTIENT_ICONS[key];
+
+          return `
+            <image
+              href="${href}"
+              x="${p.x - size / 2}"
+              y="${p.y - size / 2}"
+              width="${size}"
+              height="${size}"
+              preserveAspectRatio="xMidYMid meet"
+            />
+          `;
+        }).join('');
+      }
+
+      const rr = document.getElementById('ring-row');
+      rr.innerHTML = `
+        <svg class="orbit-svg" viewBox="0 0 630 420" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="backArcFade" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#7d5c6e" stop-opacity="1" />
+              <stop offset="18%" stop-color="#7d5c6e" stop-opacity="0.78" />
+              <stop offset="50%" stop-color="#7d5c6e" stop-opacity="0.05" />
+              <stop offset="82%" stop-color="#7d5c6e" stop-opacity="0.78" />
+              <stop offset="100%" stop-color="#7d5c6e" stop-opacity="1" />
+            </linearGradient>
+
+            <linearGradient id="linkLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#534AB7" stop-opacity="0.28" />
+              <stop offset="100%" stop-color="#534AB7" stop-opacity="0.06" />
+            </linearGradient>
+
+            <linearGradient id="linkRight" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1D9E75" stop-opacity="0.28" />
+              <stop offset="100%" stop-color="#1D9E75" stop-opacity="0.06" />
+            </linearGradient>
+          </defs>
+
+          <path
+            d="M ${leftX} ${cy} A ${rx} ${ry} 0 0 1 ${rightX} ${cy}"
+            fill="none"
+            stroke="url(#backArcFade)"
+            stroke-opacity="0.28"
+            stroke-width="1.5"
+          />
+
+          <path
+            d="M ${rightX} ${cy} A ${rx} ${ry} 0 0 1 ${leftX} ${cy}"
+            fill="none"
+            stroke="#7d5c6e"
+            stroke-opacity="0.28"
+            stroke-width="1.5"
+          />
+
+          <path
+            d="M ${resiliencePos.x} ${resiliencePos.y}
+              Q ${orbitCx - 95} ${orbitCy - 35} ${orbitCx} ${orbitCy}"
+            fill="none"
+            stroke="url(#linkLeft)"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="M ${preparednessPos.x} ${preparednessPos.y}
+              Q ${orbitCx + 95} ${orbitCy - 35} ${orbitCx} ${orbitCy}"
+            fill="none"
+            stroke="url(#linkRight)"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+
+          <foreignObject x="${resilienceX}" y="${resilienceY}" width="${smallSize}" height="${smallSize}">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
+              ${makeRing(res.resilience_score, 0, 5, '#534AB7', '#E8E7E0', smallSize)}
+            </div>
+          </foreignObject>
+
+          <text x="${resiliencePos.x}" y="${resiliencePos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
+            RESILIENCE
+          </text>
+
+          <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
+              ${makeRing(res.preparedness_score, 0, 5, '#1D9E75', '#E8E7E0', smallSize)}
+            </div>
+          </foreignObject>
+
+          <text x="${preparednessPos.x}" y="${preparednessPos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
+            PREPAREDNESS
+          </text>
+
+          <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
+              ${makeRing(res.overall_score, 0, 25, '#770136', '#7701363f', centerSize)}
+            </div>
+          </foreignObject>
+
+          <text x="${orbitCx}" y="${centerY + centerSize + 18}" text-anchor="middle" class="score-label center-label">
+            OVERALL READINESS
+          </text>
+          <text x="${orbitCx}" y="${centerY + centerSize + 34}" text-anchor="middle" class="score-sub center-sub">
+            Resilience × Preparedness
+          </text>
+
+          ${makeQNodes(qPos)}
+        </svg>
+      `;
+    }
     function renderSession(payload) {
       const session = payload.session || {};
       const averages = session.averages || {};
@@ -292,6 +453,9 @@
       const strongest = session.strongest_numeric_score;
       const weakest = session.weakest_numeric_score;
       const pattern = derivePattern(preparedness, resilience);
+      
+
+
 
       els.metricBatchId.textContent = payload.batch_id || session.batch_id || '—';
       els.metricCount.textContent = session.submission_count ?? '—';
@@ -325,7 +489,7 @@
       const min = 0;
       const max = 5;
 
-      els.preparednessRing.innerHTML = makeRing(
+/*       els.preparednessRing.innerHTML = makeRing(
         preparedness,
         min,
         max,
@@ -350,7 +514,9 @@
         '#9b1c31',
         '#e5e7eb',
         140
-      );
+      ); */
+
+      renderOrbit(session)
       const firstDistribution = Object.entries(session.distributions || {})[0]?.[1] || {};
       renderList(els.distributionList, Object.entries(firstDistribution), v => v);
 
