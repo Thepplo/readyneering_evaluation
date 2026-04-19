@@ -73,7 +73,7 @@
       batchIdInput: document.getElementById('batchIdInput'),
       loadButton: document.getElementById('loadButton'),
       demoButton: document.getElementById('demoButton'),
-      metricBatchId: document.getElementById('metricBatchId'),
+      //metricBatchId: document.getElementById('metricBatchId'),
       metricCount: document.getElementById('metricCount'),
       //metricOverall: document.getElementById('metricOverall'),
       metricPattern: document.getElementById('metricPattern'),
@@ -471,7 +471,7 @@
 
 
 
-      els.metricBatchId.textContent = payload.batch_id || session.batch_id || '—';
+      /* els.metricBatchId.textContent = payload.batch_id || session.batch_id || '—'; */
       els.metricCount.textContent = session.submission_count ?? '—';
       //els.metricOverall.textContent = formatNumber(overall);
       els.metricPattern.textContent = pattern;
