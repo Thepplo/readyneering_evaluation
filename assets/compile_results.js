@@ -454,7 +454,6 @@
             Resilience × Preparedness
           </text>
 
-          ${makeQNodes(qPos)}
         </svg>
       `;
     }
