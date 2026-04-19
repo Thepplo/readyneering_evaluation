@@ -23,6 +23,37 @@ export async function onRequestOptions() {
   });
 }
 
+const Q_KEYS = ['vitality', 'emotion', 'mind', 'execution', 'alignment'];
+
+function getQuotientKeyMap() {
+  return {
+    vitality: {
+      overall: 'vitality_overall',
+      resilience: 'vitality_resilience',
+      preparedness: 'vitality_preparedness'
+    },
+    emotion: {
+      overall: 'emotion_overall',
+      resilience: 'emotion_resilience',
+      preparedness: 'emotion_preparedness'
+    },
+    mind: {
+      overall: 'mind_overall',
+      resilience: 'mind_resilience',
+      preparedness: 'mind_preparedness'
+    },
+    execution: {
+      overall: 'execution_overall',
+      resilience: 'execution_resilience',
+      preparedness: 'execution_preparedness'
+    },
+    alignment: {
+      overall: 'alignment_overall',
+      resilience: 'alignment_resilience',
+      preparedness: 'alignment_preparedness'
+    }
+  };
+}
 function getScoreValue(row) {
   if (row.numeric_value !== null && row.numeric_value !== undefined) {
     return row.numeric_value;
@@ -77,6 +108,226 @@ function stdDev(values, useSample = false) {
   return Math.sqrt(variance);
 }
 
+function isNumber(value) {
+  return typeof value === 'number' && !Number.isNaN(value);
+}
+
+function safeAverage(values) {
+  const nums = values.filter(isNumber);
+  if (!nums.length) return null;
+  return average(nums);
+}
+
+function safeStdDev(values, useSample = false) {
+  const nums = values.filter(isNumber);
+  if (nums.length < 2) return 0;
+  return stdDev(nums, useSample);
+}
+
+function minValue(values) {
+  const nums = values.filter(isNumber);
+  return nums.length ? Math.min(...nums) : null;
+}
+
+function maxValue(values) {
+  const nums = values.filter(isNumber);
+  return nums.length ? Math.max(...nums) : null;
+}
+
+function scoreBand(value, low = 2.75, high = 3.35) {
+  if (!isNumber(value)) return null;
+  if (value < low) return 'low';
+  if (value < high) return 'mid';
+  return 'high';
+}
+
+function buildNumericProfiles(submissions, allScoreKeys) {
+  const numeric_profiles = {};
+
+  for (const key of allScoreKeys) {
+    const values = submissions
+      .map(s => s.scores[key])
+      .filter(isNumber);
+
+    if (!values.length) continue;
+
+    numeric_profiles[key] = {
+      count: values.length,
+      average: round(average(values)),
+      median: round(median(values)),
+      std_dev: round(stdDev(values)),
+      min: round(minValue(values)),
+      max: round(maxValue(values)),
+      bands: {
+        low: values.filter(v => scoreBand(v) === 'low').length,
+        mid: values.filter(v => scoreBand(v) === 'mid').length,
+        high: values.filter(v => scoreBand(v) === 'high').length
+      }
+    };
+  }
+
+  return numeric_profiles;
+}
+
+function buildQuotientInsights(numericProfiles) {
+  const keyMap = getQuotientKeyMap();
+  const quotients = {};
+
+  for (const q of Q_KEYS) {
+    const keys = keyMap[q];
+    const overall = numericProfiles[keys.overall];
+    const resilience = numericProfiles[keys.resilience];
+    const preparedness = numericProfiles[keys.preparedness];
+
+    if (!overall && !resilience && !preparedness) continue;
+
+    const avgOverall = overall?.average ?? null;
+    const avgR = resilience?.average ?? null;
+    const avgP = preparedness?.average ?? null;
+    const gap = isNumber(avgR) && isNumber(avgP) ? round(avgR - avgP) : null;
+    const absGap = isNumber(gap) ? round(Math.abs(gap)) : null;
+    const spread = overall?.std_dev ?? 0;
+
+    let consistency = 'unknown';
+    if (spread <= 0.2) consistency = 'high';
+    else if (spread <= 0.45) consistency = 'medium';
+    else consistency = 'low';
+
+    let pattern = 'balanced';
+    if (isNumber(gap)) {
+      if (gap > 0.25) pattern = 'resilience-heavy';
+      else if (gap < -0.25) pattern = 'preparedness-heavy';
+    }
+
+    quotients[q] = {
+      key: q,
+      average: avgOverall,
+      resilience_average: avgR,
+      preparedness_average: avgP,
+      std_dev: spread,
+      consistency,
+      gap,
+      abs_gap: absGap,
+      pattern,
+      min: overall?.min ?? null,
+      max: overall?.max ?? null,
+      bands: overall?.bands ?? { low: 0, mid: 0, high: 0 }
+    };
+  }
+
+  return quotients;
+}
+
+function buildModeInsights(numericProfiles) {
+  const resilience = numericProfiles['resilience_score'];
+  const preparedness = numericProfiles['preparedness_score'];
+  const overall = numericProfiles['overall_score'];
+
+  const meanR = resilience?.average ?? null;
+  const meanP = preparedness?.average ?? null;
+  const delta = isNumber(meanR) && isNumber(meanP) ? round(meanR - meanP) : null;
+  const absDelta = isNumber(delta) ? Math.abs(delta) : null;
+
+  let pattern = 'balanced';
+  if (isNumber(delta)) {
+    if (delta > 0.25) pattern = 'resilience-heavy';
+    else if (delta < -0.25) pattern = 'preparedness-heavy';
+  }
+
+  return {
+    resilience: resilience || null,
+    preparedness: preparedness || null,
+    overall: overall || null,
+    delta,
+    abs_delta: absDelta,
+    pattern,
+    weaker_mode: pattern === 'resilience-heavy'
+      ? 'preparedness'
+      : pattern === 'preparedness-heavy'
+      ? 'resilience'
+      : null
+  };
+}
+
+function buildExecutiveSignals(quotientInsights, modeInsights) {
+  const quotients = Object.values(quotientInsights).filter(q => isNumber(q.average));
+  const byAvgDesc = [...quotients].sort((a, b) => b.average - a.average);
+  const byAvgAsc = [...quotients].sort((a, b) => a.average - b.average);
+  const byGapDesc = [...quotients].sort((a, b) => (b.abs_gap ?? 0) - (a.abs_gap ?? 0));
+  const bySpreadDesc = [...quotients].sort((a, b) => (b.std_dev ?? 0) - (a.std_dev ?? 0));
+
+  const strongest = byAvgDesc[0] || null;
+  const weakest = byAvgAsc[0] || null;
+  const biggestGap = byGapDesc[0] || null;
+  const mostFragmented = bySpreadDesc[0] || null;
+
+  const signals = [];
+
+  if (strongest) {
+    signals.push({
+      type: 'strength',
+      title: 'Consistent strength',
+      key: strongest.key,
+      message: `${strongest.key} is the strongest shared dimension in this cohort.`
+    });
+  }
+
+  if (weakest) {
+    signals.push({
+      type: 'constraint',
+      title: 'Primary constraint',
+      key: weakest.key,
+      message: `${weakest.key} is the weakest shared dimension and likely the first place the system breaks under strain.`
+    });
+  }
+
+  if (modeInsights?.pattern === 'resilience-heavy') {
+    signals.push({
+      type: 'pattern',
+      title: 'Structural pattern',
+      message: 'Resilience currently exceeds Preparedness, suggesting the group relies more on coping under pressure than on system design.'
+    });
+  } else if (modeInsights?.pattern === 'preparedness-heavy') {
+    signals.push({
+      type: 'pattern',
+      title: 'Structural pattern',
+      message: 'Preparedness currently exceeds Resilience, suggesting structure exists on paper more than it holds under live pressure.'
+    });
+  } else {
+    signals.push({
+      type: 'pattern',
+      title: 'Structural pattern',
+      message: 'Resilience and Preparedness are relatively balanced across the cohort.'
+    });
+  }
+
+  if (biggestGap && isNumber(biggestGap.abs_gap) && biggestGap.abs_gap > 0.25) {
+    signals.push({
+      type: 'leverage',
+      title: 'Highest leverage',
+      key: biggestGap.key,
+      message: `${biggestGap.key} shows the largest Resilience/Preparedness imbalance, making it the clearest leverage point for improvement.`
+    });
+  }
+
+  if (mostFragmented && isNumber(mostFragmented.std_dev) && mostFragmented.std_dev > 0.45) {
+    signals.push({
+      type: 'fragmentation',
+      title: 'Fragmentation risk',
+      key: mostFragmented.key,
+      message: `${mostFragmented.key} varies widely across respondents, suggesting an uneven experience of the system.`
+    });
+  }
+
+  return {
+    strongest,
+    weakest,
+    biggestGap,
+    mostFragmented,
+    items: signals
+  };
+}
+
 function buildSessionSummary(batchId, submissions) {
   const allScoreKeys = new Set();
   for (const submission of submissions) {
@@ -93,11 +344,11 @@ function buildSessionSummary(batchId, submissions) {
   for (const key of allScoreKeys) {
     const values = submissions.map(s => s.scores[key]).filter(v => v !== null && v !== undefined);
 
-    const numericValues = values.filter(v => typeof v === 'number' && !Number.isNaN(v));
+    const numericValues = values.filter(isNumber);
     if (numericValues.length) {
       averages[key] = round(average(numericValues));
-      medians[key] = median(numericValues);
-      std_devs[key] = stdDev(numericValues);
+      medians[key] = round(median(numericValues));
+      std_devs[key] = round(stdDev(numericValues));
       continue;
     }
 
@@ -107,6 +358,11 @@ function buildSessionSummary(batchId, submissions) {
     }
   }
 
+  const numeric_profiles = buildNumericProfiles(submissions, allScoreKeys);
+  const quotient_insights = buildQuotientInsights(numeric_profiles);
+  const mode_insights = buildModeInsights(numeric_profiles);
+  const executive_signals = buildExecutiveSignals(quotient_insights, mode_insights);
+
   return {
     batch_id: batchId,
     submission_count: submissions.length,
@@ -114,6 +370,10 @@ function buildSessionSummary(batchId, submissions) {
     distributions,
     std_devs,
     medians,
+    numeric_profiles,
+    quotient_insights,
+    mode_insights,
+    executive_signals,
     industries: countBy(submissions.map(s => s.metadata?.industry).filter(Boolean)),
     sources: countBy(submissions.map(s => s.metadata?.source).filter(Boolean))
   };
