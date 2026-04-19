@@ -1,10 +1,10 @@
-   const QUOTIENT_ICONS = {
+/*    const QUOTIENT_ICONS = {
   vitality: 'assets/images/q-vitality.svg',
   emotion: 'assets/images/q-emotion.svg',
   mind: 'assets/images/q-mind.svg',
   execution: 'assets/images/q-execution.svg',
   alignment: 'assets/images/q-alignment.svg'
-};
+}; */
 
    const sampleData = {
       ok: true,
@@ -73,7 +73,7 @@
       batchIdInput: document.getElementById('batchIdInput'),
       loadButton: document.getElementById('loadButton'),
       demoButton: document.getElementById('demoButton'),
-      metricBatchId: document.getElementById('metricBatchId'),
+      //metricBatchId: document.getElementById('metricBatchId'),
       metricCount: document.getElementById('metricCount'),
       //metricOverall: document.getElementById('metricOverall'),
       metricPattern: document.getElementById('metricPattern'),
@@ -331,7 +331,7 @@
         };
       }
 
-      const qDegrees = {
+/*       const qDegrees = {
         mind: 235,
         alignment: 270,
         execution: 305,
@@ -342,9 +342,9 @@
       const qPos = {};
       Object.keys(qDegrees).forEach(key => {
         qPos[key] = ellipsePointDeg(orbitCx, orbitCy, qRx, qRy, qDegrees[key]);
-      });
+      }); */
 
-      function makeQNodes(qPos) {
+/*       function makeQNodes(qPos) {
         const size = 20;
 
         return Object.keys(qPos).map(key => {
@@ -362,7 +362,7 @@
             />
           `;
         }).join('');
-      }
+      } */
 
       const rr = document.getElementById('ring-row');
       rr.innerHTML = `
@@ -428,7 +428,7 @@
           </foreignObject>
 
           <text x="${resiliencePos.x}" y="${resiliencePos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
-            RESILIENCE
+            AVG. RESILIENCE
           </text>
 
           <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
@@ -438,7 +438,7 @@
           </foreignObject>
 
           <text x="${preparednessPos.x}" y="${preparednessPos.y + smallSize / 2 + 18}" text-anchor="middle" class="score-label">
-            PREPAREDNESS
+            AVG. PREPAREDNESS
           </text>
 
           <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
@@ -448,7 +448,7 @@
           </foreignObject>
 
           <text x="${orbitCx}" y="${centerY + centerSize + 18}" text-anchor="middle" class="score-label center-label">
-            OVERALL READINESS
+            AVG. OVERALL READINESS
           </text>
           <text x="${orbitCx}" y="${centerY + centerSize + 34}" text-anchor="middle" class="score-sub center-sub">
             Resilience × Preparedness
@@ -471,7 +471,8 @@
 
 
 
-      els.metricBatchId.textContent = payload.mode_insights || session.mode_insights || '—'; 
+/*       els.metricBatchId.textContent = payload.mode_insights || session.mode_insights || '—'; 
+ */      
       els.metricCount.textContent = session.submission_count ?? '—';
       //els.metricOverall.textContent = formatNumber(overall);
       els.metricPattern.textContent = pattern;
