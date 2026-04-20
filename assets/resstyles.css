@@ -996,10 +996,17 @@ th { color: var(--muted); font-weight: 600; }
     transform 0.24s ease;
 }
 
-.metadata-card.is-open .metadata-body {
+.metadata.card.is-open .metadata-body {
   opacity: 1;
   transform: translateY(0);
 }
+
+.card.metadata h2{
+  color: var(--muted);
+  opacity: 0.7;
+
+}
+
 
 @media (max-width: 960px) {
   .grid.metrics,
