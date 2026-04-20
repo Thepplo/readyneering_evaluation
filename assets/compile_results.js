@@ -655,7 +655,7 @@ function formatDelta(delta, threshold = 0.05) {
     return 'Δ ~ 0.0';
   }
 
-  return `Δ ${delta > 0 ? '+' : ''}${delta.toFixed(2)}`;
+  return `<span class="revert">Δ ${delta > 0 ? '+' : ''}</span>${delta.toFixed(2)}`;
 }
 
 function getSystemArchetype(modeInsights, executiveSignals, quotientInsights) {

@@ -852,6 +852,10 @@ th { color: var(--muted); font-weight: 600; }
 .mode-metric.delta .mode-metric-value {
   color: #770136;
 }
+.mode-metric.delta .mode-metric-value.revert {
+  color: #444441;
+}
+
 .mode-insight-card.resilience-heavy {
   border-color: rgba(83, 74, 183, 0.22);
 }
