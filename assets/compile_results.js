@@ -13,20 +13,20 @@ const els = {
   metricCount: document.getElementById('metricCount'),
   //metricOverall: document.getElementById('metricOverall'),
   metricPattern: document.getElementById('metricPattern'),
-  preparednessValue: document.getElementById('preparednessValue'),
-  resilienceValue: document.getElementById('resilienceValue'),
+  //preparednessValue: document.getElementById('preparednessValue'),
+  //resilienceValue: document.getElementById('resilienceValue'),
   preparednessBar: document.getElementById('preparednessBar'),
   resilienceBar: document.getElementById('resilienceBar'),
-  overviewNote: document.getElementById('overviewNote'),
-  overviewHighlight: document.getElementById('overviewHighlight'),
+  //overviewNote: document.getElementById('overviewNote'),
+  //overviewHighlight: document.getElementById('overviewHighlight'),
   industriesPills: document.getElementById('industriesPills'),
   sourcesPills: document.getElementById('sourcesPills'),
-  strengthsList: document.getElementById('strengthsList'),
-  constraintsList: document.getElementById('constraintsList'),
-  distributionList: document.getElementById('distributionList'),
+  //strengthsList: document.getElementById('strengthsList'),
+  //constraintsList: document.getElementById('constraintsList'),
+  //distributionList: document.getElementById('distributionList'),
   averagesTableBody: document.getElementById('averagesTableBody'),
-  preparednessRing: document.getElementById('preparednessRing'),
-  resilienceRing: document.getElementById('resilienceRing'),
+  //preparednessRing: document.getElementById('preparednessRing'),
+  //resilienceRing: document.getElementById('resilienceRing'),
   overallRing: document.getElementById('overallRing'),
   signalsDiv: document.getElementById('signal-list-wrap'),
   qGrid: document.getElementById('q-grid-wrapper'),
@@ -716,7 +716,7 @@ function renderModeInsights(modeInsights, executiveSignals) {
       <div class="mode-insight-card ${modeInsights.pattern}">
         <div class="mode-insight-head">
           <div>
-            <div class="mode-insight-title">System behavior pattern</div>
+            <div class="mode-insight-title"><h2>System behavior pattern</h2></div>
             <div class="mode-archetype-block">
               <div class="mode-archetype-label">System archetype</div>
               <div class="mode-archetype-value">${getSystemArchetype(modeInsights, executiveSignals)}</div>
@@ -786,17 +786,17 @@ function persistBatchId(batchId) {
 function clearSessionUI() {
   els.metricCount.textContent = '—';
   els.metricPattern.textContent = '—';
-  els.preparednessValue.textContent = '—';
-  els.resilienceValue.textContent = '—';
+  //els.preparednessValue.textContent = '—';
+  //els.resilienceValue.textContent = '—';
 
-  els.overviewNote.textContent = 'No batch loaded';
-  els.overviewHighlight.textContent = 'Enter a batch ID to load results.';
+  //els.overviewNote.textContent = 'No batch loaded';
+  //els.overviewHighlight.textContent = 'Enter a batch ID to load results.';
 
   els.industriesPills.innerHTML = '<div class="empty" style="width:100%;">No data</div>';
   els.sourcesPills.innerHTML = '<div class="empty" style="width:100%;">No data</div>';
-  els.strengthsList.innerHTML = '<li><span>No data</span><strong>—</strong></li>';
-  els.constraintsList.innerHTML = '<li><span>No data</span><strong>—</strong></li>';
-  els.distributionList.innerHTML = '<li><span>No data</span><strong>—</strong></li>';
+  //els.strengthsList.innerHTML = '<li><span>No data</span><strong>—</strong></li>';
+  //els.constraintsList.innerHTML = '<li><span>No data</span><strong>—</strong></li>';
+  //els.distributionList.innerHTML = '<li><span>No data</span><strong>—</strong></li>';
   els.averagesTableBody.innerHTML = '<tr><td colspan="4"><div class="empty">No numeric scores available.</div></td></tr>';
 
   if (els.signalsDiv) {
@@ -828,7 +828,7 @@ function setLoadingState(isLoading, message = 'Loading...') {
   if (els.demoButton) els.demoButton.style.display = 'none';
 
   if (isLoading) {
-    els.overviewNote.textContent = message;
+    //els.overviewNote.textContent = message;
   }
 }
 
@@ -862,11 +862,11 @@ function renderSession(payload) {
 
   els.metricCount.textContent = session.submission_count ?? '—';
   els.metricPattern.textContent = pattern;
-  els.preparednessValue.textContent = formatNumber(preparedness);
-  els.resilienceValue.textContent = formatNumber(resilience);
+  //els.preparednessValue.textContent = formatNumber(preparedness);
+  //els.resilienceValue.textContent = formatNumber(resilience);
 
-  els.overviewNote.textContent = `${session.submission_count ?? 0} submissions loaded`;
-  els.overviewHighlight.textContent = buildHighlight(preparedness, resilience, strongest, weakest);
+  //els.overviewNote.textContent = `${session.submission_count ?? 0} submissions loaded`;
+  //els.overviewHighlight.textContent = buildHighlight(preparedness, resilience, strongest, weakest);
 
   renderPills(els.industriesPills, session.industries || {});
   renderPills(els.sourcesPills, session.sources || {});
@@ -876,22 +876,22 @@ function renderSession(payload) {
   els.qGrid.innerHTML = renderQuotientGrid(session.quotient_insights || {});
   els.modeWrap.innerHTML =renderModeInsights(session.mode_insights, session.executive_signals || {});
 
-  renderList(
+/*   renderList(
     els.strengthsList,
     toEntriesSorted(averages, 'desc').slice(0, 5),
     v => formatNumber(v)
-  );
+  ); */
 
-  renderList(
+/*   renderList(
     els.constraintsList,
     toEntriesSorted(averages, 'asc').slice(0, 5),
     v => formatNumber(v)
-  );
+  ); */
 
   renderOrbit(session);
 
   const firstDistribution = Object.entries(session.distributions || {})[0]?.[1] || {};
-  renderList(els.distributionList, Object.entries(firstDistribution), v => v);
+  //renderList(els.distributionList, Object.entries(firstDistribution), v => v);
 
   renderAveragesTable(session);
 }
@@ -941,9 +941,9 @@ async function loadBatch(batchId) {
 
     console.error(error);
     clearSessionUI();
-    els.overviewNote.textContent = 'Load failed';
-    els.overviewHighlight.textContent =
-      'Could not load this batch yet. Check the endpoint path and returned JSON shape.';
+    //els.overviewNote.textContent = 'Load failed';
+/*     els.overviewHighlight.textContent =
+      'Could not load this batch yet. Check the endpoint path and returned JSON shape.'; */
   } finally {
     if (requestId === state.activeRequestId) {
       setLoadingState(false);

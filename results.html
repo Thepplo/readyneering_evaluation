@@ -69,40 +69,58 @@
         <div class="q-grid-wrapper reveal-block reveal-quotients" id="variance-wrap"></div>
       </div>
       <div class="q-grid-wrapper reveal-block reveal-quotients" id="mode-wrap"></div>
-      <section class="grid two">
-        <div class="card">
-          <div class="section-head">
-            <h2>Session overview</h2>
-            <div id="overviewNote" class="subtle">Waiting for data</div>
-          </div>
-          <div class="bar-list">
-            <div class="bar-item">
-              <div class="bar-top"><span>Preparedness</span><strong id="preparednessValue">—</strong></div>
-              <div class="ring-track" id="preparednessRing"></div>
-              <div class="bar-track"><div id="preparednessBar" class="bar-fill" style="width:0%"></div></div>
-            </div>
-            <div class="bar-item">
-              <div class="bar-top"><span>Resilience</span><strong id="resilienceValue">—</strong></div>
-               <div class="ring-track" id="resilienceRing"></div>
-              <div class="bar-track"><div id="resilienceBar" class="bar-fill" style="width:0%"></div></div>
-            </div>
-          </div>
-          <div id="overviewHighlight" class="highlight">Load a batch to generate a simple narrative summary.</div>
-        </div>
 
-        <div class="card">
-          <div class="section-head">
-            <h2>Metadata mix</h2>
-            <div class="subtle">From submissions.metadata</div>
-          </div>
-          <h3>Industries</h3>
-          <div id="industriesPills" class="pill-row"></div>
-          <h3 style="margin-top:18px;">Sources</h3>
-          <div id="sourcesPills" class="pill-row"></div>
-        </div>
-      </section>
+      <div class="card metadata">
+  <!--         <div class="card">
+            <div class="section-head">
+              <h2>Session overview</h2>
+              <div id="overviewNote" class="subtle">Waiting for data</div>
+            </div>
+            <div class="bar-list">
+              <div class="bar-item">
+                <div class="bar-top"><span>Preparedness</span><strong id="preparednessValue">—</strong></div>
+                <div class="ring-track" id="preparednessRing"></div>
+                <div class="bar-track"><div id="preparednessBar" class="bar-fill" style="width:0%"></div></div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-top"><span>Resilience</span><strong id="resilienceValue">—</strong></div>
+                <div class="ring-track" id="resilienceRing"></div>
+                <div class="bar-track"><div id="resilienceBar" class="bar-fill" style="width:0%"></div></div>
+              </div>
+            </div>
+            <div id="overviewHighlight" class="highlight">Load a batch to generate a simple narrative summary.</div>
+          </div> -->
 
-      <section class="grid three">
+        <div class="section-head">
+          <h2>Metadata mix</h2>
+          <div class="subtle">From submissions.metadata</div>
+        </div>
+        <h3>Industries</h3>
+        <div id="industriesPills" class="pill-row"></div>
+        <h3 style="margin-top:18px;">Sources</h3>
+        <div id="sourcesPills" class="pill-row"></div>
+      
+        <div class="section-head">
+          <h2>Average scores</h2>
+          <div class="subtle">All numeric score keys returned by the batch endpoint</div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Score key</th>
+                <th>Average</th>
+                <th>Median</th>
+                <th>Std dev</th>
+              </tr>
+            </thead>
+            <tbody id="averagesTableBody">
+              <tr><td colspan="4"><div class="empty">No batch loaded yet.</div></td></tr>
+            </tbody>
+          </table>
+        </div>
+        
+<!--       <section class="grid three">
         <div class="card">
           <div class="section-head">
             <h2>Top numeric strengths</h2>
@@ -126,29 +144,9 @@
           </div>
           <ul id="distributionList" class="list"></ul>
         </div>
-      </section>
+      </section> -->
 
-      <section class="card">
-        <div class="section-head">
-          <h2>Average scores</h2>
-          <div class="subtle">All numeric score keys returned by the batch endpoint</div>
-        </div>
-        <div style="overflow-x:auto;">
-          <table>
-            <thead>
-              <tr>
-                <th>Score key</th>
-                <th>Average</th>
-                <th>Median</th>
-                <th>Std dev</th>
-              </tr>
-            </thead>
-            <tbody id="averagesTableBody">
-              <tr><td colspan="4"><div class="empty">No batch loaded yet.</div></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+
 
       <p class="footer-note">
       </p>
