@@ -555,12 +555,49 @@
       if (q.key === 'mind') {
         return 'Mental models and pattern recognition under uncertainty';
       }
-      if (q.key === 'Execution') {
+      if (q.key === 'execution') {
         return 'The biological gap between intention and action';
       }
       return 'Coherence, belonging, and clarity across the system';
     }
+    function getBandPercents(bands) {
+      const low = bands?.low || 0;
+      const mid = bands?.mid || 0;
+      const high = bands?.high || 0;
+      const total = low + mid + high;
 
+      if (!total) {
+        return { low: 0, mid: 0, high: 0 };
+      }
+
+      return {
+        low: Math.round((low / total) * 100),
+        mid: Math.round((mid / total) * 100),
+        high: Math.round((high / total) * 100)
+      };
+    }
+
+    function renderDistribution(bands) {
+      const pct = getBandPercents(bands);
+
+      return `
+        <div class="q-distribution">
+          <div class="q-distribution-labels">
+            <span>Low ${pct.low}%</span>
+            <span>·</span>
+            <span>Mid ${pct.mid}%</span>
+            <span>·</span>
+            <span>High ${pct.high}%</span>
+          </div>
+
+          <div class="q-distribution-bar" aria-label="Distribution bar">
+            <div class="q-distribution-seg low" style="width:${pct.low}%"></div>
+            <div class="q-distribution-seg mid" style="width:${pct.mid}%"></div>
+            <div class="q-distribution-seg high" style="width:${pct.high}%"></div>
+          </div>
+        </div>
+      `;
+    }
     function renderQuotientCard(q, isLast) {
       return `
         <div class="q-card ${q.level} ${q.key}">
@@ -568,7 +605,7 @@
           <span class="orb orb-2"></span>
           <span class="orb orb-3"></span>
           <div class="q-head">
-            <div class="q-label">${q.key}</div>
+            <div class="q-label">${titleCase(q.key)}</div>
             <div class="q-metrics">
               <div class="q-score">${q.average.toFixed(1)}</div>
               <div class="q-bars">
@@ -583,7 +620,7 @@
 
           <div class="q-section">
             <div class="q-section-label">What this layer shows across the group</div>
-            <div class="q-copy">${getAggregatePatternLine(q)}</div>
+            <div class="q-copy">${titleCase(getAggregatePatternLine(q))}</div>
           </div>
 
           <div class="q-section">
@@ -591,6 +628,10 @@
             <div class="q-copy">${getConsistencyLine(q)}</div>
           </div>
 
+          <div class="q-section">
+            <div class="q-section-label">Distribution</div>
+            ${renderDistribution(q.bands)}
+          </div>
           <div class="q-section">
             <div class="q-section-label">Distribution</div>
             <div class="q-copy">${getImbalanceLine(q)}</div>
