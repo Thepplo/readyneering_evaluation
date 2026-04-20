@@ -742,19 +742,16 @@ th { color: var(--muted); font-weight: 600; }
   font-weight: 500;
 }
 
-/* HIGH consistency (low variance) */
 .variance-row.Consistent .variance-fill {
-  background: #1D9E75; /* green */
+  background: #1D9E75;
 }
 
-/* MEDIUM */
 .variance-row.Mixed .variance-fill {
-  background: #BA7517; /* amber */
+  background: #BA7517;
 }
 
-/* LOW consistency (fragmented) */
 .variance-row.Fragmented .variance-fill {
-  background: #D85A30; /* orange/red */
+  background: #D85A30;
 }
 
 .variance-row:hover {
@@ -765,7 +762,95 @@ th { color: var(--muted); font-weight: 600; }
 .variance-row.low {
   font-weight: 600;
 }
+.mode-insight-card {
+  margin-top: 18px;
+  padding: 18px 20px;
+  border: 1px solid #e8e7e0;
+  border-radius: 14px;
+  background: #faf9f6;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
+.mode-insight-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.mode-insight-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a18;
+}
+
+.mode-insight-pattern {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6f6e68;
+}
+
+.mode-insight-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.mode-metric {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #eceae4;
+}
+
+.mode-metric-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7a7871;
+  margin-bottom: 6px;
+}
+
+.mode-metric-value {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  color: #222;
+}
+
+.mode-insight-copy {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #444441;
+  max-width: 760px;
+}
+.mode-metric.resilience .mode-metric-value {
+  color: #534AB7;
+}
+
+.mode-metric.preparedness .mode-metric-value {
+  color: #1D9E75;
+}
+
+.mode-metric.delta .mode-metric-value {
+  color: #770136;
+}
+.mode-insight-card.resilience-heavy {
+  border-color: rgba(83, 74, 183, 0.22);
+}
+
+.mode-insight-card.preparedness-heavy {
+  border-color: rgba(29, 158, 117, 0.22);
+}
+
+.mode-insight-card.balanced {
+  border-color: rgba(0, 0, 0, 0.08);
+}
 @media (max-width: 960px) {
   .grid.metrics,
   .grid.two,

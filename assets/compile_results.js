@@ -31,6 +31,7 @@ const els = {
   signalsDiv: document.getElementById('signal-list-wrap'),
   qGrid: document.getElementById('q-grid-wrapper'),
   varianceWrap: document.getElementById('variance-wrap'),
+  modeWrap: document.getElementById('mode-wrap'),
 };
 document.addEventListener('DOMContentLoaded', () => {
   initAtomAnimation();
@@ -627,6 +628,57 @@ function renderVarianceSection(quotients = {}) {
   `;
 }
 
+function getPatternLabel(pattern) {
+  if (pattern === 'resilience-heavy') return 'Resilience-heavy';
+  if (pattern === 'preparedness-heavy') return 'Preparedness-heavy';
+  return 'Balanced';
+}
+
+function formatDelta(delta) {
+  if (delta == null || Number.isNaN(delta)) return '—';
+  return `${delta > 0 ? '+' : ''}${delta.toFixed(2)}`;
+}
+
+function renderModeInsights(modeInsights) {
+  if (!modeInsights) return '';
+
+  const resilienceAvg = modeInsights.resilience?.average;
+  const preparednessAvg = modeInsights.preparedness?.average;
+  const delta = modeInsights.delta;
+  const pattern = modeInsights.pattern;
+
+  return `
+    <div class="mode-insight-card ${pattern}">
+      <div class="mode-insight-head">
+        <div class="mode-insight-title">System behavior pattern</div>
+        <div class="mode-insight-pattern">${getPatternLabel(pattern)}</div>
+      </div>
+
+      <div class="mode-insight-metrics">
+        <div class="mode-metric resilience">
+          <div class="mode-metric-label">Avg. Resilience</div>
+          <div class="mode-metric-value">${resilienceAvg != null ? resilienceAvg.toFixed(1) : '—'}</div>
+        </div>
+
+        <div class="mode-metric preparedness">
+          <div class="mode-metric-label">Avg. Preparedness</div>
+          <div class="mode-metric-value">${preparednessAvg != null ? preparednessAvg.toFixed(1) : '—'}</div>
+        </div>
+
+        <div class="mode-metric delta">
+          <div class="mode-metric-label">Delta</div>
+          <div class="mode-metric-value">${formatDelta(delta)}</div>
+        </div>
+      </div>
+
+      <div class="mode-insight-copy">
+        ${getModePatternCopy(modeInsights)}
+      </div>
+    </div>
+  `;
+}
+
+
 const state = {
   isLoaded: false,
   isLoading: false,
@@ -688,6 +740,9 @@ function clearSessionUI() {
     els.qGrid.innerHTML = '<div class="empty">No quotient data available.</div>';
   }
 
+  if (els.modeWrap) {
+    els.modeWrap.innerHTML = '<div class="empty">No quotient data available.</div>';
+  }
   if (els.varianceWrap) {
     els.varianceWrap.innerHTML = '<div class="empty">No variance data available.</div>';
   }
@@ -748,6 +803,7 @@ function renderSession(payload) {
 
   els.varianceWrap.innerHTML = renderVarianceSection(session.quotient_insights || {});
   els.qGrid.innerHTML = renderQuotientGrid(session.quotient_insights || {});
+  els.modeWrap.innerHTML =renderModeInsights(session.mode_insights || {});
 
   renderList(
     els.strengthsList,
