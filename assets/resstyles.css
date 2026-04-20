@@ -781,8 +781,6 @@ th { color: var(--muted); font-weight: 600; }
 }
 
 .mode-insight-title {
-  font-size: 15px;
-  font-weight: 600;
   color: #1a1a18;
 }
 

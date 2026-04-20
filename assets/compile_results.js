@@ -663,7 +663,7 @@ function renderModeInsights(modeInsights) {
   return `
     <div class="mode-insight-card ${pattern}">
       <div class="mode-insight-head">
-        <div class="mode-insight-title">System behavior pattern</div>
+        <div class="mode-insight-title"><h2>System behavior pattern<h2></div>
         <div class="mode-insight-pattern">${getPatternLabel(pattern)}</div>
       </div>
 
