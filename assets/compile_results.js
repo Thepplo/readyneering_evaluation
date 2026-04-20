@@ -32,8 +32,14 @@ const els = {
   qGrid: document.getElementById('q-grid-wrapper'),
   varianceWrap: document.getElementById('variance-wrap'),
 };
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   initAtomAnimation();
+
+  const initialBatchId = getBatchIdFromPageState();
+  if (initialBatchId) {
+    els.batchIdInput.value = initialBatchId;
+    loadBatch(initialBatchId);
+  }
 });
 
 function initAtomAnimation() {
@@ -627,6 +633,32 @@ const state = {
   activeRequestId: 0,
   currentBatchId: null,
 };
+const BATCH_STORAGE_KEY = 'compile_results_batch_id';
+
+function getBatchIdFromPageState() {
+  const fromUrl = new URLSearchParams(window.location.search).get('batch_id');
+  if (fromUrl) return fromUrl.trim();
+
+  const fromStorage = localStorage.getItem(BATCH_STORAGE_KEY);
+  if (fromStorage) return fromStorage.trim();
+
+  return '';
+}
+
+function persistBatchId(batchId) {
+  const trimmed = (batchId || '').trim();
+  const url = new URL(window.location.href);
+
+  if (trimmed) {
+    url.searchParams.set('batch_id', trimmed);
+    localStorage.setItem(BATCH_STORAGE_KEY, trimmed);
+  } else {
+    url.searchParams.delete('batch_id');
+    localStorage.removeItem(BATCH_STORAGE_KEY);
+  }
+
+  window.history.replaceState({}, '', url);
+}
 
 function clearSessionUI() {
   els.metricCount.textContent = '—';
@@ -759,21 +791,23 @@ async function fetchBatchResults(batchId) {
   return JSON.parse(text);
 }
 
-els.loadButton.addEventListener('click', async () => {
-  const batchId = els.batchIdInput.value.trim();
-  if (!batchId || state.isLoading) return;
+async function loadBatch(batchId) {
+  const trimmedBatchId = (batchId || '').trim();
+  if (!trimmedBatchId || state.isLoading) return;
 
   const requestId = ++state.activeRequestId;
   setUnloadedState();
-  setLoadingState(true, `Loading batch ${batchId}...`);
+  setLoadingState(true, `Loading batch ${trimmedBatchId}...`);
+  els.batchIdInput.value = trimmedBatchId;
 
   try {
-    const data = await fetchBatchResults(batchId);
+    const data = await fetchBatchResults(trimmedBatchId);
 
     if (requestId !== state.activeRequestId) return;
 
     renderSession(data);
-    setLoadedState(batchId);
+    setLoadedState(trimmedBatchId);
+    persistBatchId(trimmedBatchId);
   } catch (error) {
     if (error.name === 'AbortError') return;
     if (requestId !== state.activeRequestId) return;
@@ -788,6 +822,26 @@ els.loadButton.addEventListener('click', async () => {
       setLoadingState(false);
     }
   }
+}
+
+els.loadButton.addEventListener('click', async () => {
+  await loadBatch(els.batchIdInput.value);
+});
+
+els.batchIdInput.addEventListener('keydown', event => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    loadBatch(els.batchIdInput.value);
+  }
 });
 
 clearSessionUI();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const initialBatchId = getBatchIdFromPageState();
+
+  if (initialBatchId) {
+    els.batchIdInput.value = initialBatchId;
+    loadBatch(initialBatchId);
+  }
+});
