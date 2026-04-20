@@ -630,7 +630,7 @@
           </div>
 
           <div class="q-section">
-            <div class="q-section-label">Distribution</div>
+            <div class="q-section-label">Distribution across cohort</div>
             ${renderDistribution(q.bands)}
           </div>
           <div class="q-section">
@@ -667,7 +667,7 @@
         <div class="variance-list">
           ${sorted.map(q => `
             <div class="variance-row ${q.consistency}">
-              <div class="variance-label"><span class="q-chip ${q.key}"> ${q.key}</div>
+              <div class="variance-label"><span class="q-chip ${q.key}"> ${titleCase(q.key)}</div>
               <div class="variance-bar">
                 <div class="variance-fill" style="width:${varianceToWidth(q.std_dev)}%"></div>
               </div>

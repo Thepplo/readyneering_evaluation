@@ -291,7 +291,7 @@ function buildExecutiveSignals(quotientInsights, modeInsights) {
       type: 'strength',
       title: 'Consistent strength',
       key: strongest.key,
-      message: `${strongest.key} is the strongest shared dimension in this cohort.`
+      message: `is the strongest shared dimension in this cohort.`
     });
   }
 
@@ -300,7 +300,7 @@ function buildExecutiveSignals(quotientInsights, modeInsights) {
       type: 'constraint',
       title: 'Primary constraint',
       key: weakest.key,
-      message: `${weakest.key} is the weakest shared dimension and likely the first place the system breaks under strain.`
+      message: `is the weakest shared dimension and likely the first place the system breaks under strain.`
     });
   }
 
@@ -329,7 +329,7 @@ function buildExecutiveSignals(quotientInsights, modeInsights) {
       type: 'leverage',
       title: 'Highest leverage',
       key: biggestGap.key,
-      message: `${biggestGap.key} shows the largest Resilience/Preparedness imbalance, making it the clearest leverage point for improvement.`
+      message: `shows the largest Resilience/Preparedness imbalance, making it the clearest leverage point for improvement.`
     });
   }
 
@@ -338,7 +338,7 @@ function buildExecutiveSignals(quotientInsights, modeInsights) {
       type: 'fragmentation',
       title: 'Fragmentation risk',
       key: mostFragmented.key,
-      message: `${mostFragmented.key} varies widely across respondents, suggesting an uneven experience of the system.`
+      message: `varies widely across respondents, suggesting an uneven experience of the system.`
     });
   }
 
