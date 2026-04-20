@@ -13,6 +13,24 @@
   --bad: #b42318;
   --shadow: 0 10px 30px rgba(23, 32, 51, 0.08);
   --radius: 18px;
+
+  --vitality: #FFD000;
+  --emotion: #E53846;
+  --execution: #2D52B5;
+  --mind: #770136;
+  --alignment: #1B74CD;
+
+  --vitality-bg: linear-gradient(135deg, #f6bf14 0%, #ffcf1f 60%, #eab308 100%);
+  --emotion-bg: linear-gradient(135deg, #ff4d67 0%, #ff1f49 55%, #d9133a 100%);
+  --mind-bg: linear-gradient(135deg, #5d0026 0%, #7a0138 55%, #99004a 100%);
+  --execution-bg: linear-gradient(135deg, #4b43d1 0%, #3757d7 45%, #2a63de 100%);
+  --alignment-bg: linear-gradient(135deg, #47a4ff 0%, #1f7fe5 50%, #0f5fbc 100%);
+
+  --vitality-text: #f5f5f5;
+  --emotion-text: #f5f5f5;
+  --execution-text: #f5f5f5;
+  --mind-text: #f5f5f5;
+  --alignment-text: #f5f5f5;
 }
 
 @font-face {
@@ -388,14 +406,30 @@ th { color: var(--muted); font-weight: 600; }
 .signal-item.fragmentation .signal-marker { background: #770136; }
 
 .q-chip {
-  font-weight: 700;
+  font-weight: 600;
+  position: relative;
+  padding-left: 10px;
 }
 
-.q-chip.vitality { color: var(--vitality); }
-.q-chip.emotion { color: var(--emotion); }
-.q-chip.mind { color: var(--mind); }
+.q-chip::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: currentColor;
+}
+
+.q-chip.vitality  { color: var(--vitality); }
+.q-chip.emotion   { color: var(--emotion); }
+.q-chip.mind      { color: var(--mind); }
 .q-chip.execution { color: var(--execution); }
 .q-chip.alignment { color: var(--alignment); }
+
+
 
 .signal-empty {
   font-size: 14px;
