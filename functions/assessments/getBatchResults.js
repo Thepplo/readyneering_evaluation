@@ -28,32 +28,28 @@ const Q_KEYS = ['vitality', 'emotion', 'mind', 'execution', 'alignment'];
 function getQuotientKeyMap() {
   return {
     vitality: {
-      overall: 'vitality_overall',
       resilience: 'R_vitality',
       preparedness: 'P_vitality'
     },
     emotion: {
-      overall: 'emotion_overall',
       resilience: 'R_emotion',
       preparedness: 'P_emotion'
     },
     mind: {
-      overall: 'mind_overall',
       resilience: 'R_mind',
       preparedness: 'P_mind'
     },
     execution: {
-      overall: 'execution_overall',
       resilience: 'R_execution',
       preparedness: 'P_execution'
     },
     alignment: {
-      overall: 'alignment_overall',
       resilience: 'R_alignment',
       preparedness: 'P_alignment'
     }
   };
 }
+
 function getScoreValue(row) {
   if (row.numeric_value !== null && row.numeric_value !== undefined) {
     return row.numeric_value;
@@ -175,18 +171,29 @@ function buildQuotientInsights(numericProfiles) {
 
   for (const q of Q_KEYS) {
     const keys = keyMap[q];
-    const overall = numericProfiles[keys.overall];
     const resilience = numericProfiles[keys.resilience];
     const preparedness = numericProfiles[keys.preparedness];
 
-    if (!overall && !resilience && !preparedness) continue;
+    if (!resilience && !preparedness) continue;
 
-    const avgOverall = overall?.average ?? null;
     const avgR = resilience?.average ?? null;
     const avgP = preparedness?.average ?? null;
+    const avgOverall =
+      isNumber(avgR) && isNumber(avgP)
+        ? round((avgR + avgP) / 2)
+        : isNumber(avgR)
+        ? avgR
+        : isNumber(avgP)
+        ? avgP
+        : null;
+
     const gap = isNumber(avgR) && isNumber(avgP) ? round(avgR - avgP) : null;
     const absGap = isNumber(gap) ? round(Math.abs(gap)) : null;
-    const spread = overall?.std_dev ?? 0;
+
+    const spread =
+      resilience?.std_dev != null && preparedness?.std_dev != null
+        ? round((resilience.std_dev + preparedness.std_dev) / 2)
+        : resilience?.std_dev ?? preparedness?.std_dev ?? 0;
 
     let consistency = 'unknown';
     if (spread <= 0.2) consistency = 'high';
@@ -209,9 +216,9 @@ function buildQuotientInsights(numericProfiles) {
       gap,
       abs_gap: absGap,
       pattern,
-      min: overall?.min ?? null,
-      max: overall?.max ?? null,
-      bands: overall?.bands ?? { low: 0, mid: 0, high: 0 }
+      min: null,
+      max: null,
+      bands: { low: 0, mid: 0, high: 0 }
     };
   }
 
