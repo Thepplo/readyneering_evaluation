@@ -612,6 +612,12 @@ th { color: var(--muted); font-weight: 600; }
   border-bottom: 1px solid #ffffff9f;
   width: 100%;
 }
+
+.q-metrics {
+  font-family: 'q5-heading', sans-serif;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+}
 .q-card.vitality .q-head {
   border-bottom: 1px solid #000000a9;
 }
@@ -1029,4 +1035,30 @@ th { color: var(--muted); font-weight: 600; }
   .grid.three {
     grid-template-columns: 1fr;
   }
+}
+
+
+@media (max-width: 700px) {
+  .screen {
+    max-width: 100%;
+  }
+  .q-grid {
+    grid-template-columns: 1fr;
+  }
+  .mode-grid {
+    grid-template-columns: 1fr;
+  }
+  .signal-grid {
+    grid-template-columns: 1fr;
+  }
+  .q-card.span-2 {
+    grid-column: span 1;
+  }
+  .q-card.span-2 .q-head {
+    justify-content: space-between;
+  }
+  .ring-row {
+    height: 250px;
+  }
+
 }

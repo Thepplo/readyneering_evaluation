@@ -551,16 +551,16 @@ function renderQuotientCard(q, isLast) {
       <span class="orb orb-3"></span>
       <div class="q-head">
         <div class="q-label">${titleCase(q.key)}</div>
-        <div class="q-metrics">
+      </div>
+      
+      <div class="q-metrics">
           <div class="q-score">${q.average.toFixed(1)}</div>
           <div class="q-bars">
             <div>Avg R ${q.resilience_average.toFixed(1)}</div>
             <span>·</span>
             <div>Avg P ${q.preparedness_average.toFixed(1)}</div>
           </div>
-        </div>
       </div>
-
       <div class="q-role">${getRoleLine(q)}</div>
 
       <div class="q-section">
