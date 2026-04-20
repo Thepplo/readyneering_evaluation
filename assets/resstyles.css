@@ -863,6 +863,27 @@ th { color: var(--muted); font-weight: 600; }
 .mode-insight-card.balanced {
   border-color: rgba(0, 0, 0, 0.08);
 }
+
+.mode-archetype-block {
+  margin-top: 10px;
+}
+
+.mode-archetype-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7a7871;
+  margin-bottom: 4px;
+}
+
+.mode-archetype-value {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #1f1f1c;
+}
+
 @media (max-width: 960px) {
   .grid.metrics,
   .grid.two,

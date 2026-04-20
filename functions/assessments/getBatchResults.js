@@ -291,7 +291,7 @@ function buildExecutiveSignals(quotientInsights, modeInsights) {
       type: 'strength',
       title: 'Consistent strength',
       key: strongest.key,
-      message: `is the strongest shared dimension in this cohort.`
+      message: `is the strongest shared dimension in this cohort, a reliable base for performance`
     });
   }
 

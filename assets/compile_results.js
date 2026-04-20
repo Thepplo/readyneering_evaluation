@@ -563,12 +563,12 @@ function renderQuotientCard(q, isLast) {
       <div class="q-role">${getRoleLine(q)}</div>
 
       <div class="q-section">
-        <div class="q-section-label">What this layer shows across the group</div>
+        <div class="q-section-label">What this reveals</div>
         <div class="q-copy">${titleCase(getAggregatePatternLine(q))}</div>
       </div>
 
       <div class="q-section">
-        <div class="q-section-label">Consistency</div>
+        <div class="q-section-label">Consistency across respondents</div>
         <div class="q-copy">${getConsistencyLine(q)}</div>
       </div>
 
@@ -577,7 +577,7 @@ function renderQuotientCard(q, isLast) {
         ${renderDistribution(q.bands)}
       </div>
       <div class="q-section">
-        <div class="q-section-label">Distribution</div>
+        <div class="q-section-label">Balance across cohort</div>
         <div class="q-copy">${getImbalanceLine(q)}</div>
       </div>
     </div>
@@ -648,9 +648,60 @@ function getPatternLabel(pattern) {
   return 'Balanced';
 }
 
-function formatDelta(delta) {
+function formatDelta(delta, threshold = 0.05) {
   if (delta == null || Number.isNaN(delta)) return '—';
-  return `${delta > 0 ? '+' : ''}${delta.toFixed(2)}`;
+
+  if (Math.abs(delta) < threshold) {
+    return 'Δ ~ 0.0';
+  }
+
+  return `Δ ${delta > 0 ? '+' : ''}${delta.toFixed(2)}`;
+}
+
+function getSystemArchetype(modeInsights, executiveSignals, quotientInsights) {
+  const overallAvg = modeInsights?.overall?.average ?? null;
+  const pattern = modeInsights?.pattern ?? 'balanced';
+
+  const weakest = executiveSignals?.weakest?.key ?? null;
+  const mostFragmented = executiveSignals?.mostFragmented?.key ?? null;
+
+  const quotientList = Object.values(quotientInsights || {});
+  const avgSpread = quotientList.length
+    ? quotientList.reduce((sum, q) => sum + (q.std_dev || 0), 0) / quotientList.length
+    : 0;
+
+  const highlyFragmented = avgSpread > 0.45;
+  const moderatelyFragmented = avgSpread > 0.25;
+
+  const lowOverall = overallAvg != null && overallAvg < 2.75;
+  const midOverall = overallAvg != null && overallAvg < 3.35;
+
+  if (lowOverall && highlyFragmented) {
+    return 'Fragile and fragmented';
+  }
+
+  if (lowOverall) {
+    return 'Reactive and exposed';
+  }
+
+  if (pattern === 'resilience-heavy') {
+    if (moderatelyFragmented) return 'Adaptive but uneven';
+    return 'Adaptive but reactive';
+  }
+
+  if (pattern === 'preparedness-heavy') {
+    if (moderatelyFragmented) return 'Structured but uneven';
+    return 'Structured but brittle';
+  }
+
+  if (pattern === 'balanced') {
+    if (highlyFragmented) return 'Balanced but fragmented';
+    if (moderatelyFragmented) return 'Stable but uneven';
+    if (!midOverall) return 'Coherent and ready';
+    return 'Balanced but vulnerable';
+  }
+
+  return 'Mixed operating pattern';
 }
 
 function renderModeInsights(modeInsights) {
@@ -662,11 +713,17 @@ function renderModeInsights(modeInsights) {
   const pattern = modeInsights.pattern;
 
   return `
-    <div class="mode-insight-card ${pattern}">
-      <div class="mode-insight-head">
-        <div class="mode-insight-title"><h2>System behavior pattern<h2></div>
-        <div class="mode-insight-pattern">${getPatternLabel(pattern)}</div>
-      </div>
+      <div class="mode-insight-card ${modeInsights.pattern}">
+        <div class="mode-insight-head">
+          <div>
+            <div class="mode-insight-title">System behavior pattern</div>
+            <div class="mode-archetype-block">
+              <div class="mode-archetype-label">System archetype</div>
+              <div class="mode-archetype-value">${getSystemArchetype(modeInsights, executiveSignals)}</div>
+            </div>
+          </div>
+          <div class="mode-insight-pattern">${getPatternLabel(modeInsights.pattern)}</div>
+        </div>
 
       <div class="mode-insight-metrics">
         <div class="mode-metric resilience">
