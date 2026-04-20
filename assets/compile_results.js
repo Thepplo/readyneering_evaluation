@@ -422,7 +422,7 @@
           <foreignObject x="${resilienceX}" y="${resilienceY}" width="${smallSize}" height="${smallSize}">
             <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
               ${makeRing(res.averages.resilience_score, 0, 5, '#534AB7', '#E8E7E0', smallSize)}
-              ${makeVarianceHalo(cx, ccy, baseRadius, res.standard_devs.resilience_score)}
+              ${makeVarianceHalo(cx, ccy, baseRadius, res.std_devs.resilience_score)}
             </div>
           </foreignObject>
 
@@ -433,7 +433,7 @@
           <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
             <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
               ${makeRing(res.averages.preparedness_score, 0, 5, '#1D9E75', '#E8E7E0', smallSize)}
-              ${makeVarianceHalo(cx, ccy, baseRadius, res.standard_devs.preparedness_score)}
+              ${makeVarianceHalo(cx, ccy, baseRadius, res.std_devs.preparedness_score)}
             </div>
           </foreignObject>
 
@@ -444,7 +444,7 @@
           <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
             <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
               ${makeRing(res.averages.overall_score, 0, 25, '#770136', '#7701363f', centerSize)}
-              ${makeVarianceHalo(cxCenter, cyCenter, baseRadiusCenter, res.standard_devs.overall_score)}
+              ${makeVarianceHalo(cxCenter, cyCenter, baseRadiusCenter, res.std_devs.overall_score)}
             </div>
           </foreignObject>
 
