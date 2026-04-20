@@ -678,6 +678,85 @@ th { color: var(--muted); font-weight: 600; }
 .q-distribution-seg.high {
   background: rgba(29, 158, 117, 0.9);
 }
+
+.variance-section {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1px solid #e8e7e0;
+  border-radius: 12px;
+  background: #faf9f6; /* slightly softer than white cards */
+}
+
+.variance-head {
+  margin-bottom: 12px;
+}
+
+.variance-head h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a18;
+}
+
+.variance-meta {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #6f6e68;
+  line-height: 1.4;
+}
+
+.variance-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.variance-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 90px;
+  align-items: center;
+  gap: 12px;
+}
+.variance-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2f2e2a;
+}
+.variance-bar {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: #e8e7e0;
+  overflow: hidden;
+}
+.variance-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.variance-meta-val {
+  font-size: 12px;
+  text-align: right;
+  color: #6f6e68;
+  font-weight: 500;
+}
+
+/* HIGH consistency (low variance) */
+.variance-row.high .variance-fill {
+  background: #1D9E75; /* green */
+}
+
+/* MEDIUM */
+.variance-row.medium .variance-fill {
+  background: #BA7517; /* amber */
+}
+
+/* LOW consistency (fragmented) */
+.variance-row.low .variance-fill {
+  background: #D85A30; /* orange/red */
+}
+
 @media (max-width: 960px) {
   .grid.metrics,
   .grid.two,
