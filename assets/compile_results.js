@@ -631,15 +631,16 @@ function getModePatternCopy(modeInsights) {
   const { pattern, delta, resilience, preparedness } = modeInsights;
 
   if (pattern === 'resilience-heavy') {
-    return `Resilience exceeds Preparedness by ${Math.abs(delta).toFixed(2)}, suggesting the group relies more on in-the-moment coping than on structure and design.`;
+    return `<span class="resil">Resilience</span> exceeds <span class="prep">Preparedness</span> by ${Math.abs(delta).toFixed(2)}, suggesting the group relies more on in-the-moment coping than on structure and design.`;
   }
 
   if (pattern === 'preparedness-heavy') {
-    return `Preparedness exceeds Resilience by ${Math.abs(delta).toFixed(2)}, suggesting structure is stronger on paper than it is embodied under pressure.`;
+    return `<span class="prep">Preparedness</span> exceeds <span class="resil">Resilience</span> by ${Math.abs(delta).toFixed(2)}, suggesting structure is stronger on paper than it is embodied under pressure.`;
   }
 
-  return `Resilience and Preparedness are relatively balanced across the group. The main question is less about mode imbalance and more about where specific dimensions are weak or fragmented.`;
+  return `<span class="resil">Resilience</span> and <span class="prep">Preparedness</span> are relatively balanced across the group. The main question is less about mode imbalance and more about where specific dimensions are weak or fragmented.`;
 }
+
 
 function getPatternLabel(pattern) {
   if (pattern === 'resilience-heavy') return 'Resilience-heavy';
