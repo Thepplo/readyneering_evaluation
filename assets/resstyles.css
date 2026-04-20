@@ -833,11 +833,11 @@ th { color: var(--muted); font-weight: 600; }
   max-width: 760px;
 }
 
-.mode-insight-copy.resil {
+.mode-insight-copy .resil {
   color: #534AB7;
 }
 
-.mode-insight-copy.prep {
+.mode-insight-copy .prep {
   color: #1D9E75;
 }
 
