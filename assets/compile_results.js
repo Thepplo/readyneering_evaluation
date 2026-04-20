@@ -20,6 +20,7 @@ const els = {
   //overviewNote: document.getElementById('overviewNote'),
   //overviewHighlight: document.getElementById('overviewHighlight'),
   industriesPills: document.getElementById('industriesPills'),
+  sizesPills: document.getElementById('sizesPills'),
   sourcesPills: document.getElementById('sourcesPills'),
   //strengthsList: document.getElementById('strengthsList'),
   //constraintsList: document.getElementById('constraintsList'),
@@ -552,7 +553,7 @@ function renderQuotientCard(q, isLast) {
       <div class="q-head">
         <div class="q-label">${titleCase(q.key)}</div>
       </div>
-      
+
       <div class="q-metrics">
           <div class="q-score">${q.average.toFixed(1)}</div>
           <div class="q-bars">
@@ -823,6 +824,7 @@ function clearSessionUI() {
   //els.overviewHighlight.textContent = 'Enter a batch ID to load results.';
 
   els.industriesPills.innerHTML = '<div class="empty" style="width:100%;">No data</div>';
+  els.sizesPills.innerHTML = '<div class="empty" style="width:100%;">No data</div>';
   els.sourcesPills.innerHTML = '<div class="empty" style="width:100%;">No data</div>';
   //els.strengthsList.innerHTML = '<li><span>No data</span><strong>—</strong></li>';
   //els.constraintsList.innerHTML = '<li><span>No data</span><strong>—</strong></li>';
@@ -899,6 +901,7 @@ function renderSession(payload) {
   //els.overviewHighlight.textContent = buildHighlight(preparedness, resilience, strongest, weakest);
 
   renderPills(els.industriesPills, session.industries || {});
+  renderPills(els.sizesPills, session.sizes || {});
   renderPills(els.sourcesPills, session.sources || {});
   renderExecutiveSignals(session.executive_signals);
 

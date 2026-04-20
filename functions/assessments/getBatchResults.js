@@ -398,6 +398,7 @@ function buildSessionSummary(batchId, submissions) {
     mode_insights,
     executive_signals,
     industries: countBy(submissions.map(s => s.metadata?.industry).filter(Boolean)),
+    sizes: countBy(submissions.map(s => s.metadata?.size).filter(Boolean)),
     sources: countBy(submissions.map(s => s.metadata?.source).filter(Boolean))
   };
 }
