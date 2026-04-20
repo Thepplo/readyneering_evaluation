@@ -291,30 +291,27 @@
         </svg>
       `;
     }
-  function makeVarianceHalo(cx, cy, baseRadius, stdDev) {
-    const scale = 18;
-    const radius = baseRadius + stdDev * scale;
+    function makeVarianceHaloSvg(cx, cy, baseRadius, stdDev, color) {
+      const scale = 22;
+      const radius = baseRadius + stdDev * scale;
 
-    const size = radius * 2;
-
-    return `
-      <div style="
-        position:absolute;
-        left:${cx - radius}px;
-        top:${cy - radius}px;
-        width:${size}px;
-        height:${size}px;
-        border-radius:50%;
-        background: radial-gradient(
-          circle,
-          rgba(0,0,0,0.08) 0%,
-          rgba(0,0,0,0.04) 40%,
-          rgba(0,0,0,0.0) 70%
-        );
-        pointer-events:none;
-      "></div>
-    `;
-  }
+      return `
+        <circle
+          cx="${cx}"
+          cy="${cy}"
+          r="${radius}"
+          fill="${color}"
+          fill-opacity="0.08"
+        />
+        <circle
+          cx="${cx}"
+          cy="${cy}"
+          r="${radius * 0.82}"
+          fill="${color}"
+          fill-opacity="0.04"
+        />
+      `;
+    }
     function pointOnEllipse(cx, cy, rx, ry, deg) {
       const rad = (deg * Math.PI) / 180;
       return {
@@ -347,13 +344,17 @@
       const qRx = rx;
       const qRy = ry;
 
-      const baseRadius = smallSize / 2 - 6;
-      const cx = smallSize / 2;
-      const ccy = smallSize / 2;
+      const resilienceCenterX = resiliencePos.x;
+      const resilienceCenterY = resiliencePos.y;
 
-      const baseRadiusCenter = centerSize / 2 - 10;
-      const cxCenter = centerSize / 2;
-      const cyCenter = centerSize / 2;
+      const preparednessCenterX = preparednessPos.x;
+      const preparednessCenterY = preparednessPos.y;
+
+      const overallCenterX = orbitCx;
+      const overallCenterY = orbitCy - 5;
+      const smallHaloBase = 32;
+      const centerHaloBase = 48;
+
       function ellipsePointDeg(cx, cy, rx, ry, deg) {
         const a = deg * Math.PI / 180;
         return {
@@ -418,11 +419,32 @@
             stroke-width="2"
             stroke-linecap="round"
           />
+          ${makeVarianceHaloSvg(
+            resilienceCenterX,
+            resilienceCenterY,
+            smallHaloBase,
+            res.std_devs.resilience_score,
+            '#534AB7'
+          )}
 
+          ${makeVarianceHaloSvg(
+            preparednessCenterX,
+            preparednessCenterY,
+            smallHaloBase,
+            res.std_devs.preparedness_score,
+            '#1D9E75'
+          )}
+
+          ${makeVarianceHaloSvg(
+            overallCenterX,
+            overallCenterY,
+            centerHaloBase,
+            res.std_devs.overall_score,
+            '#770136'
+          )}
           <foreignObject x="${resilienceX}" y="${resilienceY}" width="${smallSize}" height="${smallSize}">
             <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
               ${makeRing(res.averages.resilience_score, 0, 5, '#534AB7', '#E8E7E0', smallSize)}
-              ${makeVarianceHalo(cx, ccy, baseRadius, res.std_devs.resilience_score)}
             </div>
           </foreignObject>
 
@@ -433,7 +455,6 @@
           <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
             <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
               ${makeRing(res.averages.preparedness_score, 0, 5, '#1D9E75', '#E8E7E0', smallSize)}
-              ${makeVarianceHalo(cx, ccy, baseRadius, res.std_devs.preparedness_score)}
             </div>
           </foreignObject>
 
@@ -444,7 +465,6 @@
           <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
             <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
               ${makeRing(res.averages.overall_score, 0, 25, '#770136', '#7701363f', centerSize)}
-              ${makeVarianceHalo(cxCenter, cyCenter, baseRadiusCenter, res.std_devs.overall_score)}
             </div>
           </foreignObject>
 
