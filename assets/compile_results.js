@@ -755,6 +755,7 @@ const state = {
   isLoading: false,
   activeRequestId: 0,
   currentBatchId: null,
+  metaDataRevealed: false,
 };
 const BATCH_STORAGE_KEY = 'compile_results_batch_id';
 
