@@ -598,7 +598,10 @@
         </div>
       `;
     }
-    function renderQuotientGrid(quotients) {
+
+    function renderQuotientGrid(quotientsObj) {
+      const quotients = Object.values(quotientsObj || {});
+
       return `
         <div class="q-grid">
           ${quotients.map(function(q, i) {
@@ -607,6 +610,7 @@
         </div>
       `;
     }
+
     function renderSession(payload) {
       const session = payload.session || {};
       const averages = session.averages || {};
