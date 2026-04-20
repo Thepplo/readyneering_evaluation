@@ -704,7 +704,7 @@ function getSystemArchetype(modeInsights, executiveSignals, quotientInsights) {
   return 'Mixed operating pattern';
 }
 
-function renderModeInsights(modeInsights) {
+function renderModeInsights(modeInsights, executiveSignals) {
   if (!modeInsights) return '';
 
   const resilienceAvg = modeInsights.resilience?.average;
@@ -874,7 +874,7 @@ function renderSession(payload) {
 
   els.varianceWrap.innerHTML = renderVarianceSection(session.quotient_insights || {});
   els.qGrid.innerHTML = renderQuotientGrid(session.quotient_insights || {});
-  els.modeWrap.innerHTML =renderModeInsights(session.mode_insights || {});
+  els.modeWrap.innerHTML =renderModeInsights(session.mode_insights, session.executive_signals || {});
 
   renderList(
     els.strengthsList,
