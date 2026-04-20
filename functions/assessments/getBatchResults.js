@@ -29,28 +29,28 @@ function getQuotientKeyMap() {
   return {
     vitality: {
       overall: 'vitality_overall',
-      resilience: 'vitality_resilience',
-      preparedness: 'vitality_preparedness'
+      resilience: 'R_vitality',
+      preparedness: 'P_vitality'
     },
     emotion: {
       overall: 'emotion_overall',
-      resilience: 'emotion_resilience',
-      preparedness: 'emotion_preparedness'
+      resilience: 'R_emotion',
+      preparedness: 'P_emotion'
     },
     mind: {
       overall: 'mind_overall',
-      resilience: 'mind_resilience',
-      preparedness: 'mind_preparedness'
+      resilience: 'R_mind',
+      preparedness: 'P_mind'
     },
     execution: {
       overall: 'execution_overall',
-      resilience: 'execution_resilience',
-      preparedness: 'execution_preparedness'
+      resilience: 'R_execution',
+      preparedness: 'P_execution'
     },
     alignment: {
       overall: 'alignment_overall',
-      resilience: 'alignment_resilience',
-      preparedness: 'alignment_preparedness'
+      resilience: 'R_alignment',
+      preparedness: 'P_alignment'
     }
   };
 }

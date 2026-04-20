@@ -42,14 +42,14 @@
           alignment_overall: 71.8
         },
         std_devs: {
-          overall_score: 8.7,
-          preparedness_score: 7.9,
-          resilience_score: 10.8,
-          vitality_overall: 9.6,
-          emotion_overall: 8.4,
-          mind_overall: 7.5,
-          execution_overall: 8.2,
-          alignment_overall: 9.1
+          overall_score: 1,
+          preparedness_score: 0.1,
+          resilience_score: 0.1,
+          vitality_overall: 0.3,
+          emotion_overall: 0.4,
+          mind_overall: 0.7,
+          execution_overall: 0.4,
+          alignment_overall: 0.3
         },
         distributions: {
           overall_band: {
@@ -292,7 +292,7 @@
       `;
     }
     function makeVarianceHaloSvg(cx, cy, baseRadius, stdDev, color) {
-      const scale = 5;
+      const scale = 35;
       const radius = baseRadius + stdDev * scale;
 
       return `
@@ -352,8 +352,8 @@
 
       const overallCenterX = orbitCx;
       const overallCenterY = orbitCy - 5;
-      const smallHaloBase = 12;
-      const centerHaloBase = 24;
+      const smallHaloBase = 32;
+      const centerHaloBase = 48;
 
       function ellipsePointDeg(cx, cy, rx, ry, deg) {
         const a = deg * Math.PI / 180;
