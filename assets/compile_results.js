@@ -93,6 +93,7 @@
       resilienceRing: document.getElementById('resilienceRing'),
       overallRing: document.getElementById('overallRing'),
       signalsDiv: document.getElementById('signal-list-wrap'),
+      qGrid: document.getElementById('q-grid-wrapper'),
     };
   document.addEventListener('DOMContentLoaded', () => {
     initAtomAnimation();
@@ -515,6 +516,97 @@
         </div>
       `).join('');
     }
+    function getAggregatePatternLine(q) {
+      if (q.average >= 3.35) {
+        return `${q.key} is a relatively strong shared dimension in this cohort.`;
+      }
+      if (q.average >= 2.75) {
+        return `${q.key} is present, but not consistently strong across the group.`;
+      }
+      return `${q.key} is emerging as a weaker shared dimension in this cohort.`;
+    }
+    function getConsistencyLine(q) {
+      if (q.consistency === 'high') {
+        return 'Experience is relatively consistent across respondents.';
+      }
+      if (q.consistency === 'medium') {
+        return 'Experience is somewhat uneven across respondents.';
+      }
+      return 'Experience varies widely across respondents.';
+    }
+
+    function getImbalanceLine(q) {
+      if (q.pattern === 'resilience-heavy') {
+        return 'This dimension leans more toward resilience than preparedness.';
+      }
+      if (q.pattern === 'preparedness-heavy') {
+        return 'This dimension leans more toward preparedness than resilience.';
+      }
+      return 'Resilience and preparedness are relatively balanced in this dimension.';
+    }
+
+    function getRoleLine(q) {
+      if (q.key === 'vitality') {
+        return 'Physiological regulation underlying sustained cognitive and emotional capacity';
+      }
+      if (q.key === 'emotion') {
+        return 'Emotional regulation shaping decisions before conscious awareness';
+      }
+      if (q.key === 'mind') {
+        return 'Mental models and pattern recognition under uncertainty';
+      }
+      if (q.key === 'Execution') {
+        return 'The biological gap between intention and action';
+      }
+      return 'Coherence, belonging, and clarity across the system';
+    }
+
+    function renderQuotientCard(q, isLast) {
+      return `
+        <div class="q-card ${q.level} ${q.key}">
+          <span class="orb orb-1"></span>
+          <span class="orb orb-2"></span>
+          <span class="orb orb-3"></span>
+          <div class="q-head">
+            <div class="q-label">${q.key}</div>
+            <div class="q-metrics">
+              <div class="q-score">${q.average.toFixed(1)}</div>
+              <div class="q-bars">
+                <div>Avg R ${q.resilience_average.toFixed(1)}</div>
+                <span>·</span>
+                <div>Avg P ${q.preparedness_average.toFixed(1)}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="q-role">${getRoleLine(q)}</div>
+
+          <div class="q-section">
+            <div class="q-section-label">What this layer shows across the group</div>
+            <div class="q-copy">${getAggregatePatternLine(q)}</div>
+          </div>
+
+          <div class="q-section">
+            <div class="q-section-label">Consistency</div>
+            <div class="q-copy">${getConsistencyLine(q)}</div>
+          </div>
+
+          <div class="q-section">
+            <div class="q-section-label">Distribution</div>
+            <div class="q-copy">${getImbalanceLine(q)}</div>
+          </div>
+        </div>
+      `;
+    }
+    function renderQuotientGrid(quotients) {
+      return `
+        <div class="q-grid">
+          ${quotients.map(function(q, i) {
+            return renderQuotientCard(q, i === quotients.length - 1);
+          }).join('')}
+        </div>
+      `;
+    }
     function renderSession(payload) {
       const session = payload.session || {};
       const averages = session.averages || {};
@@ -547,7 +639,9 @@
       renderPills(els.industriesPills, session.industries || {});
       renderPills(els.sourcesPills, session.sources || {});
       renderExecutiveSignals(session.executive_signals);
-      
+
+      els.qGrid.innerHTML = renderQuotientGrid(session.quotient_insights);
+
       renderList(
         els.strengthsList,
         toEntriesSorted(averages, 'desc').slice(0, 5),
