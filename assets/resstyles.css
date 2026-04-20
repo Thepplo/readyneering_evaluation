@@ -1003,10 +1003,21 @@ th { color: var(--muted); font-weight: 600; }
 
 .card.metadata h2{
   color: var(--muted);
-  opacity: 0.7;
 
 }
+.card.metadata.is-closed::hover{
+  transform: translateY(6px)
+}
+.meta-chevron {
+  transition: transform 0.25s ease, opacity 0.2s ease;
+  opacity: 0.7;
+  color: rgba(255,255,255,0.8);
+}
 
+.metadata-card.is-open .meta-chevron {
+  transform: rotate(180deg);
+  opacity: 1;
+}
 
 @media (max-width: 960px) {
   .grid.metrics,
