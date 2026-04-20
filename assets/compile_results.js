@@ -292,7 +292,7 @@
       `;
     }
     function makeVarianceHaloSvg(cx, cy, baseRadius, stdDev, color) {
-      const scale = 22;
+      const scale = 5;
       const radius = baseRadius + stdDev * scale;
 
       return `
@@ -352,8 +352,8 @@
 
       const overallCenterX = orbitCx;
       const overallCenterY = orbitCy - 5;
-      const smallHaloBase = 32;
-      const centerHaloBase = 48;
+      const smallHaloBase = 12;
+      const centerHaloBase = 24;
 
       function ellipsePointDeg(cx, cy, rx, ry, deg) {
         const a = deg * Math.PI / 180;
