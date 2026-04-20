@@ -433,6 +433,7 @@ function saveAssessmentState() {
     placements,
     triadOrder: SHUFFLED_TRIADS.map(t => t.id),
     selectedIndustry,
+    selectedSize,
     screen: getCurrentScreen()
   }));
 }
@@ -459,6 +460,7 @@ document.getElementById('industry-select').addEventListener('change', function (
   var other = document.getElementById('industry-other');
   other.style.display = this.value === 'other' ? 'block' : 'none';
 });
+
 
 function bary(px, py) {
   var d = (TB.y-TC.y)*(TA.x-TC.x) + (TC.x-TB.x)*(TA.y-TC.y);
@@ -1566,7 +1568,8 @@ function buildSubmissionPayload(res, verdict) {
       metadata: {
         source: "web_app",
         batch_id: getQueryParam('batch_id'),
-        industry: selectedIndustry
+        industry: selectedIndustry,
+        size: selectedSize
       }
     },
     items,
@@ -2110,18 +2113,25 @@ function buildSignals(dim, R, P) {
 // ── Start ─────────────────────────────────────────────────
 function startAssessment() {
   var industrySelect = document.getElementById('industry-select');
+  var sizeSelect = document.getElementById('size-select');
 
   if (!industrySelect) {
     console.error('Industry select not found');
     return;
   }
-
-  selectedIndustry = industrySelect.value;
-
   if (!selectedIndustry) {
+    selectedIndustry = null;
+  }
+  if (!selectedSize) {
+    selectedSize = null;
+  }
+  selectedIndustry = industrySelect.value;
+  selectedSize = sizeSelect.value
+
+/*   if (!selectedIndustry) {
     document.getElementById('industry-warn').style.display = 'block';
     return;
-  }
+  } */
 
   document.getElementById('industry-warn').style.display = 'none';
 
@@ -2141,7 +2151,11 @@ function restoreAssessment() {
   if (industrySelect && selectedIndustry) {
     industrySelect.value = selectedIndustry;
   }
-
+  selectedSize = saved.selectedSize || '';
+  const sizeSelect = document.getElementById('size-select');
+  if (sizeSelect && selectedSize) {
+    sizeSelect.value = selectedSize;
+  }
   document.getElementById('scr-intro').style.display = 'none';
   document.getElementById('scr-assess').style.display = 'block';
 
