@@ -641,17 +641,21 @@
       `;
     }
 
-    function renderQuotientGrid(quotientsObj) {
-      const quotients = Object.values(quotientsObj || {});
+function renderQuotientGrid(quotientsObj = {}) {
+  const quotients = Object.values(quotientsObj);
 
-      return `
-        <div class="q-grid">
-          ${quotients.map(function(q, i) {
-            return renderQuotientCard(q, i === quotients.length - 1);
-          }).join('')}
-        </div>
-      `;
-    }
+  if (!quotients.length) {
+    return '<div class="empty">No quotient data available.</div>';
+  }
+
+  return `
+    <div class="q-grid">
+      ${quotients.map(function(q, i) {
+        return renderQuotientCard(q, i === quotients.length - 1);
+      }).join('')}
+    </div>
+  `;
+}
 
     function varianceToWidth(stdDev) {
       const max = 0.7;
@@ -659,144 +663,195 @@
     }
 
 
-    function renderVarianceSection(quotients) {
-      const sorted = Object.values(quotients)
-        .sort((a, b) => b.std_dev - a.std_dev);
+function renderVarianceSection(quotients = {}) {
+  const sorted = Object.values(quotients).sort((a, b) => b.std_dev - a.std_dev);
 
-      return `
-        <div class="variance-list">
-          ${sorted.map(q => `
-            <div class="variance-row ${q.consistency}">
-              <div class="variance-label"><span class="q-chip ${q.key}"> ${titleCase(q.key)}</div>
-              <div class="variance-bar">
-                <div class="variance-fill" style="width:${varianceToWidth(q.std_dev)}%"></div>
-              </div>
-              <div class="variance-meta">${q.consistency}</div>
-            </div>
-          `).join('')}
+  if (!sorted.length) {
+    return '<div class="empty">No variance data available.</div>';
+  }
+
+  return `
+    <div class="variance-list">
+      ${sorted.map(q => `
+        <div class="variance-row ${q.consistency}">
+          <div class="variance-label"><span class="q-chip ${q.key}">${titleCase(q.key)}</span></div>
+          <div class="variance-bar">
+            <div class="variance-fill" style="width:${varianceToWidth(q.std_dev)}%"></div>
+          </div>
+          <div class="variance-meta">${q.consistency}</div>
         </div>
-      `;
+      `).join('')}
+    </div>
+  `;
+}
+
+const state = {
+  isLoaded: false,
+  isLoading: false,
+  activeRequestId: 0,
+  currentBatchId: null,
+};
+
+function clearSessionUI() {
+  els.metricCount.textContent = '—';
+  els.metricPattern.textContent = '—';
+  els.preparednessValue.textContent = '—';
+  els.resilienceValue.textContent = '—';
+
+  els.overviewNote.textContent = 'No batch loaded';
+  els.overviewHighlight.textContent = 'Enter a batch ID to load results.';
+
+  els.industriesPills.innerHTML = '<div class="empty" style="width:100%;">No data</div>';
+  els.sourcesPills.innerHTML = '<div class="empty" style="width:100%;">No data</div>';
+  els.strengthsList.innerHTML = '<li><span>No data</span><strong>—</strong></li>';
+  els.constraintsList.innerHTML = '<li><span>No data</span><strong>—</strong></li>';
+  els.distributionList.innerHTML = '<li><span>No data</span><strong>—</strong></li>';
+  els.averagesTableBody.innerHTML = '<tr><td colspan="4"><div class="empty">No numeric scores available.</div></td></tr>';
+
+  if (els.signalsDiv) {
+    els.signalsDiv.innerHTML = `
+      <div class="signal-empty">
+        No strong session-level signals were detected yet.
+      </div>
+    `;
+  }
+
+  if (els.qGrid) {
+    els.qGrid.innerHTML = '<div class="empty">No quotient data available.</div>';
+  }
+
+  if (els.varianceWrap) {
+    els.varianceWrap.innerHTML = '<div class="empty">No variance data available.</div>';
+  }
+
+  const rr = document.getElementById('ring-row');
+  if (rr) rr.innerHTML = '';
+}
+
+function setLoadingState(isLoading, message = 'Loading...') {
+  state.isLoading = isLoading;
+  els.loadButton.disabled = isLoading;
+  if (els.demoButton) els.demoButton.style.display = 'none';
+
+  if (isLoading) {
+    els.overviewNote.textContent = message;
+  }
+}
+
+function setLoadedState(batchId) {
+  state.isLoaded = true;
+  state.currentBatchId = batchId;
+}
+
+function setUnloadedState() {
+  state.isLoaded = false;
+  state.currentBatchId = null;
+}
+
+function requireLoaded() {
+  return state.isLoaded && !state.isLoading;
+}
+
+function renderSession(payload) {
+  if (!payload?.session) {
+    throw new Error('Missing session payload');
+  }
+
+  const session = payload.session;
+  const averages = session.averages || {};
+  const preparedness = averages.preparedness_score;
+  const resilience = averages.resilience_score;
+  const overall = averages.overall_score;
+  const strongest = session.strongest_numeric_score;
+  const weakest = session.weakest_numeric_score;
+  const pattern = derivePattern(preparedness, resilience);
+
+  els.metricCount.textContent = session.submission_count ?? '—';
+  els.metricPattern.textContent = pattern;
+  els.preparednessValue.textContent = formatNumber(preparedness);
+  els.resilienceValue.textContent = formatNumber(resilience);
+
+  els.overviewNote.textContent = `${session.submission_count ?? 0} submissions loaded`;
+  els.overviewHighlight.textContent = buildHighlight(preparedness, resilience, strongest, weakest);
+
+  renderPills(els.industriesPills, session.industries || {});
+  renderPills(els.sourcesPills, session.sources || {});
+  renderExecutiveSignals(session.executive_signals);
+
+  els.varianceWrap.innerHTML = renderVarianceSection(session.quotient_insights || {});
+  els.qGrid.innerHTML = renderQuotientGrid(session.quotient_insights || {});
+
+  renderList(
+    els.strengthsList,
+    toEntriesSorted(averages, 'desc').slice(0, 5),
+    v => formatNumber(v)
+  );
+
+  renderList(
+    els.constraintsList,
+    toEntriesSorted(averages, 'asc').slice(0, 5),
+    v => formatNumber(v)
+  );
+
+  renderOrbit(session);
+
+  const firstDistribution = Object.entries(session.distributions || {})[0]?.[1] || {};
+  renderList(els.distributionList, Object.entries(firstDistribution), v => v);
+
+  renderAveragesTable(session);
+}
+
+let currentController = null;
+
+async function fetchBatchResults(batchId) {
+  if (currentController) currentController.abort();
+  currentController = new AbortController();
+
+  const response = await fetch(
+    `/assessments/getBatchResults?batch_id=${encodeURIComponent(batchId)}`,
+    { signal: currentController.signal }
+  );
+
+  const text = await response.text();
+  console.log('status:', response.status);
+  console.log('body:', text);
+
+  if (!response.ok) {
+    throw new Error(`Request failed with status ${response.status}: ${text}`);
+  }
+
+  return JSON.parse(text);
+}
+
+els.loadButton.addEventListener('click', async () => {
+  const batchId = els.batchIdInput.value.trim();
+  if (!batchId || state.isLoading) return;
+
+  const requestId = ++state.activeRequestId;
+  setUnloadedState();
+  setLoadingState(true, `Loading batch ${batchId}...`);
+
+  try {
+    const data = await fetchBatchResults(batchId);
+
+    if (requestId !== state.activeRequestId) return;
+
+    renderSession(data);
+    setLoadedState(batchId);
+  } catch (error) {
+    if (error.name === 'AbortError') return;
+    if (requestId !== state.activeRequestId) return;
+
+    console.error(error);
+    clearSessionUI();
+    els.overviewNote.textContent = 'Load failed';
+    els.overviewHighlight.textContent =
+      'Could not load this batch yet. Check the endpoint path and returned JSON shape.';
+  } finally {
+    if (requestId === state.activeRequestId) {
+      setLoadingState(false);
     }
+  }
+});
 
-    function renderSession(payload) {
-      const session = payload.session || {};
-      const averages = session.averages || {};
-      const preparedness = averages.preparedness_score;
-      const resilience = averages.resilience_score;
-      const overall = averages.overall_score;
-      const strongest = session.strongest_numeric_score;
-      const weakest = session.weakest_numeric_score;
-      const pattern = derivePattern(preparedness, resilience);
-      
-
-
-
-/*       els.metricBatchId.textContent = payload.mode_insights || session.mode_insights || '—'; 
- */      
-      els.metricCount.textContent = session.submission_count ?? '—';
-      //els.metricOverall.textContent = formatNumber(overall);
-      els.metricPattern.textContent = pattern;
-
-      els.preparednessValue.textContent = formatNumber(preparedness);
-      els.resilienceValue.textContent = formatNumber(resilience);
-
-      
-/*       els.preparednessBar.style.width = `${Math.max(0, Math.min(5, preparedness || 0)) / 5 * 100}%`;
-      els.resilienceBar.style.width = `${Math.max(0, Math.min(5, resilience || 0)) / 5 * 100}%`; */
-
-      els.overviewNote.textContent = `${session.submission_count ?? 0} submissions loaded`;
-      els.overviewHighlight.textContent = buildHighlight(preparedness, resilience, strongest, weakest);
-
-      renderPills(els.industriesPills, session.industries || {});
-      renderPills(els.sourcesPills, session.sources || {});
-      renderExecutiveSignals(session.executive_signals);
-
-      els.varianceWrap.innerHTML = renderVarianceSection(session.quotient_insights);
-
-      els.qGrid.innerHTML = renderQuotientGrid(session.quotient_insights);
-
-      renderList(
-        els.strengthsList,
-        toEntriesSorted(averages, 'desc').slice(0, 5),
-        v => formatNumber(v)
-      );
-
-      renderList(
-        els.constraintsList,
-        toEntriesSorted(averages, 'asc').slice(0, 5),
-        v => formatNumber(v)
-      );
-      const min = 0;
-      const max = 5;
-
-/*       els.preparednessRing.innerHTML = makeRing(
-        preparedness,
-        min,
-        max,
-        '#2ecc71',
-        '#e5e7eb',
-        120
-      );
-
-      els.resilienceRing.innerHTML = makeRing(
-        resilience,
-        min,
-        max,
-        '#6366f1',
-        '#e5e7eb',
-        120
-      );
-
-      els.overallRing.innerHTML = makeRing(
-        overall,
-        min,
-        max,
-        '#9b1c31',
-        '#e5e7eb',
-        140
-      ); */
-
-      renderOrbit(session)
-      const firstDistribution = Object.entries(session.distributions || {})[0]?.[1] || {};
-      renderList(els.distributionList, Object.entries(firstDistribution), v => v);
-
-      renderAveragesTable(session);
-    }
-
-    async function fetchBatchResults(batchId) {
-      const response = await fetch(
-        `/assessments/getBatchResults?batch_id=${encodeURIComponent(batchId)}`
-      );
-
-      const text = await response.text();
-      console.log('status:', response.status);
-      console.log('body:', text);
-
-      if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}: ${text}`);
-      }
-
-      return JSON.parse(text);
-    }
-
-    els.loadButton.addEventListener('click', async () => {
-      const batchId = els.batchIdInput.value.trim();
-      if (!batchId) return;
-
-      els.overviewNote.textContent = 'Loading...';
-
-      try {
-        const data = await fetchBatchResults(batchId);
-        renderSession(data);
-      } catch (error) {
-        console.error(error);
-        els.overviewNote.textContent = 'Load failed';
-        els.overviewHighlight.textContent = 'Could not load this batch yet. Check the endpoint path and returned JSON shape.';
-      }
-    });
-
-    els.demoButton.addEventListener('click', () => {
-      renderSession(sampleData);
-    });
-
-    renderSession(sampleData);
+clearSessionUI();

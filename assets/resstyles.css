@@ -743,17 +743,17 @@ th { color: var(--muted); font-weight: 600; }
 }
 
 /* HIGH consistency (low variance) */
-.variance-row.high .variance-fill {
+.variance-row.Consistent .variance-fill {
   background: #1D9E75; /* green */
 }
 
 /* MEDIUM */
-.variance-row.medium .variance-fill {
+.variance-row.Mixed .variance-fill {
   background: #BA7517; /* amber */
 }
 
 /* LOW consistency (fragmented) */
-.variance-row.low .variance-fill {
+.variance-row.Fragmented .variance-fill {
   background: #D85A30; /* orange/red */
 }
 
