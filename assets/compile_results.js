@@ -94,6 +94,7 @@
       overallRing: document.getElementById('overallRing'),
       signalsDiv: document.getElementById('signal-list-wrap'),
       qGrid: document.getElementById('q-grid-wrapper'),
+      varianceWrap: document.getElementById('variance-wrap'),
     };
   document.addEventListener('DOMContentLoaded', () => {
     initAtomAnimation();
@@ -652,6 +653,25 @@
       `;
     }
 
+    function renderVarianceSection(quotients) {
+      const sorted = Object.values(quotients)
+        .sort((a, b) => b.std_dev - a.std_dev);
+
+      return `
+        <div class="variance-list">
+          ${sorted.map(q => `
+            <div class="variance-row ${q.consistency}">
+              <div class="variance-label">${q.key}</div>
+              <div class="variance-bar">
+                <div class="variance-fill" style="width:${Math.min(q.std_dev * 120, 100)}%"></div>
+              </div>
+              <div class="variance-meta">${q.consistency}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
     function renderSession(payload) {
       const session = payload.session || {};
       const averages = session.averages || {};
@@ -684,6 +704,8 @@
       renderPills(els.industriesPills, session.industries || {});
       renderPills(els.sourcesPills, session.sources || {});
       renderExecutiveSignals(session.executive_signals);
+
+      els.varianceWrap.innerHTML = renderVarianceSection(session.quotient_insights);
 
       els.qGrid.innerHTML = renderQuotientGrid(session.quotient_insights);
 
