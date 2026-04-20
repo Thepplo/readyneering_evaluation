@@ -2115,6 +2115,9 @@ function startAssessment() {
   var industrySelect = document.getElementById('industry-select');
   var sizeSelect = document.getElementById('size-select');
 
+  selectedIndustry = industrySelect.value;
+  selectedSize = sizeSelect.value
+  
   if (!industrySelect) {
     console.error('Industry select not found');
     return;
@@ -2125,8 +2128,7 @@ function startAssessment() {
   if (!selectedSize) {
     selectedSize = null;
   }
-  selectedIndustry = industrySelect.value;
-  selectedSize = sizeSelect.value
+
 
 /*   if (!selectedIndustry) {
     document.getElementById('industry-warn').style.display = 'block';
