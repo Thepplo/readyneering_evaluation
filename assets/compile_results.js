@@ -92,6 +92,7 @@
       preparednessRing: document.getElementById('preparednessRing'),
       resilienceRing: document.getElementById('resilienceRing'),
       overallRing: document.getElementById('overallRing'),
+      signalsDiv: document.getElementById('signal-list-wrap'),
     };
   document.addEventListener('DOMContentLoaded', () => {
     initAtomAnimation();
@@ -478,6 +479,42 @@
         </svg>
       `;
     }
+
+    function titleCase(str) {
+      if (!str) return '';
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function renderSignalLead(signal) {
+      if (!signal.key) return '';
+      return `<span class="q-chip ${signal.key}">${titleCase(signal.key)}</span> `;
+    }
+
+    function renderExecutiveSignals(executiveSignals) {
+      const wrap = els.signalsDiv;
+      const items = executiveSignals?.items || [];
+
+      if (!items.length) {
+        wrap.innerHTML = `
+          <div class="signal-empty">
+            No strong session-level signals were detected yet.
+          </div>
+        `;
+        return;
+      }
+
+      wrap.innerHTML = items.map(signal => `
+        <div class="signal-item ${signal.type}">
+          <div class="signal-marker"></div>
+          <div class="signal-body">
+            <div class="signal-type">${signal.title}</div>
+            <div class="signal-text">
+              ${renderSignalLead(signal)}${signal.message}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
     function renderSession(payload) {
       const session = payload.session || {};
       const averages = session.averages || {};
@@ -509,7 +546,8 @@
 
       renderPills(els.industriesPills, session.industries || {});
       renderPills(els.sourcesPills, session.sources || {});
-
+      renderExecutiveSignals(session.executive_signals);
+      
       renderList(
         els.strengthsList,
         toEntriesSorted(averages, 'desc').slice(0, 5),
