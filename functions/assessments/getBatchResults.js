@@ -165,7 +165,7 @@ function buildNumericProfiles(submissions, allScoreKeys) {
   return numeric_profiles;
 }
 
-function buildQuotientInsights(numericProfiles) {
+function buildQuotientInsights(numericProfiles, submissions) {
   const keyMap = getQuotientKeyMap();
   const quotients = {};
 
@@ -206,6 +206,18 @@ function buildQuotientInsights(numericProfiles) {
       else if (gap < -0.25) pattern = 'preparedness-heavy';
     }
 
+    const quotientValues = submissions
+      .map(submission => {
+        const r = submission.scores?.[keys.resilience];
+        const p = submission.scores?.[keys.preparedness];
+
+        if (isNumber(r) && isNumber(p)) return (r + p) / 2;
+        if (isNumber(r)) return r;
+        if (isNumber(p)) return p;
+        return null;
+      })
+      .filter(isNumber);
+
     quotients[q] = {
       key: q,
       average: avgOverall,
@@ -216,9 +228,13 @@ function buildQuotientInsights(numericProfiles) {
       gap,
       abs_gap: absGap,
       pattern,
-      min: null,
-      max: null,
-      bands: { low: 0, mid: 0, high: 0 }
+      min: quotientValues.length ? round(minValue(quotientValues)) : null,
+      max: quotientValues.length ? round(maxValue(quotientValues)) : null,
+      bands: {
+        low: quotientValues.filter(v => scoreBand(v) === 'low').length,
+        mid: quotientValues.filter(v => scoreBand(v) === 'mid').length,
+        high: quotientValues.filter(v => scoreBand(v) === 'high').length
+      }
     };
   }
 
@@ -366,7 +382,7 @@ function buildSessionSummary(batchId, submissions) {
   }
 
   const numeric_profiles = buildNumericProfiles(submissions, allScoreKeys);
-  const quotient_insights = buildQuotientInsights(numeric_profiles);
+  const quotient_insights = buildQuotientInsights(numeric_profiles, submissions);
   const mode_insights = buildModeInsights(numeric_profiles);
   const executive_signals = buildExecutiveSignals(quotient_insights, mode_insights);
 
