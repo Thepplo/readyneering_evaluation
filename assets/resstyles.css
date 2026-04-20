@@ -1005,13 +1005,13 @@ th { color: var(--muted); font-weight: 600; }
   color: var(--muted);
 
 }
-.card.metadata.is-closed::hover{
+.card.metadata.is-closed:hover{
   transform: translateY(6px)
 }
 .meta-chevron {
   transition: transform 0.25s ease, opacity 0.2s ease;
   opacity: 0.7;
-  color: rgba(255,255,255,0.8);
+  color: var(--muted);
 }
 
 .metadata-card.is-open .meta-chevron {
