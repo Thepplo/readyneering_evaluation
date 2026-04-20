@@ -196,9 +196,9 @@ function buildQuotientInsights(numericProfiles, submissions) {
         : resilience?.std_dev ?? preparedness?.std_dev ?? 0;
 
     let consistency = 'unknown';
-    if (spread <= 0.2) consistency = 'high';
-    else if (spread <= 0.45) consistency = 'medium';
-    else consistency = 'low';
+    if (spread <= 0.2) consistency = 'Consistent';
+    else if (spread <= 0.45) consistency = 'Mixed';
+    else consistency = 'Fragmented';
 
     let pattern = 'balanced';
     if (isNumber(gap)) {

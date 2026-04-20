@@ -527,10 +527,10 @@
       return `${q.key} is emerging as a weaker shared dimension in this cohort.`;
     }
     function getConsistencyLine(q) {
-      if (q.consistency === 'high') {
+      if (q.consistency === 'Consistent') {
         return 'Experience is relatively consistent across respondents.';
       }
-      if (q.consistency === 'medium') {
+      if (q.consistency === 'Mixed') {
         return 'Experience is somewhat uneven across respondents.';
       }
       return 'Experience varies widely across respondents.';
