@@ -653,6 +653,12 @@
       `;
     }
 
+    function varianceToWidth(stdDev) {
+      const max = 0.7;
+      return Math.min((stdDev / max) * 100, 100);
+    }
+
+
     function renderVarianceSection(quotients) {
       const sorted = Object.values(quotients)
         .sort((a, b) => b.std_dev - a.std_dev);
@@ -661,9 +667,9 @@
         <div class="variance-list">
           ${sorted.map(q => `
             <div class="variance-row ${q.consistency}">
-              <div class="variance-label">${q.key}</div>
+              <div class="variance-label"><span class="q-chip ${q.key}"> ${q.key}</div>
               <div class="variance-bar">
-                <div class="variance-fill" style="width:${Math.min(q.std_dev * 120, 100)}%"></div>
+                <div class="variance-fill" style="width:${varianceToWidth(q.std_dev)}%"></div>
               </div>
               <div class="variance-meta">${q.consistency}</div>
             </div>

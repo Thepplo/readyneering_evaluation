@@ -757,6 +757,15 @@ th { color: var(--muted); font-weight: 600; }
   background: #D85A30; /* orange/red */
 }
 
+.variance-row:hover {
+  background: rgba(0,0,0,0.02);
+  border-radius: 6px;
+}
+
+.variance-row.low {
+  font-weight: 600;
+}
+
 @media (max-width: 960px) {
   .grid.metrics,
   .grid.two,
