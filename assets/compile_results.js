@@ -32,6 +32,7 @@ const els = {
   qGrid: document.getElementById('q-grid-wrapper'),
   varianceWrap: document.getElementById('variance-wrap'),
   modeWrap: document.getElementById('mode-wrap'),
+  metaData: document.getElementById('metadata-card'),
 };
 document.addEventListener('DOMContentLoaded', () => {
   initAtomAnimation();
@@ -757,6 +758,34 @@ const state = {
   currentBatchId: null,
   metaDataRevealed: false,
 };
+
+function syncMetaDataCard() {
+  if (!els.metaData) return;
+
+  const body = els.metaData.querySelector('.metadata-body');
+  const toggle = els.metaData.querySelector('.metadata-toggle');
+  if (!body) return;
+
+  els.metaData.classList.toggle('is-open', state.metaDataRevealed);
+  els.metaData.classList.toggle('is-closed', !state.metaDataRevealed);
+
+  if (toggle) {
+    toggle.setAttribute('aria-expanded', String(state.metaDataRevealed));
+    toggle.textContent = state.metaDataRevealed ? 'Hide details' : 'Show details';
+  }
+
+  if (state.metaDataRevealed) {
+    body.style.maxHeight = `${body.scrollHeight}px`;
+  } else {
+    body.style.maxHeight = '0px';
+  }
+}
+
+function toggleMetaDataCard() {
+  state.metaDataRevealed = !state.metaDataRevealed;
+  syncMetaDataCard();
+}
+
 const BATCH_STORAGE_KEY = 'compile_results_batch_id';
 
 function getBatchIdFromPageState() {
@@ -966,6 +995,13 @@ els.batchIdInput.addEventListener('keydown', event => {
 clearSessionUI();
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  const toggle = els.metaData;
+  if (toggle) {
+    toggle.addEventListener('click', toggleMetaDataCard);
+  }
+
+  syncMetaDataCard();
   const initialBatchId = getBatchIdFromPageState();
 
   if (initialBatchId) {

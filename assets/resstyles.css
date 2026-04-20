@@ -238,6 +238,11 @@ h3 {
   margin-bottom: 18px;
   box-shadow: inset 0 -1px 0 rgba(0,0,0,0.06);
 }
+.mode-insight-card > h2 {
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.06);
+}
 
 /* .card > h2 {
   padding-bottom: 10px;
@@ -978,6 +983,22 @@ th { color: var(--muted); font-weight: 600; }
   line-height: 1.5;
   color: #2f2e2a;
   max-width: 720px;
+}
+
+.metadata-body {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    max-height 0.32s ease,
+    opacity 0.24s ease,
+    transform 0.24s ease;
+}
+
+.metadata-card.is-open .metadata-body {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (max-width: 960px) {
