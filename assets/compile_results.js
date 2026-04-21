@@ -671,12 +671,13 @@ function getSystemArchetype(modeInsights, executiveSignals, quotientInsights) {
   const avgSpread = quotientList.length
     ? quotientList.reduce((sum, q) => sum + (q.std_dev || 0), 0) / quotientList.length
     : 0;
-  console.log('avgSpread:', avgSpread);
+    
+/*   console.log('avgSpread:', avgSpread);
   console.log('highlyFragmented:', highlyFragmented);
   console.log('moderatelyFragmented:', moderatelyFragmented);
   console.log('overallAvg:', overallAvg);
-  console.log('pattern:', pattern);
-  
+  console.log('pattern:', pattern); */
+
   const highlyFragmented = avgSpread > 0.15;
   const moderatelyFragmented = avgSpread > 0.05;
 
