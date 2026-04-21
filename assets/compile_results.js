@@ -672,17 +672,9 @@ function getSystemArchetype(modeInsights, executiveSignals, quotientInsights) {
     ? quotientList.reduce((sum, q) => sum + (q.std_dev || 0), 0) / quotientList.length
     : 0;
 
-  console.log('quotientList', quotientList);
-  console.log('std_devs', quotientList.map(q => q.std_dev));
-  console.log('std_dev types', quotientList.map(q => typeof q.std_dev));
-  console.log(
-    'sum',
-    quotientList.reduce((sum, q) => sum + (q.std_dev || 0), 0)
-  );
-  console.log('avgSpread', avgSpread);
 
-  const highlyFragmented = avgSpread > 0.15;
-  const moderatelyFragmented = avgSpread > 0.05;
+  const highlyFragmented = avgSpread > 0.45;
+  const moderatelyFragmented = avgSpread > 0.25;
 
   const lowOverall = overallAvg != null && overallAvg < 2.75;
   const midOverall = overallAvg != null && overallAvg < 3.35;
@@ -951,7 +943,7 @@ async function fetchBatchResults(batchId) {
 
   const text = await response.text();
   console.log('status:', response.status);
-  console.log('body:', text);
+  //console.log('body:', text);
 
   if (!response.ok) {
     throw new Error(`Request failed with status ${response.status}: ${text}`);
