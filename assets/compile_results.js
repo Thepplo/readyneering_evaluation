@@ -672,8 +672,8 @@ function getSystemArchetype(modeInsights, executiveSignals, quotientInsights) {
     ? quotientList.reduce((sum, q) => sum + (q.std_dev || 0), 0) / quotientList.length
     : 0;
 
-  const highlyFragmented = avgSpread > 0.45;
-  const moderatelyFragmented = avgSpread > 0.25;
+  const highlyFragmented = avgSpread > 0.25;
+  const moderatelyFragmented = avgSpread > 0.15;
 
   const lowOverall = overallAvg != null && overallAvg < 2.75;
   const midOverall = overallAvg != null && overallAvg < 3.35;
