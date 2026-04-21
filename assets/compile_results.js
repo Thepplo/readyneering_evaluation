@@ -916,7 +916,7 @@ function renderSession(payload) {
 
   els.varianceWrap.innerHTML = renderVarianceSection(session.quotient_insights || {});
   els.qGrid.innerHTML = renderQuotientGrid(session.quotient_insights || {});
-  els.modeWrap.innerHTML =renderModeInsights(session.mode_insights, session.executive_signals, session.quotientInsights || {});
+  els.modeWrap.innerHTML =renderModeInsights(session.mode_insights, session.executive_signals, session.quotient_insights || {});
 
 /*   renderList(
     els.strengthsList,
