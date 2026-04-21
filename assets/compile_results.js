@@ -668,15 +668,20 @@ function getSystemArchetype(modeInsights, executiveSignals, quotientInsights) {
   const mostFragmented = executiveSignals?.mostFragmented?.key ?? null;
 
   const quotientList = Object.values(quotientInsights || {});
-  const avgSpread = quotientList.length
-    ? quotientList.reduce((sum, q) => sum + (q.std_dev || 0), 0) / quotientList.length
+  const spreads = quotientList.map(q => Number(q?.std_dev ?? 0)).filter(n => !Number.isNaN(n));
+
+  const avgSpread = spreads.length
+    ? spreads.reduce((sum, n) => sum + n, 0) / spreads.length
     : 0;
-    
-/*   console.log('avgSpread:', avgSpread);
-  console.log('highlyFragmented:', highlyFragmented);
-  console.log('moderatelyFragmented:', moderatelyFragmented);
-  console.log('overallAvg:', overallAvg);
-  console.log('pattern:', pattern); */
+
+  console.log('quotientList', quotientList);
+  console.log('std_devs', quotientList.map(q => q.std_dev));
+  console.log('std_dev types', quotientList.map(q => typeof q.std_dev));
+  console.log(
+    'sum',
+    quotientList.reduce((sum, q) => sum + (q.std_dev || 0), 0)
+  );
+  console.log('avgSpread', avgSpread);
 
   const highlyFragmented = avgSpread > 0.15;
   const moderatelyFragmented = avgSpread > 0.05;
