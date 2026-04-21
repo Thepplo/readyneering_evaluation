@@ -668,10 +668,8 @@ function getSystemArchetype(modeInsights, executiveSignals, quotientInsights) {
   const mostFragmented = executiveSignals?.mostFragmented?.key ?? null;
 
   const quotientList = Object.values(quotientInsights || {});
-  const spreads = quotientList.map(q => Number(q?.std_dev ?? 0)).filter(n => !Number.isNaN(n));
-
-  const avgSpread = spreads.length
-    ? spreads.reduce((sum, n) => sum + n, 0) / spreads.length
+  const avgSpread = quotientList.length
+    ? quotientList.reduce((sum, q) => sum + (q.std_dev || 0), 0) / quotientList.length
     : 0;
 
   console.log('quotientList', quotientList);
@@ -717,7 +715,7 @@ function getSystemArchetype(modeInsights, executiveSignals, quotientInsights) {
   return 'Mixed operating pattern';
 }
 
-function renderModeInsights(modeInsights, executiveSignals) {
+function renderModeInsights(modeInsights, executiveSignals, quotientInsights) {
   if (!modeInsights) return '';
 
   const resilienceAvg = modeInsights.resilience?.average;
@@ -732,7 +730,7 @@ function renderModeInsights(modeInsights, executiveSignals) {
             <div class="mode-insight-title"><h2>System behavior pattern</h2></div>
             <div class="mode-archetype-block">
               <div class="mode-archetype-label">System archetype</div>
-              <div class="mode-archetype-value">${getSystemArchetype(modeInsights, executiveSignals)}</div>
+              <div class="mode-archetype-value">${getSystemArchetype(modeInsights, executiveSignals, quotientInsights)}</div>
             </div>
           </div>
           <div class="mode-insight-pattern">${getPatternLabel(modeInsights.pattern)}</div>
@@ -918,7 +916,7 @@ function renderSession(payload) {
 
   els.varianceWrap.innerHTML = renderVarianceSection(session.quotient_insights || {});
   els.qGrid.innerHTML = renderQuotientGrid(session.quotient_insights || {});
-  els.modeWrap.innerHTML =renderModeInsights(session.mode_insights, session.executive_signals || {});
+  els.modeWrap.innerHTML =renderModeInsights(session.mode_insights, session.executive_signals, session.quotientInsights || {});
 
 /*   renderList(
     els.strengthsList,
