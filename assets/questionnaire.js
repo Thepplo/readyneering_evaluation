@@ -2008,10 +2008,12 @@ function renderVerdict(res) {
   var rvalue = document.getElementById('v-r-val');
   var pvalue = document.getElementById('v-p-val');
   var vbox = document.getElementById('verdict');
-  vbox.className = 'verdict ' + lv.cls;
+  var oval= document.getElementById('v-ov-val');
+  /* vbox.className = 'verdict ' + lv.cls; */
   rvalue.textContent = res.R.toFixed(2);
   pvalue.textContent = res.P.toFixed(2);
-  document.getElementById('v-title').textContent = lv.label;
+  oval.textContent = res.O.toFixed(2);
+  document.getElementById('v-ov-mode').textContent = lv.label;
   /* document.getElementById('v-desc').textContent = lv.desc; */
 }
 
