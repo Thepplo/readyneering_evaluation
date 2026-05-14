@@ -843,8 +843,24 @@
 }
 
 .zone.active {
-  box-shadow: 0 0 8px rgba(255,255,255,0.25);
-  border-bottom: 1px solid;
+  position: relative;
+  z-index: 2;
+}
+
+.z-risk.active {
+  box-shadow: inset 0 -2px 0 #ff9a9a, 0 0 14px rgba(255, 154, 154, 0.24);
+}
+
+.z-dev.active {
+  box-shadow: inset 0 -2px 0 #ffd966, 0 0 14px rgba(255, 217, 102, 0.24);
+}
+
+.z-build.active {
+  box-shadow: inset 0 -2px 0 #5debb0, 0 0 14px rgba(93, 235, 176, 0.24);
+}
+
+.z-ready.active {
+  box-shadow: inset 0 -2px 0 #7ab8f5, 0 0 14px rgba(122, 184, 245, 0.24);
 }
 
 
