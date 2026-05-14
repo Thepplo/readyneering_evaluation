@@ -710,12 +710,12 @@
 }
 
 .mode-card.resilience {
-  background: linear-gradient(180deg, #f3f0ff 0%, #ffffff 100%);
+  background: #1E1E1E;
   border-color: #c9c3f3;
 }
 
 .mode-card.preparedness {
-  background: linear-gradient(180deg, #effaf6 0%, #ffffff 100%);
+  background: #1E1E1E;
   border-color: #b9e3d3;
 }
 
@@ -987,6 +987,11 @@
   color: #f5f5f5;
 }
 
+.index-content-wrapper{
+  background: #2A2A2A;
+  display: flex;
+  flex-direction: column;
+}
 
 .results-loader {
   position: fixed;

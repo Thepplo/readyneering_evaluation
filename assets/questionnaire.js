@@ -18,7 +18,7 @@ async function saveAssessment(payload) {
 }
 const MODE_META = {
   resilience: {
-    role: "Staying effective under pressure, disruption, and uncertainty.",
+    role: "How strong you are when the environment becomes unstable or unpredictable.",
     signal: {
       high: "The system tends to stay functional and effective when conditions get difficult.",
       mid: "The system absorbs some pressure, but not always with consistency.",
@@ -37,7 +37,7 @@ const MODE_META = {
   },
 
   preparedness: {
-    role: "Building readiness, clarity, and structure before pressure arrives.",
+    role: "How well prepared you are for known and unknown challenges ahead.",
     signal: {
       high: "The system appears well prepared, with expectations and structure in place ahead of time.",
       mid: "Preparation exists, but not always at the level needed to create consistency.",
@@ -1313,7 +1313,7 @@ function renderModeCard(m) {
 
       <div class="mode-role">${m.role}</div>
 
-      <div class="mode-section">
+/*       <div class="mode-section">
         <div class="mode-section-label">Current signal</div>
         <div class="mode-copy">${m.signal}</div>
       </div>
@@ -1336,7 +1336,7 @@ function renderModeCard(m) {
       <div class="mode-section">
         <div class="mode-section-label">Reflection question</div>
         <div class="mode-copy">${m.question}</div>
-      </div>
+      </div> */
     </div>
   `;
 }
@@ -1856,7 +1856,7 @@ function renderOrbit(res) {
     mind: 30,
     alignment: 360,
     execution: 305,
-    vitality: 150,
+    vitality: 180,
     emotion: 235
   };
 
