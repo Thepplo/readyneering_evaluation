@@ -730,10 +730,8 @@
 
 .mode-head {
   display: flex;
-  justify-content: space-between;
   align-items: baseline;
-  gap: 8px;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   padding-bottom: 6px;
 }
 
@@ -1008,6 +1006,7 @@
   padding: 20px 22px;
   border-radius: 18px;
   border: 1px solid #383838;
+  margin-bottom: 2%;
 }
 
 .results-loader {
