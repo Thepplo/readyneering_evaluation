@@ -824,6 +824,7 @@
   width: 100%;
   height: auto;
   flex-shrink: 0;
+  border-top: 1px solid #333333;
 }
 
 .ring-card{background:#fff;border:1px solid #e8e7e0;border-radius:12px;padding:1.25rem 1rem;text-align:center}

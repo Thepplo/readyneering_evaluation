@@ -1854,7 +1854,7 @@ function renderOrbit(res) {
 
   const qDegrees = {
     mind: 30,
-    alignment: 270,
+    alignment: 360,
     execution: 305,
     vitality: 150,
     emotion: 235
