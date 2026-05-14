@@ -1378,15 +1378,22 @@ function computeAll() {
     dim[DIMS[k]] = count[DIMS[k]] > 0 ? accum[DIMS[k]] / count[DIMS[k]] : 3;
   }
 
-  var R=0, P=0;
-  for (var q=0; q<QDIMS.length; q++) {
-    R += dim['R_'+QDIMS[q]];
-    P += dim['P_'+QDIMS[q]];
-  }
-  R /= QDIMS.length;
-  P /= QDIMS.length;
+  var R_DIMS = ['vitality', 'emotion'];
+  var P_DIMS = ['execution', 'mind', 'alignment'];
 
-  return {dim:dim, R:R, P:P, O:R*P};
+  var R = 0, P = 0;
+
+  for (var i = 0; i < R_DIMS.length; i++) {
+    R += dim['R_' + R_DIMS[i]];
+  }
+  R /= R_DIMS.length;
+
+  for (var i = 0; i < P_DIMS.length; i++) {
+    P += dim['P_' + P_DIMS[i]];
+  }
+  P /= P_DIMS.length;
+
+  return { dim: dim, R: R, P: P, O: R * P };
 }
 
 function getAnswerBreakdown() {
