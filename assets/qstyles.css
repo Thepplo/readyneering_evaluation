@@ -1008,7 +1008,42 @@
   border: 1px solid #383838;
   margin-bottom: 2%;
 }
+.verdict-rp-flex {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cfcbc2;
+}
 
+.verdict-rp-item {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+  min-width: 54px;
+}
+
+.verdict-rp-val {
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #ffd21f;
+}
+
+.verdict-rp-label {
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: rgba(207, 203, 194, 0.68);
+}
+
+.verdict-rp-flex > :not(.verdict-rp-item) {
+  padding-top: 4px;
+  font-size: 13px;
+  color: rgba(207, 203, 194, 0.45);
+}
 .results-loader {
   position: fixed;
   inset: 0;

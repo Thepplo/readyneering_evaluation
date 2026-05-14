@@ -2004,8 +2004,13 @@ function renderVerdict(res) {
     }
   }
 
+  var vwrapper = document.getElementById('verdict-wrapper-ov');
+  var rvalue = document.getElementById('v-r-val');
+  var pvalue = document.getElementById('v-p-val');
   var vbox = document.getElementById('verdict');
   vbox.className = 'verdict ' + lv.cls;
+  rvalue.textContent = res.R.toFixed(2);
+  pvalue.textContent = res.P.toFixed(2);
   document.getElementById('v-title').textContent = lv.label;
   /* document.getElementById('v-desc').textContent = lv.desc; */
 }
