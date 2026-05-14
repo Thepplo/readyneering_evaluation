@@ -726,7 +726,7 @@
 .zone-label {
   font-size: 0.75rem;
   color: rgba(207, 203, 194, 0.58);
-  margin-bottom: 14px;
+  margin-bottom: 35px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -780,6 +780,30 @@
 .z-ready {
   background: linear-gradient(180deg, rgba(12, 45, 88, 0.72), rgba(10, 31, 61, 0.94));
   color: #7ab8f5;
+}
+
+.verdict-ov-mode {
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.verdict-ov-mode.v-s1{
+  color: #ff9a9a;
+  border-color: #ff9a9a;
+}
+.verdict-ov-mode.v-s2{
+  color: #ffd966;
+  border-color: #ffd966;
+}
+.verdict-ov-mode.v-s3{
+  color: #5debb0;
+  border-color: #5debb0;
+}
+.verdict-ov-mode.v-s4{
+  color: #7ab8f5;
+  border-color: #7ab8f5;
 }
 
 .zone-marker {

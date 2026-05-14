@@ -2009,7 +2009,10 @@ function renderVerdict(res) {
   var pvalue = document.getElementById('v-p-val');
   var vbox = document.getElementById('verdict');
   var oval= document.getElementById('v-ov-val');
+  var vmodel = document.getElementById('v-ov-mode');
   var score = res.O;
+  var zonelabel = document.getElementById('zone-label');
+  zonelabel.textContent = "Where does " + score.toFixed(2) + " sit on the full scale?";
   var scorePos = ((score - 1) / (25 - 1)) * 100;
   scorePos = Math.max(0, Math.min(100, scorePos));
 
@@ -2017,12 +2020,13 @@ function renderVerdict(res) {
   zoneStrip.style.setProperty('--score-pos', scorePos + '%');
 
   var zoneMarker = document.getElementById('zone-marker');
-  zoneMarker.setAttribute('data-score', score.toFixed(1));
+  zoneMarker.setAttribute('data-score', score.toFixed(2));
   /* vbox.className = 'verdict ' + lv.cls; */
   rvalue.textContent = res.R.toFixed(2);
   pvalue.textContent = res.P.toFixed(2);
   oval.textContent = res.O.toFixed(2);
-  document.getElementById('v-ov-mode').textContent = lv.label;
+  vmodel.textContent = lv.label;
+  vmodel.className = 'verdict-model ' + lv.cls;
   /* document.getElementById('v-desc').textContent = lv.desc; */
 }
 
