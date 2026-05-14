@@ -2027,6 +2027,23 @@ function renderVerdict(res) {
   oval.textContent = res.O.toFixed(2);
   vmodel.textContent = lv.label;
   vmodel.className = 'verdict-ov-mode ' + lv.cls;
+
+  var zones = document.querySelectorAll('.zone');
+  zones.forEach(function(zone) {
+    zone.classList.remove('active');
+  });
+
+  var activeZoneClass = {
+    'Ready': 'z-ready',
+    'Building': 'z-build',
+    'Developing': 'z-dev',
+    'At Risk': 'z-risk'
+  }[lv.label];
+
+  var activeZone = document.querySelector('.zone.' + activeZoneClass);
+  if (activeZone) {
+    activeZone.classList.add('active');
+  }
   /* document.getElementById('v-desc').textContent = lv.desc; */
 }
 

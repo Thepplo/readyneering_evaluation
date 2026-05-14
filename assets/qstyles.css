@@ -719,7 +719,6 @@
   border-color: #b9e3d3;
 }
 .verdict-ov-mode {
-  text-transform: uppercase;
   padding: 4px 8px;
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 6px;
@@ -771,38 +770,36 @@
 .zone-marker {
   position: absolute;
   left: var(--score-pos);
-  top: 0;
-  bottom: 0;
+  top: -30px;
   transform: translateX(-50%);
-  width: 2px;
-  background: #ffda33;
-  border-radius: 99px;
-  box-shadow: 0 0 10px rgba(255, 218, 51, 0.35);
+  width: max-content;
   pointer-events: none;
   z-index: 5;
+
+  color: #ffda33;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .zone-marker::before {
   content: attr(data-score);
-  position: absolute;
-  bottom: calc(100% + 14px);
-  left: 50%;
-  transform: translateX(-50%);
-  color: #ffda33;
-  font-size: 11px;
-  font-weight: 800;
-  white-space: nowrap;
+  display: block;
+  text-align: center;
+  margin-bottom: 5px;
 }
 
 .zone-marker::after {
   content: "";
-  position: absolute;
-  bottom: calc(100% + 5px);
-  left: 50%;
-  transform: translateX(-50%) rotate(45deg);
-  width: 7px;
-  height: 7px;
-  background: #ffda33;
+  display: block;
+  margin: 0 auto;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid #ffda33;
+  filter: drop-shadow(0 0 6px rgba(255, 218, 51, 0.35));
 }
 
 .zone {
@@ -845,6 +842,10 @@
   color: #7ab8f5;
 }
 
+.zone.active {
+  box-shadow: 0 0 8px rgba(255,255,255,0.25);
+  border-bottom: 1px solid;
+}
 
 
 .mode-head {
@@ -1169,7 +1170,7 @@
 
 .verdict-ov{
   display: flex;
-  align-items: start;
+  align-items: baseline;
   justify-content: start;
   padding: 22px 18px 22px 0px;
   gap: 20px;
