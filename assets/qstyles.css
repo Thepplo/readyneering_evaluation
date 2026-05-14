@@ -1151,7 +1151,17 @@
   border-radius: 18px;
   color: #f5f5f5;
 }
-
+.content-wrapper {
+  display: flex;
+  background:
+  radial-gradient(circle at top left, rgba(255, 255, 255, 0.85), transparent 34%),
+  linear-gradient(180deg, #f7f7f7 0%, #eeeeee 100%);
+  gap: 12px;
+  flex-direction: column;
+  padding: 5% 5%;
+  border-radius: 18px;
+  color: black;
+}
 .index-content-wrapper{
   background: #2A2A2A;
   display: flex;
@@ -1162,6 +1172,8 @@
   margin-bottom: 2%;
   box-shadow: 0 8px 24px rgba(0,0,0,0.03); 
 }
+
+
 .verdict-rp-flex {
   display: flex;
   align-items: flex-start;
