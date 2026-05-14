@@ -1307,12 +1307,14 @@ function renderModeCard(m) {
   return `
     <div class="mode-card ${m.key} ${m.level}">
       <div class="mode-head">
-        <div class="mode-label">${m.label}</div>
+        <div class="mode-label">${m.label} - ${m.score.toFixed(2)}</div>
+        <!--
         <div class="mode-score">${m.score.toFixed(2)}</div>
+        -->
       </div>
 
       <div class="mode-role">${m.role}</div>
-      
+
       <!--
       <div class="mode-section">
         <div class="mode-section-label">Current signal</div>
@@ -1489,13 +1491,13 @@ function buildQuotients(results) {
 
 function computeVerdict(overallScore) {
   const levels = [
-    {min:16.0, cls:'v-s1', label:'Strategic Readiness',
+    {min:20.0, cls:'v-s1', label:'Ready',
      desc:'You operate as a deliberately designed system. Pressure reveals capability, not fragility.'},
-    {min:11.0, cls:'v-s2', label:'Functional but Vulnerable',
+    {min:13.0, cls:'v-s2', label:'Building',
      desc:'You execute well under normal conditions. One significant disruption will expose structural gaps.'},
-    {min:6.5, cls:'v-s3', label:'Reactive Mode',
+    {min:7.0, cls:'v-s3', label:'Developing',
      desc:'Firefighting dominates. Heroics compensate for missing systems. Structural investment is the answer.'},
-    {min:0, cls:'v-s4', label:'Structural Risk Zone',
+    {min:0.0, cls:'v-s4', label:'At risk',
      desc:'Instability is likely under sustained stress. Immediate structural intervention required.'}
   ];
 
@@ -1986,13 +1988,13 @@ function renderOrbit(res) {
 
 function renderVerdict(res) {
   var levels = [
-    {min:16.0, cls:'v-s1', label:'Strategic Readiness',
+    {min:20.0, cls:'v-s1', label:'Ready',
      desc:'You operate as a deliberately designed system. Pressure reveals capability, not fragility.'},
-    {min:11.0, cls:'v-s2', label:'Functional but Vulnerable',
+    {min:13.0, cls:'v-s2', label:'Building',
      desc:'You execute well under normal conditions. One significant disruption will expose structural gaps.'},
-    {min:6.5,  cls:'v-s3', label:'Reactive Mode',
+    {min:7.0,  cls:'v-s3', label:'Developing',
      desc:'Firefighting dominates. Heroics compensate for missing systems. Structural investment is the answer.'},
-    {min:0,    cls:'v-s4', label:'Structural Risk Zone',
+    {min:0.0,    cls:'v-s4', label:'At Risk',
      desc:'Instability is likely under sustained stress. Immediate structural intervention required.'}
   ];
 
@@ -2007,7 +2009,7 @@ function renderVerdict(res) {
   var vbox = document.getElementById('verdict');
   vbox.className = 'verdict ' + lv.cls;
   document.getElementById('v-title').textContent = lv.label;
-  document.getElementById('v-desc').textContent = lv.desc;
+  /* document.getElementById('v-desc').textContent = lv.desc; */
 }
 
 function getStructuralSignal(structure, R, P) {
