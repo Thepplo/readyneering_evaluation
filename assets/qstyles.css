@@ -733,6 +733,7 @@
   align-items: baseline;
   border-bottom: 1px solid rgba(255,255,255,0.08);
   padding-bottom: 6px;
+  gap: 15px;
 }
 
 .mode-label {
@@ -1012,7 +1013,7 @@
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  padding: 18px 0px 18px 22px;
+  padding: 0px 18px 18px 22px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: #cfcbc2;
 }
@@ -1049,7 +1050,7 @@
   display: flex;
   align-items: start;
   justify-content: start;
-  padding: 18px 0px 18px 22px;
+  padding: 0px 18px 18px 22px;
   gap: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -1267,6 +1268,11 @@
   }
   .ring-row {
     height: 250px;
+  }
+
+  .verdict-wrapper-ov{
+    flex-direction: column;
+    gap: 7px;
   }
 
 }
