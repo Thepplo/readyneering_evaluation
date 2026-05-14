@@ -917,6 +917,8 @@
   font-style: italic;
 }
 
+
+
 .q-chip {
   font-weight: 600;
   position: relative;
@@ -941,6 +943,16 @@
 .q-chip.execution { color: var(--execution); }
 .q-chip.alignment { color: var(--alignment); }
 
+.mode-quotients>.q-chip{
+  font-size: 12px;
+  text-transform: capitalize;
+  opacity: 0.85;
+}
+.mode-quotients{
+  display: flex;
+  align-items: start;
+  gap: 10px;
+}
 
 .debrief-lbl { 
   font-size: 11px; 
