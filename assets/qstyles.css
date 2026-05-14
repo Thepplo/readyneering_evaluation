@@ -783,12 +783,10 @@
 }
 
 .verdict-ov-mode {
-  font-weight: 600;
-  letter-spacing: .1em;
   text-transform: uppercase;
-  padding: 2px 6px;
+  padding: 4px 8px;
   border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 100%;
+  border-radius: 6px;
 }
 .verdict-ov-mode.v-s1{
   color: #ff9a9a;
@@ -1186,6 +1184,7 @@
 .verdict-ov-flex{
   display: flex;
   gap: 8px;
+  align-items: baseline;
 }
 .verdict-ov-description{
   font-size: 0.75rem;

@@ -1986,13 +1986,13 @@ function renderOrbit(res) {
 
 function renderVerdict(res) {
   var levels = [
-    {min:20.0, cls:'v-s1', label:'Ready',
+    {min:20.0, cls:'v-s4', label:'Ready',
      desc:'You operate as a deliberately designed system. Pressure reveals capability, not fragility.'},
-    {min:13.0, cls:'v-s2', label:'Building',
+    {min:13.0, cls:'v-s3', label:'Building',
      desc:'You execute well under normal conditions. One significant disruption will expose structural gaps.'},
-    {min:7.0,  cls:'v-s3', label:'Developing',
+    {min:7.0,  cls:'v-s2', label:'Developing',
      desc:'Firefighting dominates. Heroics compensate for missing systems. Structural investment is the answer.'},
-    {min:0.0,    cls:'v-s4', label:'At Risk',
+    {min:0.0,    cls:'v-s1', label:'At Risk',
      desc:'Instability is likely under sustained stress. Immediate structural intervention required.'}
   ];
 
@@ -2026,7 +2026,7 @@ function renderVerdict(res) {
   pvalue.textContent = res.P.toFixed(2);
   oval.textContent = res.O.toFixed(2);
   vmodel.textContent = lv.label;
-  vmodel.className = 'verdict-model ' + lv.cls;
+  vmodel.className = 'verdict-ov-mode ' + lv.cls;
   /* document.getElementById('v-desc').textContent = lv.desc; */
 }
 
