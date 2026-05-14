@@ -442,7 +442,7 @@
 .v-s4 .verdict-lbl, .v-s4 .verdict-desc { color: #a32d2d; }
 .v-s4 .verdict-title { color: #501313; } */
 
-.v-s1 {
+/* .v-s1 {
   --verdict-accent: #78b84c;
   background: #f6f8f2;
 }
@@ -460,7 +460,7 @@
 .v-s4 {
   --verdict-accent: #cf6a6a;
   background: #f8f1f1;
-}
+} */
 
 
 .q-grid-wrapper {
@@ -788,6 +788,7 @@
   text-transform: uppercase;
   padding: 2px 6px;
   border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100%;
 }
 .verdict-ov-mode.v-s1{
   color: #ff9a9a;
