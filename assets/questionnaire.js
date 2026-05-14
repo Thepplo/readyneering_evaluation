@@ -2012,7 +2012,12 @@ function renderVerdict(res) {
   var vmodel = document.getElementById('v-ov-mode');
   var score = res.O;
   var zonelabel = document.getElementById('zone-label');
-  zonelabel.textContent = "Where does " + score.toFixed(2) + " sit on the full scale?";
+
+  zonelabel.innerHTML =
+    'Where does <span class="zone-label-score">' +
+    score.toFixed(2) +
+    '</span> sit on the full scale?';
+    
   var scorePos = ((score - 1) / (25 - 1)) * 100;
   scorePos = Math.max(0, Math.min(100, scorePos));
 
