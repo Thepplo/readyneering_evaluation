@@ -2009,6 +2009,15 @@ function renderVerdict(res) {
   var pvalue = document.getElementById('v-p-val');
   var vbox = document.getElementById('verdict');
   var oval= document.getElementById('v-ov-val');
+  var score = res.O;
+  var scorePos = ((score - 1) / (25 - 1)) * 100;
+  scorePos = Math.max(0, Math.min(100, scorePos));
+
+  var zoneStrip = document.getElementById('zone-strip');
+  zoneStrip.style.setProperty('--score-pos', scorePos + '%');
+
+  var zoneMarker = document.getElementById('zone-marker');
+  zoneMarker.setAttribute('data-score', score.toFixed(1));
   /* vbox.className = 'verdict ' + lv.cls; */
   rvalue.textContent = res.R.toFixed(2);
   pvalue.textContent = res.P.toFixed(2);
