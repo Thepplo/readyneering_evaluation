@@ -1303,6 +1303,20 @@ function buildModeCards(results) {
     };
   });
 }
+
+var MODE_QS = {
+  resilience: ['vitality', 'emotion'],
+  preparedness: ['execution', 'mind', 'alignment']
+};
+
+function renderQChipsForMode(key) {
+  var qs = MODE_QS[key] || [];
+
+  return qs.map(function(q) {
+    return `<span class="q-chip ${q}">${q}</span>`;
+  }).join('');
+}
+
 function renderModeCard(m) {
   return `
     <div class="mode-card ${m.key} ${m.level}">
@@ -1313,18 +1327,20 @@ function renderModeCard(m) {
 
       <div class="mode-role">${m.role}</div>
 
+      <div class="mode-quotients">
+        ${renderQChipsForMode(m.key)}
+      </div>
+
       <!--
       <div class="mode-section">
         <div class="mode-section-label">Current signal</div>
         <div class="mode-copy">${m.signal}</div>
       </div>
 
-
       <div class="mode-section">
         <div class="mode-section-label">Composition</div>
         <div class="mode-copy">${m.supportLine}</div>
       </div>
-      
 
       <div class="mode-section">
         <div class="mode-section-label">Structural pattern</div>
@@ -2017,7 +2033,7 @@ function renderVerdict(res) {
     'Where does <span class="zone-label-score">' +
     score.toFixed(2) +
     '</span> sit on the full scale?';
-    
+
   var scorePos = ((score - 1) / (25 - 1)) * 100;
   scorePos = Math.max(0, Math.min(100, scorePos));
 
