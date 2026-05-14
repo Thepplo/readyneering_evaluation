@@ -939,13 +939,13 @@
 .score-label {
   font-size: 10px;
   letter-spacing: 1.4px;
-  fill: #7c776f;
+  fill: #f5f5f5;
   font-weight: 600;
 }
 .score-label.center-label {
   font-size: 12px;
   letter-spacing: 1.4px;
-  fill: #4e4b46;
+  fill: #f5f5f5;
   border-bottom: 1px solid #770136;
   font-weight: 700;
 }
@@ -974,6 +974,16 @@
 .results-shell {
   position: relative;
   min-height: 420px;
+}
+
+.index-wrapper {
+  display: flex;
+  background-color: #1A1A1A;
+  gap: 12px;
+  flex-direction: column;
+  padding: 5% 5%;
+  border-radius: 18px;
+  color: #f5f5f5;
 }
 
 
