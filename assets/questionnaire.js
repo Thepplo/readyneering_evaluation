@@ -1559,7 +1559,7 @@ function buildSubmissionPayload(res, verdict) {
   return {
     instrument: {
       key: "readyneering_diagnostic",
-      version: "v1"
+      version: "v2"
     },
     submission: {
       respondent_id: null,
