@@ -1846,11 +1846,11 @@ function renderOrbit(res) {
   }
 
   const qDegrees = {
-    mind: 235,
+    mind: 30,
     alignment: 270,
     execution: 305,
     vitality: 150,
-    emotion: 30
+    emotion: 235
   };
 
   const qPos = {};
@@ -1883,11 +1883,11 @@ function renderOrbit(res) {
     <svg class="orbit-svg" viewBox="0 0 630 420" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="backArcFade" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#7d5c6e" stop-opacity="1" />
-          <stop offset="18%" stop-color="#7d5c6e" stop-opacity="0.78" />
-          <stop offset="50%" stop-color="#7d5c6e" stop-opacity="0.05" />
-          <stop offset="82%" stop-color="#7d5c6e" stop-opacity="0.78" />
-          <stop offset="100%" stop-color="#7d5c6e" stop-opacity="1" />
+          <stop offset="0%" stop-color="#9b7890" stop-opacity="0.95" />
+          <stop offset="18%" stop-color="#9b7890" stop-opacity="0.68" />
+          <stop offset="50%" stop-color="#9b7890" stop-opacity="0.04" />
+          <stop offset="82%" stop-color="#9b7890" stop-opacity="0.68" />
+          <stop offset="100%" stop-color="#9b7890" stop-opacity="0.95" />
         </linearGradient>
 
         <linearGradient id="linkLeft" x1="0%" y1="0%" x2="100%" y2="100%">
