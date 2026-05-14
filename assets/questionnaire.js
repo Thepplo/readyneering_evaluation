@@ -1307,7 +1307,7 @@ function renderModeCard(m) {
   return `
     <div class="mode-card ${m.key} ${m.level}">
       <div class="mode-head">
-        <div class="mode-label">${m.label} - ${m.score.toFixed(2)}</div>
+        <div class="mode-label ${m.key}">${m.label} - ${m.score.toFixed(2)}</div>
         <!--
         <div class="mode-score">${m.score.toFixed(2)}</div>
         -->
@@ -1950,7 +1950,7 @@ function renderOrbit(res) {
 
       <foreignObject x="${resilienceX}" y="${resilienceY}" width="${smallSize}" height="${smallSize}">
         <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-          ${makeRing(res.R, 0, 5, '#534AB7', '#CFCBC2', smallSize)}
+          ${makeRing(res.R, 0, 5, '#665BD0', '#CFCBC2', smallSize)}
         </div>
       </foreignObject>
 
@@ -1960,7 +1960,7 @@ function renderOrbit(res) {
 
       <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
         <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-          ${makeRing(res.P, 0, 5, '#1D9E75', '#CFCBC2', smallSize)}
+          ${makeRing(res.P, 0, 5, '#24A987', '#CFCBC2', smallSize)}
         </div>
       </foreignObject>
 

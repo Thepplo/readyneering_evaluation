@@ -700,11 +700,11 @@
 
 .mode-card {
   border-radius: 16px;
-  padding: 40px 20px 24px 20px;
+  padding: 20px 20px 24px 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  min-height: 220px;
+  /* min-height: 220px; */
   border: 1px solid #e0dfd8;
   background: #fff;
 }
@@ -719,6 +719,15 @@
   border-color: #b9e3d3;
 }
 
+.zone-label{font-size:10px;color:#777777;margin-bottom:8px;font-weight:500;letter-spacing:0.5px;text-transform:uppercase}
+.zone-strip{display:flex;border-radius:8px;overflow:hidden;border:1px solid #333333}
+.zone{flex:1;padding:9px 6px;text-align:center;font-size:10px;font-weight:600;line-height:1.4}
+.zone span{display:block;font-weight:400;font-size:9px;margin-top:2px;opacity:0.9}
+.z-risk{background:#3D1515;color:#FF9090}
+.z-dev{background:#3D2E00;color:#FFD966;/* box-shadow:inset 0 0 0 1.5px #F5C518 */}
+.z-build{background:#0D3320;color:#5DEBB0}
+.z-ready{background:#0A1F3D;color:#7AB8F5}
+
 .mode-head {
   display: flex;
   justify-content: space-between;
@@ -732,7 +741,12 @@
   font-size: 1.25rem;
   font-weight: 700;
 }
-
+.mode-label.resilience {
+  color: #665BD0;
+}
+.mode-label.preparedness {
+  color: #24A987;
+}
 .mode-score {
   font-size: 1.1rem;
   font-weight: 700;
