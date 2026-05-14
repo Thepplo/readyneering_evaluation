@@ -1944,7 +1944,7 @@ function renderOrbit(res) {
 
       <foreignObject x="${resilienceX}" y="${resilienceY}" width="${smallSize}" height="${smallSize}">
         <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-          ${makeRing(res.R, 0, 5, '#534AB7', '#E8E7E0', smallSize)}
+          ${makeRing(res.R, 0, 5, '#534AB7', '#CFCBC2', smallSize)}
         </div>
       </foreignObject>
 
@@ -1954,7 +1954,7 @@ function renderOrbit(res) {
 
       <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
         <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-          ${makeRing(res.P, 0, 5, '#1D9E75', '#E8E7E0', smallSize)}
+          ${makeRing(res.P, 0, 5, '#1D9E75', '#CFCBC2', smallSize)}
         </div>
       </foreignObject>
 
@@ -1964,7 +1964,7 @@ function renderOrbit(res) {
 
       <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
         <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
-          ${makeRing(res.O, 0, 25, '#770136', '#7701363f', centerSize)}
+          ${makeRing(res.O, 0, 25, '#A00646', '#A006463f', centerSize)}
         </div>
       </foreignObject>
 
