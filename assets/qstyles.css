@@ -369,12 +369,12 @@
 .scard-sub { font-size: 11px; color: #aaa; margin-top: 2px; }
 
 .verdict {
-  border-radius: 18px;
-  padding: 20px 24px;
+  /* border-radius: 18px; */
+ /*  padding: 20px 24px; */
   margin-bottom: 24px;
-  background: rgba(255,255,255,0.55);
-  border: 1px solid rgba(60,40,30,0.08);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+  /* background: rgba(255,255,255,0.55); */
+  /* border: 1px solid rgba(60,40,30,0.08); */
+  /* box-shadow: 0 8px 24px rgba(0,0,0,0.03); */
   position: relative;
 }
 
@@ -1025,15 +1025,15 @@
 }
 
 .verdict-rp-val {
-  font-size: 22px;
+  font-size: 2.5rem;
   line-height: 1;
-  font-weight: 800;
+  /* font-weight: 800; */
   letter-spacing: -0.03em;
-  color: #ffd21f;
+  color: #ffda33;
 }
 
 .verdict-rp-label {
-  font-size: 10px;
+  font-size: 0.75rem;
   line-height: 1.2;
   font-weight: 500;
   color: rgba(207, 203, 194, 0.68);
