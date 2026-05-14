@@ -1606,7 +1606,7 @@ function makeRing(score, min, max, color, trackColor, size) {
 
   return `
     <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block">
-      <circle cx="${cx}" cy="${cy}" r="${r}" fill="#1A1A1A" stroke="${trackColor}" stroke-width="10" />
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="#252525" stroke="${trackColor}" stroke-width="10" />
       <circle
         cx="${cx}" cy="${cy}" r="${r}"
         fill="none"

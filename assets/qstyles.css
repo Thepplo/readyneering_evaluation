@@ -992,7 +992,9 @@
 
 .index-wrapper {
   display: flex;
-  background-color: #1A1A1A;
+  background:
+  radial-gradient(circle at top left, rgba(255, 255, 255, 0.055), transparent 34%),
+  linear-gradient(180deg, #292929 0%, #222222 100%);
   gap: 12px;
   flex-direction: column;
   padding: 5% 5%;
@@ -1013,7 +1015,7 @@
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  padding: 0px 18px 18px 22px;
+  padding: 22px 18px 22px 0px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: #cfcbc2;
 }
@@ -1050,7 +1052,7 @@
   display: flex;
   align-items: start;
   justify-content: start;
-  padding: 0px 18px 18px 22px;
+  padding: 22px 18px 22px 0px;
   gap: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
