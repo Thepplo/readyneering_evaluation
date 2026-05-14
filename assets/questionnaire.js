@@ -1312,16 +1312,19 @@ function renderModeCard(m) {
       </div>
 
       <div class="mode-role">${m.role}</div>
-
-/*       <div class="mode-section">
+      
+      <!--
+      <div class="mode-section">
         <div class="mode-section-label">Current signal</div>
         <div class="mode-copy">${m.signal}</div>
       </div>
+
 
       <div class="mode-section">
         <div class="mode-section-label">Composition</div>
         <div class="mode-copy">${m.supportLine}</div>
       </div>
+      
 
       <div class="mode-section">
         <div class="mode-section-label">Structural pattern</div>
@@ -1336,7 +1339,8 @@ function renderModeCard(m) {
       <div class="mode-section">
         <div class="mode-section-label">Reflection question</div>
         <div class="mode-copy">${m.question}</div>
-      </div> */
+      </div>
+      -->
     </div>
   `;
 }

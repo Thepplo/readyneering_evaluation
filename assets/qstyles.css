@@ -991,6 +991,9 @@
   background: #2A2A2A;
   display: flex;
   flex-direction: column;
+  padding: 20px 22px;
+  border-radius: 18px;
+  border: 1px solid #383838;
 }
 
 .results-loader {
