@@ -1029,6 +1029,14 @@ th { color: var(--muted); font-weight: 600; }
   opacity: 1;
 }
 
+.index-wrapper {
+  display: flex;
+  background-color: #1A1A1A;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+
 @media (max-width: 960px) {
   .grid.metrics,
   .grid.two,
