@@ -1012,7 +1012,7 @@
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  padding: 18px 22px;
+  padding: 18px 0px 18px 22px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: #cfcbc2;
 }
@@ -1049,12 +1049,22 @@
   display: flex;
   align-items: start;
   justify-content: start;
-  gap: 10px;
+  padding: 18px 0px 18px 22px;
+  gap: 20px;
 }
 .verdict-ov-score{
   font-size: 2.5rem;
   font-weight: 600;
   color: #ffda33;
+}
+.verdict-ov-flex{
+  display: flex;
+  gap: 8px;
+}
+.verdict-ov-description{
+  font-size: 0.75rem;
+  color: rgba(207, 203, 194, 0.68);
+  max-width: 400px;
 }
 .results-loader {
   position: fixed;
