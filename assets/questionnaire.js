@@ -1805,7 +1805,7 @@ async function renderResults() {
   var modeHtmlW = renderModeGrid(res);
   document.getElementById('mode-grid').innerHTML = modeHtml;
   document.getElementById('mode-grid-wm').innerHTML = modeHtmlW;
-  
+
   document.getElementById('d-lbl').textContent = 'The question that matters';
   document.getElementById('d-q').innerHTML = d.q;
   document.getElementById('d-n').innerHTML = d.n;
@@ -2029,6 +2029,8 @@ function renderVerdict(res) {
   var oval= document.getElementById('v-ov-val');
   var vmodel = document.getElementById('v-ov-mode');
   var score = res.O;
+  var pscore = res.P;
+  var rscore = res.R;
   var zonelabel = document.getElementById('zone-label');
 
   zonelabel.innerHTML =
@@ -2037,13 +2039,25 @@ function renderVerdict(res) {
     '</span> sit on the full scale?';
 
   var scorePos = ((score - 1) / (25 - 1)) * 100;
+  var pscorePos = ((pscore - 1) / (5 - 1)) * 100;
+  var rscorePos = ((rscore - 1) / (5 - 1)) * 100;
+
   scorePos = Math.max(0, Math.min(100, scorePos));
+  pscorePos = Math.max(0, Math.min(100, pscorePos));
+  rscorePos = Math.max(0, Math.min(100, rscorePos));
 
   var zoneStrip = document.getElementById('zone-strip');
+  var rpzoneStrip = document.getElementById('zone-strip-rp');
   zoneStrip.style.setProperty('--score-pos', scorePos + '%');
+  rpzoneStrip.style.setProperty('--score-pos-r', pscorePos + '%');
+  zoneStrip.style.setProperty('--score-pos-p', rscorePos + '%');
 
-  var zoneMarker = document.getElementById('zone-marker');
+  var zoneMarker = zoneStrip.getElementById('zone-marker');
   zoneMarker.setAttribute('data-score', score.toFixed(2));
+  var pzoneMarker = rpzoneStrip.getElementById('preparedness-zone-marker');
+  pzoneMarker.setAttribute('data-score', pscore.toFixed(2));
+  var rzoneMarker = rpzoneStrip.getElementById('resilience-zone-marker');
+  rzoneMarker.setAttribute('data-score', rscore.toFixed(2));
   /* vbox.className = 'verdict ' + lv.cls; */
   rvalue.textContent = res.R.toFixed(2);
   pvalue.textContent = res.P.toFixed(2);
