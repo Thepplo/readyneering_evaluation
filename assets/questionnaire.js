@@ -2014,10 +2014,9 @@ function renderRankedSignalRow(q, tone) {
 
   return `
     <div class="ranked-signal-row ${tone}">
-      <div class="ranked-signal-dot"></div>
 
       <div class="ranked-signal-copy">
-        <strong>${q.label} (${q.score.toFixed(1)} — ${q.displayLevel}).</strong>
+        <span class="q-chip ${q.key}">${q.label}</span> <strong>(${q.score.toFixed(1)} — ${formatLevel(q.score)}).</strong>
         ${q.signal}
         ${suffix ? `<span class="ranked-signal-suffix">${suffix}</span>` : ''}
       </div>
@@ -2044,10 +2043,6 @@ function getRankedSignalSuffix(tone, items) {
 function renderRankedSignalGroup(items, tone) {
   if (!items || !items.length) return '';
 
-  var labels = items.map(function(q) {
-    return q.label;
-  });
-
   var scoreRange = getScoreRangeLabel(items);
   var levelLabel = getGroupedLevelLabel(items);
 
@@ -2059,15 +2054,26 @@ function renderRankedSignalGroup(items, tone) {
 
   return `
     <div class="ranked-signal-row ${tone}">
-      <div class="ranked-signal-dot"></div>
-
       <div class="ranked-signal-copy">
-        <strong>${formatList(labels)} (${scoreRange} — ${levelLabel}).</strong>
+        <span class="ranked-chip-list">
+          ${renderQChipList(items)}
+        </span>
+        <strong>(${scoreRange} — ${levelLabel}).</strong>
         ${copy}
         ${suffix ? `<span class="ranked-signal-suffix">${suffix}</span>` : ''}
       </div>
     </div>
   `;
+}
+
+function renderQChip(q) {
+  return `<span class="q-chip ${q.key}">${q.label}</span>`;
+}
+
+function renderQChipList(items) {
+  return items.map(function(q) {
+    return renderQChip(q);
+  }).join(' ');
 }
 
 function formatLevel(score) {
