@@ -1212,6 +1212,7 @@
   font-size: 10px;
   font-weight: 800;
   color: #fff;
+  border: 1px solid currentColor;
 }
 
 .pattern-chip strong {
