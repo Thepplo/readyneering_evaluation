@@ -1220,11 +1220,13 @@
 }
 
 .pattern-chip.preparedness .pattern-chip-label {
-  background: #24a987;
+  color: #24a987;
+  border-color: #24a987;
 }
 
 .pattern-chip.resilience .pattern-chip-label {
-  background: #665bd0;
+  color: #665bd0;
+  border-color: #665bd0;
 }
 
 

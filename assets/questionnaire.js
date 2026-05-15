@@ -2019,7 +2019,10 @@ async function renderResults() {
   var debriefMode = buildModeInsights(res);
 
   document.getElementById('pattern-main').textContent = debriefMode.modeTag;
-
+  document.getElementById('pattern-chip-p-score').textContent = debriefMode.preparedness.score;
+  document.getElementById('pattern-chip-r-score').textContent = debriefMode.resilience.score;
+  document.getElementById('pattern-chip-p-mode').textContent = debriefMode.preparednessLevel;
+  document.getElementById('pattern-chip-r-mode').textContent = debriefMode.resilienceLevel;
 
   document.getElementById('mode-grid').innerHTML = modeHtml;
   document.getElementById('mode-grid-wm').innerHTML = modeHtmlW;
