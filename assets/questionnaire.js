@@ -1026,6 +1026,83 @@ function getDominantPole(r, p, threshold) {
   return 'balanced';
 }
 
+function getDebriefLevel(score) {
+  if (score < 2.5) return 'risk';
+  if (score < 3.5) return 'developing';
+  if (score < 4.3) return 'building';
+  return 'strong';
+}
+
+function isDevelopingOrLower(level) {
+  return level === 'risk' || level === 'developing';
+}
+
+function isBuildingOrHigher(level) {
+  return level === 'building' || level === 'strong';
+}
+
+function getModeStructure(rScore, pScore) {
+  const rLevel = getDebriefLevel(rScore);
+  const pLevel = getDebriefLevel(pScore);
+
+  const rLow = isDevelopingOrLower(rLevel);
+  const pLow = isDevelopingOrLower(pLevel);
+
+  const rHigh = isBuildingOrHigher(rLevel);
+  const pHigh = isBuildingOrHigher(pLevel);
+
+  if (rLevel === 'strong' && pLevel === 'strong') {
+    return {
+      modeStructure: 'both-strong',
+      modeTag: 'Current pattern: genuinely ready — protect this and help others build it',
+      resilienceLevel: rLevel,
+      preparednessLevel: pLevel
+    };
+  }
+
+  if (rLow && pLow) {
+    return {
+      modeStructure: 'both-low',
+      modeTag: 'Current pattern: the foundation needs work across both dimensions',
+      resilienceLevel: rLevel,
+      preparednessLevel: pLevel
+    };
+  }
+
+  if (rLow && pHigh) {
+    return {
+      modeStructure: 'preparedness-high-resilience-low',
+      modeTag: 'Current pattern: strong direction and execution, but the personal resilience foundation is fragile',
+      resilienceLevel: rLevel,
+      preparednessLevel: pLevel
+    };
+  }
+
+  if (rHigh && pLow) {
+    return {
+      modeStructure: 'resilience-high-preparedness-low',
+      modeTag: 'Current pattern: relying on individual effort where shared habits and clearer thinking could do the work',
+      resilienceLevel: rLevel,
+      preparednessLevel: pLevel
+    };
+  }
+
+  if (rHigh && pHigh) {
+    return {
+      modeStructure: 'both-building-or-higher',
+      modeTag: 'Current pattern: solid across both dimensions — the priority now is consistency under sustained pressure',
+      resilienceLevel: rLevel,
+      preparednessLevel: pLevel
+    };
+  }
+
+  return {
+    modeStructure: 'unknown',
+    modeTag: '',
+    resilienceLevel: rLevel,
+    preparednessLevel: pLevel
+  };
+}
 function getDebriefSignals(results, quotients) {
   const safeQuotients = Array.isArray(quotients) ? [...quotients] : [];
 
@@ -1046,7 +1123,6 @@ function getDebriefSignals(results, quotients) {
 
   const sortedByGap = [...safeQuotients].sort((a, b) => b.gap - a.gap);
   const biggestGap = sortedByGap.length ? sortedByGap[0] : null;
-
   return {
     structure,
     weakest,
@@ -1054,7 +1130,8 @@ function getDebriefSignals(results, quotients) {
     spread,
     biggestGap,
     delta,
-    overall: results.O
+    overall: results.O,
+    mode
   };
 }
 
@@ -1217,10 +1294,15 @@ function buildModeInsights(results) {
   var structure = 'balanced';
   if (delta > 0.25) structure = 'preparedness-heavy';
   else if (delta < -0.25) structure = 'resilience-heavy';
+  const mode = getModeStructure(results.R, results.P);
 
   return {
     delta: delta,
     structure: structure,
+    modeStructure: mode.modeStructure,
+    modeTag: mode.modeTag,
+    resilienceLevel: mode.resilienceLevel,
+    preparednessLevel: mode.preparednessLevel,
     resilience: {
       key: 'resilience',
       label: 'Resilience',
@@ -1749,7 +1831,7 @@ function renderCompactQuotientRow(q) {
   return `
     <div class="q-compact-row ${q.key} ${level}">
       <div class="q-compact-info">
-        <div class="q-compact-label">${q.label}</div>
+        <div class="q-chip ${q.label}">${q.label}</div>
         <div class="q-compact-role">${q.roleS}</div>
       </div>
 
