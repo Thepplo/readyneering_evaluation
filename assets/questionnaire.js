@@ -60,6 +60,7 @@ const QUOTIENT_META = {
   vitality: {
     label: 'Vitality',
     role: 'Physiological regulation underlying sustained cognitive and emotional capacity',
+    roleS: 'Energy & sustainability',
   signal: {
     high: 'The system sustains energy and capacity well under demand.',
     mid: 'Energy is generally present, but not consistently sustained under pressure.',
@@ -80,6 +81,7 @@ const QUOTIENT_META = {
   emotion: {
     label: 'Emotion',
     role: 'Emotional regulation shaping decisions before conscious awareness',
+    roleS: 'Emotional readiness',
     signal: {
       high: 'Emotional dynamics are handled with steadiness and awareness.',
       mid: 'Emotional awareness is present, but not consistently shaping better responses.',
@@ -100,6 +102,7 @@ const QUOTIENT_META = {
   mind: {
     label: 'Mind',
     role: 'Mental models and pattern recognition under uncertainty',
+    roleS: 'Sense-making & narrative',
     signal: {
       high: 'Thinking and judgment are creating clear direction.',
       mid: 'There is some clarity, but not enough to guide action consistently.',
@@ -120,6 +123,7 @@ const QUOTIENT_META = {
   execution: {
     label: 'Execution',
     role: 'The biological gap between intention and action',
+    roleS: 'Decisions & delivery',
     signal: {
       high: 'Intent is translating into action with consistency.',
       mid: 'Execution happens, but not always with enough reliability or follow-through.',
@@ -140,6 +144,7 @@ const QUOTIENT_META = {
   alignment: {
     label: 'Alignment',
     role: 'Coherence, belonging, and clarity across the system',
+    roleS: 'Direction & structure',
     signal: {
       high: 'People are acting in a shared direction with consistency.',
       mid: 'Alignment exists, but weakens under pressure or ambiguity.',
@@ -1743,7 +1748,7 @@ function renderCompactQuotientRow(q) {
     <div class="q-compact-row ${q.key} ${level}">
       <div class="q-compact-info">
         <div class="q-compact-label">${q.label}</div>
-        <div class="q-compact-role">${q.role}</div>
+        <div class="q-compact-role">${q.roleS}</div>
       </div>
 
       <div class="q-compact-bar-wrap">
