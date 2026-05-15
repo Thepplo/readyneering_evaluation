@@ -1131,7 +1131,6 @@ function getDebriefSignals(results, quotients) {
     biggestGap,
     delta,
     overall: results.O,
-    mode
   };
 }
 
