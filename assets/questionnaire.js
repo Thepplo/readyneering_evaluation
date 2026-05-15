@@ -1499,6 +1499,7 @@ function buildQuotients(results) {
       dominant: dominant,
       level: level,
       role: meta.role,
+      roleS: meta.roleS,
       signal: meta.signal[level],
       failure: meta.failure[level],
       question: meta.question[level]
