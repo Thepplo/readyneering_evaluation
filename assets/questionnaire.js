@@ -1830,7 +1830,7 @@ function renderCompactQuotientRow(q) {
   return `
     <div class="q-compact-row ${q.key} ${level}">
       <div class="q-compact-info">
-        <div class="q-chip ${q.label}">${q.label}</div>
+        <div class="q-chip ${q.key}">${q.label}</div>
         <div class="q-compact-role">${q.roleS}</div>
       </div>
 
@@ -2016,6 +2016,8 @@ async function renderResults() {
 
   var modeHtml = renderModeGrid(res);
   var modeHtmlW = renderModeGrid(res);
+  var debriefMode = buildModeInsights(res);
+  
   document.getElementById('mode-grid').innerHTML = modeHtml;
   document.getElementById('mode-grid-wm').innerHTML = modeHtmlW;
 

@@ -1155,6 +1155,10 @@
   background: #dbeafe;
 }
 
+.mode-tag{display:inline-flex;align-items:center;gap:8px;background:#F5F4F0;border:1px solid #DEDEDE;border-radius:20px;padding:6px 14px;font-size:11px;color:#666666;margin:8px 0 24px}
+.mode-dot{width:7px;height:7px;border-radius:50%;background:#F5C518;flex-shrink:0}
+
+
 .mode-head {
   display: flex;
   align-items: baseline;
