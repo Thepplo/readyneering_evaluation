@@ -2052,11 +2052,11 @@ function renderVerdict(res) {
   rpzoneStrip.style.setProperty('--score-pos-r', pscorePos + '%');
   zoneStrip.style.setProperty('--score-pos-p', rscorePos + '%');
 
-  var zoneMarker = zoneStrip.getElementById('zone-marker');
+  var zoneMarker = document.getElementById('zone-marker');
   zoneMarker.setAttribute('data-score', score.toFixed(2));
-  var pzoneMarker = rpzoneStrip.getElementById('preparedness-zone-marker');
+  var pzoneMarker = document.getElementById('preparedness-zone-marker');
   pzoneMarker.setAttribute('data-score', pscore.toFixed(2));
-  var rzoneMarker = rpzoneStrip.getElementById('resilience-zone-marker');
+  var rzoneMarker = document.getElementById('resilience-zone-marker');
   rzoneMarker.setAttribute('data-score', rscore.toFixed(2));
   /* vbox.className = 'verdict ' + lv.cls; */
   rvalue.textContent = res.R.toFixed(2);
