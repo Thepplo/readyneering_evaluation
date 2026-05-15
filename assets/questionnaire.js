@@ -2048,7 +2048,7 @@ function renderRankedSignalGroup(items, tone) {
   `;
 }
 
-function formatLevel(level) {
+function formatLevel(score) {
   var level = getDebriefLevel(score);
 
   var labels = {
