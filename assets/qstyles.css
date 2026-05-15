@@ -720,11 +720,23 @@
   background: #1E1E1E;
   border-color: #c9c3f3;
 }
-
 .mode-card.preparedness {
   background: #1E1E1E;
   border-color: #b9e3d3;
 }
+
+#mode-grid-wm>.mode-grid>.mode-card.resilience {
+  background: linear-gradient(180deg, #f3f0ff 0%, #ffffff 100%);
+  border-color: #c9c3f3;
+}
+
+#mode-grid-wm>.mode-grid>.mode-card.preparedness {
+  background: linear-gradient(180deg, #effaf6 0%, #ffffff 100%);
+  border-color: #b9e3d3;
+}
+
+
+
 .verdict-ov-mode {
   padding: 4px 8px;
   border: 1px solid rgba(255,255,255,0.08);
