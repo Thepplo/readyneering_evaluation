@@ -1265,7 +1265,7 @@
   background: currentColor;
 }
  */
- .ranked-signal-row::before {
+/*  .ranked-signal-row::before {
   content: "";
   position: absolute;
   inset: 0 auto 0 0;
@@ -1283,7 +1283,7 @@
 
 .ranked-signal-row.building {
   background: #34d399;
-}
+} */
 
 .ranked-signal-copy {
   color: #374151;
