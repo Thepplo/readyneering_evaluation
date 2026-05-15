@@ -872,6 +872,30 @@
   color: #7ab8f5;
 }
 
+.zone-strip-rp .z-risk {
+  background: linear-gradient(180deg, #fff1f2, #ffe4e6);
+  color: #9f1239;
+  border: 1px solid #fecdd3;
+}
+
+.zone-strip-rp .z-dev {
+  background: linear-gradient(180deg, #fffbeb, #fef3c7);
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.zone-strip-rp .z-build {
+  background: linear-gradient(180deg, #ecfdf5, #d1fae5);
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.zone-strip-rp .z-ready {
+  background: linear-gradient(180deg, #eff6ff, #dbeafe);
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
 .zone.active {
   position: relative;
   z-index: 2;
