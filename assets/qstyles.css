@@ -1277,11 +1277,11 @@
   background: #f87171;
 }
 
-.ranked-signal-row.developing {
+.ranked-signal-row.developing::before {
   background: #fbbf24;
 }
 
-.ranked-signal-row.building {
+.ranked-signal-row.building::before {
   background: #34d399;
 } 
 
