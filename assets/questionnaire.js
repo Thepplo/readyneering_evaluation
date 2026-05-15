@@ -2015,7 +2015,7 @@ function renderRankedSignalRow(q, tone) {
       <div class="ranked-signal-dot"></div>
 
       <div class="ranked-signal-copy">
-        <strong>${q.label} (${q.score.toFixed(1)} — ${formatLevel(q.level)}).</strong>
+        <strong>${q.label} (${q.score.toFixed(1)} — ${formatLevel(q.score)}).</strong>
         ${q.signal}
       </div>
     </div>
