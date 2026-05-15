@@ -690,6 +690,8 @@
   margin-bottom: 12px;
   border-radius: 2px;
 }
+
+
 .mode-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -707,6 +709,11 @@
   /* min-height: 220px; */
   border: 1px solid #e0dfd8;
   background: #fff;
+}
+
+#mode-grid-wm>.mode-grid>.mode-card {
+  background: rgba(255,255,255,0.02);
+  border-color: rgba(255,255,255,0.08);
 }
 
 .mode-card.resilience {

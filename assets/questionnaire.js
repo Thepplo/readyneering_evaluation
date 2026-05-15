@@ -168,247 +168,247 @@ const QUOTIENT_ICONS = {
 
 const TRIADS = [
 
-/* 1 - Vitality (R) */
-{
-  quotient:"Vitality",
-  id:"vitality-1",
-  scenario:"A demanding phase just ended - at work and at home. You hit the deadlines, held it together, kept all the plates spinning. Now you are looking in the mirror",
-  question:"What does your energy actually look like right now?",
-  A:"Running on empty. I have not properly recovered",
-  B:"I am back. Recovery was something I planned for.",
-  C:"I am tired, but I bounce back - I absorb the pressure and carry on.",
-  scores:{ R_vitality:[-0.9, 0.9, 0.4], P_vitality:[-0.5, 0.9, 0.2] }
-},
+  /* 1 - Vitality (R) */
+  {
+    quotient:"Vitality",
+    id:"vitality-1",
+    scenario:"A demanding phase just ended - at work and at home. You hit the deadlines, held it together, kept all the plates spinning. Now you are looking in the mirror",
+    question:"What does your energy actually look like right now?",
+    A:"Running on empty. I have not properly recovered",
+    B:"I am back. Recovery was something I planned for.",
+    C:"I am tired, but I bounce back - I absorb the pressure and carry on.",
+    scores:{ R_vitality:[-0.9, 0.9, 0.4], P_vitality:[-0.5, 0.9, 0.2] }
+  },
 
-/* 2 - Emotion (R) */
-{
-  quotient:"Emotion",
-  id:"emotion-1",
-  scenario:"Something went wrong - a failed project, a difficult conversation, a fallout with someone whose opinion matters. Emotions ran high. Some of it left a mark.",
-  question:"How did I deal with the emotional aftermath?",
-  A:"I never properly addressed it. The impact is still there.",
-  B:"I stayed professional. The tension faded on its own.",
-  C:"I named it - to myself and others. I worked through it.",
+  /* 2 - Emotion (R) */
+  {
+    quotient:"Emotion",
+    id:"emotion-1",
+    scenario:"Something went wrong - a failed project, a difficult conversation, a fallout with someone whose opinion matters. Emotions ran high. Some of it left a mark.",
+    question:"How did I deal with the emotional aftermath?",
+    A:"I never properly addressed it. The impact is still there.",
+    B:"I stayed professional. The tension faded on its own.",
+    C:"I named it - to myself and others. I worked through it.",
 
 
-  scores:{ R_emotion:[-0.8, 0.1, 0.9], P_emotion:[-0.6, 0.1, 0.7] }
-},
+    scores:{ R_emotion:[-0.8, 0.1, 0.9], P_emotion:[-0.6, 0.1, 0.7] }
+  },
 
-/* 3 - Mind (P) */
-{
-  quotient:"Mind",
-  id:"mind-1",
-  scenario:" I can see the storm coming - a significant challenge, a high-stakes moment, a period of real uncertainty on the horizon. Before the pressure hits, I have time to prepare my thinking.",
-  question:"What does my planning approach actually look like?",
-  A:"I lock in my priorities before things get hard.",
-  B:"I plan for the most likely scenario and adapt as I go.",
-  C:"I think through multiple scenarios and what I would do in each.",
-  scores:{ R_mind:[0.2, -0.5, 0.8], P_mind:[0.3, -0.8, 0.9] }
-},
+  /* 3 - Mind (P) */
+  {
+    quotient:"Mind",
+    id:"mind-1",
+    scenario:" I can see the storm coming - a significant challenge, a high-stakes moment, a period of real uncertainty on the horizon. Before the pressure hits, I have time to prepare my thinking.",
+    question:"What does my planning approach actually look like?",
+    A:"I lock in my priorities before things get hard.",
+    B:"I plan for the most likely scenario and adapt as I go.",
+    C:"I think through multiple scenarios and what I would do in each.",
+    scores:{ R_mind:[0.2, -0.5, 0.8], P_mind:[0.3, -0.8, 0.9] }
+  },
 
-/* 4 - Alignment (R) */
-{
-  quotient:"Alignment",
-  id:"alignment-1",
-  scenario:"A key person I depend on becomes unavailable - a colleague, a partner, a caregiver, someone whose absence changes how I operate. There is no backup plan.",
-  question:"What happens to my stability?",
-  A:"I step up and manage. There is strain, but I hold.",
-  B:"Real disruption. Too much was depending on that one person.",
-  C:"Minimal disruption. I have built enough shared clarity to navigate without them.",
-  scores:{ R_alignment:[-0.1, -0.9, 0.9], P_alignment:[-0.1, -0.9, 0.8] }
-},
+  /* 4 - Alignment (R) */
+  {
+    quotient:"Alignment",
+    id:"alignment-1",
+    scenario:"A key person I depend on becomes unavailable - a colleague, a partner, a caregiver, someone whose absence changes how I operate. There is no backup plan.",
+    question:"What happens to my stability?",
+    A:"I step up and manage. There is strain, but I hold.",
+    B:"Real disruption. Too much was depending on that one person.",
+    C:"Minimal disruption. I have built enough shared clarity to navigate without them.",
+    scores:{ R_alignment:[-0.1, -0.9, 0.9], P_alignment:[-0.1, -0.9, 0.8] }
+  },
 
-/* 5 - Execution (R) */
-{
-  quotient:"Execution",
-  id:"execution-1",
-  scenario:"Something hits from outside my control — a sudden change at work, a family situation, an unexpected demand that cannot wait. I need to change direction mid-stride.",
-  question:"How do I respond when speed and clarity matter most?",
-  A:"I recalibrate within a day or two. Not panicked, not frozen.",
-  B:"I define what I own and move fast. No drama.",
-  C:"I either overreact or freeze. I struggle to find the middle ground.",
-  scores:{ R_execution:[0.4, 0.9, -0.8], P_execution:[0.3, 0.8, -0.6] }
-},
+  /* 5 - Execution (R) */
+  {
+    quotient:"Execution",
+    id:"execution-1",
+    scenario:"Something hits from outside my control — a sudden change at work, a family situation, an unexpected demand that cannot wait. I need to change direction mid-stride.",
+    question:"How do I respond when speed and clarity matter most?",
+    A:"I recalibrate within a day or two. Not panicked, not frozen.",
+    B:"I define what I own and move fast. No drama.",
+    C:"I either overreact or freeze. I struggle to find the middle ground.",
+    scores:{ R_execution:[0.4, 0.9, -0.8], P_execution:[0.3, 0.8, -0.6] }
+  },
 
-/* 6 - Vitality (P) */
-{
-  quotient:"Vitality",
-  id:"vitality-2",
-  scenario:" The next few months look demanding - big commitments at work, responsibilities at home, school pickups, ageing parents, a full diary. I am already close to the limit.",
-  question:"What does managing my capacity actually look like?",
-  A:"I build in recovery deliberately. I protect it as seriously as any deadline.",
-  B:"I try to model what sustainable looks like for the people around me.",
-  C:"I run at full capacity. I absorb what is needed and deal with the consequences later.",
-  scores:{ R_vitality:[0.2, 0.8, -0.6], P_vitality:[0.2, 0.9, -0.8] }
-},
+  /* 6 - Vitality (P) */
+  {
+    quotient:"Vitality",
+    id:"vitality-2",
+    scenario:" The next few months look demanding - big commitments at work, responsibilities at home, school pickups, ageing parents, a full diary. I am already close to the limit.",
+    question:"What does managing my capacity actually look like?",
+    A:"I build in recovery deliberately. I protect it as seriously as any deadline.",
+    B:"I try to model what sustainable looks like for the people around me.",
+    C:"I run at full capacity. I absorb what is needed and deal with the consequences later.",
+    scores:{ R_vitality:[0.2, 0.8, -0.6], P_vitality:[0.2, 0.9, -0.8] }
+  },
 
-/* 7 - Emotion (R) */
-{
-  quotient:"Emotion",
-  id:"emotion-2",
-  scenario:"Someone I work closely with needs to hear something difficult from me - a blind spot, a pattern of behavior, an impact they are not seeing. It is a conversation that could create friction.",
-  question:"What do I actually do?",
-  A:"I deliver it carefully. Sometimes it is taken personally.",
-  B:"I say it directly. It is received without defensiveness.",
-  C:"I soften it or avoid it. I put the relationship first.",
-  scores:{ R_emotion:[0.1, 0.9, -0.7], P_emotion:[0.2, 0.7, -0.5] }
-},
+  /* 7 - Emotion (R) */
+  {
+    quotient:"Emotion",
+    id:"emotion-2",
+    scenario:"Someone I work closely with needs to hear something difficult from me - a blind spot, a pattern of behavior, an impact they are not seeing. It is a conversation that could create friction.",
+    question:"What do I actually do?",
+    A:"I deliver it carefully. Sometimes it is taken personally.",
+    B:"I say it directly. It is received without defensiveness.",
+    C:"I soften it or avoid it. I put the relationship first.",
+    scores:{ R_emotion:[0.1, 0.9, -0.7], P_emotion:[0.2, 0.7, -0.5] }
+  },
 
-/* 8 - Alignment (R) */
-{
-  quotient:"Alignment",
-  id:"alignment-2",
-  scenario:"I am caught between competing demands - work priorities pulling one way, personal commitments pulling another, and no one else is going to resolve it for me.",
-  question:"How do I handle the conflict between competing priorities?",
-  A:"It lingers until something breaks and forces a decision.",
-  B:"I negotiate informally, trading and deferring. It takes time and creates friction.",
-  C:"I have a clear way of escalating and resolving this quickly.",
-  scores:{ R_alignment:[-0.8, 0.2, 0.9], P_alignment:[-0.7, 0.1, 0.7] }
-},
+  /* 8 - Alignment (R) */
+  {
+    quotient:"Alignment",
+    id:"alignment-2",
+    scenario:"I am caught between competing demands - work priorities pulling one way, personal commitments pulling another, and no one else is going to resolve it for me.",
+    question:"How do I handle the conflict between competing priorities?",
+    A:"It lingers until something breaks and forces a decision.",
+    B:"I negotiate informally, trading and deferring. It takes time and creates friction.",
+    C:"I have a clear way of escalating and resolving this quickly.",
+    scores:{ R_alignment:[-0.8, 0.2, 0.9], P_alignment:[-0.7, 0.1, 0.7] }
+  },
 
-/* 9 - Execution (P) */
-{
-  quotient:"Execution",
-  id:"execution-2",
-  scenario:"A high-stakes moment is approaching - a major deliverable, a difficult conversation, a period of sustained pressure. Before it arrives, someone asks: how will I make decisions when things go wrong?",
-  question:"What do I actually have in place before the pressure starts?",
-  A:"I have thought through my decision principles in advance.",
-  B:"I have a clear picture of what I own and what I will do first.",
-  C:"I have thought about it in theory. Nothing is written down or rehearsed.",
-  scores:{ R_execution:[0.8, 0.1, -0.7], P_execution:[0.9, 0.2, -0.8] }
-},
+  /* 9 - Execution (P) */
+  {
+    quotient:"Execution",
+    id:"execution-2",
+    scenario:"A high-stakes moment is approaching - a major deliverable, a difficult conversation, a period of sustained pressure. Before it arrives, someone asks: how will I make decisions when things go wrong?",
+    question:"What do I actually have in place before the pressure starts?",
+    A:"I have thought through my decision principles in advance.",
+    B:"I have a clear picture of what I own and what I will do first.",
+    C:"I have thought about it in theory. Nothing is written down or rehearsed.",
+    scores:{ R_execution:[0.8, 0.1, -0.7], P_execution:[0.9, 0.2, -0.8] }
+  },
 
-/* 10 - Vitality (R) */
-{
-  quotient:"Vitality",
-  id:"vitality-3",
-  scenario:"Over several months, I notice the signs - I am more tired than usual, my patience is shorter, the things I used to enjoy feel like effort. The demands have not changed.",
-  question:"How do I respond to these signals in myself?",
-  A:"I normalise it. 'It is just a demanding phase.'",
-  B:"I name it - to myself and to others - and treat it as something to address.",
-  C:"I manage it privately. I push through without telling anyone.",
-  scores:{ R_vitality:[-0.6, 0.9, -0.1], P_vitality:[-0.4, 0.8, 0.0] }
-},
+  /* 10 - Vitality (R) */
+  {
+    quotient:"Vitality",
+    id:"vitality-3",
+    scenario:"Over several months, I notice the signs - I am more tired than usual, my patience is shorter, the things I used to enjoy feel like effort. The demands have not changed.",
+    question:"How do I respond to these signals in myself?",
+    A:"I normalise it. 'It is just a demanding phase.'",
+    B:"I name it - to myself and to others - and treat it as something to address.",
+    C:"I manage it privately. I push through without telling anyone.",
+    scores:{ R_vitality:[-0.6, 0.9, -0.1], P_vitality:[-0.4, 0.8, 0.0] }
+  },
 
-/* 11 - Execution (R) */
-{
-  quotient:"Execution",
-  id:"execution-3",
-  scenario:" I make a significant decision. A week or two later, I realize the way I am executing it has drifted - I am not sure my actions are still aligned with what I intended.",
-  question:"How common is this - and what do I do when it happens?",
-  A:"Rare. I start with clear intentions and check in early.",
-  B:"Occasional. I catch it in review before it becomes a real problem.",
-  C:"A known pattern for me. There is often a gap between deciding and doing.",
-  scores:{ R_execution:[0.9, 0.3, -0.8], P_execution:[0.8, 0.2, -0.7] }
-},
+  /* 11 - Execution (R) */
+  {
+    quotient:"Execution",
+    id:"execution-3",
+    scenario:" I make a significant decision. A week or two later, I realize the way I am executing it has drifted - I am not sure my actions are still aligned with what I intended.",
+    question:"How common is this - and what do I do when it happens?",
+    A:"Rare. I start with clear intentions and check in early.",
+    B:"Occasional. I catch it in review before it becomes a real problem.",
+    C:"A known pattern for me. There is often a gap between deciding and doing.",
+    scores:{ R_execution:[0.9, 0.3, -0.8], P_execution:[0.8, 0.2, -0.7] }
+  },
 
-/* 12 - Emotion (P) */
-{
-  quotient:"Emotion",
-  id:"emotion-3",
-  scenario:"A demanding period is on the horizon - a high-stakes project, a difficult life event, a sustained stretch that I know will test me. I have time to prepare - not just practically, but personally.",
-  question:"What does that preparation actually look like for me?",
-  A:"I focus on the practical. How I feel is something I deal with as it comes.",
-  B:"I think about how I want to show up and talk to the people closest to me about it.",
-  C:"I reflect individually. I do not tend to share this kind of preparation with others.",
-  scores:{ R_emotion:[-0.4, 0.7, 0.2], P_emotion:[-0.8, 0.9, 0.1] }
-},
+  /* 12 - Emotion (P) */
+  {
+    quotient:"Emotion",
+    id:"emotion-3",
+    scenario:"A demanding period is on the horizon - a high-stakes project, a difficult life event, a sustained stretch that I know will test me. I have time to prepare - not just practically, but personally.",
+    question:"What does that preparation actually look like for me?",
+    A:"I focus on the practical. How I feel is something I deal with as it comes.",
+    B:"I think about how I want to show up and talk to the people closest to me about it.",
+    C:"I reflect individually. I do not tend to share this kind of preparation with others.",
+    scores:{ R_emotion:[-0.4, 0.7, 0.2], P_emotion:[-0.8, 0.9, 0.1] }
+  },
 
-/* 13 - Mind (R) */
-{
-  quotient:"Mind",
-  id:"mind-2",
-  scenario:"Something I tried did not work - a plan that missed, a decision that did not land, an approach that needed to change. The moment to reflect on it has arrived.",
-  question:"What does that reflection actually look like for me?",
-  A:"I look at what in my process allowed this to happen.",
-  B:"I focus on the outcome. What went wrong, and what do I own?",
-  C:"I keep it surface level. The real causes stay unexamined.",
-  scores:{ R_mind:[0.9, -0.3, -0.6], P_mind:[0.8, 0.1, -0.5] }
-},
+  /* 13 - Mind (R) */
+  {
+    quotient:"Mind",
+    id:"mind-2",
+    scenario:"Something I tried did not work - a plan that missed, a decision that did not land, an approach that needed to change. The moment to reflect on it has arrived.",
+    question:"What does that reflection actually look like for me?",
+    A:"I look at what in my process allowed this to happen.",
+    B:"I focus on the outcome. What went wrong, and what do I own?",
+    C:"I keep it surface level. The real causes stay unexamined.",
+    scores:{ R_mind:[0.9, -0.3, -0.6], P_mind:[0.8, 0.1, -0.5] }
+  },
 
-/* 14 - Alignment (P) */
-{
-  quotient:"Alignment",
-  id:"alignment-3",
-  scenario:" I believe I have a clear direction - in my work, my priorities, or my goals. Six months in, I pause to ask the people closest to me whether they see the same thing.",
-  question:"What do I find?",
-  A:"Consistent clarity. They describe it the same way I do.",
-  B:"Clear in my own head. Others have only fragments of it.",
-  C:"Significant divergence. What they describe does not match what I intended.",
-  scores:{ R_alignment:[0.6, 0.1, -0.7], P_alignment:[0.9, 0.2, -0.8] }
-},
+  /* 14 - Alignment (P) */
+  {
+    quotient:"Alignment",
+    id:"alignment-3",
+    scenario:" I believe I have a clear direction - in my work, my priorities, or my goals. Six months in, I pause to ask the people closest to me whether they see the same thing.",
+    question:"What do I find?",
+    A:"Consistent clarity. They describe it the same way I do.",
+    B:"Clear in my own head. Others have only fragments of it.",
+    C:"Significant divergence. What they describe does not match what I intended.",
+    scores:{ R_alignment:[0.6, 0.1, -0.7], P_alignment:[0.9, 0.2, -0.8] }
+  },
 
-/* 15 - Mind (R) */
-{
-  quotient:"Mind",
-  id:"mind-3",
-  scenario:"Under pressure, a story has taken hold in my mind - about why things are difficult, who is at fault, what is and is not possible. It might be partially true. It is also keeping me stuck.",
-  question:"How do I relate to my own dominant narrative under pressure?",
-  A:"I actively question it. I know my stories can become blind spots.",
-  B:"I accept it. Challenging it feels disloyal to my own experience.",
-  C:"I question it privately. But I rarely say so out loud.",
-  scores:{ R_mind:[0.9, -0.7, -0.2], P_mind:[0.7, -0.5, -0.1] }
-},
+  /* 15 - Mind (R) */
+  {
+    quotient:"Mind",
+    id:"mind-3",
+    scenario:"Under pressure, a story has taken hold in my mind - about why things are difficult, who is at fault, what is and is not possible. It might be partially true. It is also keeping me stuck.",
+    question:"How do I relate to my own dominant narrative under pressure?",
+    A:"I actively question it. I know my stories can become blind spots.",
+    B:"I accept it. Challenging it feels disloyal to my own experience.",
+    C:"I question it privately. But I rarely say so out loud.",
+    scores:{ R_mind:[0.9, -0.7, -0.2], P_mind:[0.7, -0.5, -0.1] }
+  },
 
-/* 16 - Vitality */
-{
-  quotient:"Vitality",
-  id:"vitality-4",
-  scenario:"After an intense period - demanding work, family pressure, little time to recover — the question on the table is whether I treat my own sustainability as something I actively design, or something I just endure.",
-  question:"Which best describes where I am?",
-  A:"Individual endurance. I manage my own limits and push through.",
-  B:"I know sustainability matters. I have not yet made it a deliberate practice.",
-  C:"I treat it as a design question. I actively protect my recovery.",
-  scores:{ R_vitality:[-0.9, 0.2, 0.9], P_vitality:[-0.8, 0.2, 0.9] }
-},
+  /* 16 - Vitality */
+  {
+    quotient:"Vitality",
+    id:"vitality-4",
+    scenario:"After an intense period - demanding work, family pressure, little time to recover — the question on the table is whether I treat my own sustainability as something I actively design, or something I just endure.",
+    question:"Which best describes where I am?",
+    A:"Individual endurance. I manage my own limits and push through.",
+    B:"I know sustainability matters. I have not yet made it a deliberate practice.",
+    C:"I treat it as a design question. I actively protect my recovery.",
+    scores:{ R_vitality:[-0.9, 0.2, 0.9], P_vitality:[-0.8, 0.2, 0.9] }
+  },
 
-/* 17 - Emotion */
-{
-  quotient:"Emotion",
-  id:"emotion-4",
-  scenario:" I take a moment to reflect on how I actually behave when the pressure is really on - at work, at home, in the moments that test me. Do I know my own patterns? Have I ever talked about them with the people closest to me?",
-  question:"How emotionally prepared am I for the moments that matter?",
-  A:"I know my patterns well. I have talked about them with others.",
-  B:"I have some self-awareness. I have not yet shared it with the people around me.",
-  C:"My stress reactions tend to surface before I see them coming.",
-  scores:{ R_emotion:[0.9, 0.2, -0.8], P_emotion:[0.9, 0.2, -0.9] }
-},
+  /* 17 - Emotion */
+  {
+    quotient:"Emotion",
+    id:"emotion-4",
+    scenario:" I take a moment to reflect on how I actually behave when the pressure is really on - at work, at home, in the moments that test me. Do I know my own patterns? Have I ever talked about them with the people closest to me?",
+    question:"How emotionally prepared am I for the moments that matter?",
+    A:"I know my patterns well. I have talked about them with others.",
+    B:"I have some self-awareness. I have not yet shared it with the people around me.",
+    C:"My stress reactions tend to surface before I see them coming.",
+    scores:{ R_emotion:[0.9, 0.2, -0.8], P_emotion:[0.9, 0.2, -0.9] }
+  },
 
-/* 18 - Mind */
-{
-  quotient:"Mind",
-  id:"mind-4",
-  scenario:"I am in the middle of a fast-moving situation. Some of what I know is confirmed. Some are rumors. Some are my own interpretations of incomplete information. I need to make sense of it quickly.",
-  question:"How clearly do I separate what I know from what I am assuming?",
-  A:"I explicitly label what I know, what I assume, and what I am interpreting.",
-  B:"Facts and assumptions blur. I act on an incomplete picture.",
-  C:"I mostly rely on instinct. I read the situation and move.",
-  scores:{ R_mind:[0.9, -0.8, 0.2], P_mind:[0.8, -0.7, 0.1] }
-},
+  /* 18 - Mind */
+  {
+    quotient:"Mind",
+    id:"mind-4",
+    scenario:"I am in the middle of a fast-moving situation. Some of what I know is confirmed. Some are rumors. Some are my own interpretations of incomplete information. I need to make sense of it quickly.",
+    question:"How clearly do I separate what I know from what I am assuming?",
+    A:"I explicitly label what I know, what I assume, and what I am interpreting.",
+    B:"Facts and assumptions blur. I act on an incomplete picture.",
+    C:"I mostly rely on instinct. I read the situation and move.",
+    scores:{ R_mind:[0.9, -0.8, 0.2], P_mind:[0.8, -0.7, 0.1] }
+  },
 
-/* 19 - Execution */
-{
-  quotient:"Execution",
-  id:"execution-4",
-  scenario:"A significant effort just finished. There is pressure - internal and external - to move straight to the next thing. A small voice suggests pausing to reflect on what just happened.",
-  question:"What do I do with that voice?",
-  A:"I create space for it. Reflection actually changes how I approach the next thing.",
-  B:"I make time for a brief debrief. The insights rarely change what I do next.",
-  C:"I move on. There is always something more urgent waiting.",
-  scores:{ R_execution:[0.9, 0.1, -0.8], P_execution:[0.8, 0.1, -0.8] }
-},
+  /* 19 - Execution */
+  {
+    quotient:"Execution",
+    id:"execution-4",
+    scenario:"A significant effort just finished. There is pressure - internal and external - to move straight to the next thing. A small voice suggests pausing to reflect on what just happened.",
+    question:"What do I do with that voice?",
+    A:"I create space for it. Reflection actually changes how I approach the next thing.",
+    B:"I make time for a brief debrief. The insights rarely change what I do next.",
+    C:"I move on. There is always something more urgent waiting.",
+    scores:{ R_execution:[0.9, 0.1, -0.8], P_execution:[0.8, 0.1, -0.8] }
+  },
 
-/* 20 - Alignment */
-{
-  quotient:"Alignment",
-  id:"alignment-4",
-  scenario:"A significant change has been signaled - at work, at home, in circumstances beyond my control. The direction is unclear. Roles may shift. I am not yet sure what falls to me.",
-  question:"How do I hold myself together during the ambiguity?",
-  A:"I communicate clearly with those around me. We navigate from a shared sense of direction.",
-  B:"I lean on informal relationships. I fill gaps where I can and wait where I cannot.",
-  C:"I wait for clarity before I act. Ambiguity tends to paralyse me.",
-  scores:{ R_alignment:[0.9, 0.0, -0.8], P_alignment:[0.8, -0.1, -0.8] }
-}
+  /* 20 - Alignment */
+  {
+    quotient:"Alignment",
+    id:"alignment-4",
+    scenario:"A significant change has been signaled - at work, at home, in circumstances beyond my control. The direction is unclear. Roles may shift. I am not yet sure what falls to me.",
+    question:"How do I hold myself together during the ambiguity?",
+    A:"I communicate clearly with those around me. We navigate from a shared sense of direction.",
+    B:"I lean on informal relationships. I fill gaps where I can and wait where I cannot.",
+    C:"I wait for clarity before I act. Ambiguity tends to paralyse me.",
+    scores:{ R_alignment:[0.9, 0.0, -0.8], P_alignment:[0.8, -0.1, -0.8] }
+  }
 
 ];
 
@@ -1802,8 +1802,10 @@ async function renderResults() {
   const d = getDebrief(signals);
 
   var modeHtml = renderModeGrid(res);
+  var modeHtmlW = renderModeGrid(res);
   document.getElementById('mode-grid').innerHTML = modeHtml;
-
+  document.getElementById('mode-grid-wm').innerHTML = modeHtmlW;
+  
   document.getElementById('d-lbl').textContent = 'The question that matters';
   document.getElementById('d-q').innerHTML = d.q;
   document.getElementById('d-n').innerHTML = d.n;
