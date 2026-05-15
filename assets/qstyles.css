@@ -1245,42 +1245,59 @@
 
 .ranked-signal-row {
   display: grid;
-  grid-template-columns: 12px 1fr;
+  /* grid-template-columns: 12px 1fr; */
   gap: 12px;
   padding: 16px 18px;
   border-bottom: 1px solid #e5e5df;
+  position: relative;
+  overflow: hidden;
 }
 
 .ranked-signal-row:last-child {
   border-bottom: 0;
 }
 
-.ranked-signal-dot {
+/* .ranked-signal-dot {
   width: 8px;
   height: 8px;
   margin-top: 6px;
   border-radius: 999px;
   background: currentColor;
 }
+ */
+.ranked-signal-row::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: #fbbf24;
+}
 
-.ranked-signal-row.risk {
-  color: #f87171;
+.ranked-signal-row.risk::before {
+  background: #f87171;
 }
 
 .ranked-signal-row.developing {
-  color: #fbbf24;
+  background: #fbbf24;
 }
 
 .ranked-signal-row.building {
-  color: #34d399;
-}
+  background: #34d399;
+} 
 
 .ranked-signal-copy {
   color: #374151;
   font-size: 13px;
   line-height: 1.55;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
+}
+
+.ranked-chip-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  vertical-align: middle;
 }
 
 .ranked-signal-copy strong {
