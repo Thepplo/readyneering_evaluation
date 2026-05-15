@@ -2017,7 +2017,10 @@ async function renderResults() {
   var modeHtml = renderModeGrid(res);
   var modeHtmlW = renderModeGrid(res);
   var debriefMode = buildModeInsights(res);
-  
+
+  document.getElementById('pattern-main').textContent = debriefMode.modeTag;
+
+
   document.getElementById('mode-grid').innerHTML = modeHtml;
   document.getElementById('mode-grid-wm').innerHTML = modeHtmlW;
 
