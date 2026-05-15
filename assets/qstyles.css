@@ -788,6 +788,15 @@
   border: 1px solid rgba(255,255,255,0.08);
 }
 
+.zone-strip-rp {
+  position: relative;
+  display: grid;
+  grid-template-columns: 6fr 6fr 7fr 6fr;
+  border-radius: 8px;
+  overflow: visible;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
 .zone-marker {
   position: absolute;
   left: var(--score-pos);
