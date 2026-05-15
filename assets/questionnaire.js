@@ -61,6 +61,7 @@ const QUOTIENT_META = {
     label: 'Vitality',
     role: 'Physiological regulation underlying sustained cognitive and emotional capacity',
     roleS: 'Energy & sustainability',
+    build: 'resilience',
   signal: {
     high: 'The system sustains energy and capacity well under demand.',
     mid: 'Energy is generally present, but not consistently sustained under pressure.',
@@ -75,13 +76,22 @@ const QUOTIENT_META = {
       high: 'Where are we still relying on effort instead of reducing load?',
       mid: 'Where does performance drop when pressure rises?',
       low: 'Where is limited capacity constraining outcomes most?'
-    }
+    },
+    doMore: [
+      "Block one recovery window before my next demanding work block. Treat it as part of the work, not a reward after the work. Vitality improves when I protect the energy required to make good decisions.",
+      "Name one energy leak this week and reduce it deliberately. It might be a meeting, a habit, a late-night pattern, or a task I keep tolerating. Ask: what is quietly costing me more than I admit?"
+    ],
+    doLess: [
+      "Stop treating tiredness as proof that I am committed. Before I push harder, ask: what would make this sustainable enough to repeat next week?",
+      "Stop borrowing energy from tomorrow to get through today. Replace that habit by choosing one thing to pause, delegate, simplify, or finish at a lower standard."
+    ]
   },
 
   emotion: {
     label: 'Emotion',
     role: 'Emotional regulation shaping decisions before conscious awareness',
     roleS: 'Emotional readiness',
+    build: 'resilience',
     signal: {
       high: 'Emotional dynamics are handled with steadiness and awareness.',
       mid: 'Emotional awareness is present, but not consistently shaping better responses.',
@@ -96,13 +106,22 @@ const QUOTIENT_META = {
       high: 'Where do we need more candor, not just calm?',
       mid: 'Where do emotions start influencing decisions more than we intend?',
       low: 'Where are reactions shaping outcomes more than reflection?'
-    }
+    },
+    doMore: [
+      "Pause before responding to pressure and name what I am actually feeling. Use plain language: frustrated, defensive, anxious, disappointed, overloaded. Emotion improves when I can notice the signal before it becomes the reaction.",
+      "Ask one trusted person this week what mood I have been bringing into the room. Do not explain it away. Listen for the emotional pattern others may be adapting to around me."
+    ],
+    doLess: [
+      "Stop calling it logic when I am actually reacting from emotion. Before I decide or reply, ask: what feeling might be shaping my interpretation right now?",
+      "Stop expecting others to read the emotional temperature I am carrying. Replace that with one honest sentence: I am noticing I feel X, and I do not want that to drive the decision."
+    ]
   },
 
   mind: {
     label: 'Mind',
     role: 'Mental models and pattern recognition under uncertainty',
     roleS: 'Sense-making & narrative',
+    build: 'preparedness',
     signal: {
       high: 'Thinking and judgment are creating clear direction.',
       mid: 'There is some clarity, but not enough to guide action consistently.',
@@ -117,13 +136,22 @@ const QUOTIENT_META = {
       high: 'Where might our certainty be preventing better questions?',
       mid: 'Where are people interpreting the same situation differently?',
       low: 'Where does lack of clarity create drift or confusion?'
-    }
+    },
+    doMore: [
+      "Start one meeting this week with a 60-second signal check. Name one thing I am noticing — not an opinion, but an observation. Mind gets stronger when I separate what I see from the story I am building around it.",
+      "Name the story I am telling myself when something feels difficult. Say it plainly: the narrative I am hearing is X — is that actually true? Let the question challenge my thinking before the story hardens."
+    ],
+    doLess: [
+      "Stop letting “it is just a demanding phase” end the conversation. Replace it with: what specifically am I seeing, and how long has it been there?",
+      "Stop blending facts and assumptions when I make decisions. Before a significant choice, ask: what do I actually know, and what am I assuming?"
+    ]
   },
 
   execution: {
     label: 'Execution',
     role: 'The biological gap between intention and action',
     roleS: 'Decisions & delivery',
+    build: 'preparedness',
     signal: {
       high: 'Intent is translating into action with consistency.',
       mid: 'Execution happens, but not always with enough reliability or follow-through.',
@@ -138,13 +166,22 @@ const QUOTIENT_META = {
       high: 'Where does execution still depend too heavily on specific individuals?',
       mid: 'Where do plans lose momentum after decisions are made?',
       low: 'Where are we deciding without reliably following through?'
-    }
+    },
+    doMore: [
+      "Choose one commitment this week and define the next visible action before I leave the conversation. Execution improves when good intent becomes a specific move with an owner and a date.",
+      "Review one stalled priority and identify the real blocker. Do not settle for “busy” or “unclear.” Ask: what decision, resource, conversation, or trade-off would actually move this forward?"
+    ],
+    doLess: [
+      "Stop mistaking agreement for progress. Replace it with a closing question: what exactly will I do next, by when, and how will I know it happened?",
+      "Stop carrying vague commitments because naming the trade-off feels uncomfortable. Instead ask: what am I willing to deprioritise so this can actually get done?"
+    ]
   },
 
   alignment: {
     label: 'Alignment',
     role: 'Coherence, belonging, and clarity across the system',
     roleS: 'Direction & structure',
+    build: 'preparedness',
     signal: {
       high: 'People are acting in a shared direction with consistency.',
       mid: 'Alignment exists, but weakens under pressure or ambiguity.',
@@ -159,7 +196,15 @@ const QUOTIENT_META = {
       high: 'Where might strong alignment be preventing useful dissent?',
       mid: 'Where does alignment hold, and where does it start to break?',
       low: 'Where do we see different decisions being made in the same situation?'
-    }
+    },
+    doMore: [
+      "Restate the priority before I start the work. Say what matters most, what matters less, and what I am not trying to solve right now. Alignment improves when I make direction explicit before effort begins.",
+      "Check for hidden disagreement before the next important decision. Ask: where might I be nodding along while still holding a different view?"
+    ],
+    doLess: [
+      "Stop assuming shared language means shared understanding. Replace it with: when I say this priority matters, what do I believe it means in practice?",
+      "Stop moving forward when the direction only feels clear because no one has challenged it. Ask instead: what would I expect to see if we were misaligned?"
+    ]
   }
 };
 
@@ -1590,6 +1635,37 @@ function buildQuotients(results) {
   return out;
 }
 
+function buildRankedQuotientSignals(quotients) {
+  var safeQuotients = Array.isArray(quotients) ? [...quotients] : [];
+
+  var sorted = safeQuotients.sort(function(a, b) {
+    return a.score - b.score;
+  });
+
+  return sorted.map(function(q, index) {
+    var meta = QUOTIENT_META[q.key];
+
+    var signalLevel = 'high';
+
+    if (index === 0) {
+      signalLevel = 'low';
+    } else if (index === 1) {
+      signalLevel = 'mid';
+    }
+
+    return {
+      key: q.key,
+      label: q.label,
+      score: q.score,
+      level: q.level,
+      signalLevel: signalLevel,
+      signal: meta.signal[signalLevel],
+      roleS: q.roleS,
+      build: meta.build
+    };
+  });
+}
+
 function computeVerdict(overallScore) {
   const levels = [
     {min:20.0, cls:'v-s1', label:'Ready',
@@ -1913,6 +1989,111 @@ function nextFrame() {
   return new Promise(resolve => requestAnimationFrame(() => resolve()));
 }
 
+function renderRankedSignalList(quotients) {
+  var rankedSignals = buildRankedQuotientSignals(quotients);
+
+  var lowest = rankedSignals[0];
+  var nextLowest = rankedSignals[1];
+  var strongest = rankedSignals.slice(2);
+
+  return `
+    <div class="ranked-signal-card">
+      ${renderRankedSignalRow(lowest, 'risk')}
+
+      ${renderRankedSignalRow(nextLowest, 'developing')}
+
+      ${renderRankedSignalGroup(strongest, 'building')}
+    </div>
+  `;
+}
+
+function renderRankedSignalRow(q, tone) {
+  if (!q) return '';
+
+  return `
+    <div class="ranked-signal-row ${tone}">
+      <div class="ranked-signal-dot"></div>
+
+      <div class="ranked-signal-copy">
+        <strong>${q.label} (${q.score.toFixed(1)} — ${formatLevel(q.level)}).</strong>
+        ${q.signal}
+      </div>
+    </div>
+  `;
+}
+
+function renderRankedSignalGroup(items, tone) {
+  if (!items || !items.length) return '';
+
+  var labels = items.map(function(q) {
+    return q.label;
+  });
+
+  var scoreRange = getScoreRangeLabel(items);
+  var levelLabel = getGroupedLevelLabel(items);
+
+  var copy = items.map(function(q) {
+    return q.signal;
+  }).join(' ');
+
+  return `
+    <div class="ranked-signal-row ${tone}">
+      <div class="ranked-signal-dot"></div>
+
+      <div class="ranked-signal-copy">
+        <strong>${formatList(labels)} (${scoreRange} — ${levelLabel}).</strong>
+        ${copy}
+      </div>
+    </div>
+  `;
+}
+
+function formatLevel(level) {
+  var labels = {
+    risk: 'At risk',
+    developing: 'Developing',
+    building: 'Building',
+    ready: 'Ready',
+    strong: 'Strong'
+  };
+
+  return labels[level] || level;
+}
+
+function getScoreRangeLabel(items) {
+  var scores = items.map(function(q) {
+    return q.score;
+  });
+
+  var min = Math.min.apply(null, scores);
+  var max = Math.max.apply(null, scores);
+
+  if (min === max) return min.toFixed(1);
+
+  return min.toFixed(1) + '–' + max.toFixed(1);
+}
+
+function getGroupedLevelLabel(items) {
+  var levels = items.map(function(q) {
+    return q.level;
+  });
+
+  var allSame = levels.every(function(level) {
+    return level === levels[0];
+  });
+
+  if (allSame) return formatLevel(levels[0]);
+
+  return 'Mixed';
+}
+
+function formatList(items) {
+  if (items.length === 1) return items[0];
+  if (items.length === 2) return items[0] + ' and ' + items[1];
+
+  return items.slice(0, -1).join(', ') + ', and ' + items[items.length - 1];
+}
+
 async function showResultsPage() {
   const assess = document.getElementById('scr-assess');
   const results = document.getElementById('scr-results');
@@ -2006,6 +2187,7 @@ async function renderResults() {
 
   var res = computeAll();
   var quotientData = buildQuotients(res);
+  var rankedSignals = buildRankedQuotientSignals(quotientData);
   quotientData.sort((a, b) => b.score - a.score);
 
   var verdict = computeVerdict(res.O);
@@ -2023,7 +2205,7 @@ async function renderResults() {
   document.getElementById('pattern-chip-r-score').textContent = debriefMode.resilience.score.toFixed(2);
   document.getElementById('pattern-chip-p-mode').textContent = debriefMode.preparednessLevel;
   document.getElementById('pattern-chip-r-mode').textContent = debriefMode.resilienceLevel;
-
+  document.getElementById('ranked-signal-wrapper').innerHTML = renderRankedSignalList(quotientData);
   document.getElementById('mode-grid').innerHTML = modeHtml;
   document.getElementById('mode-grid-wm').innerHTML = modeHtmlW;
 

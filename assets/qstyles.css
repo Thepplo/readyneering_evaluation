@@ -1235,6 +1235,57 @@
   text-transform: capitalize;
 
 }
+.ranked-signal-card {
+  margin: 22px 0 28px;
+  border: 1px solid #d9d9d4;
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.ranked-signal-row {
+  display: grid;
+  grid-template-columns: 12px 1fr;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid #e5e5df;
+}
+
+.ranked-signal-row:last-child {
+  border-bottom: 0;
+}
+
+.ranked-signal-dot {
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.ranked-signal-row.risk {
+  color: #f87171;
+}
+
+.ranked-signal-row.developing {
+  color: #fbbf24;
+}
+
+.ranked-signal-row.building {
+  color: #34d399;
+}
+
+.ranked-signal-copy {
+  color: #374151;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.ranked-signal-copy strong {
+  color: #111827;
+  font-weight: 800;
+}
+
 .mode-head {
   display: flex;
   align-items: baseline;
