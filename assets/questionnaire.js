@@ -2049,11 +2049,12 @@ function renderRankedSignalGroup(items, tone) {
 }
 
 function formatLevel(level) {
+  var level = getDebriefLevel(score);
+
   var labels = {
     risk: 'At risk',
     developing: 'Developing',
     building: 'Building',
-    ready: 'Ready',
     strong: 'Strong'
   };
 
