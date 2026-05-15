@@ -833,16 +833,23 @@
 }
 
 .zone-marker.resilience{
-  color: #ff9a9a;
+  color: #665BD0;
 }
 .zone-marker.preparedness{
-  color: #5debb0;
+  color: #24A987;
 }
 .zone-marker.resilience::after{
-  border-top-color: #ff9a9a;
+  border-top-color: #665BD0;
 }
 .zone-marker.preparedness::after{
-  border-top-color: #5debb0;
+  border-top-color: #24A987;
+}
+
+.zone-marker.resilience::before{
+  content: attr(data-label);
+}
+.zone-marker.preparedness::before{
+  content: attr(data-label);
 }
 
 #preparedness-zone-marker {
