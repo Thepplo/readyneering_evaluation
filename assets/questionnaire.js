@@ -1054,7 +1054,7 @@ function getModeStructure(rScore, pScore) {
   if (rLevel === 'strong' && pLevel === 'strong') {
     return {
       modeStructure: 'both-strong',
-      modeTag: 'Current pattern: genuinely ready — protect this and help others build it',
+      modeTag: 'Genuinely ready — protect this and help others build it',
       resilienceLevel: rLevel,
       preparednessLevel: pLevel
     };
@@ -1063,7 +1063,7 @@ function getModeStructure(rScore, pScore) {
   if (rLow && pLow) {
     return {
       modeStructure: 'both-low',
-      modeTag: 'Current pattern: the foundation needs work across both dimensions',
+      modeTag: 'The foundation needs work across both dimensions',
       resilienceLevel: rLevel,
       preparednessLevel: pLevel
     };
@@ -1072,7 +1072,7 @@ function getModeStructure(rScore, pScore) {
   if (rLow && pHigh) {
     return {
       modeStructure: 'preparedness-high-resilience-low',
-      modeTag: 'Current pattern: strong direction and execution, but the personal resilience foundation is fragile',
+      modeTag: 'Strong direction and execution, but the personal resilience foundation is fragile',
       resilienceLevel: rLevel,
       preparednessLevel: pLevel
     };
@@ -1081,7 +1081,7 @@ function getModeStructure(rScore, pScore) {
   if (rHigh && pLow) {
     return {
       modeStructure: 'resilience-high-preparedness-low',
-      modeTag: 'Current pattern: relying on individual effort where shared habits and clearer thinking could do the work',
+      modeTag: 'Relying on individual effort where shared habits and clearer thinking could do the work',
       resilienceLevel: rLevel,
       preparednessLevel: pLevel
     };
