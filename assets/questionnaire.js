@@ -2022,6 +2022,22 @@ function renderRankedSignalRow(q, tone) {
   `;
 }
 
+function getRankedSignalSuffix(tone, items) {
+  var build = items && items[0] ? items[0].build : null;
+
+  var buildLabel = build
+    ? build.charAt(0).toUpperCase() + build.slice(1)
+    : 'readiness';
+
+  var suffixes = {
+    risk: 'This is your most immediate ' + buildLabel + ' opportunity.',
+    developing: 'Strengthening this builds your ' + buildLabel + ' foundation.',
+    building: 'These are current strengths to repeat, and make more dependable.'
+  };
+
+  return suffixes[tone] || '';
+}
+
 function renderRankedSignalGroup(items, tone) {
   if (!items || !items.length) return '';
 
@@ -2036,6 +2052,8 @@ function renderRankedSignalGroup(items, tone) {
     return q.signal;
   }).join(' ');
 
+  var suffix = getRankedSignalSuffix(tone, items);
+
   return `
     <div class="ranked-signal-row ${tone}">
       <div class="ranked-signal-dot"></div>
@@ -2043,6 +2061,7 @@ function renderRankedSignalGroup(items, tone) {
       <div class="ranked-signal-copy">
         <strong>${formatList(labels)} (${scoreRange} — ${levelLabel}).</strong>
         ${copy}
+        ${suffix ? `<span class="ranked-signal-suffix">${suffix}</span>` : ''}
       </div>
     </div>
   `;
