@@ -1692,6 +1692,131 @@ function renderQuotientGrid(quotients) {
     </div>
   `;
 }
+
+var MODE_QS_COMPACT = {
+  resilience: ['vitality', 'emotion'],
+  preparedness: ['mind', 'execution', 'alignment']
+};
+
+function getQuotientLevel(score) {
+  if (score < 2.5) return 'risk';
+  if (score < 3.5) return 'developing';
+  if (score < 4.3) return 'building';
+  return 'ready';
+}
+
+function getQuotientLevelLabel(level) {
+  var labels = {
+    risk: 'At risk',
+    developing: 'Developing',
+    building: 'Building',
+    ready: 'Ready'
+  };
+
+  return labels[level] || 'Developing';
+}
+
+function getQuotientBarPercent(score) {
+  var pos = ((score - 1) / (5 - 1)) * 100;
+  return Math.max(0, Math.min(100, pos));
+}
+
+function getQuotientRowColor(q) {
+  var keyColors = {
+    vitality: '#34d399',
+    emotion: '#fbbf24',
+    mind: '#f87171',
+    execution: '#34d399',
+    alignment: '#60a5fa'
+  };
+
+  return keyColors[q.key] || '#60a5fa';
+}
+
+function renderCompactQuotientRow(q) {
+  var level = getQuotientLevel(q.score);
+  var levelLabel = getQuotientLevelLabel(level);
+  var barPercent = getQuotientBarPercent(q.score);
+  var color = getQuotientRowColor(q);
+
+  return `
+    <div class="q-compact-row ${q.key} ${level}">
+      <div class="q-compact-info">
+        <div class="q-compact-label">${q.label}</div>
+        <div class="q-compact-role">${q.role}</div>
+      </div>
+
+      <div class="q-compact-bar-wrap">
+        <div class="q-compact-bar-track">
+          <div 
+            class="q-compact-bar-fill" 
+            style="width: ${barPercent}%; background-color: ${color};">
+          </div>
+        </div>
+      </div>
+
+      <div class="q-compact-score">${q.score.toFixed(1)}</div>
+
+      <div class="q-compact-badge ${level}">
+        ${levelLabel}
+      </div>
+    </div>
+  `;
+}
+
+function renderCompactQuotientSection(title, keys, quotients) {
+  var rows = keys
+    .map(function(key) {
+      return quotients.find(function(q) {
+        return q.key === key;
+      });
+    })
+    .filter(Boolean);
+
+  var subtitle = rows.map(function(q) {
+    return q.label;
+  }).join(' · ');
+
+  return `
+    <div class="q-compact-section">
+      <div class="q-compact-section-head">
+        <div class="q-compact-title">${title}</div>
+        <div class="q-compact-subtitle">${subtitle}</div>
+      </div>
+
+      <div class="q-compact-rows">
+        ${rows.map(renderCompactQuotientRow).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderCompactQuotientList(quotients) {
+  return `
+    <div class="q-compact-list">
+      ${renderCompactQuotientSection(
+        'Resilience Quotients',
+        MODE_QS_COMPACT.resilience,
+        quotients
+      )}
+
+      ${renderCompactQuotientSection(
+        'Preparedness Quotients',
+        MODE_QS_COMPACT.preparedness,
+        quotients
+      )}
+    </div>
+  `;
+}
+
+function mountCompactQuotientList(wrapperId, quotients) {
+  var wrapper = document.getElementById(wrapperId);
+
+  if (!wrapper) return;
+
+  wrapper.innerHTML = renderCompactQuotientList(quotients);
+}
+
 function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -1837,7 +1962,8 @@ async function renderResults() {
 
   renderOrbit(res);
   renderVerdict(res);
-  document.getElementById('q-grid-wrapper').innerHTML = renderQuotientGrid(quotientData);
+  /* document.getElementById('q-grid-wrapper').innerHTML = renderQuotientGrid(quotientData); */
+  mountCompactQuotientList('q-grid-wrapper', quotientData);
   buildSignals(res.dim, res.R, res.P);
 }
 

@@ -1044,7 +1044,114 @@
   box-shadow: inset 0 -2px 0 #7ab8f5, 0 0 14px rgba(122, 184, 245, 0.24);
 }
 
+.q-compact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 760px;
+}
 
+.q-compact-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.q-compact-section-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.q-compact-title {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+.q-compact-subtitle {
+  font-size: 10px;
+  color: #c4c7cc;
+}
+
+.q-compact-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.q-compact-row {
+  display: grid;
+  grid-template-columns: 128px minmax(180px, 1fr) 36px 86px;
+  align-items: center;
+  gap: 12px;
+}
+
+.q-compact-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.q-compact-role {
+  margin-top: 3px;
+  font-size: 10px;
+  line-height: 1.25;
+  color: #9ca3af;
+}
+
+.q-compact-bar-track {
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #efede8;
+}
+
+.q-compact-bar-fill {
+  height: 100%;
+  border-radius: inherit;
+}
+
+.q-compact-score {
+  font-size: 13px;
+  font-weight: 800;
+  color: #111827;
+  text-align: right;
+}
+
+.q-compact-badge {
+  justify-self: start;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.q-compact-badge.risk {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+.q-compact-badge.developing {
+  color: #b45309;
+  background: #fef3c7;
+}
+
+.q-compact-badge.building {
+  color: #047857;
+  background: #d1fae5;
+}
+
+.q-compact-badge.ready {
+  color: #1d4ed8;
+  background: #dbeafe;
+}
 .mode-head {
   display: flex;
   align-items: baseline;
