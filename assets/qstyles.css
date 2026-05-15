@@ -1049,7 +1049,7 @@
 .q-compact-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 40px;
   max-width: 760px;
 }
 
@@ -1068,11 +1068,11 @@
 }
 
 .q-compact-title {
-  font-size: 10px;
-  font-weight: 800;
+  font-size: 11px;
+  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #9ca3af;
+  color: #BBBBBB;
 }
 
 .q-compact-subtitle {
@@ -1169,18 +1169,18 @@
 
 .pattern-kicker {
   margin-bottom: 8px;
-  font-size: 10px;
-  font-weight: 800;
+  font-size: 11px;
+  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #9ca3af;
+  color: #BBBBBB;
 }
 
 .pattern-main {
   max-width: 680px;
   font-size: 18px;
   line-height: 1.35;
-  font-weight: 750;
+  font-weight: 650;
   color: #111827;
 }
 
@@ -1230,7 +1230,11 @@
   border-color: #665bd0;
 }
 
+#pattern-chip-p-mode,
+#pattern-chip-r-mode {
+  text-transform: capitalize;
 
+}
 .mode-head {
   display: flex;
   align-items: baseline;
