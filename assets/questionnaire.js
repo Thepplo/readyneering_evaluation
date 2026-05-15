@@ -2048,14 +2048,18 @@ function renderVerdict(res) {
 
   var zoneStrip = document.getElementById('zone-strip');
   var rpzoneStrip = document.getElementById('zone-strip-rp');
+
   zoneStrip.style.setProperty('--score-pos', scorePos + '%');
-  rpzoneStrip.style.setProperty('--score-pos-r', pscorePos + '%');
-  zoneStrip.style.setProperty('--score-pos-p', rscorePos + '%');
+
+  rpzoneStrip.style.setProperty('--score-pos-p', pscorePos + '%');
+  rpzoneStrip.style.setProperty('--score-pos-r', rscorePos + '%');
 
   var zoneMarker = document.getElementById('zone-marker');
   zoneMarker.setAttribute('data-score', score.toFixed(2));
+
   var pzoneMarker = document.getElementById('preparedness-zone-marker');
   pzoneMarker.setAttribute('data-score', pscore.toFixed(2));
+
   var rzoneMarker = document.getElementById('resilience-zone-marker');
   rzoneMarker.setAttribute('data-score', rscore.toFixed(2));
   /* vbox.className = 'verdict ' + lv.cls; */
