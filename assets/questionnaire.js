@@ -2010,13 +2010,16 @@ function renderRankedSignalList(quotients) {
 function renderRankedSignalRow(q, tone) {
   if (!q) return '';
 
+  var suffix = getRankedSignalSuffix(tone, [q]);
+
   return `
     <div class="ranked-signal-row ${tone}">
       <div class="ranked-signal-dot"></div>
 
       <div class="ranked-signal-copy">
-        <strong>${q.label} (${q.score.toFixed(1)} — ${formatLevel(q.score)}).</strong>
+        <strong>${q.label} (${q.score.toFixed(1)} — ${q.displayLevel}).</strong>
         ${q.signal}
+        ${suffix ? `<span class="ranked-signal-suffix">${suffix}</span>` : ''}
       </div>
     </div>
   `;
