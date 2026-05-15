@@ -1728,15 +1728,16 @@ function getQuotientBarPercent(score) {
 }
 
 function getQuotientRowColor(q) {
-  var keyColors = {
-    vitality: '#34d399',
-    emotion: '#fbbf24',
-    mind: '#f87171',
-    execution: '#34d399',
-    alignment: '#60a5fa'
+  var level = getQuotientLevel(q.score);
+
+  var levelColors = {
+    risk: '#f87171',
+    developing: '#fbbf24',
+    building: '#34d399',
+    ready: '#60a5fa'
   };
 
-  return keyColors[q.key] || '#60a5fa';
+  return levelColors[level] || '#60a5fa';
 }
 
 function renderCompactQuotientRow(q) {
