@@ -1130,7 +1130,7 @@ function getDebriefSignals(results, quotients) {
     spread,
     biggestGap,
     delta,
-    overall: results.O,
+    overall: results.O
   };
 }
 
