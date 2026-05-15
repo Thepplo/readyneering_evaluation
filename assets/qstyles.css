@@ -791,10 +791,53 @@
 .zone-strip-rp {
   position: relative;
   display: grid;
-  grid-template-columns: 6fr 6fr 7fr 6fr;
-  border-radius: 8px;
+  grid-template-columns: 35% 25% 20% 20%;
   overflow: visible;
-  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow:
+    0 8px 24px rgba(15, 23, 42, 0.08),
+    0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.zone-strip-rp .zone {
+  min-height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 10px 14px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.15;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.zone-strip-rp .zone:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+.zone-strip-rp .zone:last-of-type {
+  border-radius: 0 10px 10px 0;
+}
+
+.zone-strip-rp .zone {
+  border-left-width: 0;
+}
+
+.zone-strip-rp .zone:first-child {
+  border-left-width: 1px;
+}
+.zone-strip-rp .zone strong,
+.zone-strip-rp .zone {
+  font-weight: 700;
+}
+.zone-strip-rp .zone span {
+  display: block;
+  max-width: 160px;
+  font-weight: 500;
+  opacity: 0.9;
 }
 
 .zone-marker {
@@ -832,6 +875,55 @@
   filter: drop-shadow(0 0 6px rgba(255, 218, 51, 0.35));
 }
 
+.zone-strip-rp .zone-marker {
+  position: absolute;
+  top: -30px;
+  transform: translateX(-50%);
+  z-index: 5;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.zone-strip-rp .zone-marker::before {
+  content: attr(data-label);
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow:
+    0 4px 10px rgba(15, 23, 42, 0.14),
+    inset 0 0 0 1px currentColor;
+}
+
+.zone-strip-rp .zone-marker::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 24px;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid currentColor;
+}
+.zone-strip-rp .zone-marker span,
+.zone-strip-rp .zone-marker::marker {
+  display: none;
+}
+.zone-strip-rp .zone-marker {
+  --line-height: 82px;
+}
+
+.zone-strip-rp .zone-marker::after {
+  filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.18));
+}
+.zone-strip-rp .zone-marker::before {
+  color: inherit;
+}
 .zone-marker.resilience{
   color: #665BD0;
 }
@@ -900,25 +992,33 @@
 }
 
 .zone-strip-rp .z-risk {
-  background: linear-gradient(180deg, #fff1f2, #ffe4e6);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0)),
+    linear-gradient(180deg, #fff1f2, #ffe4e6);
   color: #9f1239;
   border: 1px solid #fecdd3;
 }
 
 .zone-strip-rp .z-dev {
-  background: linear-gradient(180deg, #fffbeb, #fef3c7);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0)),
+    linear-gradient(180deg, #fffbeb, #fef3c7);
   color: #92400e;
   border: 1px solid #fde68a;
 }
 
 .zone-strip-rp .z-build {
-  background: linear-gradient(180deg, #ecfdf5, #d1fae5);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0)),
+    linear-gradient(180deg, #ecfdf5, #d1fae5);
   color: #047857;
   border: 1px solid #a7f3d0;
 }
 
 .zone-strip-rp .z-ready {
-  background: linear-gradient(180deg, #eff6ff, #dbeafe);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0)),
+    linear-gradient(180deg, #eff6ff, #dbeafe);
   color: #1d4ed8;
   border: 1px solid #bfdbfe;
 }
