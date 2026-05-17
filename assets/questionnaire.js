@@ -1739,33 +1739,7 @@ function buildFocusActions(focusQuotients) {
   var actionQuotients = useOnlyLowest
     ? [first]
     : focusQuotients;
-
-  console.group('Focus action debug');
-
-  console.table(focusQuotients.map(function(q, index) {
-    return {
-      rank: index + 1,
-      key: q.key,
-      label: q.label,
-      score: q.score,
-      scoreAsNumber: Number(q.score),
-      band: getQuotientLevel(Number(q.score)),
-      build: q.build,
-      doMoreCount: (q.doMore || []).length,
-      doLessCount: (q.doLess || []).length,
-      sitWithCount: (q.sitWith || []).length
-    };
-  }));
-
-  console.log('First band:', firstBand);
-  console.log('Second band:', secondBand);
-  console.log('Using only lowest?', useOnlyLowest);
-  console.log('Action quotients:', actionQuotients.map(function(q) {
-    return q.key;
-  }));
-
-  console.groupEnd();
-
+    
   return {
     doMore: buildActionGroup(actionQuotients, 'doMore', 3),
     doLess: buildActionGroup(actionQuotients, 'doLess', 3),
@@ -1780,32 +1754,35 @@ function buildFocusActions(focusQuotients) {
 }
 
 function buildActionGroup(quotients, actionKey, limit) {
-  var actions = [];
+  if (!quotients || !quotients.length) return [];
 
-  quotients.forEach(function(q) {
-    actions = actions.concat(
-      (q[actionKey] || []).map(function(text) {
-        return {
-          key: q.key,
-          label: q.label,
-          score: q.score,
-          band: getQuotientLevel(Number(q.score)),
-          build: q.build,
-          text: text
-        };
-      })
-    );
-  });
+  if (quotients.length === 1) {
+    return buildActionsForQuotient(quotients[0], actionKey).slice(0, limit);
+  }
 
-  console.log(actionKey, actions.map(function(action) {
-    return {
-      key: action.key,
-      band: action.band,
-      text: action.text.slice(0, 60) + '...'
-    };
-  }));
+  var firstActions = buildActionsForQuotient(quotients[0], actionKey);
+  var secondActions = buildActionsForQuotient(quotients[1], actionKey);
+
+  var actions = [
+    firstActions[0],
+    firstActions[1],
+    secondActions[0]
+  ].filter(Boolean);
 
   return actions.slice(0, limit);
+}
+
+function buildActionsForQuotient(q, actionKey) {
+  return (q[actionKey] || []).map(function(text) {
+    return {
+      key: q.key,
+      label: q.label,
+      score: q.score,
+      band: getQuotientLevel(Number(q.score)),
+      build: q.build,
+      text: text
+    };
+  });
 }
 
 function computeVerdict(overallScore) {
