@@ -2075,7 +2075,7 @@ function renderFocusActionList(items) {
     const parts = splitFirstSentence(item.text);
 
     return `
-      <div class="pattern-card ${item.key}">
+      <div class="action-card ${item.key}">
         <div class="focus-action-number">${index + 1}</div>
 
         <div class="focus-action-copy">

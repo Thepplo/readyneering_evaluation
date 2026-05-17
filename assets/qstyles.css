@@ -1330,6 +1330,45 @@
   gap: 1.5rem;
 }
 
+.action-card {
+  padding: 18px 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.96), rgba(249,250,251,0.96));
+  display: flex;
+  gap: 1.5rem;
+}
+
+.focus-action-copy>h4{
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+.focus-action-copy>p{
+  font-size: 13px;
+  line-height: 1.4;
+  color: #1A1A1A;
+}
+
+.focus-action-number {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+
+  background: #b8f3d5;
+  color: #145c3a;
+}
+
 .mode-head {
   display: flex;
   align-items: baseline;
