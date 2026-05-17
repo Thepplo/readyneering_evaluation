@@ -2235,6 +2235,10 @@
   .zone-scale {
     margin-top: 0 !important;
   }
+  .index-wrapper {
+    padding-top: 25px !important;
+    gap: 0px !important;
+  }
   .wrap {
     padding-top: 25px !important;
   }
