@@ -1765,24 +1765,25 @@ function renderFocusSubtitle(focusActions) {
 
   if (!items.length) return '';
 
-  var quotientChips = items.map(function(item) {
+  var chips = items.map(function(item) {
     return `
       <span class="q-chip ${item.key}">
-        ${item.label}
+        ${item.label} <span class="chip-build ${item.build}">(${capitalizeFirst(item.build)})</span>
       </span>
-      <span class="chip-build ${item.build}">(${capitalizeFirst(item.build)})</span>
     `;
-  }).join('');
+  });
+
+  var chipHtml = chips.length === 1
+    ? chips[0]
+    : chips[0] + ' <span class="subtitle-and">and</span> ' + chips[1];
 
   var intro = items.length === 1
     ? 'These come directly from your lowest-scoring quotient - '
     : 'These come directly from your two lowest-scoring quotients - ';
 
   return `
-    <span>${intro}</span>
-    <span class="focus-subtitle-chips">${quotientChips}</span>
-    <br>
-    <span>. They apply whether you are a people manager, an individual contributor, or both.</span>
+    ${intro}${chipHtml}.
+    They apply whether you are a people manager, an individual contributor, or both.
   `;
 }
 
