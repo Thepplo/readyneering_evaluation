@@ -154,7 +154,20 @@
     transition: none;
   }
 }
+.field-help.privacy-help {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
 
+  margin-top: 0.5rem;
+  color: #6b7280;
+}
+
+.field-help.privacy-help::before {
+  content: "ⓘ";
+  flex: 0 0 auto;
+  color: #9ca3af;
+}
 .privacy-consent {
   display: flex;
   align-items: flex-start;
