@@ -2094,6 +2094,8 @@
 
   .q-compact-bar-wrap,
   .q-compact-bar-track,
+  .section-icon,
+  .q-chip::before,
   .q-compact-bar-fill {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
