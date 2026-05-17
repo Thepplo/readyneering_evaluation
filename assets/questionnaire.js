@@ -2273,7 +2273,7 @@ async function renderResults() {
   renderVerdict(res);
   /* document.getElementById('q-grid-wrapper').innerHTML = renderQuotientGrid(quotientData); */
   mountCompactQuotientList('q-grid-wrapper', quotientData);
-  buildSignals(res.dim, res.R, res.P);
+  /* buildSignals(res.dim, res.R, res.P); */
 }
 
 function renderOrbit(res) {

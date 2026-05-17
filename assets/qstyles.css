@@ -1309,6 +1309,8 @@
   font-weight: 650;
 }
 
+.page-break-label{background:#F5F4F0;padding:12px 44px;border:1px solid #DEDEDE;border-top:none;font-size:9px;font-weight:600;color:#AAAAAA;letter-spacing:2px;text-transform:uppercase}
+
 .mode-head {
   display: flex;
   align-items: baseline;
