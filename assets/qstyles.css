@@ -1435,7 +1435,6 @@
   align-items: center;
   gap: 4px;
 
-  padding: 0;
   border-radius: 0;
 
   font-size: 11px;
@@ -1445,13 +1444,17 @@
   text-transform: capitalize;
 
   background: transparent;
-  color: rgba(20, 40, 60, 0.52);
 }
 
-.focus-action-outcome span + span::before {
+.focus-action-outcome span::before {
   content: "·";
   margin-right: 6px;
   color: rgba(20, 40, 60, 0.28);
+}
+
+.focus-action-outcome span:first-child::before,
+.focus-action-outcome .q-chip::before {
+  content: none;
 }
 
 .focus-action-outcome .outcome-prefix {
@@ -1495,13 +1498,21 @@
   margin: 0;
   max-width: 760px;
 
-  font-size: 17px;
+  font-size: 15px;
   line-height: 1.35;
   font-style: italic;
   font-weight: 400;
   color: #111827;
 }
 
+.focus-question-intro {
+  margin: -0.5rem 0 0;
+  max-width: 680px;
+
+  font-size: 12px;
+  line-height: 1.45;
+  color: rgba(20, 40, 60, 0.58);
+}
 
 
 .q-chip {
