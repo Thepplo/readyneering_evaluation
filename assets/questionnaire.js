@@ -1642,7 +1642,7 @@ function buildRankedQuotientSignals(quotients) {
     return a.score - b.score;
   });
 
-  return sorted.map(function(q, index) {
+  var ranked = sorted.map(function(q, index) {
     var meta = QUOTIENT_META[q.key];
 
     var signalLevel = 'high';
@@ -1658,12 +1658,66 @@ function buildRankedQuotientSignals(quotients) {
       label: q.label,
       score: q.score,
       level: q.level,
+      displayLevel: formatLevel(q.score),
       signalLevel: signalLevel,
       signal: meta.signal[signalLevel],
+      question: meta.question[signalLevel],
+      doMore: meta.doMore || [],
+      doLess: meta.doLess || [],
       roleS: q.roleS,
       build: meta.build
     };
   });
+
+  var focusQuotients = ranked.slice(0, 2);
+
+  return {
+    ranked: ranked,
+    focusQuotients: focusQuotients,
+    focusActions: buildFocusActions(focusQuotients)
+  };
+}
+
+function buildFocusActions(focusQuotients) {
+  var doMore = [];
+  var doLess = [];
+  var questions = [];
+
+  focusQuotients.forEach(function(q) {
+    doMore = doMore.concat(
+      (q.doMore || []).map(function(text) {
+        return {
+          key: q.key,
+          label: q.label,
+          text: text
+        };
+      })
+    );
+
+    doLess = doLess.concat(
+      (q.doLess || []).map(function(text) {
+        return {
+          key: q.key,
+          label: q.label,
+          text: text
+        };
+      })
+    );
+
+    if (q.question) {
+      questions.push({
+        key: q.key,
+        label: q.label,
+        text: q.question
+      });
+    }
+  });
+
+  return {
+    doMore: doMore.slice(0, 3),
+    doLess: doLess.slice(0, 3),
+    questions: questions.slice(0, 3)
+  };
 }
 
 function computeVerdict(overallScore) {
@@ -1990,11 +2044,11 @@ function nextFrame() {
 }
 
 function renderRankedSignalList(quotients) {
-  var rankedSignals = buildRankedQuotientSignals(quotients);
+  var rankedOutput = buildRankedQuotientSignals(quotients);
 
-  var lowest = rankedSignals[0];
-  var nextLowest = rankedSignals[1];
-  var strongest = rankedSignals.slice(2);
+  var lowest = rankedOutput.ranked[0];
+  var nextLowest = rankedOutput.ranked[1];
+  var strongest = rankedOutput.ranked.slice(2);
 
   return `
     <div class="ranked-signal-card">
@@ -2005,6 +2059,52 @@ function renderRankedSignalList(quotients) {
       ${renderRankedSignalGroup(strongest, 'building')}
     </div>
   `;
+}
+
+function renderFocusActionList(items) {
+  return items.map(function(item, index) {
+    return `
+      <div class="focus-action-item ${item.key}">
+        <div class="focus-action-number">${index + 1}</div>
+        <div class="focus-action-copy">
+          <span class="q-chip ${item.key}">${item.label}</span>
+          ${item.text}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderFocusActionsSection(focusActions) {
+  return `
+    <div class="focus-actions-section">
+      <div class="focus-actions-block do-more">
+        <h3>Do more of this</h3>
+        ${renderFocusActionList(focusActions.doMore)}
+      </div>
+
+      <div class="focus-actions-block do-less">
+        <h3>Do less of this</h3>
+        ${renderFocusActionList(focusActions.doLess)}
+      </div>
+
+      <div class="focus-actions-block questions">
+        <h3>Sit with these questions</h3>
+        ${renderFocusQuestionList(focusActions.questions)}
+      </div>
+    </div>
+  `;
+}
+
+function renderFocusQuestionList(items) {
+  return items.map(function(item) {
+    return `
+      <div class="focus-question-item ${item.key}">
+        <span class="q-chip ${item.key}">${item.label}</span>
+        <em>${item.text}</em>
+      </div>
+    `;
+  }).join('');
 }
 
 function renderRankedSignalRow(q, tone) {
@@ -2218,7 +2318,7 @@ async function renderResults() {
 
   var res = computeAll();
   var quotientData = buildQuotients(res);
-  var rankedSignals = buildRankedQuotientSignals(quotientData);
+  var rankedOutput = buildRankedQuotientSignals(quotientData);
   quotientData.sort((a, b) => b.score - a.score);
 
   var verdict = computeVerdict(res.O);
@@ -2237,6 +2337,7 @@ async function renderResults() {
   document.getElementById('pattern-chip-p-mode').textContent = debriefMode.preparednessLevel;
   document.getElementById('pattern-chip-r-mode').textContent = debriefMode.resilienceLevel;
   document.getElementById('ranked-signal-wrapper').innerHTML = renderRankedSignalList(quotientData);
+  document.getElementById('focus-actions-wrapper').innerHTML = renderFocusActionsSection(rankedOutput.focusActions);
   document.getElementById('mode-grid').innerHTML = modeHtml;
   document.getElementById('mode-grid-wm').innerHTML = modeHtmlW;
 
