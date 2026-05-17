@@ -2003,7 +2003,7 @@
   to { transform: rotate(360deg); }
 }
 
-.foot{background:#1A1A1A;padding:16px 44px;display:flex;justify-content:space-between;align-items:center;border-radius:0 0 16px 16px}
+.foot{background:#292929;padding:16px 44px;display:flex;justify-content:space-between;align-items:center;border-radius:0 0 16px 16px}
 .foot-brand{font-size:11px;color:#F5C518;font-weight:600;letter-spacing:0.5px}
 .foot-url{font-size:11px;color:#666666}
 
@@ -2102,9 +2102,17 @@
   .q-compact-bar-track,
   .section-icon,
   .q-chip::before,
+  .foot,
+  .focus-action-number,
+  .ranked-signal-card,
+  .ranked-signal-card::before,
   .q-compact-bar-fill {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+  }
+  #first-cw {
+    break-before: page;
+    page-break-before: always;
   }
   .page-break-label {
     border-top: 1px solid #DEDEDE;
@@ -2112,7 +2120,9 @@
     break-before: page;
     page-break-before: always;
   }
-
+  .focus-actions-block {
+    break-inside: avoid;
+  }
 /*   .q-card .q-copy {
     color: rgba(0,0,0,0.85) !important;
   }
