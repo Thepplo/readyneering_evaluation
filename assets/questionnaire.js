@@ -1839,7 +1839,12 @@ function buildSubmissionPayload(res, verdict) {
         source: "web_app",
         batch_id: getQueryParam('batch_id'),
         industry: selectedIndustry,
-        size: selectedSize
+        size: selectedSize,
+        privacyConsent: {
+          accepted: true,
+          acceptedAt: new Date().toISOString(),
+          noticeVersion: '2026-04-28'
+        }
       }
     },
     items,
@@ -2864,6 +2869,12 @@ function buildSignals(dim, R, P) {
     </div>
   `;
 }
+
+function hasPrivacyConsent() {
+  var consent = document.getElementById('privacy-consent');
+  return consent && consent.checked;
+}
+
 // ── Start ─────────────────────────────────────────────────
 function startAssessment() {
   var industrySelect = document.getElementById('industry-select');
@@ -2871,7 +2882,11 @@ function startAssessment() {
 
   selectedIndustry = industrySelect.value;
   selectedSize = sizeSelect.value
-  
+
+  if (!hasPrivacyConsent()) {
+    document.getElementById('privacy-warn').style.display = 'block';
+    return;
+  }
   if (!industrySelect) {
     console.error('Industry select not found');
     return;
