@@ -1598,12 +1598,12 @@
 }
 
 .focus-actions-block.do-more .focus-action-number {
-  background: #b8f3d5;
+  background: #d7f8e7;
   color: #145c3a;
 }
 
 .focus-actions-block.do-less .focus-action-number {
-  background: #ffd0d0;
+  background: #ffe1e1;
   color: #8a2424;
 }
 
@@ -1633,7 +1633,7 @@
   font-weight: 700;
   line-height: 1;
 
-  background: #b8f3d5;
+  background: #d7f8e7;
   color: #145c3a;
 }
 .focus-action-outcome {

@@ -49,7 +49,7 @@ const MODE_META = {
       low: "Too much depends on reaction and memory rather than design and readiness."
     },
     question: {
-      high: "Where do we know what good looks like—but fail to make it hold in practice?",
+      high: "Where do we know what good looks like-but fail to make it hold in practice?",
       mid: "What are we repeatedly reacting to that should already be designed for?",
       low: "Where is readiness depending more on memory than on structure?"
     }
@@ -152,8 +152,8 @@ const QUOTIENT_META = {
       low: 'Where does lack of clarity create drift or confusion?'
     },
     doMore: [
-      "Start one meeting this week with a 60-second signal check. Name one thing I am noticing — not an opinion, but an observation. Mind gets stronger when I separate what I see from the story I am building around it.",
-      "Name the story I am telling myself when something feels difficult. Say it plainly: the narrative I am hearing is X — is that actually true? Let the question challenge my thinking before the story hardens.",
+      "Start one meeting this week with a 60-second signal check. Name one thing I am noticing - not an opinion, but an observation. Mind gets stronger when I separate what I see from the story I am building around it.",
+      "Name the story I am telling myself when something feels difficult. Say it plainly: the narrative I am hearing is X - is that actually true? Let the question challenge my thinking before the story hardens.",
       "Write down the assumption behind one important decision before I act on it. Mind improves when I can see the frame I am using, not just the conclusion it produces."
     ],
     doLess: [
@@ -307,7 +307,7 @@ const TRIADS = [
   {
     quotient:"Execution",
     id:"execution-1",
-    scenario:"Something hits from outside my control — a sudden change at work, a family situation, an unexpected demand that cannot wait. I need to change direction mid-stride.",
+    scenario:"Something hits from outside my control - a sudden change at work, a family situation, an unexpected demand that cannot wait. I need to change direction mid-stride.",
     question:"How do I respond when speed and clarity matter most?",
     A:"I recalibrate within a day or two. Not panicked, not frozen.",
     B:"I define what I own and move fast. No drama.",
@@ -439,7 +439,7 @@ const TRIADS = [
   {
     quotient:"Vitality",
     id:"vitality-4",
-    scenario:"After an intense period - demanding work, family pressure, little time to recover — the question on the table is whether I treat my own sustainability as something I actively design, or something I just endure.",
+    scenario:"After an intense period - demanding work, family pressure, little time to recover - the question on the table is whether I treat my own sustainability as something I actively design, or something I just endure.",
     question:"Which best describes where I am?",
     A:"Individual endurance. I manage my own limits and push through.",
     B:"I know sustainability matters. I have not yet made it a deliberate practice.",
@@ -1134,7 +1134,7 @@ function getModeStructure(rScore, pScore) {
   if (rLevel === 'strong' && pLevel === 'strong') {
     return {
       modeStructure: 'both-strong',
-      modeTag: 'Genuinely ready — protect this and help others build it',
+      modeTag: 'Genuinely ready - protect this and help others build it',
       resilienceLevel: rLevel,
       preparednessLevel: pLevel
     };
@@ -1170,7 +1170,7 @@ function getModeStructure(rScore, pScore) {
   if (rHigh && pHigh) {
     return {
       modeStructure: 'both-building-or-higher',
-      modeTag: 'Current pattern: solid across both dimensions — the priority now is consistency under sustained pressure',
+      modeTag: 'Current pattern: solid across both dimensions - the priority now is consistency under sustained pressure',
       resilienceLevel: rLevel,
       preparednessLevel: pLevel
     };
@@ -1227,7 +1227,7 @@ function getDebrief(signals) {
   if (structure === 'preparedness-heavy') {
     if (weakest && weakest.key === 'execution') {
       return {
-        q: "Where are we planning effectively—but failing to follow through under real conditions?",
+        q: "Where are we planning effectively-but failing to follow through under real conditions?",
         n: "Plans only create value when they survive pressure, ambiguity, and time."
       };
     }
@@ -1719,12 +1719,11 @@ function buildFocusActions(focusQuotients) {
   var second = focusQuotients[1];
 
   if (!first) {
-    console.warn('No focus quotients found.');
-
     return {
       doMore: [],
       doLess: [],
-      sitWith: []
+      sitWith: [],
+      subtitleItems: []
     };
   }
 
@@ -1739,7 +1738,7 @@ function buildFocusActions(focusQuotients) {
   var actionQuotients = useOnlyLowest
     ? [first]
     : focusQuotients;
-    
+
   return {
     doMore: buildActionGroup(actionQuotients, 'doMore', 3),
     doLess: buildActionGroup(actionQuotients, 'doLess', 3),
@@ -1749,8 +1748,46 @@ function buildFocusActions(focusQuotients) {
     focusMode: useOnlyLowest ? 'single-quotient' : 'shared-band',
     focusSourceKeys: actionQuotients.map(function(q) {
       return q.key;
+    }),
+
+    subtitleItems: actionQuotients.map(function(q) {
+      return {
+        key: q.key,
+        label: q.label,
+        build: q.build
+      };
     })
   };
+}
+
+function renderFocusSubtitle(focusActions) {
+  var items = focusActions.subtitleItems || [];
+
+  if (!items.length) return '';
+
+  var quotientChips = items.map(function(item) {
+    return `
+      <span class="q-chip ${item.key}">
+        ${item.label}
+        <span class="chip-build">(${capitalizeFirst(item.build)})</span>
+      </span>
+    `;
+  }).join('');
+
+  var intro = items.length === 1
+    ? 'These come directly from your lowest-scoring quotient - '
+    : 'These come directly from your two lowest-scoring quotients - ';
+
+  return `
+    <span>${intro}</span>
+    <span class="focus-subtitle-chips">${quotientChips}</span>
+    <span>. They apply whether you are a people manager, an individual contributor, or both.</span>
+  `;
+}
+
+function capitalizeFirst(value) {
+  if (!value) return '';
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 function buildActionGroup(quotients, actionKey, limit) {
@@ -2249,7 +2286,7 @@ function renderRankedSignalRow(q, tone) {
 
       <div class="ranked-signal-copy">
         <div class="ranked-signal-copy-title-div">
-          <span class="q-chip ${q.key}">${q.label}</span> <strong>(${q.score.toFixed(1)} — ${formatLevel(q.score)}).</strong>
+          <span class="q-chip ${q.key}">${q.label}</span> <strong>(${q.score.toFixed(1)} - ${formatLevel(q.score)}).</strong>
         </div>
         ${q.signal}
         ${suffix ? `<span class="ranked-signal-suffix">${suffix}</span>` : ''}
@@ -2293,7 +2330,7 @@ function renderRankedSignalGroup(items, tone) {
           <span class="ranked-chip-list">
             ${renderQChipList(items)}
           </span>
-          <strong>(${scoreRange} — ${levelLabel}).</strong>
+          <strong>(${scoreRange} - ${levelLabel}).</strong>
         </div>
         ${copy}
         ${suffix ? `<span class="ranked-signal-suffix">${suffix}</span>` : ''}
@@ -2515,6 +2552,8 @@ async function renderResults() {
     industry: selectedIndustryLabel,
     companySize: selectedSizeLabel
   });
+  document.getElementById('action-sub').innerHTML =
+    renderFocusSubtitle(rankedOutput.focusActions);
   document.getElementById('mode-grid').innerHTML = modeHtml;
   document.getElementById('mode-grid-wm').innerHTML = modeHtmlW;
 
