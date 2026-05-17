@@ -2148,6 +2148,9 @@ function renderFocusActionsSection(focusActions) {
 
       <div class="focus-actions-block questions">
         <strong>Sit with these questions</strong>
+        <p class="focus-question-intro">
+          These are questions to sit with, not problems to solve immediately. There are no right answers - just honest ones.
+        </p>
         ${renderFocusQuestionList(focusActions.sitWith)}
       </div>
     </div>
@@ -2155,16 +2158,15 @@ function renderFocusActionsSection(focusActions) {
 }
 
 function renderFocusQuestionList(items) {
-  return items.map(function(item) {
-    return `
-      <div class="focus-question-item ${item.key}">
-      <!--
-        <span class="q-chip ${item.key}">${item.label}</span>
-        -->
-        <em>${item.text}</em>
-      </div>
-    `;
-  }).join('');
+  return `
+    <div class="focus-question-list">
+      ${items.map(function(item) {
+        return `
+          <p class="focus-question-item">${item.text}</p>
+        `;
+      }).join('')}
+    </div>
+  `;
 }
 
 function renderRankedSignalRow(q, tone) {
