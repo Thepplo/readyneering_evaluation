@@ -1748,25 +1748,45 @@
 .chip-build.resilience {
   color: rgba(102, 91, 208, 1);
 }
-.focus-actions-footer {
+.focus-actions-callout {
   margin-top: 2rem;
-  padding: 1.1rem 1.25rem;
-  border-top: 1px solid #e5e7eb;
-  background: transparent;
+  padding: 1rem 1.15rem;
+
+  border: 1px solid rgba(245, 184, 46, 0.45);
+  border-left: 4px solid #f5b82e;
+  border-radius: 14px;
+
+  background: rgba(255, 250, 235, 0.72);
 }
 
-.focus-actions-footer p {
+.focus-actions-callout p {
   margin: 0;
   max-width: 760px;
 
   font-size: 13px;
   line-height: 1.6;
-  color: #6b7280;
+  color: #6f4d00;
 }
 
-.focus-actions-footer strong {
+.focus-actions-callout strong {
   color: #111827;
   font-weight: 650;
+}
+
+.focus-actions-callout .q-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  padding: 1px 6px;
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(20, 40, 60, 0.08);
 }
 
 .q-chip {

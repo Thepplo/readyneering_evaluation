@@ -1801,7 +1801,7 @@ function renderFocusSubtitle(focusActions) {
   `;
 }
 
-function renderFocusFooter(focusActions) {
+function renderFocusCallout(focusActions) {
   var items = focusActions.subtitleItems || [];
   var quotientChips = renderFocusChipList(items);
 
@@ -1810,7 +1810,7 @@ function renderFocusFooter(focusActions) {
     : 'Small, consistent shifts where your scores are lowest will do more than a significant effort in an area where you are already strong.';
 
   return `
-    <div class="focus-actions-footer">
+    <div class="focus-actions-callout">
       <p>
         These three priorities come from where your scores are lowest across the Five Quotients.
         Remember: <strong>Readiness = Preparedness × Resilience.</strong>
@@ -2296,7 +2296,7 @@ function renderFocusActionsSection(focusActions) {
         </p>
         ${renderFocusQuestionList(focusActions.sitWith)}
       </div>
-      ${renderFocusFooter(focusActions)}
+      ${renderFocusCallout(focusActions)}
     </div>
   `;
 }
