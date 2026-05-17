@@ -1741,6 +1741,13 @@
   color: rgba(20, 40, 60, 0.58);
 }
 
+.chip-build.preparedness {
+  color: rgba(36, 169, 135, 1);
+}
+
+.chip-build.resilience {
+  color: rgba(102, 91, 208, 1);
+}
 
 .q-chip {
   font-weight: 600;

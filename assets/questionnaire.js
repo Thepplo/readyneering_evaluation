@@ -1769,8 +1769,8 @@ function renderFocusSubtitle(focusActions) {
     return `
       <span class="q-chip ${item.key}">
         ${item.label}
-        <span class="chip-build">(${capitalizeFirst(item.build)})</span>
       </span>
+      <span class="chip-build ${item.build}">(${capitalizeFirst(item.build)})</span>
     `;
   }).join('');
 
@@ -1781,6 +1781,7 @@ function renderFocusSubtitle(focusActions) {
   return `
     <span>${intro}</span>
     <span class="focus-subtitle-chips">${quotientChips}</span>
+    <br>
     <span>. They apply whether you are a people manager, an individual contributor, or both.</span>
   `;
 }
