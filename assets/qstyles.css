@@ -2232,7 +2232,12 @@
 @media print {
   .btn, .nav, .note-div, .no-print { display: none; }
   .cover,.foot{border-radius:0}
-
+  .zone-scale {
+    margin-top: 0 !important;
+  }
+  .wrap {
+    padding-top: 25px !important;
+  }
   .brand {
     position: absolute;
     top: 20px;
