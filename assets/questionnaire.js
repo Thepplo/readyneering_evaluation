@@ -2874,17 +2874,13 @@ function togglePrivacyDetails() {
 
   if (!details || !toggle) return;
 
-  var isHidden = details.hasAttribute('hidden');
+  var isOpen = details.classList.toggle('is-open');
 
-  if (isHidden) {
-    details.removeAttribute('hidden');
-    toggle.textContent = 'Hide privacy details';
-    toggle.setAttribute('aria-expanded', 'true');
-  } else {
-    details.setAttribute('hidden', '');
-    toggle.textContent = 'Read more about how your data is used';
-    toggle.setAttribute('aria-expanded', 'false');
-  }
+  details.setAttribute('aria-hidden', String(!isOpen));
+  toggle.setAttribute('aria-expanded', String(isOpen));
+  toggle.textContent = isOpen
+    ? 'Hide privacy details'
+    : 'Read more about how your data is used';
 }
 
 function hasPrivacyConsent() {
