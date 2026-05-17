@@ -2144,6 +2144,9 @@
   .screen {
     max-width: 100%;
   }
+  .wrap{
+    padding: 0;
+  }
   .q-grid {
     grid-template-columns: 1fr;
   }
