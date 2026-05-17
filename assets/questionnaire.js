@@ -1840,6 +1840,7 @@ function buildSubmissionPayload(res, verdict) {
         batch_id: getQueryParam('batch_id'),
         industry: selectedIndustry,
         size: selectedSize,
+        respondent_name: selectedName,
         privacy: getPrivacyConsentRecord()
       }
     },
@@ -2406,6 +2407,10 @@ function renderReportMetaLine(profile) {
     'Completed ' + profile.completedDate
   ];
 
+  if (profile.name) {
+    items.push(profile.name);
+  }
+
   if (profile.industry) {
     items.push(profile.industry);
   }
@@ -2464,6 +2469,7 @@ async function renderResults() {
   document.getElementById('ranked-signal-wrapper').innerHTML = renderRankedSignalList(quotientData);
   document.getElementById('focus-actions-wrapper').innerHTML = renderFocusActionsSection(rankedOutput.focusActions);
   document.getElementById('meta-line').innerHTML = renderReportMetaLine({
+    name: selectedName,
     completedDate: formatCompletedDate(new Date()),
     industry: selectedIndustry,
     companySize: selectedSize
@@ -2898,6 +2904,7 @@ function getPrivacyConsentRecord() {
 
 // ── Start ─────────────────────────────────────────────────
 function startAssessment() {
+  var nameInput = document.getElementById('name-input');
   var industrySelect = document.getElementById('industry-select');
   var sizeSelect = document.getElementById('size-select');
 
@@ -2919,6 +2926,9 @@ function startAssessment() {
   if (!selectedSize) {
     selectedSize = null;
   }
+  selectedName = nameInput && nameInput.value.trim()
+    ? nameInput.value.trim()
+    : null;
 
 
 /*   if (!selectedIndustry) {
