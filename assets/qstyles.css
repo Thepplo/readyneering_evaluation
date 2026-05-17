@@ -1324,6 +1324,11 @@
   border-bottom: 1px solid #e5e7eb;
   padding-bottom: 2rem;
 }
+.focus-actions-block>strong{
+  font-size: 18px;
+  font-weight: 500;
+  color: #111827;
+}
 
 .focus-action-item{
   display: flex;
@@ -1987,6 +1992,18 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+
+  .compact-bar-wrap,
+  .compact-bar-fill {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page-break-label {
+    display: block;
+    break-before: page;
+    page-break-before: always;
+  }
+
 /*   .q-card .q-copy {
     color: rgba(0,0,0,0.85) !important;
   }
