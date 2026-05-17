@@ -71,6 +71,54 @@
         <option value="5000+">5000+</option>
       </select>
     </div>
+    <div class="privacy-notice-card">
+      <h3>Privacy notice</h3>
+
+      <p>
+        Your responses will be used to generate your diagnostic results and will be securely stored in our EU-hosted database.
+      </p>
+
+      <button
+        type="button"
+        class="privacy-details-toggle"
+        onclick="togglePrivacyDetails()"
+        aria-expanded="false"
+        id="privacy-details-toggle"
+      >
+        Read more about how your data is used
+      </button>
+
+      <div id="privacy-details" class="privacy-details" hidden>
+        <p>
+          We save your completed date, optional name, optional industry and company size,
+          assessment answers, calculated scores, and generated results.
+        </p>
+
+        <p>
+          We use this data to provide your result, maintain assessment records, and improve the diagnostic.
+          We may use aggregated, non-identifying data for analysis and benchmarking.
+        </p>
+
+        <p>
+          Your individual results are not shared with an organisation unless this has been clearly agreed with you.
+        </p>
+
+        <p>
+          You can request access, correction, or deletion of your data by contacting us.
+        </p>
+      </div>
+
+      <label class="privacy-consent">
+        <input type="checkbox" id="privacy-consent" />
+        <span>
+          I have read the privacy notice and understand how my responses will be used.
+        </span>
+      </label>
+
+      <p id="privacy-warn" class="privacy-warn" style="display:none;">
+        Please confirm this before starting.
+      </p>
+    </div>
     <label class="privacy-consent">
       <input type="checkbox" id="privacy-consent" />
       <span>
@@ -87,7 +135,7 @@
     <div id="industry-warn" style="display:none;color:red;margin-top:8px;">
       Please select an industry before continuing.
     </div>
-    <div id="data-note" class="note-div"><b>NOTE:</b> No personal data will be saved, only the results of the assessment.</div>
+    <!-- <div id="data-note" class="note-div"><b>NOTE:</b> No personal data will be saved, only the results of the assessment.</div> -->
   </div>
   </div>
 

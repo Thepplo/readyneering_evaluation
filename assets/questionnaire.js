@@ -1840,11 +1840,7 @@ function buildSubmissionPayload(res, verdict) {
         batch_id: getQueryParam('batch_id'),
         industry: selectedIndustry,
         size: selectedSize,
-        privacyConsent: {
-          accepted: true,
-          acceptedAt: new Date().toISOString(),
-          noticeVersion: '2026-04-28'
-        }
+        privacy: getPrivacyConsentRecord()
       }
     },
     items,
@@ -2870,9 +2866,38 @@ function buildSignals(dim, R, P) {
   `;
 }
 
+const PRIVACY_NOTICE_VERSION = '2026-04-28';
+
+function togglePrivacyDetails() {
+  var details = document.getElementById('privacy-details');
+  var toggle = document.getElementById('privacy-details-toggle');
+
+  if (!details || !toggle) return;
+
+  var isHidden = details.hasAttribute('hidden');
+
+  if (isHidden) {
+    details.removeAttribute('hidden');
+    toggle.textContent = 'Hide privacy details';
+    toggle.setAttribute('aria-expanded', 'true');
+  } else {
+    details.setAttribute('hidden', '');
+    toggle.textContent = 'Read more about how your data is used';
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+}
+
 function hasPrivacyConsent() {
   var consent = document.getElementById('privacy-consent');
   return consent && consent.checked;
+}
+
+function getPrivacyConsentRecord() {
+  return {
+    accepted: hasPrivacyConsent(),
+    acceptedAt: new Date().toISOString(),
+    noticeVersion: PRIVACY_NOTICE_VERSION
+  };
 }
 
 // ── Start ─────────────────────────────────────────────────
@@ -2887,6 +2912,7 @@ function startAssessment() {
     document.getElementById('privacy-warn').style.display = 'block';
     return;
   }
+  document.getElementById('privacy-warn').style.display = 'none';
   if (!industrySelect) {
     console.error('Industry select not found');
     return;
