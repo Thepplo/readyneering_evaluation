@@ -712,7 +712,7 @@
 
 #mode-grid-wm>.mode-grid>.mode-card {
   background: rgba(255,255,255,0.02);
-  border-color: rgba(255,255,255,0.08);
+
 }
 
 .mode-card.resilience {
@@ -905,13 +905,6 @@
   color: #1d4ed8;
 }
 
-
-.zone-strip-rp .z-risk,
-.zone-strip-rp .z-dev,
-.zone-strip-rp .z-build,
-.zone-strip-rp .z-ready {
-  background: rgba(255,255,255,0.68);
-}
 .zone-strip-rp .zone-marker {
   position: absolute;
   top: -24px;
@@ -1178,7 +1171,7 @@
   border: 1px solid #deded8;
   border-radius: 10px;
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.72), rgba(250,249,246,0.88));
+    linear-gradient(180deg, rgba(255,255,255,0.96), rgba(249,250,251,0.96));
   box-shadow: none;
 }
 
