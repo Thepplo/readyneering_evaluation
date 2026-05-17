@@ -2406,10 +2406,6 @@ function renderReportMetaLine(profile) {
     'Completed ' + profile.completedDate
   ];
 
-  if (profile.name) {
-    items.push(profile.name);
-  }
-
   if (profile.industry) {
     items.push(profile.industry);
   }
@@ -2433,6 +2429,14 @@ function formatCompletedDate(date) {
     month: 'long',
     year: 'numeric'
   });
+}
+
+function getSelectedOptionLabel(selectEl) {
+  if (!selectEl || !selectEl.selectedOptions || !selectEl.selectedOptions.length) {
+    return null;
+  }
+
+  return selectEl.selectedOptions[0].textContent.trim() || null;
 }
 
 // ── Results ───────────────────────────────────────────────
@@ -2469,8 +2473,8 @@ async function renderResults() {
   document.getElementById('focus-actions-wrapper').innerHTML = renderFocusActionsSection(rankedOutput.focusActions);
   document.getElementById('meta-line').innerHTML = renderReportMetaLine({
     completedDate: formatCompletedDate(new Date()),
-    industry: selectedIndustry,
-    companySize: selectedSize
+    industry: selectedIndustryLabel,
+    companySize: selectedSizeLabel
   });
   document.getElementById('mode-grid').innerHTML = modeHtml;
   document.getElementById('mode-grid-wm').innerHTML = modeHtmlW;
@@ -2906,7 +2910,9 @@ function startAssessment() {
   var sizeSelect = document.getElementById('size-select');
 
   selectedIndustry = industrySelect.value;
-  selectedSize = sizeSelect.value
+  selectedIndustryLabel = getSelectedOptionLabel(industrySelect);
+  selectedSize = sizeSelect.value;
+  selectedSizeLabel = getSelectedOptionLabel(sizeSelect);
 
   if (!hasPrivacyConsent()) {
     document.getElementById('privacy-warn').style.display = 'block';
