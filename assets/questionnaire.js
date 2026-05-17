@@ -84,6 +84,10 @@ const QUOTIENT_META = {
     doLess: [
       "Stop treating tiredness as proof that I am committed. Before I push harder, ask: what would make this sustainable enough to repeat next week?",
       "Stop borrowing energy from tomorrow to get through today. Replace that habit by choosing one thing to pause, delegate, simplify, or finish at a lower standard."
+    ],
+    sitWith: [
+    "Where am I treating exhaustion as normal because admitting the cost would force me to change something?",
+    "What part of my performance currently depends on energy I may not be able to keep supplying?"
     ]
   },
 
@@ -114,6 +118,10 @@ const QUOTIENT_META = {
     doLess: [
       "Stop calling it logic when I am actually reacting from emotion. Before I decide or reply, ask: what feeling might be shaping my interpretation right now?",
       "Stop expecting others to read the emotional temperature I am carrying. Replace that with one honest sentence: I am noticing I feel X, and I do not want that to drive the decision."
+    ],
+    sitWith: [
+    "What feeling am I bringing into the room that other people may be adapting to, even if I have not named it?",
+    "Where am I calling something rational when it may actually be a protected reaction?"
     ]
   },
 
@@ -144,6 +152,10 @@ const QUOTIENT_META = {
     doLess: [
       "Stop letting “it is just a demanding phase” end the conversation. Replace it with: what specifically am I seeing, and how long has it been there?",
       "Stop blending facts and assumptions when I make decisions. Before a significant choice, ask: what do I actually know, and what am I assuming?"
+    ],
+    sitWith: [
+    "What signal am I noticing but not naming because saying it clearly would make the situation harder to ignore?",
+    "Where is the story I tell about why things are difficult making it easier for me not to act?"
     ]
   },
 
@@ -174,6 +186,10 @@ const QUOTIENT_META = {
     doLess: [
       "Stop mistaking agreement for progress. Replace it with a closing question: what exactly will I do next, by when, and how will I know it happened?",
       "Stop carrying vague commitments because naming the trade-off feels uncomfortable. Instead ask: what am I willing to deprioritise so this can actually get done?"
+    ],
+    sitWith: [
+    "Where am I mistaking movement for progress because the harder question is whether anything important has actually changed?",
+    "If I had to prove this priority was moving without using intention, effort, or meetings as evidence, what would I point to?"
     ]
   },
 
@@ -204,6 +220,10 @@ const QUOTIENT_META = {
     doLess: [
       "Stop assuming shared language means shared understanding. Replace it with: when I say this priority matters, what do I believe it means in practice?",
       "Stop moving forward when the direction only feels clear because no one has challenged it. Ask instead: what would I expect to see if we were misaligned?"
+    ],
+    sitWith: [
+      "Where am I assuming I am aligned with others because no one has openly disagreed?",
+      "What decision would become more uncomfortable if I had to say clearly what I am really prioritising?"
     ]
   }
 };
@@ -1664,6 +1684,7 @@ function buildRankedQuotientSignals(quotients) {
       question: meta.question[signalLevel],
       doMore: meta.doMore || [],
       doLess: meta.doLess || [],
+      sitWith: meta.sitWith || [],
       roleS: q.roleS,
       build: meta.build
     };
@@ -1706,14 +1727,16 @@ function buildFocusActions(focusQuotients) {
       })
     );
 
-    if (q.question) {
-      questions.push({
-        key: q.key,
-        label: q.label,
-        build: q.build,
-        text: q.question
-      });
-    }
+    questions = sitWith.concat(
+      (q.sitWith || []).map(function(text) {
+        return {
+          key: q.key,
+          label: q.label,
+          build: q.build,
+          text: text
+        };
+      })
+    );
   });
 
   return {
