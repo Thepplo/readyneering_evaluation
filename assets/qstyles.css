@@ -1748,6 +1748,26 @@
 .chip-build.resilience {
   color: rgba(102, 91, 208, 1);
 }
+.focus-actions-footer {
+  margin-top: 2rem;
+  padding: 1.1rem 1.25rem;
+  border-top: 1px solid #e5e7eb;
+  background: transparent;
+}
+
+.focus-actions-footer p {
+  margin: 0;
+  max-width: 760px;
+
+  font-size: 13px;
+  line-height: 1.6;
+  color: #6b7280;
+}
+
+.focus-actions-footer strong {
+  color: #111827;
+  font-weight: 650;
+}
 
 .q-chip {
   font-weight: 600;

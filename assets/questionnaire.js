@@ -1760,10 +1760,8 @@ function buildFocusActions(focusQuotients) {
   };
 }
 
-function renderFocusSubtitle(focusActions) {
-  var items = focusActions.subtitleItems || [];
-
-  if (!items.length) return '';
+function renderFocusChipList(items) {
+  if (!items || !items.length) return '';
 
   var chips = items.map(function(item) {
     return `
@@ -1773,9 +1771,25 @@ function renderFocusSubtitle(focusActions) {
     `;
   });
 
-  var chipHtml = chips.length === 1
-    ? chips[0]
-    : chips[0] + ' <span class="subtitle-and">and</span> ' + chips[1];
+  if (chips.length === 1) {
+    return chips[0];
+  }
+
+  if (chips.length === 2) {
+    return chips[0] + ' <span class="subtitle-and">and</span> ' + chips[1];
+  }
+
+  return chips.slice(0, -1).join(', ') +
+    ', <span class="subtitle-and">and</span> ' +
+    chips[chips.length - 1];
+}
+
+function renderFocusSubtitle(focusActions) {
+  var items = focusActions.subtitleItems || [];
+
+  if (!items.length) return '';
+
+  var chipHtml = renderFocusChipList(items);
 
   var intro = items.length === 1
     ? 'These come directly from your lowest-scoring quotient - '
@@ -1784,6 +1798,26 @@ function renderFocusSubtitle(focusActions) {
   return `
     ${intro}${chipHtml}.
     They apply whether you are a people manager, an individual contributor, or both.
+  `;
+}
+
+function renderFocusFooter(focusActions) {
+  var items = focusActions.subtitleItems || [];
+  var quotientChips = renderFocusChipList(items);
+
+  var finalSentence = quotientChips
+    ? `Small, consistent shifts in ${quotientChips} will do more than a significant effort in an area where you are already strong.`
+    : 'Small, consistent shifts where your scores are lowest will do more than a significant effort in an area where you are already strong.';
+
+  return `
+    <div class="focus-actions-footer">
+      <p>
+        These three priorities come from where your scores are lowest across the Five Quotients.
+        Remember: <strong>Readiness = Preparedness × Resilience.</strong>
+        A gap in either dimension cannot be covered by strength in the other.
+        ${finalSentence}
+      </p>
+    </div>
   `;
 }
 
@@ -2262,6 +2296,7 @@ function renderFocusActionsSection(focusActions) {
         </p>
         ${renderFocusQuestionList(focusActions.sitWith)}
       </div>
+      ${renderFocusFooter(focusActions)}
     </div>
   `;
 }
