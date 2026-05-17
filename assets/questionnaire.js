@@ -2081,11 +2081,12 @@ function renderFocusActionList(items) {
         <div class="focus-action-copy">
           <h4 class="focus-action-heading">${parts.heading}</h4>
           ${parts.body ? `<p class="focus-action-body">${parts.body}</p>` : ''}
+          <div class="focus-action-outcome">
+            <span class="q-chip ${item.key}">${item.label} ↑</span>
+            <span class="${item.build}">${item.build}</span>
+          </div>
         </div>
-        <div class="focus-action-outcome">
-          <span class="q-chip ${item.key}">${item.label} ↑</span>
-          <span>Preparedness ↑</span>
-        </div>
+
       </div>
     `;
   }).join('');

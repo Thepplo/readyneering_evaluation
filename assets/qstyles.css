@@ -1393,7 +1393,14 @@
   text-transform: uppercase;
 
   background: #eefaf4;
-  color: #145c3a;
+  color: currentColor;
+}
+.focus-action-outcome span.resilience {
+  color: #665bd0;
+}
+
+.focus-action-outcome span.preparedness {
+  color: #24a987;
 }
 
 .mode-head {
@@ -1933,7 +1940,7 @@
   }
 
   .index-wrapper {
-    background: #292929 !important;
+    background: #000 !important;
   }
 /*   .q-card .q-copy {
     color: rgba(0,0,0,0.85) !important;
