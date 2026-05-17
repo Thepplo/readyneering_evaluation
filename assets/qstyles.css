@@ -1730,11 +1730,12 @@
 
 .verdict-rp-flex {
   display: flex;
-  align-items: flex-start;
+  align-items: baseline;
   gap: 14px;
   padding: 22px 18px 22px 0px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: #cfcbc2;
+  font-size: 1.5rem;
 }
 
 .verdict-rp-item {
@@ -1749,6 +1750,12 @@
   line-height: 1;
   /* font-weight: 800; */
   letter-spacing: -0.03em;
+  color: #ffda33;
+}
+.verdict-rp-val.resilience{
+  color: #665bd0;
+}
+.verdict-rp-val.preparedness{
   color: #ffda33;
 }
 
