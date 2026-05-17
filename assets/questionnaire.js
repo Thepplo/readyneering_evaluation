@@ -2086,7 +2086,7 @@ function renderFocusActionList(items) {
           ${parts.body ? `<p class="focus-action-body">${parts.body}</p>` : ''}
           <div class="focus-action-outcome">
             <span class="q-chip ${item.key}">${item.label} ↑</span>
-            <span class="${item.build}">${item.build}</span>
+            <span class="${item.build}">${item.build} ↑</span>
           </div>
         </div>
 
