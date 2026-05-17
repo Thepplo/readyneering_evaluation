@@ -1689,6 +1689,7 @@ function buildFocusActions(focusQuotients) {
         return {
           key: q.key,
           label: q.label,
+          build: q.build,
           text: text
         };
       })
@@ -1699,6 +1700,7 @@ function buildFocusActions(focusQuotients) {
         return {
           key: q.key,
           label: q.label,
+          build: q.build,
           text: text
         };
       })
@@ -1708,6 +1710,7 @@ function buildFocusActions(focusQuotients) {
       questions.push({
         key: q.key,
         label: q.label,
+        build: q.build,
         text: q.question
       });
     }
