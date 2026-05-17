@@ -2422,6 +2422,14 @@ function renderReportMetaLine(profile) {
   `;
 }
 
+function formatCompletedDate(date) {
+  return date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+}
+
 // ── Results ───────────────────────────────────────────────
 async function renderResults() {
   saveAssessmentState();
@@ -2458,7 +2466,7 @@ async function renderResults() {
     completedDate: formatCompletedDate(new Date()),
     industry: selectedIndustry,
     companySize: selectedSize
-  });;
+  });
   document.getElementById('mode-grid').innerHTML = modeHtml;
   document.getElementById('mode-grid-wm').innerHTML = modeHtmlW;
 
