@@ -40,19 +40,6 @@
 
     <div class="cta-div">
     <div class="select-div">
-      <div class="sec-title">Your Name (optional)</div>
-      <input
-        id="name-input"
-        type="text"
-        autocomplete="name"
-        placeholder="Your name"
-        class="form-select text-input"
-      />
-      <p class="field-help privacy-help">
-        Add your name only if you want this result to be identifiable.
-      </p>
-    </div>
-    <div class="select-div">
       <div class="sec-title">Your industry (optional)</div>
       <div style="display:flex;align-items:start;gap:12px;">
       <select class="form-select"id="industry-select">
@@ -103,23 +90,32 @@
 
       <div id="privacy-details" class="privacy-details" aria-hidden="true">
         <p>
-          We save your completed date, optional name, optional industry and company size,
-          assessment answers, calculated scores, and generated results.
+          We do not ask for your name. We save your completed date, optional industry and company size,
+          assessment answers, calculated scores, generated results, and a technical session identifier used to process the assessment.
         </p>
 
         <p>
-          We use this data to provide your result, maintain assessment records, and improve the diagnostic.
-          We may use aggregated, non-identifying data for analysis and benchmarking.
+          We use this data to provide your result, maintain assessment records, improve the diagnostic,
+          and understand aggregate patterns. We may use aggregated, non-identifying data for analysis and benchmarking.
         </p>
 
         <p>
-          Your individual results are not shared with an organisation unless this has been clearly agreed with you.
-        </p>
-
-        <p>
-          You can request access, correction, or deletion of your data by contacting us.
+          Because we do not collect your name or email address, we may not be able to identify your individual submission later.
+          If you contact us about your data, we may need your submission reference or other information that lets us locate it.
         </p>
       </div>
+
+      <label class="privacy-consent">
+        <input type="checkbox" id="privacy-consent" />
+        <span>
+          I have read the privacy notice and understand how my responses will be used.
+        </span>
+      </label>
+
+      <p id="privacy-warn" class="privacy-warn" style="display:none;">
+        Please confirm this before starting.
+      </p>
+    </div>
 
       <label class="privacy-consent">
         <input type="checkbox" id="privacy-consent" />

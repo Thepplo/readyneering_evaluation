@@ -2904,7 +2904,6 @@ function getPrivacyConsentRecord() {
 
 // ── Start ─────────────────────────────────────────────────
 function startAssessment() {
-  var nameInput = document.getElementById('name-input');
   var industrySelect = document.getElementById('industry-select');
   var sizeSelect = document.getElementById('size-select');
 
@@ -2926,9 +2925,6 @@ function startAssessment() {
   if (!selectedSize) {
     selectedSize = null;
   }
-  selectedName = nameInput && nameInput.value.trim()
-    ? nameInput.value.trim()
-    : null;
 
 
 /*   if (!selectedIndustry) {
