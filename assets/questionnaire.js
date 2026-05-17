@@ -1719,6 +1719,8 @@ function buildFocusActions(focusQuotients) {
   var second = focusQuotients[1];
 
   if (!first) {
+    console.warn('No focus quotients found.');
+
     return {
       doMore: [],
       doLess: [],
@@ -1726,16 +1728,43 @@ function buildFocusActions(focusQuotients) {
     };
   }
 
-  var firstBand = getQuotientLevel(first.score);
-  var secondBand = second ? getQuotientLevel(second.score) : null;
+  var firstBand = getQuotientLevel(Number(first.score));
+  var secondBand = second ? getQuotientLevel(Number(second.score)) : null;
 
-  var useOnlyLowest =
+  var useOnlyLowest = Boolean(
     second &&
-    firstBand !== secondBand;
+    firstBand !== secondBand
+  );
 
   var actionQuotients = useOnlyLowest
     ? [first]
     : focusQuotients;
+
+  console.group('Focus action debug');
+
+  console.table(focusQuotients.map(function(q, index) {
+    return {
+      rank: index + 1,
+      key: q.key,
+      label: q.label,
+      score: q.score,
+      scoreAsNumber: Number(q.score),
+      band: getQuotientLevel(Number(q.score)),
+      build: q.build,
+      doMoreCount: (q.doMore || []).length,
+      doLessCount: (q.doLess || []).length,
+      sitWithCount: (q.sitWith || []).length
+    };
+  }));
+
+  console.log('First band:', firstBand);
+  console.log('Second band:', secondBand);
+  console.log('Using only lowest?', useOnlyLowest);
+  console.log('Action quotients:', actionQuotients.map(function(q) {
+    return q.key;
+  }));
+
+  console.groupEnd();
 
   return {
     doMore: buildActionGroup(actionQuotients, 'doMore', 3),
@@ -1743,7 +1772,10 @@ function buildFocusActions(focusQuotients) {
     sitWith: buildActionGroup(actionQuotients, 'sitWith', 3),
 
     focusBand: firstBand,
-    focusMode: useOnlyLowest ? 'single-quotient' : 'shared-band'
+    focusMode: useOnlyLowest ? 'single-quotient' : 'shared-band',
+    focusSourceKeys: actionQuotients.map(function(q) {
+      return q.key;
+    })
   };
 }
 
@@ -1757,14 +1789,21 @@ function buildActionGroup(quotients, actionKey, limit) {
           key: q.key,
           label: q.label,
           score: q.score,
-          level: q.level,
-          band: getQuotientLevel(q.score),
+          band: getQuotientLevel(Number(q.score)),
           build: q.build,
           text: text
         };
       })
     );
   });
+
+  console.log(actionKey, actions.map(function(action) {
+    return {
+      key: action.key,
+      band: action.band,
+      text: action.text.slice(0, 60) + '...'
+    };
+  }));
 
   return actions.slice(0, limit);
 }
