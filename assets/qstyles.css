@@ -474,6 +474,7 @@
 
 .form-select.text-input{
   cursor: text;
+  margin-bottom: 0;
 }
 
 .form-select:focus{
