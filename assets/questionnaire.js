@@ -2240,10 +2240,10 @@ async function renderResults() {
   document.getElementById('mode-grid').innerHTML = modeHtml;
   document.getElementById('mode-grid-wm').innerHTML = modeHtmlW;
 
-  document.getElementById('d-lbl').textContent = 'The question that matters';
+/*   document.getElementById('d-lbl').textContent = 'The question that matters';
   document.getElementById('d-q').innerHTML = d.q;
   document.getElementById('d-n').innerHTML = d.n;
-  document.getElementById('d-r').textContent = getDebriefReason(signals);
+  document.getElementById('d-r').textContent = getDebriefReason(signals); */
 
   console.log('Assessment Results:', res);
   console.log('Submission Payload:', payload);
