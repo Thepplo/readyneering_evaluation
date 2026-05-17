@@ -1673,16 +1673,6 @@
   background: transparent;
 }
 
-.focus-action-outcome span::before {
-  content: "·";
-  margin-right: 6px;
-  color: rgba(20, 40, 60, 0.28);
-}
-
-.focus-action-outcome span:first-child::before {
-  content: none;
-}
-
 .focus-action-outcome .outcome-prefix {
   color: rgba(20, 40, 60, 0.42);
   font-weight: 500;
@@ -2244,7 +2234,7 @@
   }
   .brand {
     position: absolute;
-    top: 20px;
+    top: 10px;
     left: 24px;
     width: clamp(96px, 10vw, 180px);
     height: auto;
