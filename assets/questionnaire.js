@@ -2108,10 +2108,19 @@ function getOutcomePrefix(actionType) {
   return 'Supports';
 }
 
+function renderTinyUpArrow() {
+  return `
+    <svg class="outcome-arrow" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 20L12 4M12 4L18 10M12 4L6 10"></path>
+    </svg>
+  `;
+}
+
 function renderFocusActionList(items, actionType) {
   return items.map(function(item, index) {
     const parts = splitFirstSentence(item.text);
     const outcomePrefix = getOutcomePrefix(actionType);
+    const upArrow = renderTinyUpArrow();
 
     return `
       <div class="focus-action-card ${item.key}">
@@ -2123,8 +2132,8 @@ function renderFocusActionList(items, actionType) {
 
           <div class="focus-action-outcome">
             <span class="outcome-prefix">${outcomePrefix}</span>
-            <span class="q-chip ${item.key}">${item.label} ↑</span>
-            <span class="${item.build}">${item.build} ↑</span>
+            <span class="q-chip ${item.key}">${item.label} ${upArrow}</span>
+            <span class="${item.build}">${item.build} ${upArrow}</span>
           </div>
         </div>
       </div>
