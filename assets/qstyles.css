@@ -747,10 +747,12 @@
   padding-bottom: 0;
 }
 
-#mode-grid-wm > .mode-grid > .mode-card.preparedness > .mode-head {
+#mode-grid-wm > .mode-grid > .mode-card > .mode-head {
   color: #f5f5f5;
 }
-
+#mode-grid-wm > .mode-grid > .mode-card > .mode-score {
+  color: #111827;
+}
 .mode-label {
   font-size: 21px;
   line-height: 1;
@@ -767,7 +769,7 @@
 .mode-score {
   font-size: 17px;
   font-weight: 800;
-  color: #111827;
+  color: #f5f5f5;
 }
 
 .mode-role {
@@ -779,7 +781,7 @@
   color: #888888;
   opacity: 0.9;
 }
-#mode-grid-wm > .mode-grid > .mode-card.preparedness > .mode-role {
+#mode-grid-wm > .mode-grid > .mode-card > .mode-role {
   color: #2f333a;
 }
 .mode-quotients {
