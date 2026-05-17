@@ -2075,14 +2075,14 @@ function splitFirstSentence(text) {
 
 function getOutcomePrefix(actionType) {
   if (actionType === 'doLess') {
-    return 'Reducing this supports';
+    return 'Supports';
   }
 
   if (actionType === 'questions') {
     return 'Reflecting on this supports';
   }
 
-  return 'Builds';
+  return 'Supports';
 }
 
 function renderFocusActionList(items, actionType) {
