@@ -2092,8 +2092,9 @@
     print-color-adjust: exact;
   }
 
-  .compact-bar-wrap,
-  .compact-bar-fill {
+  .q-compact-bar-wrap,
+  .q-compact-bar-track,
+  .q-compact-bar-fill {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
