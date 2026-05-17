@@ -2055,10 +2055,12 @@ function renderRankedSignalGroup(items, tone) {
   return `
     <div class="ranked-signal-row ${tone}">
       <div class="ranked-signal-copy">
-        <span class="ranked-chip-list">
-          ${renderQChipList(items)}
-        </span>
-        <strong>(${scoreRange} — ${levelLabel}).</strong>
+        <div class="ranked-signal-copy-title-div">
+          <span class="ranked-chip-list">
+            ${renderQChipList(items)}
+          </span>
+          <strong>(${scoreRange} — ${levelLabel}).</strong>
+        </div>
         ${copy}
         ${suffix ? `<span class="ranked-signal-suffix">${suffix}</span>` : ''}
       </div>
