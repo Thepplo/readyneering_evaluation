@@ -481,7 +481,7 @@
 }
 
 .select-div:focus-within .sec-title {
-  color: #ffda33; /* or whatever color you want */
+  color: #ffda33;
 }
 /* .logo-div { 
   display: flex; 
