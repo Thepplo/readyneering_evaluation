@@ -2235,7 +2235,7 @@
   }
   .brand {
     position: absolute;
-    top: 5px;
+    top: 0px;
     left: 24px;
     width: clamp(96px, 10vw, 180px);
     height: auto;
