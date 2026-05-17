@@ -2228,13 +2228,14 @@
   .index-wrapper {
     padding-top: 25px !important;
     gap: 0px !important;
+    border-radius: 0 !important;
   }
   .wrap {
     padding-top: 25px !important;
   }
   .brand {
     position: absolute;
-    top: 10px;
+    top: 5px;
     left: 24px;
     width: clamp(96px, 10vw, 180px);
     height: auto;
