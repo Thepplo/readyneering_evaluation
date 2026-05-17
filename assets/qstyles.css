@@ -1361,11 +1361,6 @@
 }
 
 
-.focus-actions-block.questions .section-icon {
-  background: #eee7ff;
-  color: #5b3db3;
-}
-
 .section-icon {
   width: 30px;
   height: 30px;
@@ -1403,6 +1398,14 @@
 .focus-actions-block.do-less .section-icon {
   background: #ffe1e1;
   color: #8a2424;
+}
+.section-icon-question {
+  background: #eee7ff;
+  color: #5b3db3;
+}
+.section-icon-question svg {
+  width: 18px;
+  height: 18px;
 }
 
 .focus-actions-block>strong{
