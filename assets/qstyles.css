@@ -1369,6 +1369,32 @@
   background: #b8f3d5;
   color: #145c3a;
 }
+.focus-action-outcome {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(20, 40, 60, 0.08);
+}
+
+.focus-action-outcome span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 5px 9px;
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  background: #eefaf4;
+  color: #145c3a;
+}
 
 .mode-head {
   display: flex;
@@ -1904,6 +1930,10 @@
     border: 1px solid #000 !important;
     color: #000 !important;
     break-inside: avoid;
+  }
+
+  .index-wrapper {
+    background: #292929 !important;
   }
 /*   .q-card .q-copy {
     color: rgba(0,0,0,0.85) !important;

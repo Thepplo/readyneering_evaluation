@@ -2082,6 +2082,10 @@ function renderFocusActionList(items) {
           <h4 class="focus-action-heading">${parts.heading}</h4>
           ${parts.body ? `<p class="focus-action-body">${parts.body}</p>` : ''}
         </div>
+        <div class="focus-action-outcome">
+          <span class="q-chip ${item.key}">${item.label} ↑</span>
+          <span>Preparedness ↑</span>
+        </div>
       </div>
     `;
   }).join('');
