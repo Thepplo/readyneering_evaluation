@@ -1973,6 +1973,7 @@
     print-color-adjust: exact;
   }
   .page-break-label {
+    border-top: 1px solid #DEDEDE;
     display: block;
     break-before: page;
     page-break-before: always;
