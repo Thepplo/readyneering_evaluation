@@ -748,9 +748,9 @@
 }
 
 #mode-grid-wm > .mode-grid > .mode-card > .mode-head {
-  color: #f5f5f5;
+  color: #111827;
 }
-#mode-grid-wm > .mode-grid > .mode-card > .mode-score {
+#mode-grid-wm > .mode-grid > .mode-card > .mode-head > .mode-score {
   color: #111827;
 }
 .mode-label {
