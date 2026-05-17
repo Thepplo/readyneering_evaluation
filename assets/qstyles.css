@@ -1749,23 +1749,35 @@
   color: rgba(102, 91, 208, 1);
 }
 .focus-actions-callout {
-  margin-top: 2rem;
-  padding: 1rem 1.15rem;
+  margin-top: 0.5rem;
+  padding: 20px 22px;
 
-  border: 1px solid rgba(245, 184, 46, 0.45);
-  border-left: 4px solid #f5b82e;
-  border-radius: 14px;
+  border: 1px solid rgba(20, 40, 60, 0.10);
+  border-radius: 16px;
 
-  background: rgba(255, 250, 235, 0.72);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.96), rgba(249,250,251,0.96));
+
+  position: relative;
+}
+
+.focus-actions-callout::before {
+  content: "";
+  position: absolute;
+  inset: 18px auto 18px 0;
+  width: 3px;
+  border-radius: 999px;
+  background: rgba(20, 40, 60, 0.18);
 }
 
 .focus-actions-callout p {
   margin: 0;
   max-width: 760px;
+  padding-left: 0.65rem;
 
   font-size: 13px;
-  line-height: 1.6;
-  color: #6f4d00;
+  line-height: 1.65;
+  color: #4b5563;
 }
 
 .focus-actions-callout strong {
@@ -1778,15 +1790,13 @@
   align-items: center;
   gap: 0.25rem;
 
-  padding: 1px 6px;
-  border-radius: 999px;
-
+  padding-left: 10px;
   font-size: 12px;
   font-weight: 700;
   line-height: 1.4;
 
-  background: rgba(255, 255, 255, 0.65);
-  border: 1px solid rgba(20, 40, 60, 0.08);
+  background: transparent;
+  border: 0;
 }
 
 .q-chip {
