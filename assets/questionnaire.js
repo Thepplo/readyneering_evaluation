@@ -2584,7 +2584,7 @@ function renderOrbit(res) {
 
       <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
         <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
-          ${makeRing(res.O, 0, 25, '#A00646', '#A006463f', centerSize)}
+          ${makeRing(res.O, 0, 25, '#ffda33', '#ffda3371', centerSize)}
         </div>
       </foreignObject>
 

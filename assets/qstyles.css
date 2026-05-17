@@ -747,11 +747,21 @@
   padding-bottom: 0;
 }
 
+#mode-grid-wm > .mode-grid > .mode-card.preparedness > .mode-head {
+  color: #f5f5f5;
+}
+
 .mode-label {
   font-size: 21px;
   line-height: 1;
   font-weight: 750;
   letter-spacing: -0.02em;
+}
+.mode-label.resilience {
+  color: #6645d0;
+}
+.mode-label.preparedness {
+  color: #24A987;
 }
 
 .mode-score {
@@ -766,10 +776,12 @@
   font-size: 14px;
   line-height: 1.35;
   font-style: italic;
-  color: #2f333a;
+  color: #888888;
   opacity: 0.9;
 }
-
+#mode-grid-wm > .mode-grid > .mode-card.preparedness > .mode-role {
+  color: #2f333a;
+}
 .mode-quotients {
   margin-top: 18px;
   display: flex;
@@ -840,7 +852,6 @@
   grid-template-columns: 35% 25% 20% 20%;
   overflow: visible;
   margin-top: 34px;
-  margin-bottom: 42px;
 
   border: 1px solid #deded8;
   border-radius: 12px;
