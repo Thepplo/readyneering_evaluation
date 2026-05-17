@@ -1702,7 +1702,7 @@ function buildRankedQuotientSignals(quotients) {
 function buildFocusActions(focusQuotients) {
   var doMore = [];
   var doLess = [];
-  var questions = [];
+  var sitWith = [];
 
   focusQuotients.forEach(function(q) {
     doMore = doMore.concat(
@@ -1727,7 +1727,7 @@ function buildFocusActions(focusQuotients) {
       })
     );
 
-    questions = sitWith.concat(
+    sitWith = sitWith.concat(
       (q.sitWith || []).map(function(text) {
         return {
           key: q.key,
@@ -1742,7 +1742,7 @@ function buildFocusActions(focusQuotients) {
   return {
     doMore: doMore.slice(0, 3),
     doLess: doLess.slice(0, 3),
-    questions: questions.slice(0, 3)
+    sitWith: sitWith.slice(0, 3)
   };
 }
 
@@ -2101,7 +2101,7 @@ function getOutcomePrefix(actionType) {
     return 'Supports';
   }
 
-  if (actionType === 'questions') {
+  if (actionType === 'sitWith') {
     return 'Reflecting on this supports';
   }
 
@@ -2148,7 +2148,7 @@ function renderFocusActionsSection(focusActions) {
 
       <div class="focus-actions-block questions">
         <strong>Sit with these questions</strong>
-        ${renderFocusQuestionList(focusActions.questions)}
+        ${renderFocusQuestionList(focusActions.sitWith)}
       </div>
     </div>
   `;
