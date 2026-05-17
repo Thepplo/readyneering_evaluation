@@ -1072,7 +1072,7 @@
 .q-compact-list {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 32px;
   max-width: 760px;
 }
 
@@ -1151,9 +1151,9 @@
 
 .q-compact-badge {
   justify-self: start;
-  padding: 6px 10px;
-  border-radius: 5px;
-  font-size: 11px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  font-size: 10px;
   font-weight: 700;
   line-height: 1;
 }
@@ -2002,9 +2002,15 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+.foot{background:#1A1A1A;padding:16px 44px;display:flex;justify-content:space-between;align-items:center;border-radius:0 0 16px 16px}
+.foot-brand{font-size:11px;color:#F5C518;font-weight:600;letter-spacing:0.5px}
+.foot-url{font-size:11px;color:#666666}
+
+
 @media print {
   .btn, .nav, .note-div, .no-print { display: none; }
-  
+  .cover,.foot{border-radius:0}
 
   .brand {
     position: absolute;
