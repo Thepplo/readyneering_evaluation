@@ -2137,17 +2137,26 @@ function renderFocusActionsSection(focusActions) {
   return `
     <div class="focus-actions-section">
       <div class="focus-actions-block do-more">
-        <strong>Do more of this</strong>
+        <div class="focus-actions-block-header">
+          <span class="section-icon" aria-hidden="true">↑</span>
+          <strong>Do more of this</strong>
+        </div>
         ${renderFocusActionList(focusActions.doMore, 'doMore')}
       </div>
 
       <div class="focus-actions-block do-less">
-        <strong>Do less of this</strong>
+        <div class="focus-actions-block-header">
+          <span class="section-icon" aria-hidden="true">↓</span>
+          <strong>Do less of this</strong>
+        </div>
         ${renderFocusActionList(focusActions.doLess, 'doLess')}
       </div>
 
       <div class="focus-actions-block questions">
-        <strong>Sit with these questions</strong>
+        <div class="focus-actions-block-header">
+          <span class="section-icon" aria-hidden="true">?</span>
+          <strong>Sit with these questions</strong>
+        </div>
         <p class="focus-question-intro">
           These are questions to sit with, not problems to solve immediately. There are no right answers - just honest ones.
         </p>
