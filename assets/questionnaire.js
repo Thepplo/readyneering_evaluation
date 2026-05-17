@@ -2061,19 +2061,32 @@ function renderRankedSignalList(quotients) {
   `;
 }
 
+function splitFirstSentence(text) {
+  const match = text.match(/^(.+?[.!?])(\s+[\s\S]*)?$/);
+
+  return {
+    heading: match ? match[1] : text,
+    body: match && match[2] ? match[2].trim() : ''
+  };
+}
+
 function renderFocusActionList(items) {
   return items.map(function(item, index) {
+    const parts = splitFirstSentence(item.text);
+
     return `
-      <div class="focus-action-item ${item.key}">
+      <div class="pattern-card ${item.key}">
         <div class="focus-action-number">${index + 1}</div>
+
         <div class="focus-action-copy">
-          <!-- <span class="q-chip ${item.key}">${item.label}</span> -->
-          ${item.text}
+          <h4 class="focus-action-heading">${parts.heading}</h4>
+          ${parts.body ? `<p class="focus-action-body">${parts.body}</p>` : ''}
         </div>
       </div>
     `;
   }).join('');
 }
+
 
 function renderFocusActionsSection(focusActions) {
   return `
