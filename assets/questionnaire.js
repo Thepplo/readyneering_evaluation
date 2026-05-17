@@ -2446,8 +2446,8 @@ async function renderResults() {
   const state = loadAssessmentState() || {};
 
   var answers = getAnswerBreakdown();
-  console.log('--- ANSWER BREAKDOWN ---');
-  console.table(answers);
+/*   console.log('--- ANSWER BREAKDOWN ---');
+  console.table(answers); */
 
   var res = computeAll();
   var quotientData = buildQuotients(res);
@@ -2484,13 +2484,13 @@ async function renderResults() {
   document.getElementById('d-n').innerHTML = d.n;
   document.getElementById('d-r').textContent = getDebriefReason(signals); */
 
-  console.log('Assessment Results:', res);
-  console.log('Submission Payload:', payload);
+/*   console.log('Assessment Results:', res);
+  console.log('Submission Payload:', payload); */
 
   if (!state.submitted) {
     try {
       const saved = await saveAssessment(payload);
-      console.log('Saved assessment:', saved);
+      /* console.log('Saved assessment:', saved); */
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
         ...state,
@@ -2502,10 +2502,10 @@ async function renderResults() {
         submitted: true
       }));
     } catch (err) {
-      console.error('Failed to save assessment:', err);
+      /* console.error('Failed to save assessment:', err); */
     }
   } else {
-    console.log('Assessment already submitted, skipping save.');
+    /* console.log('Assessment already submitted, skipping save.'); */
   }
 
   renderOrbit(res);
@@ -2920,7 +2920,7 @@ function startAssessment() {
   }
   document.getElementById('privacy-warn').style.display = 'none';
   if (!industrySelect) {
-    console.error('Industry select not found');
+    /* console.error('Industry select not found'); */
     return;
   }
   if (!selectedIndustry) {
@@ -2953,11 +2953,13 @@ function restoreAssessment() {
   const industrySelect = document.getElementById('industry-select');
   if (industrySelect && selectedIndustry) {
     industrySelect.value = selectedIndustry;
+    selectedIndustryLabel = getSelectedOptionLabel(industrySelect);
   }
   selectedSize = saved.selectedSize || '';
   const sizeSelect = document.getElementById('size-select');
   if (sizeSelect && selectedSize) {
     sizeSelect.value = selectedSize;
+    selectedSizeLabel = getSelectedOptionLabel(sizeSelect);
   }
   document.getElementById('scr-intro').style.display = 'none';
   document.getElementById('scr-assess').style.display = 'block';
