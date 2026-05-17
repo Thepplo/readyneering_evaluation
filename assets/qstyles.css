@@ -1967,10 +1967,13 @@
   }
   .mode-card {
     /* border-color: #000 !important; */
-    color: #000 !important;
+    /* color: #000 !important; */
     break-inside: avoid;
   }
   .index-content-wrapper{
+    break-inside: avoid;
+  }
+  .q-compact-list{
     break-inside: avoid;
   }
   .signal-card {
