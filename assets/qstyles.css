@@ -1330,14 +1330,15 @@
   gap: 1.5rem;
 }
 
-.action-card {
-  padding: 18px 20px;
-  border: 1px solid #e5e7eb;
+.focus-action-card {
+  padding: 22px 24px;
+  border: 1px solid rgba(20, 40, 60, 0.10);
   border-radius: 16px;
   background:
     linear-gradient(180deg, rgba(255,255,255,0.96), rgba(249,250,251,0.96));
   display: flex;
   gap: 1.5rem;
+  align-items: baseline;
 }
 
 .focus-action-copy>h4{
