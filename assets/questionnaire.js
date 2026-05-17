@@ -1840,7 +1840,6 @@ function buildSubmissionPayload(res, verdict) {
         batch_id: getQueryParam('batch_id'),
         industry: selectedIndustry,
         size: selectedSize,
-        respondent_name: selectedName,
         privacy: getPrivacyConsentRecord()
       }
     },
@@ -2469,7 +2468,6 @@ async function renderResults() {
   document.getElementById('ranked-signal-wrapper').innerHTML = renderRankedSignalList(quotientData);
   document.getElementById('focus-actions-wrapper').innerHTML = renderFocusActionsSection(rankedOutput.focusActions);
   document.getElementById('meta-line').innerHTML = renderReportMetaLine({
-    name: selectedName,
     completedDate: formatCompletedDate(new Date()),
     industry: selectedIndustry,
     companySize: selectedSize
