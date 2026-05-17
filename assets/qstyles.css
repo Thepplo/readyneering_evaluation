@@ -32,7 +32,7 @@
 
   .intro-meta {
     margin-top: 10px;
-    font-size: 13px;
+    font-size: 14px;
     color: #6f6e68;
   }
 
@@ -54,7 +54,7 @@
   border-radius: 12px;
   background: #f9fafb;
 
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.45;
   color: #374151;
 }
@@ -73,7 +73,7 @@
 
 .privacy-warn {
   margin-top: 0.5rem;
-  font-size: 13px;
+  font-size: 14px;
   color: #b91c1c;
 }
 
@@ -95,7 +95,7 @@
 
 .privacy-notice-card p {
   margin: 0.45rem 0;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.45;
   color: #4b5563;
 }
@@ -106,7 +106,7 @@
   border: 0;
   background: transparent;
   color: #111827;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 650;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -174,7 +174,7 @@
   align-items: flex-start;
   gap: 0.7rem;
   margin-top: 1rem;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.45;
   color: #374151;
 }
@@ -186,7 +186,7 @@
 
 .privacy-warn {
   margin-top: 0.5rem;
-  font-size: 13px;
+  font-size: 14px;
   color: #b91c1c;
 }
 
@@ -510,7 +510,7 @@
   border: 1px solid #bebdbd;
   border-radius: 10px;
 }
-.step-ind { font-size: 13px; color: transparent; margin-left: auto; }
+.step-ind { font-size: 14px; color: transparent; margin-left: auto; }
 .warn { font-size: 12px; color: #993c1d; margin-top: 10px; display: none; }
 
 /* results */
@@ -1027,7 +1027,7 @@
   border-right: 1px solid #e6e3dc;
   background: transparent;
   text-align: center;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.15;
   font-weight: 750;
 }
@@ -1296,7 +1296,7 @@
 }
 
 .q-compact-score {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
   color: #111827;
   text-align: right;
@@ -1464,7 +1464,7 @@
 
 .ranked-signal-copy {
   color: #374151;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.55;
   display: flex;
   flex-direction: column; 
@@ -1679,8 +1679,7 @@
   color: rgba(20, 40, 60, 0.28);
 }
 
-.focus-action-outcome span:first-child::before,
-.focus-action-outcome .q-chip::before {
+.focus-action-outcome span:first-child::before {
   content: none;
 }
 
@@ -1726,7 +1725,7 @@
   padding-left: 1rem;
   border-left: 2px solid rgba(91, 61, 179, 0.28);
 
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.45;
   font-style: italic;
   color: #111827;
@@ -1843,7 +1842,7 @@
   line-height: 1.45; 
 }
 .debrief-n { 
-  font-size: 13px; 
+  font-size: 14px; 
   color: rgba(43,33,29,0.72);
   line-height: 1.65;
   margin-top: 8px;
@@ -2088,7 +2087,7 @@
 
 .verdict-rp-flex > :not(.verdict-rp-item) {
   padding-top: 4px;
-  font-size: 13px;
+  font-size: 14px;
   color: rgba(207, 203, 194, 0.45);
 }
 
