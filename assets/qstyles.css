@@ -1156,78 +1156,78 @@
 }
 
 .pattern-card {
-  margin: 22px 0 26px;
-  padding: 18px 20px;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
+  margin: 28px 0 34px;
+  padding: 20px 22px 20px 24px;
+  border: 1px solid #deded8;
+  border-left: 4px solid #fbbf24;
+  border-radius: 10px;
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.96), rgba(249,250,251,0.96));
-  box-shadow:
-    0 10px 28px rgba(15, 23, 42, 0.06),
-    0 1px 2px rgba(15, 23, 42, 0.05);
+    linear-gradient(180deg, rgba(255,255,255,0.72), rgba(250,249,246,0.88));
+  box-shadow: none;
 }
 
 .pattern-kicker {
-  margin-bottom: 8px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  margin-bottom: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #BBBBBB;
+  color: #aaa7a0;
 }
 
 .pattern-main {
   max-width: 680px;
   font-size: 18px;
-  line-height: 1.35;
+  line-height: 1.28;
   font-weight: 650;
-  color: #111827;
+  letter-spacing: -0.01em;
+  color: #161b2a;
 }
 
 .pattern-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 14px;
+  margin-top: 16px;
 }
 
 .pattern-chip {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 7px 10px;
+  padding: 5px 9px;
   border-radius: 999px;
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
+  background: rgba(255,255,255,0.75);
+  border: 1px solid #deded8;
   font-size: 12px;
-  color: #4b5563;
+  color: #6b7280;
 }
 
 .pattern-chip-label {
   display: grid;
   place-items: center;
-  width: 19px;
-  height: 19px;
+  width: 18px;
+  height: 18px;
   border-radius: 999px;
   font-size: 10px;
   font-weight: 800;
-  color: #fff;
-  border: 1px solid currentColor;
+  background: #fff;
 }
 
 .pattern-chip strong {
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 800;
   color: #111827;
 }
 
 .pattern-chip.preparedness .pattern-chip-label {
   color: #24a987;
-  border-color: #24a987;
+  border: 1px solid #24a987;
 }
 
 .pattern-chip.resilience .pattern-chip-label {
   color: #665bd0;
-  border-color: #665bd0;
+  border: 1px solid #665bd0;
 }
 
 #pattern-chip-p-mode,
