@@ -79,14 +79,17 @@ const QUOTIENT_META = {
     },
     doMore: [
       "Block one recovery window before my next demanding work block. Treat it as part of the work, not a reward after the work. Vitality improves when I protect the energy required to make good decisions.",
+      "Set one boundary that protects my capacity before I feel depleted. Make it specific: a stop time, a meeting limit, a recovery block, or a clearer expectation. Vitality improves when I design for energy before energy is gone.",
       "Name one energy leak this week and reduce it deliberately. It might be a meeting, a habit, a late-night pattern, or a task I keep tolerating. Ask: what is quietly costing me more than I admit?"
     ],
     doLess: [
       "Stop treating tiredness as proof that I am committed. Before I push harder, ask: what would make this sustainable enough to repeat next week?",
+      "Stop using urgency as the reason I abandon recovery. Before I override my limits, ask: is this truly urgent, or have I made constant availability the default?",
       "Stop borrowing energy from tomorrow to get through today. Replace that habit by choosing one thing to pause, delegate, simplify, or finish at a lower standard."
     ],
     sitWith: [
     "Where am I treating exhaustion as normal because admitting the cost would force me to change something?",
+    "What would I change if I treated my energy as a strategic resource rather than a personal inconvenience?",
     "What part of my performance currently depends on energy I may not be able to keep supplying?"
     ]
   },
@@ -113,14 +116,17 @@ const QUOTIENT_META = {
     },
     doMore: [
       "Pause before responding to pressure and name what I am actually feeling. Use plain language: frustrated, defensive, anxious, disappointed, overloaded. Emotion improves when I can notice the signal before it becomes the reaction.",
-      "Ask one trusted person this week what mood I have been bringing into the room. Do not explain it away. Listen for the emotional pattern others may be adapting to around me."
+      "Ask one trusted person this week what mood I have been bringing into the room. Do not explain it away. Listen for the emotional pattern others may be adapting to around me.",
+      "Create one pause between emotional signal and action. Before I send, decide, or respond, take a moment to ask what the situation needs from me rather than what my reaction wants from me."
     ],
     doLess: [
       "Stop calling it logic when I am actually reacting from emotion. Before I decide or reply, ask: what feeling might be shaping my interpretation right now?",
-      "Stop expecting others to read the emotional temperature I am carrying. Replace that with one honest sentence: I am noticing I feel X, and I do not want that to drive the decision."
+      "Stop expecting others to read the emotional temperature I am carrying. Replace that with one honest sentence: I am noticing I feel X, and I do not want that to drive the decision.",
+      "Stop rewarding myself for staying composed while ignoring what the emotion is trying to tell me. Calm is useful only if it helps me respond more honestly, not disappear from the signal."
     ],
     sitWith: [
     "What feeling am I bringing into the room that other people may be adapting to, even if I have not named it?",
+    "What emotion do I most often manage by controlling the situation instead of naming what I feel?",
     "Where am I calling something rational when it may actually be a protected reaction?"
     ]
   },
@@ -147,14 +153,17 @@ const QUOTIENT_META = {
     },
     doMore: [
       "Start one meeting this week with a 60-second signal check. Name one thing I am noticing — not an opinion, but an observation. Mind gets stronger when I separate what I see from the story I am building around it.",
-      "Name the story I am telling myself when something feels difficult. Say it plainly: the narrative I am hearing is X — is that actually true? Let the question challenge my thinking before the story hardens."
+      "Name the story I am telling myself when something feels difficult. Say it plainly: the narrative I am hearing is X — is that actually true? Let the question challenge my thinking before the story hardens.",
+      "Write down the assumption behind one important decision before I act on it. Mind improves when I can see the frame I am using, not just the conclusion it produces."
     ],
     doLess: [
       "Stop letting “it is just a demanding phase” end the conversation. Replace it with: what specifically am I seeing, and how long has it been there?",
+      "Stop treating the first coherent explanation as the correct one. Before I commit to the story, ask: what else could explain the same facts?",
       "Stop blending facts and assumptions when I make decisions. Before a significant choice, ask: what do I actually know, and what am I assuming?"
     ],
     sitWith: [
     "What signal am I noticing but not naming because saying it clearly would make the situation harder to ignore?",
+    "What assumption feels so obvious to me that I have stopped treating it as an assumption?",
     "Where is the story I tell about why things are difficult making it easier for me not to act?"
     ]
   },
@@ -181,15 +190,18 @@ const QUOTIENT_META = {
     },
     doMore: [
       "Choose one commitment this week and define the next visible action before I leave the conversation. Execution improves when good intent becomes a specific move with an owner and a date.",
-      "Review one stalled priority and identify the real blocker. Do not settle for “busy” or “unclear.” Ask: what decision, resource, conversation, or trade-off would actually move this forward?"
+      "Review one stalled priority and identify the real blocker. Do not settle for “busy” or “unclear.” Ask: what decision, resource, conversation, or trade-off would actually move this forward?",
+      "Turn one open loop into a visible next step today. Write down the owner, action, and timing so progress no longer depends on memory, motivation, or good intentions."
     ],
     doLess: [
       "Stop mistaking agreement for progress. Replace it with a closing question: what exactly will I do next, by when, and how will I know it happened?",
-      "Stop carrying vague commitments because naming the trade-off feels uncomfortable. Instead ask: what am I willing to deprioritise so this can actually get done?"
+      "Stop carrying vague commitments because naming the trade-off feels uncomfortable. Instead ask: what am I willing to deprioritise so this can actually get done?",
+      "Stop adding new priorities without closing or changing an existing one. Before I say yes, ask: what will this displace, delay, or dilute?"
     ],
     sitWith: [
     "Where am I mistaking movement for progress because the harder question is whether anything important has actually changed?",
-    "If I had to prove this priority was moving without using intention, effort, or meetings as evidence, what would I point to?"
+    "If I had to prove this priority was moving without using intention, effort, or meetings as evidence, what would I point to?",
+    "Where am I avoiding the discipline of follow-through because keeping things open gives me more room to maneuver?"
     ]
   },
 
@@ -215,14 +227,17 @@ const QUOTIENT_META = {
     },
     doMore: [
       "Restate the priority before I start the work. Say what matters most, what matters less, and what I am not trying to solve right now. Alignment improves when I make direction explicit before effort begins.",
-      "Check for hidden disagreement before the next important decision. Ask: where might I be nodding along while still holding a different view?"
+      "Check for hidden disagreement before the next important decision. Ask: where might I be nodding along while still holding a different view?",
+      "Ask one clarifying question before work begins: what would success look like from each person’s perspective? Alignment improves when differences surface early rather than becoming friction later."
     ],
     doLess: [
       "Stop assuming shared language means shared understanding. Replace it with: when I say this priority matters, what do I believe it means in practice?",
+      "Stop relying on broad agreement when the practical implications have not been tested. Replace it with: what would each of us do differently because this is the priority?",
       "Stop moving forward when the direction only feels clear because no one has challenged it. Ask instead: what would I expect to see if we were misaligned?"
     ],
     sitWith: [
       "Where am I assuming I am aligned with others because no one has openly disagreed?",
+        "Where might politeness, speed, or the desire to agree be hiding a real difference in priorities?",
       "What decision would become more uncomfortable if I had to say clearly what I am really prioritising?"
     ]
   }
@@ -1700,38 +1715,50 @@ function buildRankedQuotientSignals(quotients) {
 }
 
 function buildFocusActions(focusQuotients) {
-  var doMore = [];
-  var doLess = [];
-  var sitWith = [];
+  var first = focusQuotients[0];
+  var second = focusQuotients[1];
 
-  focusQuotients.forEach(function(q) {
-    doMore = doMore.concat(
-      (q.doMore || []).map(function(text) {
+  if (!first) {
+    return {
+      doMore: [],
+      doLess: [],
+      sitWith: []
+    };
+  }
+
+  var firstBand = getQuotientLevel(first.score);
+  var secondBand = second ? getQuotientLevel(second.score) : null;
+
+  var useOnlyLowest =
+    second &&
+    firstBand !== secondBand;
+
+  var actionQuotients = useOnlyLowest
+    ? [first]
+    : focusQuotients;
+
+  return {
+    doMore: buildActionGroup(actionQuotients, 'doMore', 3),
+    doLess: buildActionGroup(actionQuotients, 'doLess', 3),
+    sitWith: buildActionGroup(actionQuotients, 'sitWith', 3),
+
+    focusBand: firstBand,
+    focusMode: useOnlyLowest ? 'single-quotient' : 'shared-band'
+  };
+}
+
+function buildActionGroup(quotients, actionKey, limit) {
+  var actions = [];
+
+  quotients.forEach(function(q) {
+    actions = actions.concat(
+      (q[actionKey] || []).map(function(text) {
         return {
           key: q.key,
           label: q.label,
-          build: q.build,
-          text: text
-        };
-      })
-    );
-
-    doLess = doLess.concat(
-      (q.doLess || []).map(function(text) {
-        return {
-          key: q.key,
-          label: q.label,
-          build: q.build,
-          text: text
-        };
-      })
-    );
-
-    sitWith = sitWith.concat(
-      (q.sitWith || []).map(function(text) {
-        return {
-          key: q.key,
-          label: q.label,
+          score: q.score,
+          level: q.level,
+          band: getQuotientLevel(q.score),
           build: q.build,
           text: text
         };
@@ -1739,11 +1766,7 @@ function buildFocusActions(focusQuotients) {
     );
   });
 
-  return {
-    doMore: doMore.slice(0, 3),
-    doLess: doLess.slice(0, 3),
-    sitWith: sitWith.slice(0, 3)
-  };
+  return actions.slice(0, limit);
 }
 
 function computeVerdict(overallScore) {
