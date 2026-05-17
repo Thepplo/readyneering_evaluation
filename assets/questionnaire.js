@@ -2138,7 +2138,11 @@ function renderFocusActionsSection(focusActions) {
     <div class="focus-actions-section">
       <div class="focus-actions-block do-more">
         <div class="focus-actions-block-header">
-          <span class="section-icon" aria-hidden="true">↑</span>
+          <span class="section-icon section-icon-up" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 4L12 20M12 20L18 14M12 20L6 14" />
+            </svg>
+          </span>
           <strong>Do more of this</strong>
         </div>
         ${renderFocusActionList(focusActions.doMore, 'doMore')}
@@ -2146,7 +2150,11 @@ function renderFocusActionsSection(focusActions) {
 
       <div class="focus-actions-block do-less">
         <div class="focus-actions-block-header">
-          <span class="section-icon" aria-hidden="true">↓</span>
+          <span class="section-icon section-icon-down" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 4L12 20M12 20L18 14M12 20L6 14" />
+            </svg>
+          </span>
           <strong>Do less of this</strong>
         </div>
         ${renderFocusActionList(focusActions.doLess, 'doLess')}
