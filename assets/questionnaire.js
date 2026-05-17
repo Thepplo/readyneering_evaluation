@@ -2400,6 +2400,28 @@ function revealResults() {
     }, '-=0.08');
 }
 
+function renderReportMetaLine(profile) {
+  var items = [
+    'Completed ' + profile.completedDate
+  ];
+
+  if (profile.industry) {
+    items.push(profile.industry);
+  }
+
+  if (profile.companySize) {
+    items.push(profile.companySize);
+  }
+
+  return `
+    <div class="report-meta-line">
+      ${items.map(function(item) {
+        return `<span>${item}</span>`;
+      }).join('')}
+    </div>
+  `;
+}
+
 // ── Results ───────────────────────────────────────────────
 async function renderResults() {
   saveAssessmentState();
@@ -2432,6 +2454,11 @@ async function renderResults() {
   document.getElementById('pattern-chip-r-mode').textContent = debriefMode.resilienceLevel;
   document.getElementById('ranked-signal-wrapper').innerHTML = renderRankedSignalList(quotientData);
   document.getElementById('focus-actions-wrapper').innerHTML = renderFocusActionsSection(rankedOutput.focusActions);
+  document.getElementById('meta-line').innerHTML = renderReportMetaLine({
+    completedDate: formatCompletedDate(new Date()),
+    industry: selectedIndustry,
+    companySize: selectedSize
+  });;
   document.getElementById('mode-grid').innerHTML = modeHtml;
   document.getElementById('mode-grid-wm').innerHTML = modeHtmlW;
 
