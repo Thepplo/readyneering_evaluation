@@ -2176,7 +2176,9 @@ function renderRankedSignalRow(q, tone) {
     <div class="ranked-signal-row ${tone}">
 
       <div class="ranked-signal-copy">
-        <span class="q-chip ${q.key}">${q.label}</span> <strong>(${q.score.toFixed(1)} — ${formatLevel(q.score)}).</strong>
+        <div class="ranked-signal-copy-title-div">
+          <span class="q-chip ${q.key}">${q.label}</span> <strong>(${q.score.toFixed(1)} — ${formatLevel(q.score)}).</strong>
+        </div>
         ${q.signal}
         ${suffix ? `<span class="ranked-signal-suffix">${suffix}</span>` : ''}
       </div>
