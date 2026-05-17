@@ -1341,16 +1341,6 @@
   align-items: baseline;
 }
 
-.focus-actions-block.do-more .focus-action-card {
-  border: 1px solid rgba(37, 150, 94, 0.18);
-  background: #fbfffd;
-}
-
-.focus-actions-block.do-less .focus-action-card {
-  border: 1px solid rgba(205, 80, 80, 0.18);
-  background: #fffafa;
-}
-
 .focus-actions-block.do-more .focus-action-number {
   background: #b8f3d5;
   color: #145c3a;
@@ -1947,7 +1937,9 @@
     print-color-adjust: exact;
   }
 
-
+  .ring-row{
+    display: none !important;
+  }
   .mode-card {
     /* border-color: #000 !important; */
     color: #000 !important;

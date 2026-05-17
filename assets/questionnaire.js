@@ -2073,9 +2073,22 @@ function splitFirstSentence(text) {
   };
 }
 
-function renderFocusActionList(items) {
+function getOutcomePrefix(actionType) {
+  if (actionType === 'doLess') {
+    return 'Reducing this supports';
+  }
+
+  if (actionType === 'questions') {
+    return 'Reflecting on this supports';
+  }
+
+  return 'Builds';
+}
+
+function renderFocusActionList(items, actionType) {
   return items.map(function(item, index) {
     const parts = splitFirstSentence(item.text);
+    const outcomePrefix = getOutcomePrefix(actionType);
 
     return `
       <div class="focus-action-card ${item.key}">
@@ -2084,12 +2097,13 @@ function renderFocusActionList(items) {
         <div class="focus-action-copy">
           <h4 class="focus-action-heading">${parts.heading}</h4>
           ${parts.body ? `<p class="focus-action-body">${parts.body}</p>` : ''}
+
           <div class="focus-action-outcome">
+            <span class="outcome-prefix">${outcomePrefix}</span>
             <span class="q-chip ${item.key}">${item.label} ↑</span>
             <span class="${item.build}">${item.build} ↑</span>
           </div>
         </div>
-
       </div>
     `;
   }).join('');
@@ -2101,12 +2115,12 @@ function renderFocusActionsSection(focusActions) {
     <div class="focus-actions-section">
       <div class="focus-actions-block do-more">
         <strong>Do more of this</strong>
-        ${renderFocusActionList(focusActions.doMore)}
+        ${renderFocusActionList(focusActions.doMore, 'doMore')}
       </div>
 
       <div class="focus-actions-block do-less">
         <strong>Do less of this</strong>
-        ${renderFocusActionList(focusActions.doLess)}
+        ${renderFocusActionList(focusActions.doLess, 'doLess')}
       </div>
 
       <div class="focus-actions-block questions">
