@@ -1341,10 +1341,31 @@
   align-items: baseline;
 }
 
+.focus-actions-block.do-more .focus-action-card {
+  border: 1px solid rgba(37, 150, 94, 0.18);
+  background: #fbfffd;
+}
+
+.focus-actions-block.do-less .focus-action-card {
+  border: 1px solid rgba(205, 80, 80, 0.18);
+  background: #fffafa;
+}
+
+.focus-actions-block.do-more .focus-action-number {
+  background: #b8f3d5;
+  color: #145c3a;
+}
+
+.focus-actions-block.do-less .focus-action-number {
+  background: #ffd0d0;
+  color: #8a2424;
+}
+
 .focus-action-copy>h4{
   font-size: 14px;
   font-weight: 600;
   color: #111827;
+  margin-bottom: 0.5rem;
 }
 .focus-action-copy>p{
   font-size: 13px;
@@ -1928,11 +1949,13 @@
 
 
   .mode-card {
-    border-color: #000 !important;
+    /* border-color: #000 !important; */
     color: #000 !important;
     break-inside: avoid;
   }
-
+  .index-content-wrapper{
+    break-inside: avoid;
+  }
   .signal-card {
     border: 1px solid #000 !important;
     color: #000 !important;
