@@ -1757,23 +1757,15 @@
 
   background:
     linear-gradient(180deg, rgba(255,255,255,0.96), rgba(249,250,251,0.96));
-
-  position: relative;
 }
 
 .focus-actions-callout::before {
-  content: "";
-  position: absolute;
-  inset: 18px auto 18px 0;
-  width: 3px;
-  border-radius: 999px;
-  background: rgba(20, 40, 60, 0.18);
+  display: none;
 }
 
 .focus-actions-callout p {
   margin: 0;
   max-width: 760px;
-  padding-left: 0.65rem;
 
   font-size: 13px;
   line-height: 1.65;

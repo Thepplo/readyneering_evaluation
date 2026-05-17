@@ -1813,8 +1813,10 @@ function renderFocusCallout(focusActions) {
     <div class="focus-actions-callout">
       <p>
         These three priorities come from where your scores are lowest across the Five Quotients.
+        <br>
         Remember: <strong>Readiness = Preparedness × Resilience.</strong>
         A gap in either dimension cannot be covered by strength in the other.
+        <br>
         ${finalSentence}
       </p>
     </div>
