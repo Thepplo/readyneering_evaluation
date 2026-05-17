@@ -2067,7 +2067,7 @@ function renderFocusActionList(items) {
       <div class="focus-action-item ${item.key}">
         <div class="focus-action-number">${index + 1}</div>
         <div class="focus-action-copy">
-          <span class="q-chip ${item.key}">${item.label}</span>
+          <!-- <span class="q-chip ${item.key}">${item.label}</span> -->
           ${item.text}
         </div>
       </div>
@@ -2079,17 +2079,17 @@ function renderFocusActionsSection(focusActions) {
   return `
     <div class="focus-actions-section">
       <div class="focus-actions-block do-more">
-        <h3>Do more of this</h3>
+        <strong>Do more of this</strong>
         ${renderFocusActionList(focusActions.doMore)}
       </div>
 
       <div class="focus-actions-block do-less">
-        <h3>Do less of this</h3>
+        <strong>Do less of this</strong>
         ${renderFocusActionList(focusActions.doLess)}
       </div>
 
       <div class="focus-actions-block questions">
-        <h3>Sit with these questions</h3>
+        <strong>Sit with these questions</strong>
         ${renderFocusQuestionList(focusActions.questions)}
       </div>
     </div>
@@ -2100,7 +2100,9 @@ function renderFocusQuestionList(items) {
   return items.map(function(item) {
     return `
       <div class="focus-question-item ${item.key}">
+      <!--
         <span class="q-chip ${item.key}">${item.label}</span>
+        -->
         <em>${item.text}</em>
       </div>
     `;

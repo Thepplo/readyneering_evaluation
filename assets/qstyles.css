@@ -1311,6 +1311,25 @@
 
 .page-break-label{background:#F5F4F0;padding:12px 44px;border:1px solid #DEDEDE;border-top:none;font-size:9px;font-weight:600;color:#AAAAAA;letter-spacing:2px;text-transform:uppercase}
 
+.focus-actions-section{
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.focus-actions-block{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 2rem;
+}
+
+.focus-action-item{
+  display: flex;
+  gap: 1.5rem;
+}
+
 .mode-head {
   display: flex;
   align-items: baseline;
