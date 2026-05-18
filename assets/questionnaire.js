@@ -518,7 +518,9 @@ function saveAssessmentState() {
     placements,
     triadOrder: SHUFFLED_TRIADS.map(t => t.id),
     selectedIndustry,
+    selectedIndustryLabel,
     selectedSize,
+    selectedSizeLabel,
     screen: getCurrentScreen()
   }));
 }
@@ -610,6 +612,11 @@ function wrapText(ctx, text, maxWidth) {
 // ── State ─────────────────────────────────────────────────
 var current = 0;
 var placements = [];
+
+var selectedIndustry = null;
+var selectedIndustryLabel = null;
+var selectedSize = null;
+var selectedSizeLabel = null;
 
 // ── SVG builder ───────────────────────────────────────────
 
@@ -3029,11 +3036,9 @@ function startAssessment() {
   var industrySelect = document.getElementById('industry-select');
   var sizeSelect = document.getElementById('size-select');
 
-  if (!selectedIndustry) {
-    selectedIndustry = null;
-  }
-  if (!selectedSize) {
-    selectedSize = null;
+  if (!industrySelect || !sizeSelect) {
+    console.error('Industry or size select not found');
+    return;
   }
 
   selectedIndustry = industrySelect.value || null;
@@ -3046,22 +3051,11 @@ function startAssessment() {
     document.getElementById('privacy-warn').style.display = 'block';
     return;
   }
+
   document.getElementById('privacy-warn').style.display = 'none';
-  if (!industrySelect) {
-    /* console.error('Industry select not found'); */
-    return;
-  }
-
-
-
-/*   if (!selectedIndustry) {
-    document.getElementById('industry-warn').style.display = 'block';
-    return;
-  } */
-
   document.getElementById('industry-warn').style.display = 'none';
 
-  document.getElementById('scr-intro').style.display  = 'none';
+  document.getElementById('scr-intro').style.display = 'none';
   document.getElementById('scr-assess').style.display = 'block';
 
   buildSteps();
