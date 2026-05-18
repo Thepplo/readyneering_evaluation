@@ -4,8 +4,8 @@ const Q = [
     r:3.8, 
     p:3.2,
     icon:'./assets/images/q-vitality.svg',
-    dr:'How well the organization sustains energy and pace under prolonged pressure without burning people out.',
-    dp:'Whether capacity planning, recovery cycles and wellbeing practices are structurally designed in.',
+    dr:'How well you sustain energy, focus and pace under prolonged pressure without burning out.',
+    dp:'Whether capacity, recovery cycles and wellbeing practices are deliberately built into your personal system.',
     color:'#FFAA33',
     textColor: '#0000007e'
     
@@ -15,8 +15,8 @@ const Q = [
     r:4.1, 
     p:3.6,
     icon:'./assets/images/q-emotion.svg',
-    dr:'How leaders and teams regulate emotional responses during conflict, failure and uncertainty.',
-    dp:'Whether the organization proactively prepares for predictable emotional patterns in high-pressure phases.',
+    dr:'How well you regulate emotional responses during conflict, failure and uncertainty.',
+    dp:'Whether you prepare in advance for predictable emotional patterns in high-pressure situations.',
     color: '#C30615',
     textColor: '#fff'
     
@@ -26,8 +26,8 @@ const Q = [
     r:3.5, 
     p:3.0,
     icon:'./assets/images/q-mind.svg',
-    dr:'The quality of thinking and decision-making when data is incomplete and time is short.',
-    dp:'Whether scenario planning, pre-mortems and assumption-testing are built into how you operate.',
+    dr:'The quality of your thinking and decision-making when data is incomplete and time is short.',
+    dp:'Whether scenario thinking, pre-mortems and assumption-testing are built into how you prepare.',
     color: '#64012D',
     textColor: '#fff'
 
@@ -37,8 +37,8 @@ const Q = [
     r:4.3, 
     p:3.9,
     icon:'./assets/images/q-execution.svg',
-    dr:'How decisively and consistently the organization acts under constraint and real time pressure.',
-    dp:'Whether decision rights, escalation paths and implementation briefs are defined in advance.',
+    dr:'How decisively and consistently you act under constraint and real-time pressure.',
+    dp:'Whether priorities, decision rules and action plans are defined before pressure peaks.',
     color: '#2428AB',
     textColor: '#fff'
   },
@@ -47,8 +47,8 @@ const Q = [
     r:3.6, 
     p:3.4,
     icon:'./assets/images/q-alignment.svg',
-    dr:'Whether the organization stays coherent — roles, priorities, collaboration — when under stress.',
-    dp:'How well the system is designed to survive personnel changes and strategic fragmentation.',
+    dr:'Whether you stay coherent - values, priorities, roles and commitments - when under stress.',
+    dp:'Whether your goals, commitments and boundaries are clarified before competing demands intensify.',
     color: '#1B74CD',
     textColor: '#0000007e'
   }
