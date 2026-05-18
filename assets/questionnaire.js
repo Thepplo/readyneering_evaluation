@@ -2588,8 +2588,8 @@ async function renderResults() {
   document.getElementById('focus-actions-wrapper').innerHTML = renderFocusActionsSection(rankedOutput.focusActions);
   document.getElementById('meta-line').innerHTML = renderReportMetaLine({
     completedDate: formatCompletedDate(new Date()),
-    industry: selectedIndustryLabel,
-    companySize: selectedSizeLabel
+    industry: selectedIndustryLabel || selectedIndustry,
+    companySize: selectedSizeLabel || selectedSize
   });
   document.getElementById('action-sub').innerHTML =
     renderFocusSubtitle(rankedOutput.focusActions);
@@ -2615,6 +2615,9 @@ async function renderResults() {
         placements,
         triadOrder: SHUFFLED_TRIADS.map(t => t.id),
         selectedIndustry,
+        selectedIndustryLabel,
+        selectedSize,
+        selectedSizeLabel,
         screen: 'results',
         submitted: true
       }));
@@ -3026,10 +3029,18 @@ function startAssessment() {
   var industrySelect = document.getElementById('industry-select');
   var sizeSelect = document.getElementById('size-select');
 
-  selectedIndustry = industrySelect.value;
-  selectedIndustryLabel = getSelectedOptionLabel(industrySelect);
-  selectedSize = sizeSelect.value;
-  selectedSizeLabel = getSelectedOptionLabel(sizeSelect);
+  if (!selectedIndustry) {
+    selectedIndustry = null;
+  }
+  if (!selectedSize) {
+    selectedSize = null;
+  }
+
+  selectedIndustry = industrySelect.value || null;
+  selectedIndustryLabel = getSelectedOptionLabel(industrySelect) || selectedIndustry;
+
+  selectedSize = sizeSelect.value || null;
+  selectedSizeLabel = getSelectedOptionLabel(sizeSelect) || selectedSize;
 
   if (!hasPrivacyConsent()) {
     document.getElementById('privacy-warn').style.display = 'block';
@@ -3040,12 +3051,7 @@ function startAssessment() {
     /* console.error('Industry select not found'); */
     return;
   }
-  if (!selectedIndustry) {
-    selectedIndustry = null;
-  }
-  if (!selectedSize) {
-    selectedSize = null;
-  }
+
 
 
 /*   if (!selectedIndustry) {
@@ -3066,18 +3072,30 @@ function restoreAssessment() {
   const saved = loadAssessmentState();
   if (!saved) return;
 
-  selectedIndustry = saved.selectedIndustry || '';
+  selectedIndustry = saved.selectedIndustry || null;
+  selectedIndustryLabel = saved.selectedIndustryLabel || null;
+
   const industrySelect = document.getElementById('industry-select');
   if (industrySelect && selectedIndustry) {
     industrySelect.value = selectedIndustry;
-    selectedIndustryLabel = getSelectedOptionLabel(industrySelect) || selectedIndustry;
+    selectedIndustryLabel =
+      selectedIndustryLabel ||
+      getSelectedOptionLabel(industrySelect) ||
+      selectedIndustry;
   }
-  selectedSize = saved.selectedSize || '';
+
+  selectedSize = saved.selectedSize || null;
+  selectedSizeLabel = saved.selectedSizeLabel || null;
+
   const sizeSelect = document.getElementById('size-select');
   if (sizeSelect && selectedSize) {
     sizeSelect.value = selectedSize;
-    selectedSizeLabel = getSelectedOptionLabel(sizeSelect) || selectedSize;
+    selectedSizeLabel =
+      selectedSizeLabel ||
+      getSelectedOptionLabel(sizeSelect) ||
+      selectedSize;
   }
+
   document.getElementById('scr-intro').style.display = 'none';
   document.getElementById('scr-assess').style.display = 'block';
 
