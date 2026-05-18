@@ -237,7 +237,7 @@ const QUOTIENT_META = {
     ],
     sitWith: [
       "Where am I assuming I am aligned with others because no one has openly disagreed?",
-        "Where might politeness, speed, or the desire to agree be hiding a real difference in priorities?",
+      "Where might politeness, speed, or the desire to agree be hiding a real difference in priorities?",
       "What decision would become more uncomfortable if I had to say clearly what I am really prioritising?"
     ]
   }
@@ -3070,13 +3070,13 @@ function restoreAssessment() {
   const industrySelect = document.getElementById('industry-select');
   if (industrySelect && selectedIndustry) {
     industrySelect.value = selectedIndustry;
-    selectedIndustryLabel = getSelectedOptionLabel(industrySelect);
+    selectedIndustryLabel = getSelectedOptionLabel(industrySelect) || selectedIndustry;
   }
   selectedSize = saved.selectedSize || '';
   const sizeSelect = document.getElementById('size-select');
   if (sizeSelect && selectedSize) {
     sizeSelect.value = selectedSize;
-    selectedSizeLabel = getSelectedOptionLabel(sizeSelect);
+    selectedSizeLabel = getSelectedOptionLabel(sizeSelect) || selectedSize;
   }
   document.getElementById('scr-intro').style.display = 'none';
   document.getElementById('scr-assess').style.display = 'block';
