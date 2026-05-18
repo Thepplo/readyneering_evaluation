@@ -2524,17 +2524,26 @@ function revealResults() {
 }
 
 function renderReportMetaLine(profile) {
+  function isRealMetaValue(value) {
+    if (!value) return false;
+
+    var normalized = String(value).trim().toLowerCase();
+
+    return ![
+      'select industry',
+      'company size',
+      'select company size',
+      'select size'
+    ].includes(normalized);
+  }
+
   var items = [
-    'Completed ' + profile.completedDate
-  ];
-
-  if (profile.industry) {
-    items.push(profile.industry);
-  }
-
-  if (profile.companySize) {
-    items.push(profile.companySize);
-  }
+    'Completed ' + profile.completedDate,
+    profile.industry,
+    profile.companySize
+  ].filter(function(item, index) {
+    return index === 0 || isRealMetaValue(item);
+  });
 
   return `
     <div class="report-meta-line">
