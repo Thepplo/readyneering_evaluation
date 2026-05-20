@@ -93,6 +93,21 @@ function sanitizeMetadata(value) {
   return metadata;
 }
 
+function sanitizeSessionId(value) {
+  if (typeof value !== 'string') return null;
+
+  const sessionId = value.trim();
+
+  if (!sessionId) return null;
+
+
+  if (!/^[a-zA-Z0-9_-]{1,100}$/.test(sessionId)) {
+    return null;
+  }
+
+  return sessionId;
+}
+
 function getCorsHeaders(request, env) {
   const origin = request.headers.get('Origin');
   const allowedOrigins = getAllowedOrigins(env);
@@ -237,6 +252,7 @@ function validatePayload(payload) {
     return { ok: false, error: 'Too many submitted items' };
   }
 
+  const sessionId = sanitizeSessionId(payload.submission?.session_id);
   const normalizedItems = [];
   const seenItemKeys = new Set();
 
@@ -281,6 +297,7 @@ function validatePayload(payload) {
     instrumentKey,
     instrumentVersion,
     items: normalizedItems,
+    sessionId,
     clientMetadata: sanitizeMetadata(payload.submission?.metadata),
     turnstileToken:
       payload.turnstileToken ||
@@ -418,7 +435,7 @@ export async function onRequestPost(context) {
       .insert({
         instrument_version_id: versionRow.id,
         respondent_id: null,
-        session_id: null,
+        session_id: validated.sessionId,
         status: 'completed',
         submitted_at: new Date().toISOString(),
         idempotency_key: idempotencyKey,
