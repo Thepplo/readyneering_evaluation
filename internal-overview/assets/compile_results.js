@@ -8,7 +8,7 @@
 const els = {
   batchIdInput: document.getElementById('batchIdInput'),
   loadButton: document.getElementById('loadButton'),
-  demoButton: document.getElementById('demoButton'),
+  /* demoButton: document.getElementById('demoButton'), */
   //metricBatchId: document.getElementById('metricBatchId'),
   metricCount: document.getElementById('metricCount'),
   //metricOverall: document.getElementById('metricOverall'),
@@ -858,7 +858,7 @@ function clearSessionUI() {
 function setLoadingState(isLoading, message = 'Loading...') {
   state.isLoading = isLoading;
   els.loadButton.disabled = isLoading;
-  if (els.demoButton) els.demoButton.style.display = 'none';
+  /* if (els.demoButton) els.demoButton.style.display = 'none'; */
 
   if (isLoading) {
     //els.overviewNote.textContent = message;

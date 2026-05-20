@@ -57,7 +57,7 @@
           operating_pattern: "Preparedness-heavy"
         },
         {
-          batch_id: "founders-q2",
+          batch_id: "rdy_web_05",
           submission_count: 31,
           first_submitted_at: "2026-04-22T11:20:00Z",
           last_submitted_at: "2026-05-14T12:45:00Z",
