@@ -33,28 +33,22 @@ function waitForTurnstile() {
 async function getTurnstileToken() {
   await waitForTurnstile();
 
-  if (turnstileWidgetId === null) {
-    turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
-      sitekey: TURNSTILE_SITE_KEY,
-      size: 'invisible',
-      callback: function () {},
-      'error-callback': function () {},
-      'expired-callback': function () {}
-    });
-  }
-
-  window.turnstile.reset(turnstileWidgetId);
-
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
       reject(new Error('Verification timed out. Please try again.'));
-    }, 15_000);
+    }, 20_000);
 
-    window.turnstile.remove(turnstileWidgetId);
+    if (turnstileWidgetId !== null) {
+      window.turnstile.remove(turnstileWidgetId);
+      turnstileWidgetId = null;
+    }
 
     turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
       sitekey: TURNSTILE_SITE_KEY,
-      size: 'invisible',
+
+      // These are the important replacements:
+      execution: 'execute',
+      appearance: 'interaction-only',
 
       callback: function (token) {
         clearTimeout(timeout);
