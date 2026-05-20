@@ -1,11 +1,106 @@
+const TURNSTILE_SITE_KEY = '0x4AAAAAADTHusttqatb2uD0';
+
+let turnstileWidgetId = null;
+let turnstileReadyPromise = null;
+
+function waitForTurnstile() {
+  if (window.turnstile) {
+    return Promise.resolve();
+  }
+
+  if (!turnstileReadyPromise) {
+    turnstileReadyPromise = new Promise((resolve, reject) => {
+      const startedAt = Date.now();
+
+      const timer = setInterval(() => {
+        if (window.turnstile) {
+          clearInterval(timer);
+          resolve();
+          return;
+        }
+
+        if (Date.now() - startedAt > 10_000) {
+          clearInterval(timer);
+          reject(new Error('Verification script failed to load. Please refresh and try again.'));
+        }
+      }, 50);
+    });
+  }
+
+  return turnstileReadyPromise;
+}
+
+async function getTurnstileToken() {
+  await waitForTurnstile();
+
+  if (turnstileWidgetId === null) {
+    turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
+      sitekey: TURNSTILE_SITE_KEY,
+      size: 'invisible',
+      callback: function () {},
+      'error-callback': function () {},
+      'expired-callback': function () {}
+    });
+  }
+
+  window.turnstile.reset(turnstileWidgetId);
+
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      reject(new Error('Verification timed out. Please try again.'));
+    }, 15_000);
+
+    window.turnstile.remove(turnstileWidgetId);
+
+    turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
+      sitekey: TURNSTILE_SITE_KEY,
+      size: 'invisible',
+
+      callback: function (token) {
+        clearTimeout(timeout);
+        resolve(token);
+      },
+
+      'error-callback': function () {
+        clearTimeout(timeout);
+        reject(new Error('Verification failed. Please try again.'));
+      },
+
+      'expired-callback': function () {
+        clearTimeout(timeout);
+        reject(new Error('Verification expired. Please try again.'));
+      }
+    });
+
+    window.turnstile.execute(turnstileWidgetId);
+  });
+}
+
+function getSubmitAttemptId() {
+  let id = localStorage.getItem('submit_attempt_id');
+
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem('submit_attempt_id', id);
+  }
+
+  return id;
+}
+
 async function saveAssessment(payload) {
-  
+  const turnstileToken = await getTurnstileToken();
+  const idempotencyKey = getSubmitAttemptId();
+
   const response = await fetch('/assessments/submit', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Idempotency-Key': idempotencyKey
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify({
+      ...payload,
+      turnstileToken
+    })
   });
 
   const data = await response.json();
@@ -14,8 +109,11 @@ async function saveAssessment(payload) {
     throw new Error(data.error || 'Failed to save assessment');
   }
 
+  localStorage.removeItem('submit_attempt_id');
+
   return data;
 }
+
 const MODE_META = {
   resilience: {
     role: "How strong you are when the environment becomes unstable or unpredictable.",

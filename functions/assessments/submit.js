@@ -3,12 +3,94 @@ import { createClient } from '@supabase/supabase-js';
 const MAX_BODY_BYTES = 100_000;
 const MAX_ITEMS = 300;
 const MAX_RESPONSE_JSON_BYTES = 10_000;
+const MAX_METADATA_BYTES = 5_000;
+const ALLOWED_COMPANY_SIZES = new Set([
+  '1-10',
+  '11-100',
+  '101-500',
+  '501-1000',
+  '1001-5000',
+  '5001+'
+]);
+
+const ALLOWED_SOURCES = new Set([
+  'web_app'
+]);
+
+function isIsoDateString(value) {
+  if (typeof value !== 'string') return false;
+
+  const date = new Date(value);
+  return !Number.isNaN(date.getTime()) && date.toISOString() === value;
+}
 
 function getAllowedOrigins(env) {
   return (env.ALLOWED_ORIGINS || '')
     .split(',')
     .map((origin) => origin.trim())
     .filter(Boolean);
+}
+
+function sanitizeMetadata(value) {
+  if (!isPlainObject(value)) {
+    return {};
+  }
+
+  const metadata = {};
+
+  if (ALLOWED_COMPANY_SIZES.has(value.size)) {
+    metadata.size = value.size;
+  }
+
+  if (ALLOWED_SOURCES.has(value.source)) {
+    metadata.source = value.source;
+  }
+
+  if (typeof value.batch_id === 'string') {
+    const batchId = value.batch_id.trim();
+
+    if (/^[a-zA-Z0-9_-]{1,100}$/.test(batchId)) {
+      metadata.batch_id = batchId;
+    }
+  }
+
+  if (typeof value.industry === 'string') {
+    const industry = value.industry.trim();
+
+    if (/^[a-z0-9-]{1,100}$/.test(industry)) {
+      metadata.industry = industry;
+    }
+  }
+
+  if (isPlainObject(value.privacy)) {
+    const privacy = {};
+
+    if (value.privacy.accepted === true) {
+      privacy.accepted = true;
+    }
+
+    if (isIsoDateString(value.privacy.acceptedAt)) {
+      privacy.acceptedAt = value.privacy.acceptedAt;
+    }
+
+    if (typeof value.privacy.noticeVersion === 'string') {
+      const noticeVersion = value.privacy.noticeVersion.trim();
+
+      if (/^\d{4}-\d{2}-\d{2}$/.test(noticeVersion)) {
+        privacy.noticeVersion = noticeVersion;
+      }
+    }
+
+    if (Object.keys(privacy).length > 0) {
+      metadata.privacy = privacy;
+    }
+  }
+
+  if (jsonByteLength(metadata) > MAX_METADATA_BYTES) {
+    return {};
+  }
+
+  return metadata;
 }
 
 function getCorsHeaders(request, env) {
@@ -199,6 +281,7 @@ function validatePayload(payload) {
     instrumentKey,
     instrumentVersion,
     items: normalizedItems,
+    clientMetadata: sanitizeMetadata(payload.submission?.metadata),
     turnstileToken:
       payload.turnstileToken ||
       payload.cf_turnstile_response ||
@@ -341,7 +424,8 @@ export async function onRequestPost(context) {
         idempotency_key: idempotencyKey,
         metadata: {
           source: 'public_form',
-          submitted_from_origin: request.headers.get('Origin') || null
+          submitted_from_origin: request.headers.get('Origin') || null,
+          client: validated.clientMetadata
         }
       })
       .select('id')
