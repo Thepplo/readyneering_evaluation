@@ -461,6 +461,22 @@
       /* els.metricResilience.textContent = formatScore(weightedAverage("resilience")); */
       /* els.metricPreparedness.textContent = formatScore(weightedAverage("preparedness")); */
     }
+    function getBandPercents(bands) {
+      const low = bands?.low || 0;
+      const mid = bands?.mid || 0;
+      const high = bands?.high || 0;
+      const total = low + mid + high;
+
+      if (!total) {
+        return { low: 0, mid: 0, high: 0 };
+      }
+
+      return {
+        low: Math.round((low / total) * 100),
+        mid: Math.round((mid / total) * 100),
+        high: Math.round((high / total) * 100)
+      };
+    }
     function renderDistribution(bands) {
       const pct = getBandPercents(bands);
 
