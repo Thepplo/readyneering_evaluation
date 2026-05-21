@@ -682,7 +682,7 @@
       els.resultCount.textContent = `${rows.length} batch${rows.length === 1 ? "" : "es"} shown`;
       els.activeFiltersPill.textContent = activeLabels.length ? activeLabels.join(" · ") : "No active filters";
 
-      const overviewQuotients = getWeightedOverviewQuotients(visibleRows);
+      const overviewQuotients = getWeightedOverviewQuotientProfiles(visibleRows);
       document.getElementById("q-grid-wrapper").innerHTML =
       renderOverviewQuotientGrid(overviewQuotients);
       renderMetrics(rows);
