@@ -28,23 +28,18 @@ const Q_KEYS = ['vitality', 'emotion', 'mind', 'execution', 'alignment'];
 function getQuotientKeyMap() {
   return {
     vitality: {
-      resilience: 'R_vitality',
-      preparedness: 'P_vitality'
+      resilience: 'R_vitality'
     },
     emotion: {
       resilience: 'R_emotion',
-      preparedness: 'P_emotion'
     },
     mind: {
-      resilience: 'R_mind',
       preparedness: 'P_mind'
     },
     execution: {
-      resilience: 'R_execution',
       preparedness: 'P_execution'
     },
     alignment: {
-      resilience: 'R_alignment',
       preparedness: 'P_alignment'
     }
   };
@@ -163,7 +158,7 @@ function buildNumericProfiles(submissions, allScoreKeys) {
   }
 
   return numeric_profiles;
-}
+} 
 
 function buildQuotientInsights(numericProfiles, submissions) {
   const keyMap = getQuotientKeyMap();

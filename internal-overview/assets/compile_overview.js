@@ -39,32 +39,79 @@
           submission_count: 24,
           first_submitted_at: "2026-05-01T10:00:00Z",
           last_submitted_at: "2026-05-16T16:30:00Z",
-          industries: { "SaaS": 12, "Finance": 8, "Other": 4 },
+
+          industries: { SaaS: 12, Finance: 8, Other: 4 },
           sizes: { "11-50": 10, "51-200": 14 },
-          sources: { "LinkedIn": 11, "Partner": 13 },
-          averages: { resilience: 3.7, preparedness: 3.2, overall: 72 },
+          sources: { LinkedIn: 11, Partner: 13 },
+
+          averages: {
+            resilience: 3.7,
+            preparedness: 3.2,
+            overall: 72
+          },
+
+          quotients: {
+            vitality: 3.4,
+            emotion: 3.1,
+            mind: 3.8,
+            execution: 3.6,
+            alignment: 3.2
+          },
+
           operating_pattern: "Resilience-heavy"
         },
+
         {
           batch_id: "leadership-may-2026",
           submission_count: 18,
           first_submitted_at: "2026-05-03T09:15:00Z",
           last_submitted_at: "2026-05-18T14:12:00Z",
-          industries: { "Healthcare": 7, "Consulting": 6, "SaaS": 5 },
+
+          industries: { Healthcare: 7, Consulting: 6, SaaS: 5 },
           sizes: { "1-10": 4, "11-50": 9, "51-200": 5 },
-          sources: { "Workshop": 18 },
-          averages: { resilience: 3.1, preparedness: 3.6, overall: 68 },
+          sources: { Workshop: 18 },
+
+          averages: {
+            resilience: 3.1,
+            preparedness: 3.6,
+            overall: 68
+          },
+
+          quotients: {
+            vitality: 2.9,
+            emotion: 3.4,
+            mind: 3.5,
+            execution: 3.8,
+            alignment: 3.2
+          },
+
           operating_pattern: "Preparedness-heavy"
         },
+
         {
-          batch_id: "rdy_web_05",
+          batch_id: "founders-q2",
           submission_count: 31,
           first_submitted_at: "2026-04-22T11:20:00Z",
           last_submitted_at: "2026-05-14T12:45:00Z",
-          industries: { "Startups": 21, "SaaS": 10 },
+
+          industries: { Startups: 21, SaaS: 10 },
           sizes: { "1-10": 20, "11-50": 11 },
-          sources: { "Newsletter": 15, "Community": 16 },
-          averages: { resilience: 3.4, preparedness: 3.4, overall: 70 },
+          sources: { Newsletter: 15, Community: 16 },
+
+          averages: {
+            resilience: 3.4,
+            preparedness: 3.4,
+            overall: 70
+          },
+
+          quotients: {
+            vitality: 3.6,
+            emotion: 3.2,
+            mind: 3.4,
+            execution: 3.3,
+            alignment: 3.5
+          },
+
           operating_pattern: "Balanced"
         }
       ]
