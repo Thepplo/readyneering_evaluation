@@ -416,7 +416,7 @@
 
           <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
             <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
-              ${makeRing(weightedAverage("overall"), 0, 25, "#770136", "#7701363f", centerSize)}
+              ${makeRing(weightedAverage("overall"), 0, 25, "#ffda33", "#ffda333f", centerSize)}
             </div>
           </foreignObject>
 
