@@ -216,6 +216,13 @@ function buildQuotientAverages(submissions) {
   return quotients;
 }
 
+function scoreBand(value, low = 2.75, high = 3.35) {
+  if (!isNumber(value)) return null;
+  if (value < low) return 'low';
+  if (value < high) return 'mid';
+  return 'high';
+}
+
 function buildQuotientProfiles(submissions) {
   const keyMap = getQuotientKeyMap();
   const profiles = {};
@@ -239,7 +246,12 @@ function buildQuotientProfiles(submissions) {
     profiles[q] = {
       average: overall,
       resilience_average: resilienceAverage,
-      preparedness_average: preparednessAverage
+      preparedness_average: preparednessAverage,
+      bands: {
+        low: quotientValues.filter(v => scoreBand(v) === 'low').length,
+        mid: quotientValues.filter(v => scoreBand(v) === 'mid').length,
+        high: quotientValues.filter(v => scoreBand(v) === 'high').length
+      }
     };
   }
 
@@ -291,10 +303,8 @@ function buildOverviewRow(batchId, submissions) {
 
     averages,
 
-    // Simple shape for the overview frontend.
     quotients: buildQuotientAverages(submissions),
 
-    // Optional richer shape if you later want R/P split per quotient.
     quotient_profiles: quotientProfiles,
 
     operating_pattern: getOperatingPattern(averages)

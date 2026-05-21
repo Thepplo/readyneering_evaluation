@@ -461,18 +461,45 @@
       /* els.metricResilience.textContent = formatScore(weightedAverage("resilience")); */
       /* els.metricPreparedness.textContent = formatScore(weightedAverage("preparedness")); */
     }
+    function renderDistribution(bands) {
+      const pct = getBandPercents(bands);
 
-    function renderOverviewQuotientGrid(quotientsObj = {}) {
-      const entries = Object.entries(quotientsObj);
+      return `
+        <div class="q-distribution">
+          <div class="q-distribution-labels">
+            <span>Low ${pct.low}%</span>
+            <span>·</span>
+            <span>Mid ${pct.mid}%</span>
+            <span>·</span>
+            <span>High ${pct.high}%</span>
+          </div>
+
+          <div class="q-distribution-bar" aria-label="Distribution bar">
+            <div class="q-distribution-seg low" style="width:${pct.low}%"></div>
+            <div class="q-distribution-seg mid" style="width:${pct.mid}%"></div>
+            <div class="q-distribution-seg high" style="width:${pct.high}%"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderOverviewQuotientGrid(quotientProfiles = {}) {
+      const entries = Object.entries(quotientProfiles);
 
       if (!entries.length) {
         return '<div class="empty">No quotient data available.</div>';
       }
 
       return `
-        <div class="q-grid">
-          ${entries.map(([key, average]) => {
-            return renderOverviewQuotientCard({ key, average });
+        <div class="q-grid overview">
+          ${entries.map(([key, profile]) => {
+            return renderOverviewQuotientCard({
+              key,
+              average: profile.average,
+              resilience_average: profile.resilience_average,
+              preparedness_average: profile.preparedness_average,
+              bands: profile.bands
+            });
           }).join('')}
         </div>
       `;
@@ -485,21 +512,19 @@
       return `
         <div class="q-card ${q.key}">
           <span class="orb orb-1"></span>
-          <span class="orb orb-2"></span>
-          <span class="orb orb-3"></span>
 
           <div class="q-head">
             <div class="q-label">${titleCase(q.key)}</div>
-          </div>
-
-          <div class="q-metrics">
-            <div class="q-score">${hasScore ? score.toFixed(1) : "—"}</div>
+            <div class="q-metrics">
+              <div class="q-score">${hasScore ? score.toFixed(1) : "—"}</div>
+            </div>
           </div>
 
           <div class="q-section">
-            <div class="q-section-label">Average across visible cohort</div>
-            <div class="q-copy">${getSimpleQuotientLine(q.key, score)}</div>
+            <div class="q-section-label">Distribution across cohort</div>
+            ${renderDistribution(q.bands)}
           </div>
+
         </div>
       `;
     }
@@ -512,25 +537,59 @@
       return `${titleCase(key)} appears to be a development area across this cohort.`;
     }
 
-    function getWeightedOverviewQuotients(rows) {
+    function getWeightedOverviewQuotientProfiles(rows) {
       const keys = ["vitality", "emotion", "mind", "execution", "alignment"];
       const result = {};
 
       keys.forEach(key => {
-        let weightedTotal = 0;
+        let weightedAverageTotal = 0;
+        let weightedResilienceTotal = 0;
+        let weightedPreparednessTotal = 0;
         let totalWeight = 0;
 
+        const bands = {
+          low: 0,
+          mid: 0,
+          high: 0
+        };
+
         rows.forEach(row => {
-          const score = Number(row.quotients?.[key]);
+          const profile = row.quotient_profiles?.[key];
           const weight = Number(row.submission_count || 0);
 
-          if (Number.isFinite(score) && weight > 0) {
-            weightedTotal += score * weight;
+          if (!profile || weight <= 0) return;
+
+          const avg = Number(profile.average);
+          const resilienceAvg = Number(profile.resilience_average);
+          const preparednessAvg = Number(profile.preparedness_average);
+
+          if (Number.isFinite(avg)) {
+            weightedAverageTotal += avg * weight;
+          }
+
+          if (Number.isFinite(resilienceAvg)) {
+            weightedResilienceTotal += resilienceAvg * weight;
+          }
+
+          if (Number.isFinite(preparednessAvg)) {
+            weightedPreparednessTotal += preparednessAvg * weight;
+          }
+
+          if (Number.isFinite(avg)) {
             totalWeight += weight;
           }
+
+          bands.low += Number(profile.bands?.low || 0);
+          bands.mid += Number(profile.bands?.mid || 0);
+          bands.high += Number(profile.bands?.high || 0);
         });
 
-        result[key] = totalWeight > 0 ? weightedTotal / totalWeight : null;
+        result[key] = {
+          average: totalWeight > 0 ? weightedAverageTotal / totalWeight : null,
+          resilience_average: totalWeight > 0 ? weightedResilienceTotal / totalWeight : null,
+          preparedness_average: totalWeight > 0 ? weightedPreparednessTotal / totalWeight : null,
+          bands
+        };
       });
 
       return result;
@@ -611,7 +670,7 @@
         `;
       }).join("");
     }
-    
+
     function titleCase(str) {
       if (!str) return '';
       return str.charAt(0).toUpperCase() + str.slice(1);
@@ -625,7 +684,7 @@
 
       const overviewQuotients = getWeightedOverviewQuotients(visibleRows);
       document.getElementById("q-grid-wrapper").innerHTML =
-        renderOverviewQuotientGrid(overviewQuotients);
+      renderOverviewQuotientGrid(overviewQuotients);
       renderMetrics(rows);
       renderCards(rows);
       renderTable(rows);
