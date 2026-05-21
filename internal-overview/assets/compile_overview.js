@@ -248,6 +248,41 @@
       };
     }
 
+    function makeRing(score, min, max, color, trackColor, size) {
+      const R = size / 2;
+      const r = R - 11;
+      const cx = R;
+      const cy = R;
+      const circ = 2 * Math.PI * r;
+      const progress = Math.max(0, Math.min(1, (score - min) / (max - min)));
+      const dashOffset = circ * (1 - progress);
+
+      return `
+        <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block">
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="white" stroke="${trackColor}" stroke-width="10" />
+          <circle
+            cx="${cx}" cy="${cy}" r="${r}"
+            fill="none"
+            stroke="${color}"
+            stroke-width="10"
+            stroke-dasharray="${circ}"
+            stroke-dashoffset="${dashOffset}"
+            stroke-linecap="round"
+            transform="rotate(-90 ${cx} ${cy})"
+          />
+          <text
+            x="${cx}" y="${cy + 2}"
+            text-anchor="middle"
+            dominant-baseline="middle"
+            font-size="${size > 100 ? 20 : 16}"
+            font-weight="500"
+            fill="${color}"
+            font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+          >${score.toFixed(2)}</text>
+        </svg>
+      `;
+    }
+    
     function renderOrbit(rows) {
       const weightedAverage = key => {
         const totalWeight = rows.reduce(
