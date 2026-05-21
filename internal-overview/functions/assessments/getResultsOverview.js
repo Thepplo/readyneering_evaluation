@@ -246,7 +246,7 @@ function buildQuotientProfiles(submissions) {
         return null;
       })
       .filter(isNumber);
-      
+
     if (isNumber(resilienceAverage) && isNumber(preparednessAverage)) {
       overall = round((resilienceAverage + preparednessAverage) / 2);
     } else if (isNumber(resilienceAverage)) {
@@ -406,13 +406,6 @@ export async function onRequestGet(context) {
       env.SUPABASE_SERVICE_ROLE_KEY
     );
 
-    /*
-      This mirrors your current getBatchResults approach:
-      fetch submissions with metadata, then filter/group in JS.
-
-      Later, once batch_id/industry/size/source become real columns,
-      move these filters into the Supabase query for better performance.
-    */
     const { data: allSubmissions, error: submissionsError } = await supabase
       .from('submissions')
       .select('id, metadata, submitted_at')

@@ -236,8 +236,8 @@
 
     function applyFilters() {
       const filters = getFilters();
-      visibleRows = allRows.filter(row => rowMatches(row, filters));
-      render(visibleRows, filters);
+
+      fetchOverviewWithFilters(filters);
     }
 
     function pointOnEllipse(cx, cy, rx, ry, deg) {
@@ -757,7 +757,52 @@
         document.body.classList.remove("is-loading");
       }
     }
+    async function fetchOverviewWithFilters(filters = {}) {
+      document.body.classList.add("is-loading");
 
+      const params = new URLSearchParams();
+
+      if (filters.batch) params.set("batch_id", filters.batch);
+      if (filters.industry) params.set("industry", filters.industry);
+      if (filters.size) params.set("size", filters.size);
+      if (filters.source) params.set("source", filters.source);
+      if (filters.submitted_after) params.set("submitted_after", filters.submitted_after);
+      if (filters.submitted_before) params.set("submitted_before", filters.submitted_before);
+
+      const url = `${OVERVIEW_ENDPOINT}${params.toString() ? `?${params.toString()}` : ""}`;
+
+      try {
+        const response = await fetch(url, {
+          headers: { Accept: "application/json" }
+        });
+
+        if (!response.ok) {
+          let errorPayload;
+
+          try {
+            errorPayload = await response.json();
+          } catch (_) {
+            errorPayload = await response.text();
+          }
+
+          console.error("Overview endpoint error payload:", errorPayload);
+          throw new Error(`Overview endpoint returned ${response.status}`);
+        }
+
+        const payload = await response.json();
+
+        if (!payload.ok) {
+          throw new Error(payload.error || "Overview endpoint returned ok:false");
+        }
+
+        loadRows(payload);
+      } catch (error) {
+        console.warn("Using sample overview data because live endpoint failed:", error);
+        loadRows(sampleData);
+      } finally {
+        document.body.classList.remove("is-loading");
+      }
+    }
     els.applyButton.addEventListener("click", applyFilters);
 
     els.resetButton.addEventListener("click", () => {
@@ -790,4 +835,4 @@
       loadRows(sampleData);
     });
 
-    fetchOverview();
+    fetchOverviewWithFilters();
