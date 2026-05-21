@@ -235,6 +235,18 @@ function buildQuotientProfiles(submissions) {
 
     let overall = null;
 
+    const quotientValues = submissions
+      .map(submission => {
+        const r = submission.scores?.[keys.resilience];
+        const p = submission.scores?.[keys.preparedness];
+
+        if (isNumber(r) && isNumber(p)) return (r + p) / 2;
+        if (isNumber(r)) return r;
+        if (isNumber(p)) return p;
+        return null;
+      })
+      .filter(isNumber);
+      
     if (isNumber(resilienceAverage) && isNumber(preparednessAverage)) {
       overall = round((resilienceAverage + preparednessAverage) / 2);
     } else if (isNumber(resilienceAverage)) {
