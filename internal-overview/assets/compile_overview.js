@@ -724,7 +724,23 @@
         });
 
         if (!response.ok) {
-          throw new Error(`Overview endpoint returned ${response.status}`);
+          let errorPayload = null;
+
+          try {
+            errorPayload = await response.json();
+          } catch (_) {
+            errorPayload = await response.text();
+          }
+
+          console.error("Overview endpoint error payload:", errorPayload);
+
+          throw new Error(
+            `Overview endpoint returned ${response.status}: ${
+              typeof errorPayload === "string"
+                ? errorPayload
+                : JSON.stringify(errorPayload)
+            }`
+          );
         }
 
         const payload = await response.json();
