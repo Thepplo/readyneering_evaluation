@@ -138,8 +138,8 @@
       tableBody: document.getElementById("overviewTableBody"),
       metricBatches: document.getElementById("metricBatches"),
       metricSubmissions: document.getElementById("metricSubmissions"),
-      metricResilience: document.getElementById("metricResilience"),
-      metricPreparedness: document.getElementById("metricPreparedness")
+      /* metricResilience: document.getElementById("metricResilience"), */
+      /* metricPreparedness: document.getElementById("metricPreparedness") */
     };
 
     function countKeys(obj = {}) {
@@ -458,8 +458,82 @@
 
       els.metricBatches.textContent = rows.length;
       els.metricSubmissions.textContent = totalSubmissions;
-      els.metricResilience.textContent = formatScore(weightedAverage("resilience"));
-      els.metricPreparedness.textContent = formatScore(weightedAverage("preparedness"));
+      /* els.metricResilience.textContent = formatScore(weightedAverage("resilience")); */
+      /* els.metricPreparedness.textContent = formatScore(weightedAverage("preparedness")); */
+    }
+
+    function renderOverviewQuotientGrid(quotientsObj = {}) {
+      const entries = Object.entries(quotientsObj);
+
+      if (!entries.length) {
+        return '<div class="empty">No quotient data available.</div>';
+      }
+
+      return `
+        <div class="q-grid">
+          ${entries.map(([key, average]) => {
+            return renderOverviewQuotientCard({ key, average });
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function renderOverviewQuotientCard(q) {
+      const score = Number(q.average);
+      const hasScore = Number.isFinite(score);
+
+      return `
+        <div class="q-card ${q.key}">
+          <span class="orb orb-1"></span>
+          <span class="orb orb-2"></span>
+          <span class="orb orb-3"></span>
+
+          <div class="q-head">
+            <div class="q-label">${titleCase(q.key)}</div>
+          </div>
+
+          <div class="q-metrics">
+            <div class="q-score">${hasScore ? score.toFixed(1) : "—"}</div>
+          </div>
+
+          <div class="q-section">
+            <div class="q-section-label">Average across visible cohort</div>
+            <div class="q-copy">${getSimpleQuotientLine(q.key, score)}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function getSimpleQuotientLine(key, score) {
+      if (!Number.isFinite(score)) return "No score available yet.";
+
+      if (score >= 4) return `${titleCase(key)} is a clear strength across this cohort.`;
+      if (score >= 3) return `${titleCase(key)} is moderately developed across this cohort.`;
+      return `${titleCase(key)} appears to be a development area across this cohort.`;
+    }
+
+    function getWeightedOverviewQuotients(rows) {
+      const keys = ["vitality", "emotion", "mind", "execution", "alignment"];
+      const result = {};
+
+      keys.forEach(key => {
+        let weightedTotal = 0;
+        let totalWeight = 0;
+
+        rows.forEach(row => {
+          const score = Number(row.quotients?.[key]);
+          const weight = Number(row.submission_count || 0);
+
+          if (Number.isFinite(score) && weight > 0) {
+            weightedTotal += score * weight;
+            totalWeight += weight;
+          }
+        });
+
+        result[key] = totalWeight > 0 ? weightedTotal / totalWeight : null;
+      });
+
+      return result;
     }
 
     function renderCards(rows) {
@@ -543,7 +617,10 @@
 
       els.resultCount.textContent = `${rows.length} batch${rows.length === 1 ? "" : "es"} shown`;
       els.activeFiltersPill.textContent = activeLabels.length ? activeLabels.join(" · ") : "No active filters";
-
+      
+      const overviewQuotients = getWeightedOverviewQuotients(visibleRows);
+      document.getElementById("q-grid-wrapper").innerHTML =
+        renderOverviewQuotientGrid(overviewQuotients);
       renderMetrics(rows);
       renderCards(rows);
       renderTable(rows);

@@ -602,10 +602,10 @@ function renderQuotientGrid(quotientsObj = {}) {
   `;
 }
 
-    function varianceToWidth(stdDev) {
-      const max = 0.7;
-      return Math.min((stdDev / max) * 100, 100);
-    }
+function varianceToWidth(stdDev) {
+  const max = 0.7;
+  return Math.min((stdDev / max) * 100, 100);
+}
 
 
 function renderVarianceSection(quotients = {}) {
