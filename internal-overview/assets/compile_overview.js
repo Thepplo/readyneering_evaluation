@@ -611,13 +611,18 @@
         `;
       }).join("");
     }
+    
+    function titleCase(str) {
+      if (!str) return '';
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 
     function render(rows, filters = getFilters()) {
       const activeLabels = getActiveFilterLabels(filters);
 
       els.resultCount.textContent = `${rows.length} batch${rows.length === 1 ? "" : "es"} shown`;
       els.activeFiltersPill.textContent = activeLabels.length ? activeLabels.join(" · ") : "No active filters";
-      
+
       const overviewQuotients = getWeightedOverviewQuotients(visibleRows);
       document.getElementById("q-grid-wrapper").innerHTML =
         renderOverviewQuotientGrid(overviewQuotients);
