@@ -240,6 +240,171 @@
       render(visibleRows, filters);
     }
 
+    function pointOnEllipse(cx, cy, rx, ry, deg) {
+      const rad = (deg * Math.PI) / 180;
+      return {
+        x: cx + rx * Math.cos(rad),
+        y: cy + ry * Math.sin(rad)
+      };
+    }
+
+    function renderOrbit(rows) {
+      const weightedAverage = key => {
+        const totalWeight = rows.reduce(
+          (sum, row) => sum + Number(row.submission_count || 0),
+          0
+        );
+
+        if (!totalWeight) return null;
+
+        const total = rows.reduce((sum, row) => {
+          const score = Number(row.averages && row.averages[key]);
+          const weight = Number(row.submission_count || 0);
+
+          return Number.isFinite(score) ? sum + score * weight : sum;
+        }, 0);
+
+        return total / totalWeight;
+      };
+
+      const orbitCx = 315;
+      const orbitCy = 200;
+      const rx = 250;
+      const ry = 155;
+
+      const centerSize = 140;
+      const smallSize = 92;
+      const leftX = orbitCx - rx;
+      const rightX = orbitCx + rx;
+      const cy = orbitCy;
+
+      const resiliencePos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 215);
+      const preparednessPos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 325);
+
+      const resilienceX = resiliencePos.x - smallSize / 2;
+      const resilienceY = resiliencePos.y - smallSize / 2;
+      const preparednessX = preparednessPos.x - smallSize / 2;
+      const preparednessY = preparednessPos.y - smallSize / 2;
+
+      const centerX = orbitCx - centerSize / 2;
+      const centerY = orbitCy - centerSize / 2 - 5;
+
+      const rr = document.getElementById("ring-row");
+
+      if (!rr) return;
+
+      rr.innerHTML = `
+        <svg class="orbit-svg" viewBox="0 0 630 420" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="backArcFade" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#7d5c6e" stop-opacity="1" />
+              <stop offset="18%" stop-color="#7d5c6e" stop-opacity="0.78" />
+              <stop offset="50%" stop-color="#7d5c6e" stop-opacity="0.05" />
+              <stop offset="82%" stop-color="#7d5c6e" stop-opacity="0.78" />
+              <stop offset="100%" stop-color="#7d5c6e" stop-opacity="1" />
+            </linearGradient>
+
+            <linearGradient id="linkLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#534AB7" stop-opacity="0.28" />
+              <stop offset="100%" stop-color="#534AB7" stop-opacity="0.06" />
+            </linearGradient>
+
+            <linearGradient id="linkRight" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1D9E75" stop-opacity="0.28" />
+              <stop offset="100%" stop-color="#1D9E75" stop-opacity="0.06" />
+            </linearGradient>
+          </defs>
+
+          <path
+            d="M ${leftX} ${cy} A ${rx} ${ry} 0 0 1 ${rightX} ${cy}"
+            fill="none"
+            stroke="url(#backArcFade)"
+            stroke-opacity="0.28"
+            stroke-width="1.5"
+          />
+
+          <path
+            d="M ${rightX} ${cy} A ${rx} ${ry} 0 0 1 ${leftX} ${cy}"
+            fill="none"
+            stroke="#7d5c6e"
+            stroke-opacity="0.28"
+            stroke-width="1.5"
+          />
+
+          <path
+            d="M ${resiliencePos.x} ${resiliencePos.y}
+              Q ${orbitCx - 95} ${orbitCy - 35} ${orbitCx} ${orbitCy}"
+            fill="none"
+            stroke="url(#linkLeft)"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="M ${preparednessPos.x} ${preparednessPos.y}
+              Q ${orbitCx + 95} ${orbitCy - 35} ${orbitCx} ${orbitCy}"
+            fill="none"
+            stroke="url(#linkRight)"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+
+          <foreignObject x="${resilienceX}" y="${resilienceY}" width="${smallSize}" height="${smallSize}">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
+              ${makeRing(formatScore(weightedAverage("resilience")), 0, 5, "#534AB7", "#E8E7E0", smallSize)}
+            </div>
+          </foreignObject>
+
+          <text
+            x="${resiliencePos.x}"
+            y="${resiliencePos.y + smallSize / 2 + 18}"
+            text-anchor="middle"
+            class="score-label"
+          >
+            AVG. RESILIENCE
+          </text>
+
+          <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
+              ${makeRing(formatScore(weightedAverage("preparedness")), 0, 5, "#1D9E75", "#E8E7E0", smallSize)}
+            </div>
+          </foreignObject>
+
+          <text
+            x="${preparednessPos.x}"
+            y="${preparednessPos.y + smallSize / 2 + 18}"
+            text-anchor="middle"
+            class="score-label"
+          >
+            AVG. PREPAREDNESS
+          </text>
+
+          <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
+              ${makeRing(formatScore(weightedAverage("overall")), 0, 25, "#770136", "#7701363f", centerSize)}
+            </div>
+          </foreignObject>
+
+          <text
+            x="${orbitCx}"
+            y="${centerY + centerSize + 18}"
+            text-anchor="middle"
+            class="score-label center-label"
+          >
+            AVG. OVERALL READINESS
+          </text>
+
+          <text
+            x="${orbitCx}"
+            y="${centerY + centerSize + 34}"
+            text-anchor="middle"
+            class="score-sub center-sub"
+          >
+            Across visible batches
+          </text>
+        </svg>
+      `;
+    }
     function renderMetrics(rows) {
       const totalSubmissions = rows.reduce((sum, row) => sum + Number(row.submission_count || 0), 0);
 
@@ -347,6 +512,7 @@
       renderMetrics(rows);
       renderCards(rows);
       renderTable(rows);
+      renderOrbit(rows);
     }
 
     function loadRows(payload) {
