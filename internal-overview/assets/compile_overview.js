@@ -458,8 +458,9 @@
 
       els.metricBatches.textContent = rows.length;
       els.metricSubmissions.textContent = totalSubmissions;
-      /* els.metricResilience.textContent = formatScore(weightedAverage("resilience")); */
-      /* els.metricPreparedness.textContent = formatScore(weightedAverage("preparedness")); */
+      els.metricResilience.textContent = formatScore(weightedAverage("resilience"));
+      els.metricPreparedness.textContent = formatScore(weightedAverage("preparedness"));
+      els.metricOverall.textContent = formatScore(weightedAverage("overall"));
     }
     function getBandPercents(bands) {
       const low = bands?.low || 0;

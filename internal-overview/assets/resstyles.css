@@ -264,6 +264,18 @@ h3 {
   );
   border-radius: 2px;
 } */
+
+.stat-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.star-card-div {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  gap: 1.5rem;
+} 
 .stat-card {
   background: transparent;
   display: flex;
