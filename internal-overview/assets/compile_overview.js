@@ -138,8 +138,9 @@
       tableBody: document.getElementById("overviewTableBody"),
       metricBatches: document.getElementById("metricBatches"),
       metricSubmissions: document.getElementById("metricSubmissions"),
-      /* metricResilience: document.getElementById("metricResilience"), */
-      /* metricPreparedness: document.getElementById("metricPreparedness") */
+      metricResilience: document.getElementById("metricResilience"),
+      metricPreparedness: document.getElementById("metricPreparedness"),
+      metricOverall: document.getElementById("metricOverall")
     };
 
     function countKeys(obj = {}) {
