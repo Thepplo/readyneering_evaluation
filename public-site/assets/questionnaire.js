@@ -349,11 +349,11 @@ const TRIADS = [
   {
     quotient:"Vitality",
     id:"vitality-1",
-    scenario:"A demanding phase just ended - at work and at home. You hit the deadlines, held it together, kept all the plates spinning. Now you are looking in the mirror",
-    question:"What does your energy actually look like right now?",
-    A:"Running on empty. I have not properly recovered",
-    B:"I am back. Recovery was something I planned for.",
-    C:"I am tired, but I bounce back - I absorb the pressure and carry on.",
+    scenario:"Recent months have been relentless. At work and at home. You hit every deadline. You held it together. But Sunday evening has a feeling you recognize — a knot, a low hum of dread. Monday morning is something you are getting through, not looking forward to.",
+    question:"What does your energy actually tell you right now?",
+    A:"No energy. No momentum. I got through it. That is about all I can say.",
+    B:"I am genuinely back. Recovery was something I planned for, protected, and used.",
+    C:"I am tired. But I bounce back. I always have. That is just how I operate.",
     scores:{ R_vitality:[-0.9, 0.9, 0.4], P_vitality:[-0.5, 0.9, 0.2] }
   },
 
@@ -361,11 +361,11 @@ const TRIADS = [
   {
     quotient:"Emotion",
     id:"emotion-1",
-    scenario:"Something went wrong - a failed project, a difficult conversation, a fallout with someone whose opinion matters. Emotions ran high. Some of it left a mark.",
-    question:"How did I deal with the emotional aftermath?",
-    A:"I never properly addressed it. The impact is still there.",
-    B:"I stayed professional. The tension faded on its own.",
-    C:"I named it - to myself and others. I worked through it.",
+    scenario:"Something went wrong and emotions ran high. A fallout, a failure, a moment that left a mark. The professional thing was to move on. You moved on. But something stayed.",
+    question:"How honest are you being about what that experience actually cost you?",
+    A:"I moved past it. What matters is what comes next. Looking back is not useful.",
+    B:"I stayed professional. But if I am honest, I never fully processed it. The residue is still there.",
+    C:"I named it — to myself and to the people it affected. I worked through it and came out of it differently.",
 
 
     scores:{ R_emotion:[-0.8, 0.1, 0.9], P_emotion:[-0.6, 0.1, 0.7] }
@@ -375,11 +375,11 @@ const TRIADS = [
   {
     quotient:"Mind",
     id:"mind-1",
-    scenario:" I can see the storm coming - a significant challenge, a high-stakes moment, a period of real uncertainty on the horizon. Before the pressure hits, I have time to prepare my thinking.",
-    question:"What does my planning approach actually look like?",
-    A:"I lock in my priorities before things get hard.",
-    B:"I plan for the most likely scenario and adapt as I go.",
-    C:"I think through multiple scenarios and what I would do in each.",
+    scenario:"You can see the pressure building. A significant challenge. A period where the usual playbook will not be enough. The world is too full, too loud, too unclear right now. And it does not wait for you to feel ready.",
+    question:"How do you actually prepare your thinking before the storm hits?",
+    A:"I lock in my priorities and hold them. Clarity before chaos. That is what I know how to do.",
+    B:"I plan for the most likely scenario and stay flexible from there.",
+    C:"I work through multiple possibilities and what I would do in each. Discomfort in the thinking is better than surprise in the moment.",
     scores:{ R_mind:[0.2, -0.5, 0.8], P_mind:[0.3, -0.8, 0.9] }
   },
 
@@ -387,11 +387,11 @@ const TRIADS = [
   {
     quotient:"Alignment",
     id:"alignment-1",
-    scenario:"A key person I depend on becomes unavailable - a colleague, a partner, a caregiver, someone whose absence changes how I operate. There is no backup plan.",
-    question:"What happens to my stability?",
-    A:"I step up and manage. There is strain, but I hold.",
-    B:"Real disruption. Too much was depending on that one person.",
-    C:"Minimal disruption. I have built enough shared clarity to navigate without them.",
+    scenario:"A key person you depend on is suddenly unavailable. A colleague, a partner, a caregiver. The system was built around them. Now they are gone. There is no plan. This is yours to navigate.",
+    question:"What does owning this situation actually look like?",
+    A:"I see it. I step up. I absorb the strain and keep things moving. That is what is needed.",
+    B:"Real disruption. Too much was sitting with one person. Including things it should not have been.",
+    C:"Minimal disruption. I built enough shared clarity that others can navigate without me holding it all together.",
     scores:{ R_alignment:[-0.1, -0.9, 0.9], P_alignment:[-0.1, -0.9, 0.8] }
   },
 
@@ -399,11 +399,11 @@ const TRIADS = [
   {
     quotient:"Execution",
     id:"execution-1",
-    scenario:"Something hits from outside my control - a sudden change at work, a family situation, an unexpected demand that cannot wait. I need to change direction mid-stride.",
-    question:"How do I respond when speed and clarity matter most?",
-    A:"I recalibrate within a day or two. Not panicked, not frozen.",
-    B:"I define what I own and move fast. No drama.",
-    C:"I either overreact or freeze. I struggle to find the middle ground.",
+    scenario:"Something lands without warning. A message, a call, a development that changes everything. No time to plan. No meeting to schedule. The world just became non-linear and it is happening right now.",
+    question:"What does the next hour actually look like?",
+    A:"I absorb it. Orient. Start moving. Clarity comes fast even when the situation does not.",
+    B:"I freeze briefly then push through. There is a cost — to my thinking, to the people around me. But I move.",
+    C:"The urgency is running me. I am already on the defensive before I have had time to think.",
     scores:{ R_execution:[0.4, 0.9, -0.8], P_execution:[0.3, 0.8, -0.6] }
   },
 
@@ -411,11 +411,11 @@ const TRIADS = [
   {
     quotient:"Vitality",
     id:"vitality-2",
-    scenario:" The next few months look demanding - big commitments at work, responsibilities at home, school pickups, ageing parents, a full diary. I am already close to the limit.",
-    question:"What does managing my capacity actually look like?",
-    A:"I build in recovery deliberately. I protect it as seriously as any deadline.",
-    B:"I try to model what sustainable looks like for the people around me.",
-    C:"I run at full capacity. I absorb what is needed and deal with the consequences later.",
+    scenario:"The calendar is full. Big commitments at work, real responsibilities at home. Aging parents. School pickups. You are close to the limit and the next few months are not getting lighter. You know what this has cost you before. The question is what you do about it this time.",
+    question:"What does deliberately managing your capacity actually look like?",
+    A:"I build in recovery and protect it like any other commitment. Sustainability is a design choice.",
+    B:"I try to model a pace I would be comfortable asking of the people around me.",
+    C:"I run at full capacity and deal with the consequences later. That is what this phase requires.",
     scores:{ R_vitality:[0.2, 0.8, -0.6], P_vitality:[0.2, 0.9, -0.8] }
   },
 
@@ -423,11 +423,11 @@ const TRIADS = [
   {
     quotient:"Emotion",
     id:"emotion-2",
-    scenario:"Someone I work closely with needs to hear something difficult from me - a blind spot, a pattern of behavior, an impact they are not seeing. It is a conversation that could create friction.",
-    question:"What do I actually do?",
-    A:"I deliver it carefully. Sometimes it is taken personally.",
-    B:"I say it directly. It is received without defensiveness.",
-    C:"I soften it or avoid it. I put the relationship first.",
+    scenario:"Someone you work closely with needs to hear something difficult. A pattern they cannot see. An impact they are not owning. You have been avoiding the conversation. So have they. Keeping quiet is comfortable. It is also a choice with consequences.",
+    question:"What do you actually do?",
+    A:"I find a way to say it carefully. Sometimes it lands well, sometimes it does not.",
+    B:"I say it directly. With care but without softening it until the message disappears. It gets received.",
+    C:"I tell myself I am waiting for the right moment. The right moment rarely arrives.",
     scores:{ R_emotion:[0.1, 0.9, -0.7], P_emotion:[0.2, 0.7, -0.5] }
   },
 
@@ -435,11 +435,11 @@ const TRIADS = [
   {
     quotient:"Alignment",
     id:"alignment-2",
-    scenario:"I am caught between competing demands - work priorities pulling one way, personal commitments pulling another, and no one else is going to resolve it for me.",
-    question:"How do I handle the conflict between competing priorities?",
-    A:"It lingers until something breaks and forces a decision.",
-    B:"I negotiate informally, trading and deferring. It takes time and creates friction.",
-    C:"I have a clear way of escalating and resolving this quickly.",
+    scenario:"Something that matters to you is getting quietly squeezed. Nobody is going to resolve this for you. Nobody even knows it is a conflict because you have not told them. You are already on the defensive and no one in the room knows why.",
+    question:"How do you actually make the call?",
+    A:"The loudest demand tends to win. I respond to what is in front of me rather than what matters most.",
+    B:"I make deliberate choices. I own those choices, even the uncomfortable ones.",
+    C:"I have a clear personal hierarchy of what matters. I apply it — especially when it is inconvenient.",
     scores:{ R_alignment:[-0.8, 0.2, 0.9], P_alignment:[-0.7, 0.1, 0.7] }
   },
 
@@ -447,11 +447,11 @@ const TRIADS = [
   {
     quotient:"Execution",
     id:"execution-2",
-    scenario:"A high-stakes moment is approaching - a major deliverable, a difficult conversation, a period of sustained pressure. Before it arrives, someone asks: how will I make decisions when things go wrong?",
-    question:"What do I actually have in place before the pressure starts?",
-    A:"I have thought through my decision principles in advance.",
-    B:"I have a clear picture of what I own and what I will do first.",
-    C:"I have thought about it in theory. Nothing is written down or rehearsed.",
+    scenario:"A moment that truly matters is approaching. High stakes. Real pressure. The kind of situation where being unprepared is not an option. The question is not whether you will face it. The question is whether you are already ready — before the pressure starts.",
+    question:"What do you actually have in place right now?",
+    A:"I have thought through my decision principles. I know what I stand for before I need to stand for it.",
+    B:"I know what I own and what I will do first. The picture is clear even if not everything is written down.",
+    C:"I have thought about it in theory. Nothing is rehearsed. I will figure it out when I get there.",
     scores:{ R_execution:[0.8, 0.1, -0.7], P_execution:[0.9, 0.2, -0.8] }
   },
 
@@ -459,11 +459,11 @@ const TRIADS = [
   {
     quotient:"Vitality",
     id:"vitality-3",
-    scenario:"Over several months, I notice the signs - I am more tired than usual, my patience is shorter, the things I used to enjoy feel like effort. The demands have not changed.",
-    question:"How do I respond to these signals in myself?",
-    A:"I normalise it. 'It is just a demanding phase.'",
-    B:"I name it - to myself and to others - and treat it as something to address.",
-    C:"I manage it privately. I push through without telling anyone.",
+    scenario:"The signals have been building for months. More tired than usual. Shorter fuse. The things that used to give you energy now feel like obligations. You have been telling yourself it is temporary. You have been saying that for a while.",
+    question:"How honest are you being with yourself about what you are actually seeing?",
+    A:"I am still calling it a phase. It will ease up. It always does. Eventually.",
+    B:"I see it clearly. I am naming it — to myself and to at least one other person who can actually hear it.",
+    C:"I see it. But I manage it alone. Because naming it feels like admitting something I am not ready to admit.",
     scores:{ R_vitality:[-0.6, 0.9, -0.1], P_vitality:[-0.4, 0.8, 0.0] }
   },
 
@@ -471,11 +471,11 @@ const TRIADS = [
   {
     quotient:"Execution",
     id:"execution-3",
-    scenario:" I make a significant decision. A week or two later, I realize the way I am executing it has drifted - I am not sure my actions are still aligned with what I intended.",
-    question:"How common is this - and what do I do when it happens?",
-    A:"Rare. I start with clear intentions and check in early.",
-    B:"Occasional. I catch it in review before it becomes a real problem.",
-    C:"A known pattern for me. There is often a gap between deciding and doing.",
+    scenario:"You made a significant decision. Two weeks later the execution has drifted. Quietly. Incrementally. Each small shift seemed reasonable at the time. The gap between what you decided and what is actually happening is real. And it belongs to you.",
+    question:"How do you handle the gap between deciding and doing?",
+    A:"Rarely happens. I build regular check ins into how I work and catch drift early.",
+    B:"Occasionally. I notice and correct before it becomes a real problem.",
+    C:"It is a pattern I recognize in myself. I decide well and execute loosely. The two rarely stay aligned for long.",
     scores:{ R_execution:[0.9, 0.3, -0.8], P_execution:[0.8, 0.2, -0.7] }
   },
 
@@ -483,11 +483,11 @@ const TRIADS = [
   {
     quotient:"Emotion",
     id:"emotion-3",
-    scenario:"A demanding period is on the horizon - a high-stakes project, a difficult life event, a sustained stretch that I know will test me. I have time to prepare - not just practically, but personally.",
-    question:"What does that preparation actually look like for me?",
-    A:"I focus on the practical. How I feel is something I deal with as it comes.",
-    B:"I think about how I want to show up and talk to the people closest to me about it.",
-    C:"I reflect individually. I do not tend to share this kind of preparation with others.",
+    scenario:"A peak moment is on the horizon. High stakes, personally significant, the kind of stretch that will test you in ways you can already feel. You have time to prepare. Not just operationally. As a person. The question is whether you use it.",
+    question:"What does real personal preparation look like for you?",
+    A:"I focus on what needs to get done. How I feel is something I deal with as it comes.",
+    B:"I think about who I want to be in this moment — and I have that conversation with the people closest to me.",
+    C:"I reflect on my own. I do not tend to bring others into this kind of preparation.",
     scores:{ R_emotion:[-0.4, 0.7, 0.2], P_emotion:[-0.8, 0.9, 0.1] }
   },
 
@@ -495,11 +495,11 @@ const TRIADS = [
   {
     quotient:"Mind",
     id:"mind-2",
-    scenario:"Something I tried did not work - a plan that missed, a decision that did not land, an approach that needed to change. The moment to reflect on it has arrived.",
-    question:"What does that reflection actually look like for me?",
-    A:"I look at what in my process allowed this to happen.",
-    B:"I focus on the outcome. What went wrong, and what do I own?",
-    C:"I keep it surface level. The real causes stay unexamined.",
+    scenario:"Something significant did not work. A strategy that missed, a decision that backfired, a result that fell short. The pessimism is real. The derailing thoughts are louder than you would like. Now comes the reflection. The question is whether it changes something — or just evaporates.",
+    question:"What does the reflection that actually makes you stronger look like?",
+    A:"I look at what in my process created the conditions for this. That is where the change lives.",
+    B:"I focus on the outcome — what went wrong and what I own. That feels like the right place to start.",
+    C:"I keep it surface level and move on. Sitting with failure too long is not useful.",
     scores:{ R_mind:[0.9, -0.3, -0.6], P_mind:[0.8, 0.1, -0.5] }
   },
 
@@ -507,11 +507,11 @@ const TRIADS = [
   {
     quotient:"Alignment",
     id:"alignment-3",
-    scenario:" I believe I have a clear direction - in my work, my priorities, or my goals. Six months in, I pause to ask the people closest to me whether they see the same thing.",
-    question:"What do I find?",
-    A:"Consistent clarity. They describe it the same way I do.",
-    B:"Clear in my own head. Others have only fragments of it.",
-    C:"Significant divergence. What they describe does not match what I intended.",
+    scenario:"You have a clear direction. In your work, your priorities, what matters. Or so you believe. Six months in you pause and ask the people closest to you whether they see the same thing. Not to validate it. To find out whether it actually landed.",
+    question:"What do you find?",
+    A:"Consistent clarity. They describe it the way I do. They can act on it without me in the room.",
+    B:"Clear in my head. Others have fragments. The gap between my clarity and theirs is larger than I expected.",
+    C:"Significant divergence. What they describe is not what I intended. The direction I thought I had shared never actually landed.",
     scores:{ R_alignment:[0.6, 0.1, -0.7], P_alignment:[0.9, 0.2, -0.8] }
   },
 
@@ -519,11 +519,11 @@ const TRIADS = [
   {
     quotient:"Mind",
     id:"mind-3",
-    scenario:"Under pressure, a story has taken hold in my mind - about why things are difficult, who is at fault, what is and is not possible. It might be partially true. It is also keeping me stuck.",
-    question:"How do I relate to my own dominant narrative under pressure?",
-    A:"I actively question it. I know my stories can become blind spots.",
-    B:"I accept it. Challenging it feels disloyal to my own experience.",
-    C:"I question it privately. But I rarely say so out loud.",
+    scenario:"Under pressure a story has taken hold. About why things are hard, who is responsible, what is and is not possible. It has been running so long it has become the wallpaper. Nobody questions it anymore. Including you. That is exactly when it becomes dangerous.",
+    question:"How do you relate to your own narrative when it has stopped feeling like a choice?",
+    A:"I interrogate it deliberately. Comfortable stories are where blind spots live. Thinking differently is the work.",
+    B:"I accept it. Challenging my own narrative feels like undermining myself or the people around me.",
+    C:"I sense it is limiting. But naming it out loud feels like a risk I am not ready to take.",
     scores:{ R_mind:[0.9, -0.7, -0.2], P_mind:[0.7, -0.5, -0.1] }
   },
 
@@ -531,11 +531,11 @@ const TRIADS = [
   {
     quotient:"Vitality",
     id:"vitality-4",
-    scenario:"After an intense period - demanding work, family pressure, little time to recover - the question on the table is whether I treat my own sustainability as something I actively design, or something I just endure.",
-    question:"Which best describes where I am?",
-    A:"Individual endurance. I manage my own limits and push through.",
-    B:"I know sustainability matters. I have not yet made it a deliberate practice.",
-    C:"I treat it as a design question. I actively protect my recovery.",
+    scenario:"You have made sacrifices to keep up — sleep, relationships, things that matter to you outside of work. Each one felt necessary at the time. Together they form a pattern. The question is not whether you can keep going. It is whether this is how you want to lead.",
+    question:"What does that pattern tell you about how you are actually operating?",
+    A:"I run at the limit and absorb the cost. That is what this stage of life and leadership requires.",
+    B:"I see the costs clearly. I know the pattern. I have not changed it yet.",
+    C:"I have deliberately designed recovery and protection into how I live and work. And I hold that boundary.",
     scores:{ R_vitality:[-0.9, 0.2, 0.9], P_vitality:[-0.8, 0.2, 0.9] }
   },
 
@@ -543,11 +543,11 @@ const TRIADS = [
   {
     quotient:"Emotion",
     id:"emotion-4",
-    scenario:" I take a moment to reflect on how I actually behave when the pressure is really on - at work, at home, in the moments that test me. Do I know my own patterns? Have I ever talked about them with the people closest to me?",
-    question:"How emotionally prepared am I for the moments that matter?",
-    A:"I know my patterns well. I have talked about them with others.",
-    B:"I have some self-awareness. I have not yet shared it with the people around me.",
-    C:"My stress reactions tend to surface before I see them coming.",
+    scenario:"Emotions are running strong. In this conversation, this room, this moment. Something has triggered you. You can feel it. So can everyone else. This is the moment where Readiness is either real or it is not.",
+    question:"What actually happens next?",
+    A:"I react. I see the impact afterwards. By then it has already landed.",
+    B:"I notice it. I pause long enough to choose my response rather than just express my reaction.",
+    C:"I have practiced this enough that the pause is almost automatic. The discomfort is familiar. I can work with it.",
     scores:{ R_emotion:[0.9, 0.2, -0.8], P_emotion:[0.9, 0.2, -0.9] }
   },
 
@@ -555,11 +555,11 @@ const TRIADS = [
   {
     quotient:"Mind",
     id:"mind-4",
-    scenario:"I am in the middle of a fast-moving situation. Some of what I know is confirmed. Some are rumors. Some are my own interpretations of incomplete information. I need to make sense of it quickly.",
-    question:"How clearly do I separate what I know from what I am assuming?",
-    A:"I explicitly label what I know, what I assume, and what I am interpreting.",
-    B:"Facts and assumptions blur. I act on an incomplete picture.",
-    C:"I mostly rely on instinct. I read the situation and move.",
+    scenario:"The situation is moving fast. The information is a mixture of confirmed fact, rumor, and your own interpretation. Too full. Too loud. Too unclear. You need to make sense of it. You need to move. The question is which of those two you are actually doing.",
+    question:"How clearly do you separate what you know from what you are assuming?",
+    A:"I explicitly label what I know, what I am assuming, and what I am still interpreting. I decide from the first category.",
+    B:"Facts and assumptions blur. I act on the full picture even when parts of it are not yet confirmed.",
+    C:"I rely on instinct and experience. I read the room and move. Analysis takes time I do not have.",
     scores:{ R_mind:[0.9, -0.8, 0.2], P_mind:[0.8, -0.7, 0.1] }
   },
 
@@ -567,11 +567,11 @@ const TRIADS = [
   {
     quotient:"Execution",
     id:"execution-4",
-    scenario:"A significant effort just finished. There is pressure - internal and external - to move straight to the next thing. A small voice suggests pausing to reflect on what just happened.",
-    question:"What do I do with that voice?",
-    A:"I create space for it. Reflection actually changes how I approach the next thing.",
-    B:"I make time for a brief debrief. The insights rarely change what I do next.",
-    C:"I move on. There is always something more urgent waiting.",
+    scenario:"You just completed something significant. The calendar does not stop. There is already pressure to move to the next thing. A small voice says: pause. Learn something that actually sticks this time. Not knowledge that evaporates after two weeks. Real change.",
+    question:"What do you do with that voice?",
+    A:"I create space for it. Real reflection changes how I approach the next thing. That is the whole point.",
+    B:"I make time for a brief debrief. If I am honest, the insights rarely change what I do next.",
+    C:"I move on. There is always something more urgent waiting. I cannot afford to look backwards.",
     scores:{ R_execution:[0.9, 0.1, -0.8], P_execution:[0.8, 0.1, -0.8] }
   },
 
@@ -579,11 +579,11 @@ const TRIADS = [
   {
     quotient:"Alignment",
     id:"alignment-4",
-    scenario:"A significant change has been signaled - at work, at home, in circumstances beyond my control. The direction is unclear. Roles may shift. I am not yet sure what falls to me.",
-    question:"How do I hold myself together during the ambiguity?",
-    A:"I communicate clearly with those around me. We navigate from a shared sense of direction.",
-    B:"I lean on informal relationships. I fill gaps where I can and wait where I cannot.",
-    C:"I wait for clarity before I act. Ambiguity tends to paralyse me.",
+    scenario:"Significant change is coming. Professionally, personally, in circumstances beyond your control. The direction is unclear. Roles may shift. The structure has not caught up with the new reality. In a brittle and anxious world, this is the moment that separates leaders who run on instruction from leaders who run on clarity.",
+    question:"How do you hold yourself and others together when the map has not been redrawn yet?",
+    A:"I communicate clearly. Direction does not wait for structure. We navigate from a shared sense of what matters.",
+    B:"I lean on informal relationships and instinct. I fill gaps where I can and wait where I cannot.",
+    C:"I wait for clarity before I move. Ambiguity without a clear answer tends to paralyze me.",
     scores:{ R_alignment:[0.9, 0.0, -0.8], P_alignment:[0.8, -0.1, -0.8] }
   }
 
