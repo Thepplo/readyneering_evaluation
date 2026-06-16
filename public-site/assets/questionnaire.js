@@ -1,4 +1,4 @@
-const TURNSTILE_SITE_KEY = '1x00000000000000000000AA';
+const TURNSTILE_SITE_KEY = '0x4AAAAAADTHusttqatb2uD0';
 
 let turnstileWidgetId = null;
 let turnstilePending = null;
