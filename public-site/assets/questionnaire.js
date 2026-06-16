@@ -53,7 +53,7 @@ function renderTurnstileWidgetOnce() {
 
 async function initTurnstile() {
   await waitForTurnstile();
-  window.turnstile.ready(renderTurnstileWidgetOnce);
+  renderTurnstileWidgetOnce();
 }
 
 async function getTurnstileToken() {
