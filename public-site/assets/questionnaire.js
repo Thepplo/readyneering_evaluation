@@ -1,72 +1,59 @@
 const TURNSTILE_SITE_KEY = '0x4AAAAAADTHusttqatb2uD0';
 
 let turnstileWidgetId = null;
-let turnstileReadyPromise = null;
+let turnstilePending = null;
 
-function waitForTurnstile() {
-  if (window.turnstile) {
-    return Promise.resolve();
-  }
+function renderTurnstileWidgetOnce() {
+  if (turnstileWidgetId !== null) return;
+  turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
+    sitekey: TURNSTILE_SITE_KEY,
+    execution: 'execute',
+    appearance: 'interaction-only',
+    callback: function (token) {
+      if (!turnstilePending) return;
+      clearTimeout(turnstilePending.timeout);
+      const resolve = turnstilePending.resolve;
+      turnstilePending = null;
+      resolve(token);
+    },
+    'error-callback': function () {
+      if (!turnstilePending) return;
+      clearTimeout(turnstilePending.timeout);
+      const reject = turnstilePending.reject;
+      turnstilePending = null;
+      reject(new Error('Verification failed. Please try again.'));
+    },
+    'expired-callback': function () {
+      try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
+    }
+  });
+}
 
-  if (!turnstileReadyPromise) {
-    turnstileReadyPromise = new Promise((resolve, reject) => {
-      const startedAt = Date.now();
-
-      const timer = setInterval(() => {
-        if (window.turnstile) {
-          clearInterval(timer);
-          resolve();
-          return;
-        }
-
-        if (Date.now() - startedAt > 10_000) {
-          clearInterval(timer);
-          reject(new Error('Verification script failed to load. Please refresh and try again.'));
-        }
-      }, 50);
-    });
-  }
-
-  return turnstileReadyPromise;
+async function initTurnstile() {
+  await waitForTurnstile();
+  window.turnstile.ready(renderTurnstileWidgetOnce);
 }
 
 async function getTurnstileToken() {
   await waitForTurnstile();
+  renderTurnstileWidgetOnce();
 
-  return new Promise((resolve, reject) => {
-    const timeout = setTimeout(() => {
+  return new Promise(function (resolve, reject) {
+    const timeout = setTimeout(function () {
+      turnstilePending = null;
       reject(new Error('Verification timed out. Please try again.'));
     }, 20_000);
 
-    if (turnstileWidgetId !== null) {
-      window.turnstile.remove(turnstileWidgetId);
-      turnstileWidgetId = null;
+    turnstilePending = { resolve: resolve, reject: reject, timeout: timeout };
+
+    try {
+      window.turnstile.reset(turnstileWidgetId);   // tokens are single-use
+      window.turnstile.execute(turnstileWidgetId); // now the widget is already initialised
+    } catch (e) {
+      clearTimeout(timeout);
+      turnstilePending = null;
+      reject(e);
     }
-
-    turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
-      sitekey: TURNSTILE_SITE_KEY,
-
-      // These are the important replacements:
-      execution: 'execute',
-      appearance: 'interaction-only',
-
-      callback: function (token) {
-        clearTimeout(timeout);
-        resolve(token);
-      },
-
-      'error-callback': function () {
-        clearTimeout(timeout);
-        reject(new Error('Verification failed. Please try again.'));
-      },
-
-      'expired-callback': function () {
-        clearTimeout(timeout);
-        reject(new Error('Verification expired. Please try again.'));
-      }
-    });
-
-    window.turnstile.execute(turnstileWidgetId);
   });
 }
 
@@ -2806,6 +2793,7 @@ function restoreAssessment() {
   }
 }
 
+initTurnstile();
 restoreAssessment();
 document.getElementById('start-btn').addEventListener('click', startAssessment);
 
