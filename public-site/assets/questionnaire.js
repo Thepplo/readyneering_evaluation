@@ -170,19 +170,19 @@ const QUOTIENT_META = {
       low: 'Where is limited capacity constraining outcomes most?'
     },
     doMore: [
-      "Block one recovery window before my next demanding work block. Treat it as part of the work, not a reward after the work. Vitality improves when I protect the energy required to make good decisions.",
-      "Set one boundary that protects my capacity before I feel depleted. Make it specific: a stop time, a meeting limit, a recovery block, or a clearer expectation. Vitality improves when I design for energy before energy is gone.",
-      "Name one energy leak this week and reduce it deliberately. It might be a meeting, a habit, a late-night pattern, or a task I keep tolerating. Ask: what is quietly costing me more than I admit?"
+      "Treat your energy as a finite resource to be invested, not a problem to be managed. Start each week by asking: where does my energy actually need to go, and what am I doing that is consuming it for no return? Then cut the second category. Not someday. This week.",
+      "Name your depletion out loud before it becomes obvious to others. Not to your journal. To another person. The moment you say I am running close to empty to someone who can hear it, something shifts — in you and in them. Silence about depletion is a structural problem disguised as a personal one.",
+      "Design the week before a high pressure phase as deliberately as you design the phase itself. Arriving depleted at a moment that requires everything you have is a planning failure, not bad luck. Build the runway."
     ],
     doLess: [
-      "Stop treating tiredness as proof that I am committed. Before I push harder, ask: what would make this sustainable enough to repeat next week?",
-      "Stop using urgency as the reason I abandon recovery. Before I override my limits, ask: is this truly urgent, or have I made constant availability the default?",
-      "Stop borrowing energy from tomorrow to get through today. Replace that habit by choosing one thing to pause, delegate, simplify, or finish at a lower standard."
+      "Stop telling yourself you will recover after this next thing. You have been saying that for three things. Recovery does not arrive automatically when the pressure stops — you have to create it deliberately. You keep finding reasons not to.",
+      "Stop absorbing the cost of unsustainable pace without naming it. Every time you keep going without flagging it, you teach everyone around you that this is normal and acceptable. It is neither. Name the cost — or accept that you are part of the system that is creating it.",
+      "Stop confusing a full calendar with a valuable contribution. The busiest person in the room is not automatically the most effective. If you disappeared for a week, what would actually collapse — and is that something to be proud of, or a design flaw?"
     ],
     sitWith: [
-    "Where am I treating exhaustion as normal because admitting the cost would force me to change something?",
-    "What would I change if I treated my energy as a strategic resource rather than a personal inconvenience?",
-    "What part of my performance currently depends on energy I may not be able to keep supplying?"
+    "When did you last genuinely look forward to Monday morning — not because everything was easy, but because you had energy, clarity, and a sense that the week ahead was yours?",
+    "Where in your week is there genuine recovery — not just a different kind of output?",
+    "If the people who depend on you most could see your current energy levels honestly, what would they think — and what would that tell you?"
     ]
   },
 
@@ -207,19 +207,19 @@ const QUOTIENT_META = {
       low: 'Where are reactions shaping outcomes more than reflection?'
     },
     doMore: [
-      "Pause before responding to pressure and name what I am actually feeling. Use plain language: frustrated, defensive, anxious, disappointed, overloaded. Emotion improves when I can notice the signal before it becomes the reaction.",
-      "Ask one trusted person this week what mood I have been bringing into the room. Do not explain it away. Listen for the emotional pattern others may be adapting to around me.",
-      "Create one pause between emotional signal and action. Before I send, decide, or respond, take a moment to ask what the situation needs from me rather than what my reaction wants from me."
+      "Put your stress patterns on the table before you need to. Tell at least one person who will be affected by your pressure how you tend to show up when things get hard, and what they should do when they see it. This is not vulnerability. It is operational intelligence.",
+      "Name the emotional weight in the room before it goes underground. When you can feel the tension and no one is saying it — you name it. Not to process it. To make it visible. What stays unspoken does not disappear. It just becomes more expensive.",
+      "Build ten minutes of decompression between your most draining interactions and your next one. Not a luxury. The difference between responding and reacting. The people on the receiving end will feel it."
     ],
     doLess: [
-      "Stop calling it logic when I am actually reacting from emotion. Before I decide or reply, ask: what feeling might be shaping my interpretation right now?",
-      "Stop expecting others to read the emotional temperature I am carrying. Replace that with one honest sentence: I am noticing I feel X, and I do not want that to drive the decision.",
-      "Stop rewarding myself for staying composed while ignoring what the emotion is trying to tell me. Calm is useful only if it helps me respond more honestly, not disappear from the signal."
+      "Stop managing your emotional state entirely in private and expecting others not to feel the effects. The people around you are already reading you — without any useful information. Give them the information. It is more respectful than pretending the emotion is not there.",
+      "Stop softening difficult feedback until the recipient cannot tell what they are supposed to do differently. Kindness that obscures the message is not kindness — it is self-protection dressed up as consideration. Say the thing. Clearly. Once.",
+      "Stop treating your ability to keep going as proof that the current pace is sustainable. Still functioning is not the same as fine. You are not the right person to assess your own limits from the inside of them."
     ],
     sitWith: [
-    "What feeling am I bringing into the room that other people may be adapting to, even if I have not named it?",
-    "What emotion do I most often manage by controlling the situation instead of naming what I feel?",
-    "Where am I calling something rational when it may actually be a protected reaction?"
+    "What emotion are you currently managing privately that, if named out loud, would change how the people around you are showing up?",
+    "When did you last let something genuinely difficult land — rather than process it, package it, and move on?",
+    "What does your stress actually look like from the outside, and how far is that from what you think it looks like?"
     ]
   },
 
@@ -244,19 +244,19 @@ const QUOTIENT_META = {
       low: 'Where does lack of clarity create drift or confusion?'
     },
     doMore: [
-      "Start one meeting this week with a 60-second signal check. Name one thing I am noticing - not an opinion, but an observation. Mind gets stronger when I separate what I see from the story I am building around it.",
-      "Name the story I am telling myself when something feels difficult. Say it plainly: the narrative I am hearing is X - is that actually true? Let the question challenge my thinking before the story hardens.",
-      "Write down the assumption behind one important decision before I act on it. Mind improves when I can see the frame I am using, not just the conclusion it produces."
+      "Run a weekly assumptions audit. Write down the three things you are currently treating as facts that are actually assumptions. Then decide which ones are worth testing before they cost you something.",
+      "Actively hunt for the signal everyone is dancing around. In your next difficult situation, ask directly: what is the thing we all sense but no one has named? Then wait. The silence before someone answers is where the real information lives.",
+      "Interrogate your own narrative before it hardens. When you find yourself explaining why something is difficult, stop after two sentences and ask: is this an accurate read of the situation, or is this a story I have built to protect a decision I have already made?"
     ],
     doLess: [
-      "Stop letting “it is just a demanding phase” end the conversation. Replace it with: what specifically am I seeing, and how long has it been there?",
-      "Stop treating the first coherent explanation as the correct one. Before I commit to the story, ask: what else could explain the same facts?",
-      "Stop blending facts and assumptions when I make decisions. Before a significant choice, ask: what do I actually know, and what am I assuming?"
+      "Stop waiting for certainty before acting on what you can already see. The pattern is visible long before the crisis. The gap between seeing it and naming it is not about evidence — it is about the discomfort of being the one who says it first.",
+      "Stop letting the shared story about a problem go unchallenged for more than two weeks. If the same explanation has been circulating that long, it is no longer a read — it is a defense mechanism. Challenge it or own the consequences of not doing so.",
+      "Stop blending facts and assumptions in the same sentence as if they are the same thing. One is the ground you are standing on. The other is a story you have decided to trust. Treating them identically is how bad decisions get made with complete confidence."
     ],
     sitWith: [
-    "What signal am I noticing but not naming because saying it clearly would make the situation harder to ignore?",
-    "What assumption feels so obvious to me that I have stopped treating it as an assumption?",
-    "Where is the story I tell about why things are difficult making it easier for me not to act?"
+    "What are you currently certain about that you have not actually tested?",
+    "Where is the story you tell about why something is hard actually protecting you from a harder question?",
+    "What would you have to change if the narrative you are running turned out to be wrong?"
     ]
   },
 
@@ -281,19 +281,19 @@ const QUOTIENT_META = {
       low: 'Where are we deciding without reliably following through?'
     },
     doMore: [
-      "Choose one commitment this week and define the next visible action before I leave the conversation. Execution improves when good intent becomes a specific move with an owner and a date.",
-      "Review one stalled priority and identify the real blocker. Do not settle for “busy” or “unclear.” Ask: what decision, resource, conversation, or trade-off would actually move this forward?",
-      "Turn one open loop into a visible next step today. Write down the owner, action, and timing so progress no longer depends on memory, motivation, or good intentions."
+      "Write your decision principles down before the pressure starts — not during it. Under pressure you will not think more clearly. You will think faster and with more confidence. That is not the same thing. The principles you commit to in advance are the ones worth having.",
+      "Build a 48-hour drift check into every significant decision. Two days after you make a call, ask: is what I am actually doing still what I decided? The gap between intention and execution is where most things quietly fail. It is almost always invisible until it is expensive.",
+      "Close things properly before opening the next one. After every significant effort, ask: what did my process allow that it should not have? Not what went wrong. What in how I work created the conditions for this? That is the question that actually changes behavior."
     ],
     doLess: [
-      "Stop mistaking agreement for progress. Replace it with a closing question: what exactly will I do next, by when, and how will I know it happened?",
-      "Stop carrying vague commitments because naming the trade-off feels uncomfortable. Instead ask: what am I willing to deprioritise so this can actually get done?",
-      "Stop adding new priorities without closing or changing an existing one. Before I say yes, ask: what will this displace, delay, or dilute?"
+      "Stop making significant decisions in the same moment you first heard about the problem. The confidence you feel in those moments is not clarity — it is adrenaline. Decisions made fast under pressure tend to be decisive and wrong. Build in the pause. Even if it is only an hour.",
+      "Stop moving to the next thing before the current thing is actually done. Done means someone knows what happened, what was learned, and what changes as a result. Closing a tab is not closing a loop. Half-closed loops are what make everything feel simultaneously busy and unresolved.",
+      "Stop treating the gap between what you decided and what is happening as someone else's problem. If the execution has drifted, you own that. Not the process. Not the ambiguity. Not the communication. See it. Say it. Sort it."
     ],
     sitWith: [
-    "Where am I mistaking movement for progress because the harder question is whether anything important has actually changed?",
-    "If I had to prove this priority was moving without using intention, effort, or meetings as evidence, what would I point to?",
-    "Where am I avoiding the discipline of follow-through because keeping things open gives me more room to maneuver?"
+    "Where is the gap between what you decided and what you are actually doing — and how long has it been there?",
+    "What decision are you deferring right now that is quietly blocking progress on three other things?",
+    "When did you last genuinely change how you work — not just what you are working on?"
     ]
   },
 
@@ -318,19 +318,19 @@ const QUOTIENT_META = {
       low: 'Where do we see different decisions being made in the same situation?'
     },
     doMore: [
-      "Restate the priority before I start the work. Say what matters most, what matters less, and what I am not trying to solve right now. Alignment improves when I make direction explicit before effort begins.",
-      "Check for hidden disagreement before the next important decision. Ask: where might I be nodding along while still holding a different view?",
-      "Ask one clarifying question before work begins: what would success look like from each person’s perspective? Alignment improves when differences surface early rather than becoming friction later."
+      "Test your sense of direction against the people who depend on it most — not to validate it, but to find where it has not landed. Ask them directly: what do you understand my priorities to be right now? Their answer tells you more about your communication than any amount of internal clarity will.",
+      "Build a clear personal hierarchy of what matters when demands conflict — and write it down. When everything is a priority, nothing is. The hierarchy you carry in your head but have never articulated is invisible to everyone who needs to navigate around it.",
+      "In ambiguous situations, communicate your direction before the structure exists to support it. Waiting for clarity before speaking creates a vacuum. Vacuums get filled with rumor, assumption, and anxiety. Your voice in the gap — even partial, even provisional — is better than silence."
     ],
     doLess: [
-      "Stop assuming shared language means shared understanding. Replace it with: when I say this priority matters, what do I believe it means in practice?",
-      "Stop relying on broad agreement when the practical implications have not been tested. Replace it with: what would each of us do differently because this is the priority?",
-      "Stop moving forward when the direction only feels clear because no one has challenged it. Ask instead: what would I expect to see if we were misaligned?"
+      "Stop assuming that because you are clear, the people around you are clear. You have been living with your direction for months. They may have heard it once, in passing, between two other things. The clarity in your head is not automatically the clarity in theirs. That gap is yours to close.",
+      "Stop letting whichever demand is loudest win. That is not prioritization — it is whoever shouts hardest running your schedule. Without an explicit framework for what matters most, urgency will always beat importance. And you will always feel behind.",
+      "Stop navigating ambiguity privately and expecting others to follow. If you know the direction but have not said it out loud, you are not leading — you are just moving. The people around you need to hear it. Not infer it from watching where you go."
     ],
     sitWith: [
-      "Where am I assuming I am aligned with others because no one has openly disagreed?",
-      "Where might politeness, speed, or the desire to agree be hiding a real difference in priorities?",
-      "What decision would become more uncomfortable if I had to say clearly what I am really prioritising?"
+      "If the three people who depend on you most were asked to describe your priorities right now, how close would their answers be to yours — and to each other's?",
+      "Where are you navigating from a direction that is completely clear to you but has never actually been said out loud?",
+      "What would it take for the people around you to run confidently in the right direction without needing you in the room?"
     ]
   }
 };
@@ -735,25 +735,6 @@ function getQueryParam(name) {
   return new URLSearchParams(window.location.search).get(name);
 }
 
-/* function makeTspans(txt, anchor, x, startY) {
-  var parts = txt.split('\n');
-  var out = '';
-  for (var i=0; i<parts.length; i++) {
-    out += '<tspan x="'+x+'" dy="'+(i===0?'0':LH)+'" text-anchor="'+anchor+'">'+esc(parts[i])+'</tspan>';
-  }
-  return out;
-} */
-function makeTspansAuto(txt, anchor, x, startY, maxWidth) {
-  const lines = wrapText(ctx, txt, maxWidth);
-
-  let out = '';
-  for (let i = 0; i < lines.length; i++) {
-    out += '<tspan x="'+x+'" dy="'+(i===0 ? '0' : LH)+'" text-anchor="'+anchor+'">'
-      + esc(lines[i]) +
-    '</tspan>';
-  }
-  return out;
-}
 function measureWrappedBlock(ctx, text, maxWidth, lineHeight) {
   const lines = wrapText(ctx, text, maxWidth);
   let width = 0;
@@ -836,42 +817,6 @@ function getBounds(pad) {
   };
 }
 
-function getTightBounds(aWrapped, bFit, cFit) {
-  const aTopY = TA.y - s(14) - (aWrapped.length - 1) * LH;
-  const aLeft = TA.x - Math.max(...aWrapped.map(line => ctx.measureText(line).width)) / 2;
-  const aRight = TA.x + Math.max(...aWrapped.map(line => ctx.measureText(line).width)) / 2;
-
-  const bLeft = TB.x + s(4);
-  const bRight = bLeft + bFit.textWidth;
-  const bBottom = (TB.y + s(16)) + bFit.textHeight;
-
-  const cRight = TC.x - s(4);
-  const cLeft = cRight - cFit.textWidth;
-  const cBottom = (TC.y + s(16)) + cFit.textHeight;
-
-  const minX = Math.min(TA.x, TB.x, TC.x, aLeft, bLeft, cLeft) - s(16);
-  const maxX = Math.max(TA.x, TB.x, TC.x, aRight, bRight, cRight) + s(16);
-  const minY = Math.min(TA.y, TB.y, TC.y, aTopY) - s(16);
-  const maxY = Math.max(TA.y, TB.y, TC.y, bBottom, cBottom) + s(16);
-
-  return {
-    x: minX,
-    y: minY,
-    w: maxX - minX,
-    h: maxY - minY
-  };
-}
-
-function measureLines(lines) {
-  let width = 0;
-  for (let i = 0; i < lines.length; i++) {
-    width = Math.max(width, ctx.measureText(lines[i]).width);
-  }
-  return {
-    width,
-    height: Math.max(1, lines.length) * LH
-  };
-}
 
 function makeSVG(idx) {
   var t = SHUFFLED_TRIADS[idx];
@@ -1375,43 +1320,6 @@ function getDebrief(signals) {
   return quotientDebriefs.default;
 }
 
-function getDebriefReason(signals) {
-  const { structure, weakest, biggestGap, spread } = signals || {};
-
-  if (spread > 1) {
-    return "Driven by: high variability across quotients";
-  }
-
-  let primary = null;
-
-  if (biggestGap && biggestGap.gap > 0.35) {
-    primary = `gap in ${biggestGap.label}`;
-  } else if (weakest) {
-    primary = `lower ${weakest.label}`;
-  }
-
-  let secondary = null;
-
-  if (structure === 'preparedness-heavy') {
-    secondary = "Preparedness > Resilience";
-  } else if (structure === 'resilience-heavy') {
-    secondary = "Resilience > Preparedness";
-  }
-
-  if (primary && secondary) {
-    return `Driven by: ${primary} + ${secondary}`;
-  }
-
-  if (primary) {
-    return `Driven by: ${primary}`;
-  }
-
-  if (secondary) {
-    return `Driven by: ${secondary}`;
-  }
-
-  return "";
-}
 
 const quotientDebriefs = {
   vitality: {
@@ -2042,7 +1950,7 @@ function buildSubmissionPayload(res, verdict) {
   return {
     instrument: {
       key: "readyneering_diagnostic",
-      version: "v2"
+      version: "v3"
     },
     submission: {
       respondent_id: null,
@@ -2102,7 +2010,7 @@ function makeRing(score, min, max, color, trackColor, size) {
     </svg>
   `;
 }
-function renderQuotientCard(q, isLast) {
+/* function renderQuotientCard(q, isLast) {
   return `
     <div class="q-card ${q.level} ${q.key} ${isLast ? 'span-2' : ''}">
       <span class="orb orb-1"></span>
@@ -2139,8 +2047,8 @@ function renderQuotientCard(q, isLast) {
       </div>
     </div>
   `;
-}
-function renderQuotientGrid(quotients) {
+} */
+/* function renderQuotientGrid(quotients) {
   return `
     <div class="q-grid">
       ${quotients.map(function(q, i) {
@@ -2148,7 +2056,7 @@ function renderQuotientGrid(quotients) {
       }).join('')}
     </div>
   `;
-}
+} */
 
 var MODE_QS_COMPACT = {
   resilience: ['vitality', 'emotion'],
@@ -2707,7 +2615,7 @@ async function renderResults() {
 /*   document.getElementById('d-lbl').textContent = 'The question that matters';
   document.getElementById('d-q').innerHTML = d.q;
   document.getElementById('d-n').innerHTML = d.n;
-  document.getElementById('d-r').textContent = getDebriefReason(signals); */
+*/
 
 /*   console.log('Assessment Results:', res);
   console.log('Submission Payload:', payload); */
