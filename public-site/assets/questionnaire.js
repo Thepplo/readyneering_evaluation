@@ -81,11 +81,13 @@ function getSubmitAttemptId() {
   return id;
 }
 
+const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app/functions/v1';
+
 async function saveAssessment(payload) {
   const turnstileToken = await getTurnstileToken();
   const idempotencyKey = getSubmitAttemptId();
 
-  const response = await fetch('/assessments/submit', {
+  const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/submit`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -106,6 +108,46 @@ async function saveAssessment(payload) {
   localStorage.removeItem('submit_attempt_id');
 
   return data;
+}
+
+async function submitAssessmentOnce() {
+  const state = loadAssessmentState() || {};
+
+  if (state.serverResult && state.serverResult.result_id) {
+    return state.serverResult;
+  }
+
+  const payload = buildSubmissionPayload();
+  const saved = await saveAssessment(payload);
+
+  const serverResult = {
+    result_id: saved.result_id,
+    access_token: saved.access_token,
+    locked: saved.locked,
+    unlocked: Boolean(saved.report && saved.report.locked),
+    report: {
+      open: saved.report.open,
+      locked: saved.report.locked || null
+    },
+    unlock: saved.unlock || null,
+    submittedAt: new Date().toISOString()
+  };
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    ...state,
+    current,
+    placements,
+    triadOrder: SHUFFLED_TRIADS.map(t => t.id),
+    selectedIndustry,
+    selectedIndustryLabel,
+    selectedSize,
+    selectedSizeLabel,
+    screen: 'results',
+    submitted: true,
+    serverResult
+  }));
+
+  return serverResult;
 }
 
 const MODE_META = {
@@ -148,192 +190,6 @@ const MODE_META = {
   }
 };
 
-const QUOTIENT_META = {
-  vitality: {
-    label: 'Vitality',
-    role: 'Physiological regulation underlying sustained cognitive and emotional capacity',
-    roleS: 'Energy & sustainability',
-    build: 'resilience',
-  signal: {
-    high: 'The system sustains energy and capacity well under demand.',
-    mid: 'Energy is generally present, but not consistently sustained under pressure.',
-    low: 'Limited energy and capacity are constraining consistency.'
-  },
-    failure: {
-      high: 'Strong energy can hide structural overload if effort keeps compensating for weak design.',
-      mid: 'Performance may depend too much on conditions or key people.',
-      low: 'Pressure is more likely to drain capacity than be absorbed effectively.'
-    },
-    question: {
-      high: 'Where are we still relying on effort instead of reducing load?',
-      mid: 'Where does performance drop when pressure rises?',
-      low: 'Where is limited capacity constraining outcomes most?'
-    },
-    doMore: [
-      "Treat your energy as a finite resource to be invested, not a problem to be managed. Start each week by asking: where does my energy actually need to go, and what am I doing that is consuming it for no return? Then cut the second category. Not someday. This week.",
-      "Name your depletion out loud before it becomes obvious to others. Not to your journal. To another person. The moment you say I am running close to empty to someone who can hear it, something shifts — in you and in them. Silence about depletion is a structural problem disguised as a personal one.",
-      "Design the week before a high pressure phase as deliberately as you design the phase itself. Arriving depleted at a moment that requires everything you have is a planning failure, not bad luck. Build the runway."
-    ],
-    doLess: [
-      "Stop telling yourself you will recover after this next thing. You have been saying that for three things. Recovery does not arrive automatically when the pressure stops — you have to create it deliberately. You keep finding reasons not to.",
-      "Stop absorbing the cost of unsustainable pace without naming it. Every time you keep going without flagging it, you teach everyone around you that this is normal and acceptable. It is neither. Name the cost — or accept that you are part of the system that is creating it.",
-      "Stop confusing a full calendar with a valuable contribution. The busiest person in the room is not automatically the most effective. If you disappeared for a week, what would actually collapse — and is that something to be proud of, or a design flaw?"
-    ],
-    sitWith: [
-    "When did you last genuinely look forward to Monday morning — not because everything was easy, but because you had energy, clarity, and a sense that the week ahead was yours?",
-    "Where in your week is there genuine recovery — not just a different kind of output?",
-    "If the people who depend on you most could see your current energy levels honestly, what would they think — and what would that tell you?"
-    ]
-  },
-
-  emotion: {
-    label: 'Emotion',
-    role: 'Emotional regulation shaping decisions before conscious awareness',
-    roleS: 'Emotional readiness',
-    build: 'resilience',
-    signal: {
-      high: 'Emotional dynamics are handled with steadiness and awareness.',
-      mid: 'Emotional awareness is present, but not consistently shaping better responses.',
-      low: 'Emotional dynamics are affecting consistency and judgment.'
-    },
-    failure: {
-      high: 'Composure can become detachment if signals from people are missed.',
-      mid: 'Emotional steadiness may hold in normal conditions but weaken under strain.',
-      low: 'Reactivity is more likely to shape outcomes than deliberate response.'
-    },
-    question: {
-      high: 'Where do we need more candor, not just calm?',
-      mid: 'Where do emotions start influencing decisions more than we intend?',
-      low: 'Where are reactions shaping outcomes more than reflection?'
-    },
-    doMore: [
-      "Put your stress patterns on the table before you need to. Tell at least one person who will be affected by your pressure how you tend to show up when things get hard, and what they should do when they see it. This is not vulnerability. It is operational intelligence.",
-      "Name the emotional weight in the room before it goes underground. When you can feel the tension and no one is saying it — you name it. Not to process it. To make it visible. What stays unspoken does not disappear. It just becomes more expensive.",
-      "Build ten minutes of decompression between your most draining interactions and your next one. Not a luxury. The difference between responding and reacting. The people on the receiving end will feel it."
-    ],
-    doLess: [
-      "Stop managing your emotional state entirely in private and expecting others not to feel the effects. The people around you are already reading you — without any useful information. Give them the information. It is more respectful than pretending the emotion is not there.",
-      "Stop softening difficult feedback until the recipient cannot tell what they are supposed to do differently. Kindness that obscures the message is not kindness — it is self-protection dressed up as consideration. Say the thing. Clearly. Once.",
-      "Stop treating your ability to keep going as proof that the current pace is sustainable. Still functioning is not the same as fine. You are not the right person to assess your own limits from the inside of them."
-    ],
-    sitWith: [
-    "What emotion are you currently managing privately that, if named out loud, would change how the people around you are showing up?",
-    "When did you last let something genuinely difficult land — rather than process it, package it, and move on?",
-    "What does your stress actually look like from the outside, and how far is that from what you think it looks like?"
-    ]
-  },
-
-  mind: {
-    label: 'Mind',
-    role: 'Mental models and pattern recognition under uncertainty',
-    roleS: 'Sense-making & narrative',
-    build: 'preparedness',
-    signal: {
-      high: 'Thinking and judgment are creating clear direction.',
-      mid: 'There is some clarity, but not enough to guide action consistently.',
-      low: 'Unclear thinking is reducing consistency and confidence.'
-    },
-    failure: {
-      high: 'Strong conviction can become rigidity if assumptions are not challenged.',
-      mid: 'Different people may be working from different interpretations.',
-      low: 'Ambiguity is more likely to produce hesitation or conflicting judgments.'
-    },
-    question: {
-      high: 'Where might our certainty be preventing better questions?',
-      mid: 'Where are people interpreting the same situation differently?',
-      low: 'Where does lack of clarity create drift or confusion?'
-    },
-    doMore: [
-      "Run a weekly assumptions audit. Write down the three things you are currently treating as facts that are actually assumptions. Then decide which ones are worth testing before they cost you something.",
-      "Actively hunt for the signal everyone is dancing around. In your next difficult situation, ask directly: what is the thing we all sense but no one has named? Then wait. The silence before someone answers is where the real information lives.",
-      "Interrogate your own narrative before it hardens. When you find yourself explaining why something is difficult, stop after two sentences and ask: is this an accurate read of the situation, or is this a story I have built to protect a decision I have already made?"
-    ],
-    doLess: [
-      "Stop waiting for certainty before acting on what you can already see. The pattern is visible long before the crisis. The gap between seeing it and naming it is not about evidence — it is about the discomfort of being the one who says it first.",
-      "Stop letting the shared story about a problem go unchallenged for more than two weeks. If the same explanation has been circulating that long, it is no longer a read — it is a defense mechanism. Challenge it or own the consequences of not doing so.",
-      "Stop blending facts and assumptions in the same sentence as if they are the same thing. One is the ground you are standing on. The other is a story you have decided to trust. Treating them identically is how bad decisions get made with complete confidence."
-    ],
-    sitWith: [
-    "What are you currently certain about that you have not actually tested?",
-    "Where is the story you tell about why something is hard actually protecting you from a harder question?",
-    "What would you have to change if the narrative you are running turned out to be wrong?"
-    ]
-  },
-
-  execution: {
-    label: 'Execution',
-    role: 'The biological gap between intention and action',
-    roleS: 'Decisions & delivery',
-    build: 'preparedness',
-    signal: {
-      high: 'Intent is translating into action with consistency.',
-      mid: 'Execution happens, but not always with enough reliability or follow-through.',
-      low: 'Intent is not consistently converting into results.'
-    },
-    failure: {
-      high: 'Strong execution can mask overdependence on a few capable people.',
-      mid: 'Things move, but not always in a repeatable or dependable way.',
-      low: 'Important work is more likely to stall, fragment, or depend on heroics.'
-    },
-    question: {
-      high: 'Where does execution still depend too heavily on specific individuals?',
-      mid: 'Where do plans lose momentum after decisions are made?',
-      low: 'Where are we deciding without reliably following through?'
-    },
-    doMore: [
-      "Write your decision principles down before the pressure starts — not during it. Under pressure you will not think more clearly. You will think faster and with more confidence. That is not the same thing. The principles you commit to in advance are the ones worth having.",
-      "Build a 48-hour drift check into every significant decision. Two days after you make a call, ask: is what I am actually doing still what I decided? The gap between intention and execution is where most things quietly fail. It is almost always invisible until it is expensive.",
-      "Close things properly before opening the next one. After every significant effort, ask: what did my process allow that it should not have? Not what went wrong. What in how I work created the conditions for this? That is the question that actually changes behavior."
-    ],
-    doLess: [
-      "Stop making significant decisions in the same moment you first heard about the problem. The confidence you feel in those moments is not clarity — it is adrenaline. Decisions made fast under pressure tend to be decisive and wrong. Build in the pause. Even if it is only an hour.",
-      "Stop moving to the next thing before the current thing is actually done. Done means someone knows what happened, what was learned, and what changes as a result. Closing a tab is not closing a loop. Half-closed loops are what make everything feel simultaneously busy and unresolved.",
-      "Stop treating the gap between what you decided and what is happening as someone else's problem. If the execution has drifted, you own that. Not the process. Not the ambiguity. Not the communication. See it. Say it. Sort it."
-    ],
-    sitWith: [
-    "Where is the gap between what you decided and what you are actually doing — and how long has it been there?",
-    "What decision are you deferring right now that is quietly blocking progress on three other things?",
-    "When did you last genuinely change how you work — not just what you are working on?"
-    ]
-  },
-
-  alignment: {
-    label: 'Alignment',
-    role: 'Coherence, belonging, and clarity across the system',
-    roleS: 'Direction & structure',
-    build: 'preparedness',
-    signal: {
-      high: 'People are acting in a shared direction with consistency.',
-      mid: 'Alignment exists, but weakens under pressure or ambiguity.',
-      low: 'People are not consistently acting in the same direction.'
-    },
-    failure: {
-      high: 'Strong alignment can suppress useful challenge if it goes unquestioned.',
-      mid: 'Shared direction may exist in principle, but not in practice.',
-      low: 'Different people are likely making different decisions in similar situations.'
-    },
-    question: {
-      high: 'Where might strong alignment be preventing useful dissent?',
-      mid: 'Where does alignment hold, and where does it start to break?',
-      low: 'Where do we see different decisions being made in the same situation?'
-    },
-    doMore: [
-      "Test your sense of direction against the people who depend on it most — not to validate it, but to find where it has not landed. Ask them directly: what do you understand my priorities to be right now? Their answer tells you more about your communication than any amount of internal clarity will.",
-      "Build a clear personal hierarchy of what matters when demands conflict — and write it down. When everything is a priority, nothing is. The hierarchy you carry in your head but have never articulated is invisible to everyone who needs to navigate around it.",
-      "In ambiguous situations, communicate your direction before the structure exists to support it. Waiting for clarity before speaking creates a vacuum. Vacuums get filled with rumor, assumption, and anxiety. Your voice in the gap — even partial, even provisional — is better than silence."
-    ],
-    doLess: [
-      "Stop assuming that because you are clear, the people around you are clear. You have been living with your direction for months. They may have heard it once, in passing, between two other things. The clarity in your head is not automatically the clarity in theirs. That gap is yours to close.",
-      "Stop letting whichever demand is loudest win. That is not prioritization — it is whoever shouts hardest running your schedule. Without an explicit framework for what matters most, urgency will always beat importance. And you will always feel behind.",
-      "Stop navigating ambiguity privately and expecting others to follow. If you know the direction but have not said it out loud, you are not leading — you are just moving. The people around you need to hear it. Not infer it from watching where you go."
-    ],
-    sitWith: [
-      "If the three people who depend on you most were asked to describe your priorities right now, how close would their answers be to yours — and to each other's?",
-      "Where are you navigating from a direction that is completely clear to you but has never actually been said out loud?",
-      "What would it take for the people around you to run confidently in the right direction without needing you in the room?"
-    ]
-  }
-};
 
 const QUOTIENT_ICONS = {
   vitality: 'assets/images/q-vitality.svg',
@@ -675,9 +531,6 @@ function svgPt(svg, e) {
   };
 } */
 
-function w2score(raw) {
-  return Math.min(5, Math.max(1, (raw+1)/2*4+1));
-}
 
 function wrapText(ctx, text, maxWidth) {
   const words = String(text || '').split(/\s+/).filter(Boolean);
@@ -1143,12 +996,6 @@ function getLevel(score) {
   return 'low';
 }
 
-function getDominantPole(r, p, threshold) {
-  threshold = threshold || 0.2;
-  if (p - r > threshold) return 'preparedness';
-  if (r - p > threshold) return 'resilience';
-  return 'balanced';
-}
 
 function getDebriefLevel(score) {
   if (score < 2.5) return 'risk';
@@ -1226,98 +1073,6 @@ function getModeStructure(rScore, pScore) {
     resilienceLevel: rLevel,
     preparednessLevel: pLevel
   };
-}
-function getDebriefSignals(results, quotients) {
-  const safeQuotients = Array.isArray(quotients) ? [...quotients] : [];
-
-  const delta = results.P - results.R;
-
-  let structure = 'balanced';
-  if (delta > 0.25) structure = 'preparedness-heavy';
-  else if (delta < -0.25) structure = 'resilience-heavy';
-
-  const sortedByScore = [...safeQuotients].sort((a, b) => a.score - b.score);
-  const weakest = sortedByScore.length ? sortedByScore[0] : null;
-  const strongest = sortedByScore.length ? sortedByScore[sortedByScore.length - 1] : null;
-
-  const spread =
-    weakest && strongest
-      ? strongest.score - weakest.score
-      : 0;
-
-  const sortedByGap = [...safeQuotients].sort((a, b) => b.gap - a.gap);
-  const biggestGap = sortedByGap.length ? sortedByGap[0] : null;
-  return {
-    structure,
-    weakest,
-    strongest,
-    spread,
-    biggestGap,
-    delta,
-    overall: results.O
-  };
-}
-
-function getDebrief(signals) {
-  const { structure, weakest, spread, biggestGap } = signals || {};
-
-  if (typeof spread === 'number' && spread > 1) {
-    return {
-      q: "Why does our effectiveness change so much depending on the situation?",
-      n: "Because performance appears to depend more on context and conditions than on a consistently reliable system."
-    };
-  }
-
-  if (structure === 'preparedness-heavy') {
-    if (weakest && weakest.key === 'execution') {
-      return {
-        q: "Where are we planning effectively-but failing to follow through under real conditions?",
-        n: "Plans only create value when they survive pressure, ambiguity, and time."
-      };
-    }
-
-    return {
-      q: "Where are we more prepared on paper than reliable in practice?",
-      n: "Preparedness matters most when it can be enacted consistently under pressure."
-    };
-  }
-
-  if (structure === 'resilience-heavy') {
-    if (weakest && weakest.key === 'alignment') {
-      return {
-        q: "Where are strong individuals compensating for a lack of shared direction?",
-        n: "Resilience can sustain performance temporarily, but without alignment results vary by person and context."
-      };
-    }
-
-    return {
-      q: "Where are we relying on people to stay effective without enough supporting structure?",
-      n: "Resilience can carry performance for a while, but systems are what make it repeatable."
-    };
-  }
-
-  if (biggestGap && biggestGap.gap > 0.35) {
-    if (biggestGap.dominant === 'preparedness') {
-      return {
-        q: `Where does ${biggestGap.label.toLowerCase()} look stronger in planning than in live conditions?`,
-        n: "A gap between preparedness and resilience often means the intended standard is not yet holding under pressure."
-      };
-    }
-
-    if (biggestGap.dominant === 'resilience') {
-      return {
-        q: `Where does ${biggestGap.label.toLowerCase()} depend on coping more than design?`,
-        n: "When resilience outruns preparedness, people may be compensating for structure that is not fully in place."
-      };
-    }
-  }
-
-  const key = weakest?.key;
-  if (key && quotientDebriefs[key]) {
-    return quotientDebriefs[key];
-  }
-
-  return quotientDebriefs.default;
 }
 
 
@@ -1549,223 +1304,6 @@ var DIMS = ['R_vitality','R_emotion','R_mind','R_execution','R_alignment',
             'P_vitality','P_emotion','P_mind','P_execution','P_alignment'];
 var QDIMS = ['vitality','emotion','mind','execution','alignment'];
 
-function computeAll() {
-  var accum = {}, count = {};
-  for (var k=0; k<DIMS.length; k++) { accum[DIMS[k]]=0; count[DIMS[k]]=0; }
-
-  for (var i=0; i<SHUFFLED_TRIADS.length; i++) {
-    if (!placements[i]) continue;
-    var b = bary(placements[i].x, placements[i].y);
-    var tot = Math.max(b[0]+b[1]+b[2], 0.001);
-    var coords = [b[0]/tot, b[1]/tot, b[2]/tot];
-    var sc = SHUFFLED_TRIADS[i].scores;
-    for (var k in sc) {
-      var raw = sc[k][0]*coords[0] + sc[k][1]*coords[1] + sc[k][2]*coords[2];
-      accum[k] += w2score(raw);
-      count[k]++;
-    }
-  }
-
-  var dim = {};
-  for (var k=0; k<DIMS.length; k++) {
-    dim[DIMS[k]] = count[DIMS[k]] > 0 ? accum[DIMS[k]] / count[DIMS[k]] : 3;
-  }
-
-  var R_DIMS = ['vitality', 'emotion'];
-  var P_DIMS = ['execution', 'mind', 'alignment'];
-
-  var R = 0, P = 0;
-
-  for (var i = 0; i < R_DIMS.length; i++) {
-    R += dim['R_' + R_DIMS[i]];
-  }
-  R /= R_DIMS.length;
-
-  for (var i = 0; i < P_DIMS.length; i++) {
-    P += dim['P_' + P_DIMS[i]];
-  }
-  P /= P_DIMS.length;
-
-  return { dim: dim, R: R, P: P, O: R * P };
-}
-
-function getAnswerBreakdown() {
-  var out = [];
-
-  for (var i = 0; i < SHUFFLED_TRIADS.length; i++) {
-    if (!placements[i]) continue;
-
-    var triad = SHUFFLED_TRIADS[i];
-    var placement = placements[i];
-
-    var b = bary(placement.x, placement.y);
-    var tot = Math.max(b[0] + b[1] + b[2], 0.001);
-
-    var a = b[0] / tot;
-    var bb = b[1] / tot;
-    var c = b[2] / tot;
-
-    var percentA = Math.round(a * 100);
-    var percentB = Math.round(bb * 100);
-    var percentC = Math.round(c * 100);
-
-    var dominant = 'A';
-    if (percentB > percentA && percentB > percentC) dominant = 'B';
-    if (percentC > percentA && percentC > percentB) dominant = 'C';
-
-    out.push({
-      index: i,
-      item_key: triad.id,
-      quotient: triad.quotient,
-      question: triad.question,
-      scenario: triad.scenario,
-      labels: {
-        A: triad.A,
-        B: triad.B,
-        C: triad.C
-      },
-      placement: {
-        x: placement.x,
-        y: placement.y
-      },
-      barycentric: {
-        a: a,
-        b: bb,
-        c: c
-      },
-      percent: {
-        a: percentA,
-        b: percentB,
-        c: percentC
-      },
-      dominant_label: dominant
-    });
-  }
-
-  return out;
-}
-
-function buildQuotients(results) {
-  var out = [];
-
-  for (var i = 0; i < QDIMS.length; i++) {
-    var key = QDIMS[i];
-    var r = results.dim['R_' + key];
-    var p = results.dim['P_' + key];
-    var score = (r + p) / 2;
-    var level = getLevel(score);
-    var dominant = getDominantPole(r, p);
-    var meta = QUOTIENT_META[key];
-
-    out.push({
-      key: key,
-      label: meta.label,
-      resilience: r,
-      preparedness: p,
-      score: score,
-      gap: Math.abs(p - r),
-      dominant: dominant,
-      level: level,
-      role: meta.role,
-      roleS: meta.roleS,
-      signal: meta.signal[level],
-      failure: meta.failure[level],
-      question: meta.question[level]
-    });
-  }
-
-  return out;
-}
-
-function buildRankedQuotientSignals(quotients) {
-  var safeQuotients = Array.isArray(quotients) ? [...quotients] : [];
-
-  var sorted = safeQuotients.sort(function(a, b) {
-    return a.score - b.score;
-  });
-
-  var ranked = sorted.map(function(q, index) {
-    var meta = QUOTIENT_META[q.key];
-
-    var signalLevel = 'high';
-
-    if (index === 0) {
-      signalLevel = 'low';
-    } else if (index === 1) {
-      signalLevel = 'mid';
-    }
-
-    return {
-      key: q.key,
-      label: q.label,
-      score: q.score,
-      level: q.level,
-      displayLevel: formatLevel(q.score),
-      signalLevel: signalLevel,
-      signal: meta.signal[signalLevel],
-      question: meta.question[signalLevel],
-      doMore: meta.doMore || [],
-      doLess: meta.doLess || [],
-      sitWith: meta.sitWith || [],
-      roleS: q.roleS,
-      build: meta.build
-    };
-  });
-
-  var focusQuotients = ranked.slice(0, 2);
-
-  return {
-    ranked: ranked,
-    focusQuotients: focusQuotients,
-    focusActions: buildFocusActions(focusQuotients)
-  };
-}
-
-function buildFocusActions(focusQuotients) {
-  var first = focusQuotients[0];
-  var second = focusQuotients[1];
-
-  if (!first) {
-    return {
-      doMore: [],
-      doLess: [],
-      sitWith: [],
-      subtitleItems: []
-    };
-  }
-
-  var firstBand = getQuotientLevel(Number(first.score));
-  var secondBand = second ? getQuotientLevel(Number(second.score)) : null;
-
-  var useOnlyLowest = Boolean(
-    second &&
-    firstBand !== secondBand
-  );
-
-  var actionQuotients = useOnlyLowest
-    ? [first]
-    : focusQuotients;
-
-  return {
-    doMore: buildActionGroup(actionQuotients, 'doMore', 3),
-    doLess: buildActionGroup(actionQuotients, 'doLess', 3),
-    sitWith: buildActionGroup(actionQuotients, 'sitWith', 3),
-
-    focusBand: firstBand,
-    focusMode: useOnlyLowest ? 'single-quotient' : 'shared-band',
-    focusSourceKeys: actionQuotients.map(function(q) {
-      return q.key;
-    }),
-
-    subtitleItems: actionQuotients.map(function(q) {
-      return {
-        key: q.key,
-        label: q.label,
-        build: q.build
-      };
-    })
-  };
-}
 
 function renderFocusChipList(items) {
   if (!items || !items.length) return '';
@@ -1867,7 +1405,7 @@ function buildActionsForQuotient(q, actionKey) {
   });
 }
 
-function computeVerdict(overallScore) {
+/* function computeVerdict(overallScore) {
   const levels = [
     {min:20.0, cls:'v-s1', label:'Ready',
      desc:'You operate as a deliberately designed system. Pressure reveals capability, not fragility.'},
@@ -1886,86 +1424,52 @@ function computeVerdict(overallScore) {
   }
 
   return levels[levels.length - 1];
+} */
+
+function getVariantKey() {
+  const params = new URLSearchParams(window.location.search);
+
+  return params.get('v') || 'public';
 }
 
-function buildSubmissionPayload(res, verdict) {
-  const breakdown = getAnswerBreakdown();
+function getBarycentricForPlacement(placement) {
+  const b = bary(placement.x, placement.y);
+  const total = Math.max(b[0] + b[1] + b[2], 0.001);
 
-  const items = breakdown.map(answer => ({
-    item_key: answer.item_key,
-    item_index: answer.index,
-    item_type: "triad",
-    response_value: {
-      quotient: answer.quotient,
-      scenario: answer.scenario,
-      question: answer.question,
-      labels: answer.labels,
-      placement: answer.placement,
-      barycentric: answer.barycentric,
-      percent: answer.percent,
-      dominant_label: answer.dominant_label
-    }
-  }));
+  return {
+    a: b[0] / total,
+    b: b[1] / total,
+    c: b[2] / total
+  };
+}
 
-  const scores = [
-    {
-      score_key: "resilience_score",
-      score_type: "numeric",
-      numeric_value: res.R
-    },
-    {
-      score_key: "preparedness_score",
-      score_type: "numeric",
-      numeric_value: res.P
-    },
-    {
-      score_key: "overall_score",
-      score_type: "numeric",
-      numeric_value: res.O
-    },
-    {
-      score_key: "verdict_label",
-      score_type: "text",
-      text_value: verdict.label
-    },
-    {
-      score_key: "verdict_meta",
-      score_type: "json",
-      json_value: {
-        class: verdict.cls,
-        label: verdict.label,
-        description: verdict.desc
+function buildSubmissionPayload() {
+  const items = SHUFFLED_TRIADS.map(function(triad, index) {
+    const placement = placements[index];
+
+    return {
+      item_key: triad.id,
+      item_index: index,
+      item_type: 'triad',
+      response_value: {
+        barycentric: getBarycentricForPlacement(placement)
       }
-    }
-  ];
-
-  Object.entries(res.dim).forEach(([key, value]) => {
-    scores.push({
-      score_key: key,
-      score_type: "numeric",
-      numeric_value: value
-    });
+    };
   });
 
   return {
-    instrument: {
-      key: "readyneering_diagnostic",
-      version: "v3"
-    },
     submission: {
-      respondent_id: null,
+      variant_key: getVariantKey(),
       session_id: getSessionId(),
-      status: "completed",
       metadata: {
-        source: "web_app",
+        source: 'web_app',
         batch_id: getQueryParam('batch_id'),
         industry: selectedIndustry,
         size: selectedSize,
         privacy: getPrivacyConsentRecord()
       }
     },
-    items,
-    scores
+    items
   };
 }
 function pointOnEllipse(cx, cy, rx, ry, deg) {
@@ -2048,15 +1552,7 @@ function makeRing(score, min, max, color, trackColor, size) {
     </div>
   `;
 } */
-/* function renderQuotientGrid(quotients) {
-  return `
-    <div class="q-grid">
-      ${quotients.map(function(q, i) {
-        return renderQuotientCard(q, i === quotients.length - 1);
-      }).join('')}
-    </div>
-  `;
-} */
+
 
 var MODE_QS_COMPACT = {
   resilience: ['vitality', 'emotion'],
@@ -2191,23 +1687,20 @@ function nextFrame() {
   return new Promise(resolve => requestAnimationFrame(() => resolve()));
 }
 
-function renderRankedSignalList(quotients) {
-  var rankedOutput = buildRankedQuotientSignals(quotients);
-
-  var lowest = rankedOutput.ranked[0];
-  var nextLowest = rankedOutput.ranked[1];
-  var strongest = rankedOutput.ranked.slice(2);
+function renderServerRankedSignalList(ranked) {
+  const lowest = ranked[0];
+  const nextLowest = ranked[1];
+  const strongest = ranked.slice(2);
 
   return `
     <div class="ranked-signal-card">
       ${renderRankedSignalRow(lowest, 'risk')}
-
       ${renderRankedSignalRow(nextLowest, 'developing')}
-
       ${renderRankedSignalGroup(strongest, 'building')}
     </div>
   `;
 }
+
 
 function splitFirstSentence(text) {
   const match = text.match(/^(.+?[.!?])(\s+[\s\S]*)?$/);
@@ -2574,82 +2067,203 @@ function getSelectedOptionLabel(selectEl) {
 async function renderResults() {
   saveAssessmentState();
 
-  const state = loadAssessmentState() || {};
+  let serverResult;
 
-  var answers = getAnswerBreakdown();
-/*   console.log('--- ANSWER BREAKDOWN ---');
-  console.table(answers); */
+  try {
+    serverResult = await submitAssessmentOnce();
+  } catch (err) {
+    showResultsError(err);
+    throw err;
+  }
 
-  var res = computeAll();
-  var quotientData = buildQuotients(res);
-  var rankedOutput = buildRankedQuotientSignals(quotientData);
-  quotientData.sort((a, b) => b.score - a.score);
+  renderServerReport(serverResult);
+}
 
-  var verdict = computeVerdict(res.O);
-  var payload = buildSubmissionPayload(res, verdict);
+function showResultsError(err) {
+  const content = document.getElementById('results-content');
 
-  const signals = getDebriefSignals(res, quotientData);
-  const d = getDebrief(signals);
+  if (!content) return;
 
-  var modeHtml = renderModeGrid(res);
-  var modeHtmlW = renderModeGrid(res);
-  var debriefMode = buildModeInsights(res);
+  content.classList.remove('is-hidden');
+  content.innerHTML = `
+    <div class="results-error">
+      <h2>We couldn’t save your assessment.</h2>
+      <p>${escapeHtml(err.message || 'Please try again.')}</p>
+      <button onclick="showResultsPage()">Try again</button>
+    </div>
+  `;
+}
+
+function getScoresFromOpenReport(open) {
+  return {
+    R: open.scores.resilience,
+    P: open.scores.preparedness,
+    O: open.scores.overall,
+    dim: open.scores.dimensions
+  };
+}
+
+function renderServerReport(serverResult) {
+  const open = serverResult.report.open;
+  const locked = serverResult.report.locked;
+  const res = getScoresFromOpenReport(open);
+
+  const quotientData = open.quotients.slice().sort(function(a, b) {
+    return b.score - a.score;
+  });
+
+  renderOpenReport(open, res, quotientData);
+
+  if (locked) {
+    renderUnlockedSections(locked, open);
+  } else if (serverResult.locked) {
+    renderBookingUnlockCTA(serverResult, open);
+  } else {
+    renderNoLockedSections();
+  }
+}
+
+function renderOpenReport(open, res, quotientData) {
+  const debriefMode = buildModeInsights(res);
+  const modeHtml = renderModeGrid(res);
 
   document.getElementById('pattern-main').textContent = debriefMode.modeTag;
-  document.getElementById('pattern-chip-p-score').textContent = debriefMode.preparedness.score.toFixed(2);
-  document.getElementById('pattern-chip-r-score').textContent = debriefMode.resilience.score.toFixed(2);
-  document.getElementById('pattern-chip-p-mode').textContent = debriefMode.preparednessLevel;
-  document.getElementById('pattern-chip-r-mode').textContent = debriefMode.resilienceLevel;
-  document.getElementById('ranked-signal-wrapper').innerHTML = renderRankedSignalList(quotientData);
-  document.getElementById('focus-actions-wrapper').innerHTML = renderFocusActionsSection(rankedOutput.focusActions);
+  document.getElementById('pattern-chip-p-score').textContent =
+    debriefMode.preparedness.score.toFixed(2);
+  document.getElementById('pattern-chip-r-score').textContent =
+    debriefMode.resilience.score.toFixed(2);
+  document.getElementById('pattern-chip-p-mode').textContent =
+    debriefMode.preparednessLevel;
+  document.getElementById('pattern-chip-r-mode').textContent =
+    debriefMode.resilienceLevel;
+
+  document.getElementById('mode-grid').innerHTML = modeHtml;
+  document.getElementById('mode-grid-wm').innerHTML = modeHtml;
+
+  document.getElementById('ranked-signal-wrapper').innerHTML =
+    renderServerRankedSignalList(open.ranked);
+
+  document.getElementById('action-sub').innerHTML =
+    renderServerFocusSubtitle(open.focus);
+
   document.getElementById('meta-line').innerHTML = renderReportMetaLine({
     completedDate: formatCompletedDate(new Date()),
     industry: selectedIndustryLabel || selectedIndustry,
     companySize: selectedSizeLabel || selectedSize
   });
-  document.getElementById('action-sub').innerHTML =
-    renderFocusSubtitle(rankedOutput.focusActions);
-  document.getElementById('mode-grid').innerHTML = modeHtml;
-  document.getElementById('mode-grid-wm').innerHTML = modeHtmlW;
-
-/*   document.getElementById('d-lbl').textContent = 'The question that matters';
-  document.getElementById('d-q').innerHTML = d.q;
-  document.getElementById('d-n').innerHTML = d.n;
-*/
-
-/*   console.log('Assessment Results:', res);
-  console.log('Submission Payload:', payload); */
-
-  if (!state.submitted) {
-    try {
-      const saved = await saveAssessment(payload);
-      /* console.log('Saved assessment:', saved); */
-
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        ...state,
-        current,
-        placements,
-        triadOrder: SHUFFLED_TRIADS.map(t => t.id),
-        selectedIndustry,
-        selectedIndustryLabel,
-        selectedSize,
-        selectedSizeLabel,
-        screen: 'results',
-        submitted: true
-      }));
-    } catch (err) {
-      /* console.error('Failed to save assessment:', err); */
-    }
-  } else {
-    /* console.log('Assessment already submitted, skipping save.'); */
-  }
 
   renderOrbit(res);
-  renderVerdict(res);
-  /* document.getElementById('q-grid-wrapper').innerHTML = renderQuotientGrid(quotientData); */
+  renderVerdictFromServer(open.verdict, res);
   mountCompactQuotientList('q-grid-wrapper', quotientData);
-  /* buildSignals(res.dim, res.R, res.P); */
 }
+
+function renderUnlockedSections(locked, open) {
+  document.getElementById('action-sub').innerHTML =
+    renderServerFocusSubtitle(open.focus);
+
+  document.getElementById('focus-actions-wrapper').innerHTML =
+    renderFocusActionsSection(locked);
+}
+
+function getBookingUrl(serverResult) {
+  const base = serverResult.unlock?.bookings_url || FALLBACK_BOOKINGS_URL;
+  const url = new URL(base);
+
+  if (serverResult.booking_ref) {
+    url.searchParams.set('booking_ref', serverResult.booking_ref);
+  }
+
+  return url.toString();
+}
+
+function renderBookingUnlockCTA(serverResult) {
+  const el = document.getElementById('focus-actions-wrapper');
+
+  el.innerHTML = `
+    <div class="locked-report-card">
+      <div class="locked-report-eyebrow">Full report locked</div>
+      <h3>Book a follow-up call to unlock your takeaways</h3>
+      <p>
+        Your full report includes what to do more of, what to do less of,
+        and the follow-up questions to bring into the call.
+      </p>
+
+      ${serverResult.booking_ref ? `
+        <div class="booking-ref-box">
+          <span>Your booking reference</span>
+          <strong>${escapeHtml(serverResult.booking_ref)}</strong>
+          <button type="button" id="copy-booking-ref">Copy</button>
+        </div>
+      ` : ''}
+
+      <a class="primary-btn" id="book-followup-btn" href="${escapeHtml(getBookingUrl(serverResult))}" target="_blank" rel="noopener">
+        Book follow-up call
+      </a>
+
+      <button type="button" class="secondary-btn" id="check-unlock-btn">
+        I’ve booked — check unlock status
+      </button>
+
+      <p id="unlock-status" class="form-status"></p>
+    </div>
+  `;
+
+  const copyBtn = document.getElementById('copy-booking-ref');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function() {
+      navigator.clipboard.writeText(serverResult.booking_ref);
+    });
+  }
+
+  document.getElementById('check-unlock-btn')
+    .addEventListener('click', function() {
+      refreshReportUnlockStatus(serverResult);
+    });
+}
+
+async function refreshReportUnlockStatus(serverResult) {
+  const status = document.getElementById('unlock-status');
+  status.textContent = 'Checking unlock status...';
+
+  const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/report`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      result_id: serverResult.result_id,
+      access_token: serverResult.access_token
+    })
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    status.textContent = data.error || 'Could not check the report yet.';
+    return;
+  }
+
+  const updated = {
+    ...serverResult,
+    locked: data.locked,
+    report: data.report
+  };
+
+  persistServerResult(updated);
+
+  if (data.report.locked) {
+    renderServerReport(updated);
+  } else {
+    status.textContent = 'Not unlocked yet. If you just booked, try again in a moment.';
+  }
+}
+
+window.addEventListener('focus', function() {
+  const state = loadAssessmentState();
+  const result = state?.serverResult;
+
+  if (result?.locked && !result.report?.locked) {
+    refreshReportUnlockStatus(result);
+  }
+});
 
 function renderOrbit(res) {
   const orbitCx = 315;
@@ -2896,6 +2510,79 @@ function renderVerdict(res) {
     activeZone.classList.add('active');
   }
   /* document.getElementById('v-desc').textContent = lv.desc; */
+}
+
+function setScoreMarkerPositions(score, rscore, pscore) {
+  let scorePos = ((score - 1) / (25 - 1)) * 100;
+  let pscorePos = ((pscore - 1) / (5 - 1)) * 100;
+  let rscorePos = ((rscore - 1) / (5 - 1)) * 100;
+
+  scorePos = Math.max(0, Math.min(100, scorePos));
+  pscorePos = Math.max(0, Math.min(100, pscorePos));
+  rscorePos = Math.max(0, Math.min(100, rscorePos));
+
+  document.getElementById('zone-strip')
+    .style.setProperty('--score-pos', scorePos + '%');
+
+  document.getElementById('zone-strip-rp')
+    .style.setProperty('--score-pos-p', pscorePos + '%');
+
+  document.getElementById('zone-strip-rp')
+    .style.setProperty('--score-pos-r', rscorePos + '%');
+
+  document.getElementById('zone-marker')
+    .setAttribute('data-score', score.toFixed(2));
+
+  document.getElementById('preparedness-zone-marker')
+    .setAttribute('data-score', pscore.toFixed(2));
+
+  document.getElementById('resilience-zone-marker')
+    .setAttribute('data-score', rscore.toFixed(2));
+}
+
+function activateVerdictZone(label) {
+  document.querySelectorAll('.zone').forEach(function(zone) {
+    zone.classList.remove('active');
+  });
+
+  const activeZoneClass = {
+    Ready: 'z-ready',
+    Building: 'z-build',
+    Developing: 'z-dev',
+    'At risk': 'z-risk',
+    'At Risk': 'z-risk'
+  }[label];
+
+  const activeZone = document.querySelector('.zone.' + activeZoneClass);
+  if (activeZone) activeZone.classList.add('active');
+}
+
+function renderVerdictFromServer(verdict, res) {
+  const rvalue = document.getElementById('v-r-val');
+  const pvalue = document.getElementById('v-p-val');
+  const oval = document.getElementById('v-ov-val');
+  const vmodel = document.getElementById('v-ov-mode');
+  const zonelabel = document.getElementById('zone-label');
+
+  const score = res.O;
+  const pscore = res.P;
+  const rscore = res.R;
+
+  zonelabel.innerHTML =
+    'Where does <span class="zone-label-score">' +
+    score.toFixed(2) +
+    '</span> sit on the full scale?';
+
+  setScoreMarkerPositions(score, rscore, pscore);
+
+  rvalue.textContent = rscore.toFixed(2);
+  pvalue.textContent = pscore.toFixed(2);
+  oval.textContent = score.toFixed(2);
+
+  vmodel.textContent = verdict.label;
+  vmodel.className = 'verdict-ov-mode ' + verdict.cls;
+
+  activateVerdictZone(verdict.label);
 }
 
 function getStructuralSignal(structure, R, P) {
