@@ -2,6 +2,28 @@ const TURNSTILE_SITE_KEY = '0x4AAAAAADTHusttqatb2uD0';
 
 let turnstileWidgetId = null;
 let turnstilePending = null;
+let turnstileReadyPromise = null;
+
+function waitForTurnstile() {
+  if (window.turnstile) return Promise.resolve();
+  if (!turnstileReadyPromise) {
+    turnstileReadyPromise = new Promise((resolve, reject) => {
+      const startedAt = Date.now();
+      const timer = setInterval(() => {
+        if (window.turnstile) {
+          clearInterval(timer);
+          resolve();
+          return;
+        }
+        if (Date.now() - startedAt > 10_000) {
+          clearInterval(timer);
+          reject(new Error('Verification script failed to load. Please refresh and try again.'));
+        }
+      }, 50);
+    });
+  }
+  return turnstileReadyPromise;
+}
 
 function renderTurnstileWidgetOnce() {
   if (turnstileWidgetId !== null) return;
