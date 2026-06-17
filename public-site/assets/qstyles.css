@@ -46,14 +46,33 @@
 }
 
 .locked-focus-list--noninteractive {
+  position: relative;
   pointer-events: none;
   user-select: none;
   -webkit-user-select: none;
 }
+
 .locked-focus-list--noninteractive * {
   pointer-events: none;
   user-select: none;
   -webkit-user-select: none;
+}
+
+.locked-question-list {
+  position: relative;
+}
+
+.locked-focus-question-item {
+  filter: blur(3px);
+}
+
+.locked-focus-question-item.is-more-locked {
+  opacity: 0.35;
+}
+
+.locked-focus-lock svg {
+  width: 22px;
+  height: 22px;
 }
 
 .locked-blur-line {

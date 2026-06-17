@@ -2317,9 +2317,9 @@ const LOCKED_FOCUS_PREVIEWS = {
     'The thing you are doing more of that feels like progress but is not'
   ],
   questions: [
-    'What is one thing you can do to increase your Mind quotient?',
-    'What is one thing you can do to improve your Execution?',
-    'What is one thing you can do to align your actions with your values?'
+    'The question that reveals what you are avoiding',
+    'The question that shows where your energy is leaking',
+    'The question to bring into your 30-minute debrief'
   ]
 };
 
@@ -2344,13 +2344,9 @@ function renderLockedFocusActionsSection(serverResult) {
         serverResult: serverResult
       })}
 
-      ${renderLockedFocusActionBlock({
-        type: 'questions',
-        iconClass: 'section-icon-question',
-        title: 'Sit with these questions',
+      ${renderLockedFocusQuestionBlock({
         items: LOCKED_FOCUS_PREVIEWS.questions,
-        lockCopy: 'Your specific stops are waiting in your debrief. Book your 30-minute conversation to unlock them.',
-        serverResult: serverResult
+        lockCopy: 'Your specific reflection questions are waiting in your debrief. Book your 30-minute conversation to unlock them.'
       })}
       ${renderLockedBookingControls(serverResult)}
     </div>
@@ -2397,6 +2393,54 @@ function renderLockedFocusActionCard(text, index) {
         <p class="locked-blur-line locked-blur-line--medium"></p>
       </div>
     </div>
+  `;
+}
+
+function renderLockedFocusQuestionBlock(config) {
+  return `
+    <div class="focus-actions-block questions locked-focus-actions-block">
+      <div class="focus-actions-block-header">
+        <span class="section-icon section-icon-question" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 19H12.01M8.21704 7.69689C8.75753 6.12753 10.2471 5 12 5C14.2091 5 16 6.79086 16 9C16 10.6565 14.9931 12.0778 13.558 12.6852C12.8172 12.9988 12.4468 13.1556 12.3172 13.2767C12.1629 13.4209 12.1336 13.4651 12.061 13.6634C12 13.8299 12 14.0866 12 14.6L12 16" />
+          </svg>
+        </span>
+        <strong>Sit with these questions</strong>
+      </div>
+
+      <p class="focus-question-intro">
+        These are questions to sit with, not problems to solve immediately. There are no right answers - just honest ones.
+      </p>
+
+      <div 
+        class="locked-focus-list locked-focus-list--noninteractive"
+        aria-hidden="true"
+        inert
+      >
+        <div class="focus-question-list locked-question-list">
+          ${config.items.map(function(item, index) {
+            return renderLockedFocusQuestionItem(item, index);
+          }).join('')}
+        </div>
+
+        <div class="locked-focus-overlay">
+          <div class="locked-focus-lock" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 13.1198 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p>${escapeHtml(config.lockCopy)}</p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderLockedFocusQuestionItem(text, index) {
+  return `
+    <p class="focus-question-item locked-focus-question-item ${index > 0 ? 'is-more-locked' : ''}">
+      ${escapeHtml(text)}
+    </p>
   `;
 }
 
