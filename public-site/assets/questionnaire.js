@@ -31,19 +31,29 @@ function renderTurnstileWidgetOnce() {
     sitekey: TURNSTILE_SITE_KEY,
     execution: 'execute',
     appearance: 'interaction-only',
+
+    'before-interactive-callback': function () {
+      document.getElementById('turnstile-widget').classList.add('challenge-active');
+    },
+    'after-interactive-callback': function () {
+      document.getElementById('turnstile-widget').classList.remove('challenge-active');
+    },
+
     callback: function (token) {
-      if (!turnstilePending) return;
-      clearTimeout(turnstilePending.timeout);
-      const resolve = turnstilePending.resolve;
-      turnstilePending = null;
-      resolve(token);
+      document.getElementById('turnstile-widget').classList.remove('challenge-active');
+        if (!turnstilePending) return;
+        clearTimeout(turnstilePending.timeout);
+        const resolve = turnstilePending.resolve;
+        turnstilePending = null;
+        resolve(token);
     },
     'error-callback': function () {
-      if (!turnstilePending) return;
-      clearTimeout(turnstilePending.timeout);
-      const reject = turnstilePending.reject;
-      turnstilePending = null;
-      reject(new Error('Verification failed. Please try again.'));
+      document.getElementById('turnstile-widget').classList.remove('challenge-active');
+        if (!turnstilePending) return;
+        clearTimeout(turnstilePending.timeout);
+        const reject = turnstilePending.reject;
+        turnstilePending = null;
+        reject(new Error('Verification failed. Please try again.'));
     },
     'expired-callback': function () {
       try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
