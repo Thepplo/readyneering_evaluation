@@ -2304,15 +2304,205 @@ function renderBookingUnlockCTA(serverResult) {
 
   bindBookingUnlockControls(serverResult);
 }
+const DEBRIEF_PREVIEW_SECTIONS = [
+  {
+    type: 'do-more',
+    iconType: 'up',
+    title: 'Do more of this',
+    summary: '3 personalized actions prepared',
+    body: 'These will appear here as soon as your debrief is booked, so you can review them before the call.',
+    status: 'Reveals after booking'
+  },
+  {
+    type: 'do-less',
+    iconType: 'down',
+    title: 'Do less of this',
+    summary: '3 patterns to interrupt',
+    body: 'You’ll see the specific defaults or behaviours that may be limiting your follow-through.',
+    status: 'Reveals after booking'
+  },
+  {
+    type: 'questions',
+    iconType: 'question',
+    title: 'Sit with these questions',
+    summary: '3 reflection prompts prepared',
+    body: 'Use these to make the debrief sharper, more honest, and more useful.',
+    status: 'Reveals after booking'
+  }
+];
 
-const LOCKED_FOCUS_PREVIEWS = {
+function renderBookingUnlockCTA(serverResult) {
+  const el = document.getElementById('focus-actions-wrapper');
+  if (!el) return;
+
+  el.innerHTML = renderDebriefInvitationSection(serverResult);
+  bindDebriefInvitationControls(serverResult);
+}
+
+function renderDebriefInvitationSection(serverResult) {
+  return `
+    <section class="debrief-invitation-section">
+      <div class="debrief-invitation-intro">
+        <div class="debrief-eyebrow">Prepared for your debrief</div>
+
+        <h2>Your next actions are ready to reveal.</h2>
+
+        <p>
+          We’ve identified the specific actions, stops, and questions connected to your Readiness pattern.
+          Book your 30-minute debrief to reveal them immediately and bring them into the conversation.
+        </p>
+      </div>
+
+      <div class="debrief-preview-grid">
+        ${DEBRIEF_PREVIEW_SECTIONS.map(renderDebriefPreviewCard).join('')}
+      </div>
+
+      ${renderWhatHappensNextSection(serverResult)}
+    </section>
+  `;
+}
+function renderDebriefPreviewCard(section) {
+  return `
+    <article class="debrief-preview-card debrief-preview-card--${escapeHtml(section.type)}">
+      <div class="debrief-preview-card-header">
+        <span class="section-icon ${getDebriefIconClass(section.iconType)}" aria-hidden="true">
+          ${renderDebriefIcon(section.iconType)}
+        </span>
+
+        <div>
+          <h3>${escapeHtml(section.title)}</h3>
+          <span class="debrief-preview-status">${escapeHtml(section.status)}</span>
+        </div>
+      </div>
+
+      <div class="debrief-preview-card-body">
+        <strong>${escapeHtml(section.summary)}</strong>
+        <p>${escapeHtml(section.body)}</p>
+      </div>
+    </article>
+  `;
+}
+function renderWhatHappensNextSection(serverResult) {
+  const bookingUrl = getBookingUrl(serverResult);
+
+  return `
+    <section class="what-happens-next-section">
+      <div class="what-next-bar">What happens next</div>
+
+      <div class="what-next-card">
+        <div class="what-next-brandline">andQfive · Readyneering</div>
+
+        <h2>
+          You have seen the pattern.<br>
+          Now turn it into your next move.
+        </h2>
+
+        <div class="what-next-rule"></div>
+
+        <p>
+          A Readiness score is a starting point.
+          <strong>Not a verdict. Not a destination.</strong>
+        </p>
+
+        <p>
+          Your scores show where your pattern is likely showing up:
+          in meetings, in Monday mornings, and in the gap between what you decide
+          and what actually happens.
+        </p>
+
+        <p>
+          The actions above are prepared for a reason. The right next move is specific
+          to your pattern. A generic list would be motivational confetti. What you need
+          is a conversation.
+        </p>
+
+        <p>
+          Once your debrief is booked, your personalized actions, stops, and questions
+          will appear here immediately, so you can review them before the call.
+        </p>
+
+        <p class="what-next-strong">
+          Thirty minutes. Your scores, your patterns, your next move.
+        </p>
+
+        <p class="what-next-italic">
+          If you do only one thing to build your Readiness — book the conversation that reveals what to do next.
+        </p>
+
+        <div class="what-next-actions">
+          ${bookingUrl ? `
+            <a
+              class="what-next-primary-btn"
+              id="book-followup-btn"
+              href="${escapeHtml(bookingUrl)}"
+              target="_blank"
+              rel="noopener"
+            >
+              Book your 30-minute debrief →
+            </a>
+          ` : ''}
+
+          <button type="button" class="what-next-secondary-btn" id="check-unlock-btn">
+            I’ve booked — reveal my actions
+          </button>
+        </div>
+
+        ${serverResult.booking_ref ? `
+          <div class="booking-ref-box booking-ref-box--dark">
+            <span>Your booking reference</span>
+            <strong>${escapeHtml(serverResult.booking_ref)}</strong>
+          </div>
+        ` : ''}
+
+        <p class="what-next-footnote">
+          Your actions, stops, and questions reveal immediately after booking.
+          Bring them into the call so the conversation starts from your real pattern.
+        </p>
+
+        <p id="unlock-status" class="form-status what-next-status"></p>
+      </div>
+    </section>
+  `;
+}
+function bindDebriefInvitationControls(serverResult) {
+  const checkBtn = document.getElementById('check-unlock-btn');
+
+  if (checkBtn) {
+    checkBtn.addEventListener('click', function() {
+      refreshReportUnlockStatus(serverResult);
+    });
+  }
+}
+function getDebriefIconClass(type) {
+  if (type === 'up') return 'section-icon-up';
+  if (type === 'down') return 'section-icon-down';
+  if (type === 'question') return 'section-icon-question';
+  return '';
+}
+
+function renderDebriefIcon(type) {
+  if (type === 'question') {
+    return `
+      <svg viewBox="0 0 24 24">
+        <path d="M12 19H12.01M8.21704 7.69689C8.75753 6.12753 10.2471 5 12 5C14.2091 5 16 6.79086 16 9C16 10.6565 14.9931 12.0778 13.558 12.6852C12.8172 12.9988 12.4468 13.1556 12.3172 13.2767C12.1629 13.4209 12.1336 13.4651 12.061 13.6634C12 13.8299 12 14.0866 12 14.6L12 16" />
+      </svg>
+    `;
+  }
+
+  return `
+    <svg viewBox="0 0 24 24">
+      <path d="M12 4L12 20M12 20L18 14M12 20L6 14" />
+    </svg>
+  `;
+}
+/* const LOCKED_FOCUS_PREVIEWS = {
   doMore: [
     'Your highest-leverage action - unlocked in your debrief',
     'The habit that closes the gap between deciding and doing',
     'The one thing to start before the pressure starts'
   ],
   doLess: [
-    'Stop the pattern that is limiting your Mind quotient most',
+    'Stop the pattern that is limiting your Readiness most',
     'Stop the behavior that erodes Execution before it starts',
     'The thing you are doing more of that feels like progress but is not'
   ],
@@ -2498,7 +2688,7 @@ function bindBookingUnlockControls(serverResult) {
     });
   }
 }
-
+ */
 
 
 async function loadResultByToken(token) {
