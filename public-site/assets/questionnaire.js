@@ -2478,91 +2478,6 @@ function renderOrbit(res) {
   `;
 }
 
-function renderVerdict(res) {
-  var levels = [
-    {min:20.0, cls:'v-s4', label:'Ready',
-     desc:'You operate as a deliberately designed system. Pressure reveals capability, not fragility.'},
-    {min:13.0, cls:'v-s3', label:'Building',
-     desc:'You execute well under normal conditions. One significant disruption will expose structural gaps.'},
-    {min:7.0,  cls:'v-s2', label:'Developing',
-     desc:'Firefighting dominates. Heroics compensate for missing systems. Structural investment is the answer.'},
-    {min:0.0,    cls:'v-s1', label:'At Risk',
-     desc:'Instability is likely under sustained stress. Immediate structural intervention required.'}
-  ];
-
-  var lv = levels[levels.length - 1];
-  for (var i = 0; i < levels.length; i++) {
-    if (res.O >= levels[i].min) {
-      lv = levels[i];
-      break;
-    }
-  }
-
-  var vwrapper = document.getElementById('verdict-wrapper-ov');
-  var rvalue = document.getElementById('v-r-val');
-  var pvalue = document.getElementById('v-p-val');
-  var vbox = document.getElementById('verdict');
-  var oval= document.getElementById('v-ov-val');
-  var vmodel = document.getElementById('v-ov-mode');
-  var score = res.O;
-  var pscore = res.P;
-  var rscore = res.R;
-  var zonelabel = document.getElementById('zone-label');
-
-  zonelabel.innerHTML =
-    'Where does <span class="zone-label-score">' +
-    score.toFixed(2) +
-    '</span> sit on the full scale?';
-
-  var scorePos = ((score - 1) / (25 - 1)) * 100;
-  var pscorePos = ((pscore - 1) / (5 - 1)) * 100;
-  var rscorePos = ((rscore - 1) / (5 - 1)) * 100;
-
-  scorePos = Math.max(0, Math.min(100, scorePos));
-  pscorePos = Math.max(0, Math.min(100, pscorePos));
-  rscorePos = Math.max(0, Math.min(100, rscorePos));
-
-  var zoneStrip = document.getElementById('zone-strip');
-  var rpzoneStrip = document.getElementById('zone-strip-rp');
-
-  zoneStrip.style.setProperty('--score-pos', scorePos + '%');
-
-  rpzoneStrip.style.setProperty('--score-pos-p', pscorePos + '%');
-  rpzoneStrip.style.setProperty('--score-pos-r', rscorePos + '%');
-
-  var zoneMarker = document.getElementById('zone-marker');
-  zoneMarker.setAttribute('data-score', score.toFixed(2));
-
-  var pzoneMarker = document.getElementById('preparedness-zone-marker');
-  pzoneMarker.setAttribute('data-score', pscore.toFixed(2));
-
-  var rzoneMarker = document.getElementById('resilience-zone-marker');
-  rzoneMarker.setAttribute('data-score', rscore.toFixed(2));
-  /* vbox.className = 'verdict ' + lv.cls; */
-  rvalue.textContent = res.R.toFixed(2);
-  pvalue.textContent = res.P.toFixed(2);
-  oval.textContent = res.O.toFixed(2);
-  vmodel.textContent = lv.label;
-  vmodel.className = 'verdict-ov-mode ' + lv.cls;
-
-  var zones = document.querySelectorAll('.zone');
-  zones.forEach(function(zone) {
-    zone.classList.remove('active');
-  });
-
-  var activeZoneClass = {
-    'Ready': 'z-ready',
-    'Building': 'z-build',
-    'Developing': 'z-dev',
-    'At Risk': 'z-risk'
-  }[lv.label];
-
-  var activeZone = document.querySelector('.zone.' + activeZoneClass);
-  if (activeZone) {
-    activeZone.classList.add('active');
-  }
-  /* document.getElementById('v-desc').textContent = lv.desc; */
-}
 
 function setScoreMarkerPositions(score, rscore, pscore) {
   let scorePos = ((score - 1) / (25 - 1)) * 100;
@@ -2844,16 +2759,6 @@ function restoreAssessment() {
 
   buildSteps(saved);
   updateUI();
-
-/*   if (saved.screen === 'results') {
-      const token = saved.serverResult && saved.serverResult.access_token;
-      if (token) {
-        history.replaceState(null, '', '?t=' + encodeURIComponent(token));
-        showResultsByToken(token);
-      } else {
-        showResultsPage();
-      }
-    } */
 }
 
 initTurnstile();
@@ -2871,6 +2776,7 @@ document.getElementById('btn-restart').addEventListener('click', function() {
   placements = [];
   for (var i=0; i<SHUFFLED_TRIADS.length; i++) placements.push(null);
   current = 0;
+  history.replaceState(null, '', location.pathname);
   clearAssessmentState();
   document.getElementById('scr-results').style.display = 'none';
   document.getElementById('scr-intro').style.display = 'block';
