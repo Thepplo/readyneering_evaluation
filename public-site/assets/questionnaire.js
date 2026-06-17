@@ -127,7 +127,7 @@ function waitForTurnstile() {
   }
   return turnstileReadyPromise;
 }
-
+*/
 function setTurnstileChallengeActive(isActive) {
   const shell = document.getElementById('turnstile-shell');
   if (!shell) return;
@@ -135,7 +135,7 @@ function setTurnstileChallengeActive(isActive) {
   shell.classList.toggle('challenge-active', isActive);
   shell.setAttribute('aria-hidden', isActive ? 'false' : 'true');
 }
-*/
+
 function renderTurnstileWidgetOnce() {
   if (turnstileWidgetId !== null) return;
   turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
@@ -1077,10 +1077,7 @@ document.getElementById('btn-next').addEventListener('click', function() {
     document.getElementById('btn-next').style.pointerEvents = 'none';
     document.getElementById('btn-back').disabled = true;
 
-    beginVerifyAndSubmit().finally(function () {
-      isSubmittingAssessment = false;
-      document.getElementById('btn-next').style.pointerEvents = '';
-    });
+    beginVerifyAndSubmit();
 
     return;
   }
