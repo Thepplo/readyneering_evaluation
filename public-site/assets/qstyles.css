@@ -29,6 +29,9 @@
 
 .focus-actions-section--locked .locked-focus-list {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .locked-focus-card {
@@ -36,7 +39,21 @@
 }
 
 .locked-focus-card.is-more-locked {
-  opacity: 0.35;
+  opacity: 0.2;
+}
+.locked-focus-card.is-more-locked > .focus-action-copy{
+  opacity: 0.05;
+}
+
+.locked-focus-list--noninteractive {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.locked-focus-list--noninteractive * {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .locked-blur-line {
@@ -75,7 +92,8 @@
 }
 
 .locked-focus-lock {
-  font-size: 20px;
+  width: 32px;
+  height: 32px;
 }
 
 .locked-report-card--compact {
