@@ -25,6 +25,14 @@ function waitForTurnstile() {
   return turnstileReadyPromise;
 }
 
+function setTurnstileChallengeActive(isActive) {
+  const shell = document.getElementById('turnstile-shell');
+  if (!shell) return;
+
+  shell.classList.toggle('challenge-active', isActive);
+  shell.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+}
+
 function renderTurnstileWidgetOnce() {
   if (turnstileWidgetId !== null) return;
   turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
@@ -33,27 +41,27 @@ function renderTurnstileWidgetOnce() {
     appearance: 'interaction-only',
 
     'before-interactive-callback': function () {
-      document.getElementById('turnstile-widget').classList.add('challenge-active');
+      setTurnstileChallengeActive(true);
     },
     'after-interactive-callback': function () {
-      document.getElementById('turnstile-widget').classList.remove('challenge-active');
+      setTurnstileChallengeActive(false);
     },
 
     callback: function (token) {
-      document.getElementById('turnstile-widget').classList.remove('challenge-active');
-        if (!turnstilePending) return;
-        clearTimeout(turnstilePending.timeout);
-        const resolve = turnstilePending.resolve;
-        turnstilePending = null;
-        resolve(token);
+      setTurnstileChallengeActive(false);
+      if (!turnstilePending) return;
+      clearTimeout(turnstilePending.timeout);
+      const resolve = turnstilePending.resolve;
+      turnstilePending = null;
+      resolve(token);
     },
     'error-callback': function () {
-      document.getElementById('turnstile-widget').classList.remove('challenge-active');
-        if (!turnstilePending) return;
-        clearTimeout(turnstilePending.timeout);
-        const reject = turnstilePending.reject;
-        turnstilePending = null;
-        reject(new Error('Verification failed. Please try again.'));
+      setTurnstileChallengeActive(false);
+      if (!turnstilePending) return;
+      clearTimeout(turnstilePending.timeout);
+      const reject = turnstilePending.reject;
+      turnstilePending = null;
+      reject(new Error('Verification failed. Please try again.'));
     },
     'expired-callback': function () {
       try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
@@ -923,7 +931,7 @@ function updateUI() {
   let label = 'Next';
   
   if (isLast) {
-    label = 'See results';
+    label = 'Generate my readiness profile';
   } else if (isHalfway) {
     label = 'Halfway there';
     gsap.fromTo('#prog',
