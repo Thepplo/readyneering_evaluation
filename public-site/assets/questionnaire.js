@@ -7,13 +7,70 @@ let turnstileReadyPromise = null;
 let isSubmittingAssessment = false;
 let turnstileShellTimer = null;
 
-function setResultsLoaderText(title, copy) {
+let turnstileReady = false;
+let pendingToken = null;
+
+// 1. script onload hook (replaces waitForTurnstile polling)
+window.onTurnstileLoad = function () { turnstileReady = true; };
+
+// 2. thin wrappers over your existing shell toggle
+function showVerifyCard() { setTurnstileChallengeActive(true); }
+function hideVerifyCard() { setTurnstileChallengeActive(false); }
+
+// 3. the new finish entry point — render runs the challenge; the callback does the rest
+function beginVerifyAndSubmit() {
+  if (turnstileWidgetId === null) {
+    renderTurnstileWidgetOnce();                    // first time: render auto-runs the challenge
+  } else {
+    try { window.turnstile.reset(turnstileWidgetId); } catch (e) {} // retry: re-run
+  }
+}
+
+// 4. orchestrator: fired by the callback with a fresh token
+function submitWithToken(token) {
+  pendingToken = token;
+  showResultsPage(renderAfterVerify);               // your existing screen+loader, render fn below
+}
+
+async function renderAfterVerify() {
+  try {
+    const saved = await saveAssessment(buildSubmissionPayload(), pendingToken);
+    pendingToken = null;
+    currentResult = {
+      result_id: saved.result_id,
+      access_token: saved.access_token,
+      locked: saved.locked,
+      unlocked: Boolean(saved.report && saved.report.locked),
+      report: { open: saved.report.open, locked: saved.report.locked || null },
+      unlock: saved.unlock || null
+    };
+    if (currentResult.access_token && getQueryParam('t') !== currentResult.access_token) {
+      history.replaceState(null, '', '?t=' + encodeURIComponent(currentResult.access_token));
+    }
+    clearAssessmentState();
+    renderServerReport(currentResult);
+  } catch (err) {
+    showVerifyRetry(err.message || 'We couldn’t save your results. Please try again.');
+  }
+}
+
+// 5. failure recovery — card stays/returns with a retry, no cancel destination needed
+function showVerifyRetry(message) {
+  const copy = document.querySelector('#turnstile-shell .turnstile-copy');
+  if (copy) copy.textContent = message;
+  const btn = document.getElementById('turnstile-cancel'); // relabel your button to "Try again"
+  if (btn) { btn.textContent = 'Try again'; btn.onclick = beginVerifyAndSubmit; }
+  showVerifyCard();
+}
+
+ function setResultsLoaderText(title, copy) {
   const titleEl = document.querySelector('.results-loader-title');
   const copyEl = document.querySelector('.results-loader-copy');
 
   if (titleEl) titleEl.textContent = title;
   if (copyEl) copyEl.textContent = copy;
 }
+/*
 function makeCancelError() {
   const e = new Error('Verification cancelled.');
   e.cancelled = true;
@@ -78,46 +135,21 @@ function setTurnstileChallengeActive(isActive) {
   shell.classList.toggle('challenge-active', isActive);
   shell.setAttribute('aria-hidden', isActive ? 'false' : 'true');
 }
-
+*/
 function renderTurnstileWidgetOnce() {
   if (turnstileWidgetId !== null) return;
   turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
     sitekey: TURNSTILE_SITE_KEY,
-    execution: 'execute',
-    appearance: 'interaction-only',
-
-    'before-interactive-callback': function () {
-      setTurnstileChallengeActive(true);
-    },
-    'after-interactive-callback': function () {
-      setTurnstileChallengeActive(false);
-    },
-
-    callback: function (token) {
-      setTurnstileChallengeActive(false);
-      if (!turnstilePending) return;
-      clearTimeout(turnstilePending.timeout);
-      const resolve = turnstilePending.resolve;
-      turnstilePending = null;
-      resolve(token);
-    },
-    'error-callback': function () {
-      setTurnstileChallengeActive(false);
-      if (!turnstilePending) return;
-      clearTimeout(turnstilePending.timeout);
-      const reject = turnstilePending.reject;
-      turnstilePending = null;
-      reject(new Error('Verification failed. Please try again.'));
-    },
-    'expired-callback': function () {
-      try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
-    },
-    'timeout-callback': function () {
-      if (turnstilePending) turnstilePending.reject(new Error('Verification expired. Please try again.'));
-    },
+    appearance: 'interaction-only',                 // invisible unless a click is required
+    'before-interactive-callback': function () { showVerifyCard(); },
+    'after-interactive-callback':  function () { hideVerifyCard(); },
+    callback: function (token) { hideVerifyCard(); submitWithToken(token); },
+    'error-callback':   function () { showVerifyRetry('Verification failed. Please try again.'); },
+    'timeout-callback': function () { showVerifyRetry('Verification timed out. Please try again.'); },
+    'expired-callback': function () { try { window.turnstile.reset(turnstileWidgetId); } catch (e) {} }
   });
 }
-
+/* 
 async function initTurnstile() {
   await waitForTurnstile();
   renderTurnstileWidgetOnce();
@@ -152,7 +184,7 @@ async function getTurnstileToken() {
       reject(e);
     }
   });
-}
+} */  
 
 function escapeHtml(unsafe) {
   return unsafe
@@ -177,30 +209,12 @@ function getSubmitAttemptId() {
 const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app/functions/v1';
 
 async function saveAssessment(payload) {
-  setResultsLoaderText(
-    'Securing your submission',
-    'This quick check protects the diagnostic from automated submissions.'
-  );
-
-  const turnstileToken = await getTurnstileToken();
-
-  setResultsLoaderText(
-    'Saving your responses',
-    'Your answers are being securely saved before we build your profile.'
-  );
-
+  setResultsLoaderText('Saving your responses', 'Your answers are being securely saved before we build your profile.');
   const idempotencyKey = getSubmitAttemptId();
-
   const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/submit`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Idempotency-Key': idempotencyKey
-    },
-    body: JSON.stringify({
-      ...payload,
-      turnstileToken
-    })
+    headers: { 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey },
+    body: JSON.stringify({ ...payload, turnstileToken: token })
   });
 
   const data = await response.json();
