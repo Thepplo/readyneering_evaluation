@@ -5,6 +5,7 @@ let turnstileWidgetId = null;
 let turnstilePending = null;
 let turnstileReadyPromise = null;
 let isSubmittingAssessment = false;
+let turnstileShellTimer = null;
 
 function setResultsLoaderText(title, copy) {
   const titleEl = document.querySelector('.results-loader-title');
@@ -19,6 +20,21 @@ function makeCancelError() {
   return e;
 }
 
+
+function showTurnstileShell() {
+  clearTimeout(turnstileShellTimer);
+
+  turnstileShellTimer = setTimeout(function () {
+    setTurnstileChallengeActive(true);
+  }, 350);
+}
+
+function hideTurnstileShell() {
+  clearTimeout(turnstileShellTimer);
+  turnstileShellTimer = null;
+  setTurnstileChallengeActive(false);
+}
+
 function cancelTurnstile() {
   if (turnstilePending) {
     clearTimeout(turnstilePending.timeout);
@@ -26,8 +42,12 @@ function cancelTurnstile() {
     turnstilePending = null;
     reject(makeCancelError());
   }
-  setTurnstileChallengeActive(false);
-  try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
+
+  hideTurnstileShell();
+
+  try {
+    window.turnstile.reset(turnstileWidgetId);
+  } catch (e) {}
 }
 
 function waitForTurnstile() {
@@ -107,8 +127,8 @@ async function getTurnstileToken() {
   await waitForTurnstile();
   renderTurnstileWidgetOnce();
 
-/*   showTurnstileShell();
- */
+  showTurnstileShell();
+
   return new Promise(function (resolve, reject) {
     const timeout = setTimeout(function () {
       turnstilePending = null;
