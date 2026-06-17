@@ -1964,6 +1964,7 @@ function formatList(items) {
 }
 
 async function showResultsPage() {
+  const render = renderFn || renderResults;
   const assess = document.getElementById('scr-assess');
   const results = document.getElementById('scr-results');
   const loader = document.getElementById('results-loader');
@@ -1980,7 +1981,7 @@ async function showResultsPage() {
 
   const started = performance.now();
 
-  await renderResults();
+  await render();
 
   const elapsed = performance.now() - started;
   const minDuration = 800;
@@ -2099,6 +2100,9 @@ async function renderResults() {
 
   try {
     serverResult = await submitAssessmentOnce();
+    if (serverResult.access_token && getQueryParam('t') !== serverResult.access_token) {
+      history.replaceState(null, '', '?t=' + encodeURIComponent(serverResult.access_token));
+    }
   } catch (err) {
     showResultsError(err);
     throw err;
@@ -2247,6 +2251,52 @@ function renderBookingUnlockCTA(serverResult) {
     .addEventListener('click', function() {
       refreshReportUnlockStatus(serverResult);
     });
+}
+
+async function loadResultByToken(token) {
+  const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/report`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ access_token: token })
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error || 'This results link is no longer valid.');
+  }
+  return {
+    result_id: data.result_id,
+    access_token: token,
+    locked: data.locked,
+    unlocked: data.unlocked,
+    report: data.report,
+    unlock: data.booking || null
+  };
+}
+
+async function renderResultsFromToken(token) {
+  try {
+    const serverResult = await loadResultByToken(token);
+    // keep it locally so focus-refresh / manual refresh work on this device too
+    const state = loadAssessmentState() || {};
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...state, screen: 'results', submitted: true, serverResult }));
+    renderServerReport(serverResult);
+  } catch (err) {
+    const content = document.getElementById('results-content');
+    if (content) {
+      content.innerHTML = `
+        <div class="results-error">
+          <h2>This results link isn’t available.</h2>
+          <p>${escapeHtml(err.message || 'The link may have expired or is incorrect.')}</p>
+          <button onclick="location.href='/'">Start a new assessment</button>
+        </div>`;
+    }
+  }
+}
+
+function showResultsByToken(token) {
+  const intro = document.getElementById('scr-intro');
+  if (intro) intro.style.display = 'none';
+  return showResultsPage(function () { return renderResultsFromToken(token); });
 }
 
 async function refreshReportUnlockStatus(serverResult) {
@@ -2821,12 +2871,24 @@ function restoreAssessment() {
   updateUI();
 
   if (saved.screen === 'results') {
-    showResultsPage();
-  }
+      const token = saved.serverResult && saved.serverResult.access_token;
+      if (token) {
+        history.replaceState(null, '', '?t=' + encodeURIComponent(token));
+        showResultsByToken(token);
+      } else {
+        showResultsPage();
+      }
+    }
 }
 
 initTurnstile();
-restoreAssessment();
+const resultToken = getQueryParam('t');
+if (resultToken) {
+  showResultsByToken(resultToken);
+} else {
+  restoreAssessment();
+}
+
 document.getElementById('start-btn').addEventListener('click', startAssessment);
 
 document.getElementById('btn-restart').addEventListener('click', function() {
