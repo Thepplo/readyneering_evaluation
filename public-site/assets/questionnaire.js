@@ -10,26 +10,22 @@ let turnstileShellTimer = null;
 let turnstileReady = false;
 let pendingToken = null;
 
-// 1. script onload hook (replaces waitForTurnstile polling)
 window.onTurnstileLoad = function () { turnstileReady = true; };
 
-// 2. thin wrappers over your existing shell toggle
 function showVerifyCard() { setTurnstileChallengeActive(true); }
 function hideVerifyCard() { setTurnstileChallengeActive(false); }
 
-// 3. the new finish entry point — render runs the challenge; the callback does the rest
 function beginVerifyAndSubmit() {
   if (turnstileWidgetId === null) {
-    renderTurnstileWidgetOnce();                    // first time: render auto-runs the challenge
+    renderTurnstileWidgetOnce();
   } else {
-    try { window.turnstile.reset(turnstileWidgetId); } catch (e) {} // retry: re-run
+    try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
   }
 }
 
-// 4. orchestrator: fired by the callback with a fresh token
 function submitWithToken(token) {
   pendingToken = token;
-  showResultsPage(renderAfterVerify);               // your existing screen+loader, render fn below
+  showResultsPage(renderAfterVerify);
 }
 
 async function renderAfterVerify() {
@@ -54,11 +50,10 @@ async function renderAfterVerify() {
   }
 }
 
-// 5. failure recovery — card stays/returns with a retry, no cancel destination needed
 function showVerifyRetry(message) {
   const copy = document.querySelector('#turnstile-shell .turnstile-copy');
   if (copy) copy.textContent = message;
-  const btn = document.getElementById('turnstile-cancel'); // relabel your button to "Try again"
+  const btn = document.getElementById('turnstile-cancel');
   if (btn) { btn.textContent = 'Try again'; btn.onclick = beginVerifyAndSubmit; }
   showVerifyCard();
 }
@@ -2303,11 +2298,102 @@ function getBookingUrl(serverResult) {
 
 function renderBookingUnlockCTA(serverResult) {
   const el = document.getElementById('focus-actions-wrapper');
+  if (!el) return;
 
-  el.innerHTML = `
-    <div class="locked-report-card">
+  el.innerHTML = renderLockedFocusActionsSection(serverResult);
+
+  bindBookingUnlockControls(serverResult);
+}
+
+const LOCKED_FOCUS_PREVIEWS = {
+  doMore: [
+    'Your highest-leverage action — unlocked in your debrief',
+    'The habit that closes the gap between deciding and doing',
+    'The one thing to start before the pressure starts'
+  ],
+  doLess: [
+    'Stop the pattern that is limiting your Mind quotient most',
+    'Stop the behavior that erodes Execution before it starts',
+    'The thing you are doing more of that feels like progress but is not'
+  ]
+};
+
+function renderLockedFocusActionsSection(serverResult) {
+  return `
+    <div class="focus-actions-section focus-actions-section--locked">
+      ${renderLockedFocusActionBlock({
+        type: 'do-more',
+        iconClass: 'section-icon-up',
+        title: 'Do more of this',
+        items: LOCKED_FOCUS_PREVIEWS.doMore,
+        lockCopy: 'Your specific actions are waiting in your debrief. Book your 30-minute conversation to unlock them.',
+        serverResult: serverResult
+      })}
+
+      ${renderLockedFocusActionBlock({
+        type: 'do-less',
+        iconClass: 'section-icon-down',
+        title: 'Do less of this',
+        items: LOCKED_FOCUS_PREVIEWS.doLess,
+        lockCopy: 'Your specific stops are waiting in your debrief. Book your 30-minute conversation to unlock them.',
+        serverResult: serverResult
+      })}
+
+      ${renderLockedBookingControls(serverResult)}
+    </div>
+  `;
+}
+
+function renderLockedFocusActionBlock(config) {
+  return `
+    <div class="focus-actions-block ${config.type} locked-focus-actions-block">
+      <div class="focus-actions-block-header">
+        <span class="section-icon ${config.iconClass}" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 4L12 20M12 20L18 14M12 20L6 14" />
+          </svg>
+        </span>
+        <strong>${escapeHtml(config.title)}</strong>
+      </div>
+
+      <div class="locked-focus-list">
+        ${config.items.map(function(item, index) {
+          return renderLockedFocusActionCard(item, index);
+        }).join('')}
+
+        <div class="locked-focus-overlay">
+          <div class="locked-focus-lock" aria-hidden="true">🔒</div>
+          <p>${escapeHtml(config.lockCopy)}</p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderLockedFocusActionCard(text, index) {
+  return `
+    <div class="focus-action-card locked-focus-card ${index > 0 ? 'is-more-locked' : ''}" aria-hidden="true">
+      <div class="focus-action-number">${index + 1}</div>
+
+      <div class="focus-action-copy">
+        <h4 class="focus-action-heading">${escapeHtml(text)}</h4>
+
+        <p class="locked-blur-line locked-blur-line--wide"></p>
+        <p class="locked-blur-line locked-blur-line--medium"></p>
+      </div>
+    </div>
+  `;
+}
+
+function renderLockedBookingControls(serverResult) {
+  const bookingUrl = getBookingUrl(serverResult);
+
+  return `
+    <div class="locked-report-card locked-report-card--compact">
       <div class="locked-report-eyebrow">Full report locked</div>
+
       <h3>Book a follow-up call to unlock your takeaways</h3>
+
       <p>
         Your full report includes what to do more of, what to do less of,
         and the follow-up questions to bring into the call.
@@ -2321,9 +2407,11 @@ function renderBookingUnlockCTA(serverResult) {
         </div>
       ` : ''}
 
-      <a class="primary-btn" id="book-followup-btn" href="${escapeHtml(getBookingUrl(serverResult))}" target="_blank" rel="noopener">
-        Book follow-up call
-      </a>
+      ${bookingUrl ? `
+        <a class="primary-btn" id="book-followup-btn" href="${escapeHtml(bookingUrl)}" target="_blank" rel="noopener">
+          Book follow-up call
+        </a>
+      ` : ''}
 
       <button type="button" class="secondary-btn" id="check-unlock-btn">
         I’ve booked — check unlock status
@@ -2332,19 +2420,27 @@ function renderBookingUnlockCTA(serverResult) {
       <p id="unlock-status" class="form-status"></p>
     </div>
   `;
+}
 
+function bindBookingUnlockControls(serverResult) {
   const copyBtn = document.getElementById('copy-booking-ref');
-  if (copyBtn) {
+
+  if (copyBtn && serverResult.booking_ref) {
     copyBtn.addEventListener('click', function() {
       navigator.clipboard.writeText(serverResult.booking_ref);
     });
   }
 
-  document.getElementById('check-unlock-btn')
-    .addEventListener('click', function() {
+  const checkBtn = document.getElementById('check-unlock-btn');
+
+  if (checkBtn) {
+    checkBtn.addEventListener('click', function() {
       refreshReportUnlockStatus(serverResult);
     });
+  }
 }
+
+
 
 async function loadResultByToken(token) {
   const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/report`, {

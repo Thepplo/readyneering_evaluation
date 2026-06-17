@@ -27,6 +27,61 @@
   src: url("./fonts/AndQFive_Headlinefont_Thin.ttf") format("truetype");
 }
 
+.focus-actions-section--locked .locked-focus-list {
+  position: relative;
+}
+
+.locked-focus-card {
+  min-height: 108px;
+}
+
+.locked-focus-card.is-more-locked {
+  opacity: 0.35;
+}
+
+.locked-blur-line {
+  display: block;
+  height: 12px;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.12;
+  filter: blur(4px);
+}
+
+.locked-blur-line--wide {
+  width: 78%;
+}
+
+.locked-blur-line--medium {
+  width: 56%;
+}
+
+.locked-focus-overlay {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  width: min(360px, calc(100% - 48px));
+  text-align: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.locked-focus-overlay p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.locked-focus-lock {
+  font-size: 20px;
+}
+
+.locked-report-card--compact {
+  margin-top: 28px;
+}
+
 #turnstile-shell {
   position: fixed;
   inset: 0;
@@ -63,6 +118,16 @@
   line-height: 1.5;
   margin-bottom: 18px;
 }
+.turnstile-cancel {
+  margin-top: 16px;
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.turnstile-cancel:hover { color: #333; }
 
  * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -445,14 +510,14 @@
 }
 
 .btn.primary { 
-    background: #ffda33; 
-    color: black; 
-    border-color: #ffda33; 
+  background: #ffda33; 
+  color: black; 
+  border-color: #ffda33; 
 }
 
 .btn.primary:hover { 
-    background: #fce373;
-    gap: 14px;
+  background: #fce373;
+  gap: 14px;
 }
 .btn:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
 
