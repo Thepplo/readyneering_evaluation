@@ -2444,18 +2444,19 @@ function renderWhatHappensNextSection(serverResult) {
         <div class="what-next-actions">
           ${bookingUrl ? `
             <a
-              class="what-next-primary-btn"
+              class="btn primary"
               id="book-followup-btn"
               href="${escapeHtml(bookingUrl)}"
               target="_blank"
               rel="noopener"
             >
-              Book your 30-minute debrief →
+              Book your 30-minute debrief
+              <span class="arrow"></span>
             </a>
           ` : ''}
 
           <button type="button" class="what-next-secondary-btn" id="check-unlock-btn">
-            I’ve booked — reveal my actions
+            I’ve booked - reveal my actions
           </button>
         </div>
 

@@ -36,21 +36,11 @@
 }
 
 .debrief-eyebrow {
-  display: inline-flex;
-  margin-bottom: 10px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(15, 23, 42, 0.52);
+  font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px; color:#BBBBBB;
 }
 
 .debrief-invitation-intro h2 {
-  margin: 0 0 10px;
-  font-size: clamp(24px, 3vw, 34px);
-  line-height: 1.08;
-  letter-spacing: -0.04em;
-  color: #0f172a;
+  margin-bottom:0px; color: #1A1A1A; font-weight:600; 
 }
 
 .debrief-invitation-intro p {
