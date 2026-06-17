@@ -27,11 +27,41 @@
   src: url("./fonts/AndQFive_Headlinefont_Thin.ttf") format("truetype");
 }
 
-#turnstile-widget.challenge-active {
-  position: fixed; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(0,0,0,.5);
+#turnstile-shell {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
   z-index: 9999;
+  padding: 24px;
+}
+
+#turnstile-shell.challenge-active {
+  display: flex;
+}
+
+.turnstile-card {
+  width: min(420px, 100%);
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.22);
+  text-align: center;
+}
+
+.turnstile-title {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.turnstile-copy {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 18px;
 }
 
  * { box-sizing: border-box; margin: 0; padding: 0; }
