@@ -2315,6 +2315,11 @@ const LOCKED_FOCUS_PREVIEWS = {
     'Stop the pattern that is limiting your Mind quotient most',
     'Stop the behavior that erodes Execution before it starts',
     'The thing you are doing more of that feels like progress but is not'
+  ],
+  questions: [
+    'What is one thing you can do to increase your Mind quotient?',
+    'What is one thing you can do to improve your Execution?',
+    'What is one thing you can do to align your actions with your values?'
   ]
 };
 
@@ -2339,6 +2344,14 @@ function renderLockedFocusActionsSection(serverResult) {
         serverResult: serverResult
       })}
 
+      ${renderLockedFocusActionBlock({
+        type: 'questions',
+        iconClass: 'section-icon-question',
+        title: 'Sit with these questions',
+        items: LOCKED_FOCUS_PREVIEWS.questions,
+        lockCopy: 'Your specific stops are waiting in your debrief. Book your 30-minute conversation to unlock them.',
+        serverResult: serverResult
+      })}
       ${renderLockedBookingControls(serverResult)}
     </div>
   `;
