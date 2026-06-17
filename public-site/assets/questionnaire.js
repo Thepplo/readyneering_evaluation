@@ -2872,7 +2872,6 @@ function restoreAssessment() {
   updateUI();
 }
 
-initTurnstile();
 const resultToken = getQueryParam('t');
 if (resultToken) {
   showResultsByToken(resultToken);
