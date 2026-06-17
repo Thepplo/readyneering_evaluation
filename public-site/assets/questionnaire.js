@@ -107,8 +107,8 @@ async function getTurnstileToken() {
   await waitForTurnstile();
   renderTurnstileWidgetOnce();
 
-  showTurnstileShell();
-
+/*   showTurnstileShell();
+ */
   return new Promise(function (resolve, reject) {
     const timeout = setTimeout(function () {
       turnstilePending = null;
@@ -2153,7 +2153,7 @@ async function renderResults() {
     serverResult = await submitAssessmentOnce();
   } catch (err) {
       if (err && err.cancelled) {
-        showStep(SHUFFLED_TRIADS.length - 1); // back to the final question; answers preserved
+        showStep(SHUFFLED_TRIADS.length - 1);
         return;
       }
     showResultsError(err);
