@@ -2199,12 +2199,16 @@ function renderUnlockedSections(locked, open) {
 
 function getBookingUrl(serverResult) {
   const base = serverResult.unlock?.bookings_url || FALLBACK_BOOKINGS_URL;
-  const url = new URL(base);
-
+  let url;
+  try {
+    url = new URL(base);
+  } catch (e) {
+    console.warn('Invalid bookings_url:', base);
+    return null;
+  }
   if (serverResult.booking_ref) {
     url.searchParams.set('booking_ref', serverResult.booking_ref);
   }
-
   return url.toString();
 }
 
@@ -2276,7 +2280,6 @@ async function loadResultByToken(token) {
 async function renderResultsFromToken(token) {
   try {
     const serverResult = await loadResultByToken(token);
-    // keep it locally so focus-refresh / manual refresh work on this device too
     const state = loadAssessmentState() || {};
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...state, screen: 'results', submitted: true, serverResult }));
     renderServerReport(serverResult);
@@ -2287,7 +2290,6 @@ async function renderResultsFromToken(token) {
         <div class="results-error">
           <h2>This results link isn’t available.</h2>
           <p>${escapeHtml(err.message || 'The link may have expired or is incorrect.')}</p>
-          <button onclick="location.href='/'">Start a new assessment</button>
         </div>`;
     }
   }
