@@ -13,6 +13,22 @@ function setResultsLoaderText(title, copy) {
   if (titleEl) titleEl.textContent = title;
   if (copyEl) copyEl.textContent = copy;
 }
+function makeCancelError() {
+  const e = new Error('Verification cancelled.');
+  e.cancelled = true;
+  return e;
+}
+
+function cancelTurnstile() {
+  if (turnstilePending) {
+    clearTimeout(turnstilePending.timeout);
+    const reject = turnstilePending.reject;
+    turnstilePending = null;
+    reject(makeCancelError());
+  }
+  setTurnstileChallengeActive(false);
+  try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
+}
 
 function waitForTurnstile() {
   if (window.turnstile) return Promise.resolve();
@@ -75,7 +91,10 @@ function renderTurnstileWidgetOnce() {
     },
     'expired-callback': function () {
       try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
-    }
+    },
+    'timeout-callback': function () {
+      if (turnstilePending) turnstilePending.reject(new Error('Verification expired. Please try again.'));
+    },
   });
 }
 
@@ -88,20 +107,28 @@ async function getTurnstileToken() {
   await waitForTurnstile();
   renderTurnstileWidgetOnce();
 
+  showTurnstileShell();
+
   return new Promise(function (resolve, reject) {
     const timeout = setTimeout(function () {
       turnstilePending = null;
-      reject(new Error('Verification timed out. Please try again.'));
-    }, 20_000);
+      hideTurnstileShell();
+      reject(new Error('Verification didn’t complete. Please try again.'));
+    }, 120_000);
 
-    turnstilePending = { resolve: resolve, reject: reject, timeout: timeout };
+    turnstilePending = {
+      resolve: function (token) { clearTimeout(timeout); hideTurnstileShell(); resolve(token); },
+      reject:  function (err)  { clearTimeout(timeout); hideTurnstileShell(); reject(err); },
+      timeout: timeout
+    };
 
     try {
-      window.turnstile.reset(turnstileWidgetId);   // tokens are single-use
-      window.turnstile.execute(turnstileWidgetId); // now the widget is already initialised
+      const r = window.turnstile.getResponse(turnstileWidgetId);
+      if (r) window.turnstile.reset(turnstileWidgetId);
+      window.turnstile.execute(turnstileWidgetId);
     } catch (e) {
       clearTimeout(timeout);
-      turnstilePending = null;
+      hideTurnstileShell();
       reject(e);
     }
   });
@@ -2125,6 +2152,10 @@ async function renderResults() {
   try {
     serverResult = await submitAssessmentOnce();
   } catch (err) {
+      if (err && err.cancelled) {
+        showStep(SHUFFLED_TRIADS.length - 1); // back to the final question; answers preserved
+        return;
+      }
     showResultsError(err);
     throw err;
   }
@@ -2816,6 +2847,11 @@ if (resultToken) {
 }
 
 document.getElementById('start-btn').addEventListener('click', startAssessment);
+
+document.getElementById('turnstile-cancel').addEventListener('click', cancelTurnstile);
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && turnstilePending) cancelTurnstile();
+});
 
 document.getElementById('btn-restart').addEventListener('click', function() {
   currentResult = null;
