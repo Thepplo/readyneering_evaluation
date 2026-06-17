@@ -2275,7 +2275,7 @@ async function refreshReportUnlockStatus(serverResult) {
     report: data.report
   };
 
-  persistServerResult(updated);
+  /* persistServerResult(updated); */
 
   if (data.report.locked) {
     renderServerReport(updated);
