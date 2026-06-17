@@ -1963,7 +1963,7 @@ function formatList(items) {
   return items.slice(0, -1).join(', ') + ', and ' + items[items.length - 1];
 }
 
-async function showResultsPage() {
+async function showResultsPage(renderFn) {
   const render = renderFn || renderResults;
   const assess = document.getElementById('scr-assess');
   const results = document.getElementById('scr-results');
