@@ -139,43 +139,21 @@ async function saveAssessment(payload) {
 }
 
 async function submitAssessmentOnce() {
-  const state = loadAssessmentState() || {};
-
-  if (state.serverResult && state.serverResult.result_id) {
-    return state.serverResult;
-  }
+  if (currentResult) return currentResult;
 
   const payload = buildSubmissionPayload();
   const saved = await saveAssessment(payload);
 
-  const serverResult = {
+  currentResult = {
     result_id: saved.result_id,
     access_token: saved.access_token,
     locked: saved.locked,
     unlocked: Boolean(saved.report && saved.report.locked),
-    report: {
-      open: saved.report.open,
-      locked: saved.report.locked || null
-    },
+    report: { open: saved.report.open, locked: saved.report.locked || null },
     unlock: saved.unlock || null,
     submittedAt: new Date().toISOString()
   };
-
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({
-    ...state,
-    current,
-    placements,
-    triadOrder: SHUFFLED_TRIADS.map(t => t.id),
-    selectedIndustry,
-    selectedIndustryLabel,
-    selectedSize,
-    selectedSizeLabel,
-    screen: 'results',
-    submitted: true,
-    serverResult
-  }));
-
-  return serverResult;
+  return currentResult;
 }
 
 const MODE_META = {
@@ -484,6 +462,7 @@ var TC = {x:452 * SCALE, y:360 * SCALE};
 var SHUFFLED_TRIADS = [];
 
 const STORAGE_KEY = 'readyneering_assessment_state';
+let currentResult = null;
 
 function saveAssessmentState() {
   const prevState = loadAssessmentState() || {};
@@ -2097,16 +2076,18 @@ async function renderResults() {
   saveAssessmentState();
 
   let serverResult;
-
   try {
     serverResult = await submitAssessmentOnce();
-    if (serverResult.access_token && getQueryParam('t') !== serverResult.access_token) {
-      history.replaceState(null, '', '?t=' + encodeURIComponent(serverResult.access_token));
-    }
   } catch (err) {
     showResultsError(err);
     throw err;
   }
+
+  if (serverResult.access_token && getQueryParam('t') !== serverResult.access_token) {
+    history.replaceState(null, '', '?t=' + encodeURIComponent(serverResult.access_token));
+  }
+
+  clearAssessmentState();
 
   renderServerReport(serverResult);
 }
@@ -2281,7 +2262,7 @@ async function renderResultsFromToken(token) {
   try {
     const serverResult = await loadResultByToken(token);
     const state = loadAssessmentState() || {};
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...state, screen: 'results', submitted: true, serverResult }));
+    currentResult = serverResult; 
     renderServerReport(serverResult);
   } catch (err) {
     const content = document.getElementById('results-content');
@@ -2321,14 +2302,8 @@ async function refreshReportUnlockStatus(serverResult) {
     return;
   }
 
-  const updated = {
-    ...serverResult,
-    locked: data.locked,
-    report: data.report
-  };
-
-  /* persistServerResult(updated); */
-
+  const updated = { ...serverResult, locked: data.locked, report: data.report };
+  currentResult = updated; 
   if (data.report.locked) {
     renderServerReport(updated);
   } else {
@@ -2336,12 +2311,9 @@ async function refreshReportUnlockStatus(serverResult) {
   }
 }
 
-window.addEventListener('focus', function() {
-  const state = loadAssessmentState();
-  const result = state?.serverResult;
-
-  if (result?.locked && !result.report?.locked) {
-    refreshReportUnlockStatus(result);
+window.addEventListener('focus', function () {
+  if (currentResult && currentResult.locked && !currentResult.report?.locked) {
+    refreshReportUnlockStatus(currentResult);
   }
 });
 
@@ -2809,6 +2781,7 @@ function getPrivacyConsentRecord() {
 
 // ── Start ─────────────────────────────────────────────────
 function startAssessment() {
+  currentResult = null;
   var industrySelect = document.getElementById('industry-select');
   var sizeSelect = document.getElementById('size-select');
 
@@ -2872,7 +2845,7 @@ function restoreAssessment() {
   buildSteps(saved);
   updateUI();
 
-  if (saved.screen === 'results') {
+/*   if (saved.screen === 'results') {
       const token = saved.serverResult && saved.serverResult.access_token;
       if (token) {
         history.replaceState(null, '', '?t=' + encodeURIComponent(token));
@@ -2880,7 +2853,7 @@ function restoreAssessment() {
       } else {
         showResultsPage();
       }
-    }
+    } */
 }
 
 initTurnstile();
@@ -2894,6 +2867,7 @@ if (resultToken) {
 document.getElementById('start-btn').addEventListener('click', startAssessment);
 
 document.getElementById('btn-restart').addEventListener('click', function() {
+  currentResult = null;
   placements = [];
   for (var i=0; i<SHUFFLED_TRIADS.length; i++) placements.push(null);
   current = 0;
