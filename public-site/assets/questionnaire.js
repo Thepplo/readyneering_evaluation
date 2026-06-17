@@ -1,8 +1,18 @@
 const TURNSTILE_SITE_KEY = '0x4AAAAAADTHusttqatb2uD0';
 const FALLBACK_BOOKINGS_URL = 'https://youtube.com';
+
 let turnstileWidgetId = null;
 let turnstilePending = null;
 let turnstileReadyPromise = null;
+let isSubmittingAssessment = false;
+
+function setResultsLoaderText(title, copy) {
+  const titleEl = document.querySelector('.results-loader-title');
+  const copyEl = document.querySelector('.results-loader-copy');
+
+  if (titleEl) titleEl.textContent = title;
+  if (copyEl) copyEl.textContent = copy;
+}
 
 function waitForTurnstile() {
   if (window.turnstile) return Promise.resolve();
@@ -120,7 +130,18 @@ function getSubmitAttemptId() {
 const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app/functions/v1';
 
 async function saveAssessment(payload) {
+  setResultsLoaderText(
+    'Securing your submission',
+    'This quick check protects the diagnostic from automated submissions.'
+  );
+
   const turnstileToken = await getTurnstileToken();
+
+  setResultsLoaderText(
+    'Saving your responses',
+    'Your answers are being securely saved before we build your profile.'
+  );
+
   const idempotencyKey = getSubmitAttemptId();
 
   const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/submit`, {
@@ -142,6 +163,11 @@ async function saveAssessment(payload) {
   }
 
   localStorage.removeItem('submit_attempt_id');
+
+  setResultsLoaderText(
+    'Building your readiness profile',
+    'Analyzing system patterns across resilience, preparedness, and the five quotients.'
+  );
 
   return data;
 }
@@ -977,12 +1003,24 @@ function showStep(idx, direction) {
 }
 
 document.getElementById('btn-next').addEventListener('click', function() {
+  if (isSubmittingAssessment) return;
+
   if (!placements[current]) {
     document.getElementById('warn').style.display = 'block';
     return;
   }
+
   if (current === SHUFFLED_TRIADS.length - 1) {
-    showResultsPage();
+    isSubmittingAssessment = true;
+    document.getElementById('btn-next').innerHTML = 'Generating profile...';
+    document.getElementById('btn-next').style.pointerEvents = 'none';
+    document.getElementById('btn-back').disabled = true;
+
+    showResultsPage().finally(function () {
+      isSubmittingAssessment = false;
+      document.getElementById('btn-next').style.pointerEvents = '';
+    });
+
     return;
   }
 
