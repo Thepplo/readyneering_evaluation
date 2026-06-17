@@ -208,7 +208,7 @@ function getSubmitAttemptId() {
 
 const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app/functions/v1';
 
-async function saveAssessment(payload) {
+async function saveAssessment(payload, token) {
   setResultsLoaderText('Saving your responses', 'Your answers are being securely saved before we build your profile.');
   const idempotencyKey = getSubmitAttemptId();
   const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/submit`, {
@@ -1077,7 +1077,7 @@ document.getElementById('btn-next').addEventListener('click', function() {
     document.getElementById('btn-next').style.pointerEvents = 'none';
     document.getElementById('btn-back').disabled = true;
 
-    showResultsPage().finally(function () {
+    beginVerifyAndSubmit().finally(function () {
       isSubmittingAssessment = false;
       document.getElementById('btn-next').style.pointerEvents = '';
     });
@@ -2881,10 +2881,10 @@ if (resultToken) {
 
 document.getElementById('start-btn').addEventListener('click', startAssessment);
 
-document.getElementById('turnstile-cancel').addEventListener('click', cancelTurnstile);
+/* document.getElementById('turnstile-cancel').addEventListener('click', cancelTurnstile);
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && turnstilePending) cancelTurnstile();
-});
+}); */
 
 document.getElementById('btn-restart').addEventListener('click', function() {
   currentResult = null;
