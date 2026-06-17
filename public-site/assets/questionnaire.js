@@ -1357,7 +1357,7 @@ function renderFocusChipList(items) {
     chips[chips.length - 1];
 }
 
-function renderFocusSubtitle(focusActions) {
+function renderServerFocusSubtitle(focusActions) {
   var items = focusActions.subtitleItems || [];
 
   if (!items.length) return '';
