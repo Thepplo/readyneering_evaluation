@@ -2361,9 +2361,12 @@ function renderDebriefInvitationSection(serverResult) {
     </section>
   `;
 }
+
 function renderDebriefPreviewCard(section) {
   return `
     <article class="debrief-preview-card debrief-preview-card--${escapeHtml(section.type)}">
+      <div class="debrief-preview-seal" aria-hidden="true"></div>
+
       <div class="debrief-preview-card-header">
         <span class="section-icon ${getDebriefIconClass(section.iconType)}" aria-hidden="true">
           ${renderDebriefIcon(section.iconType)}
@@ -2371,7 +2374,9 @@ function renderDebriefPreviewCard(section) {
 
         <div>
           <h3>${escapeHtml(section.title)}</h3>
-          <span class="debrief-preview-status">${escapeHtml(section.status)}</span>
+          <span class="debrief-preview-status">
+            ${escapeHtml(section.status)}
+          </span>
         </div>
       </div>
 
@@ -2379,9 +2384,16 @@ function renderDebriefPreviewCard(section) {
         <strong>${escapeHtml(section.summary)}</strong>
         <p>${escapeHtml(section.body)}</p>
       </div>
+
+      <div class="debrief-preview-reveal-line" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </article>
   `;
 }
+
 function renderWhatHappensNextSection(serverResult) {
   const bookingUrl = getBookingUrl(serverResult);
 

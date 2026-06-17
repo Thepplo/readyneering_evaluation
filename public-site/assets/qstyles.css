@@ -68,14 +68,73 @@
 }
 
 .debrief-preview-card {
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  border-radius: 18px;
-  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  border-style: dashed;
+  border-color: rgba(15, 23, 42, 0.14);
+}
+
+.debrief-preview-card::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -48px;
+  width: 130px;
+  height: 130px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.82));
-  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.04);
-  user-select: none;
-  -webkit-user-select: none;
+    repeating-linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.055) 0,
+      rgba(15, 23, 42, 0.055) 1px,
+      transparent 1px,
+      transparent 7px
+    );
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+
+.debrief-preview-seal {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 34px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.12);
+  pointer-events: none;
+}
+
+.debrief-preview-reveal-line {
+  display: grid;
+  gap: 7px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(15, 23, 42, 0.06);
+  pointer-events: none;
+}
+
+.debrief-preview-reveal-line span {
+  display: block;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.055);
+}
+
+.debrief-preview-reveal-line span:nth-child(1) {
+  width: 72%;
+}
+
+.debrief-preview-reveal-line span:nth-child(2) {
+  width: 54%;
+}
+
+.debrief-preview-reveal-line span:nth-child(3) {
+  width: 38%;
+}
+
+.debrief-preview-status {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(15, 23, 42, 0.045);
 }
 
 .debrief-preview-card-header {
