@@ -2233,7 +2233,7 @@ function renderServerReport(serverResult) {
   if (locked) {
     renderUnlockedSections(locked, open);
   } else if (serverResult.locked) {
-    renderBookingUnlockCTA(serverResult, open);
+    renderBookingUnlockCTA(serverResult);
   } else {
     renderNoLockedSections();
   }
