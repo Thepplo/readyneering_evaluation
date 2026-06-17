@@ -1,5 +1,5 @@
 const TURNSTILE_SITE_KEY = '0x4AAAAAADTHusttqatb2uD0';
-
+const FALLBACK_BOOKINGS_URL = 'https://youtube.com';
 let turnstileWidgetId = null;
 let turnstilePending = null;
 let turnstileReadyPromise = null;
