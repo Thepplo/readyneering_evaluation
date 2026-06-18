@@ -26,24 +26,152 @@
   font-family: "q5-heading-slim";
   src: url("./fonts/AndQFive_Headlinefont_Thin.ttf") format("truetype");
 }
-
+/* Shared base — applies to both light and dark versions */
 .zone-scale-v2 {
   position: relative;
-  margin-top: 64px; /* room for markers above */
+  margin-top: 64px;
   padding: 0 2px;
 }
 
-/* The continuous gradient bar */
+.zone-scale-v2 .zone-bar {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+}
+
+/* Light version (R/P scale) — keep your existing gradient */
+.zone-scale-v2:not(.dark) .zone-bar {
+  background: linear-gradient(90deg,
+    #fecdd3 0%,
+    #fde68a 35%,
+    #a7f3d0 62.5%,
+    #bfdbfe 82.5%,
+    #bfdbfe 100%
+  );
+}
+
+/* Dark version (overall 1–25 scale) — saturated jewel tones */
+.zone-scale-v2.dark .zone-bar {
+  background: linear-gradient(90deg,
+    #9f1239 0%,        /* risk - crimson */
+    #b45309 20.8%,     /* dev - amber */
+    #047857 45.8%,     /* build - emerald */
+    #1d4ed8 75%,       /* ready - sapphire */
+    #1d4ed8 100%
+  );
+  box-shadow: 0 0 24px rgba(255, 218, 51, 0.06);
+}
+
+/* Band boundary ticks */
+.zone-scale-v2 .zone-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.zone-scale-v2.dark .zone-bar::before {
+  background:
+    linear-gradient(90deg, transparent calc(20.8% - 0.5px), rgba(255,255,255,0.18) 20.8%, transparent calc(20.8% + 0.5px)),
+    linear-gradient(90deg, transparent calc(45.8% - 0.5px), rgba(255,255,255,0.18) 45.8%, transparent calc(45.8% + 0.5px)),
+    linear-gradient(90deg, transparent calc(75% - 0.5px),   rgba(255,255,255,0.18) 75%,   transparent calc(75% + 0.5px));
+}
+
+/* Legend — proportional columns matching band widths */
+.zone-scale-v2.dark .zone-legend {
+  display: grid;
+  grid-template-columns: 20.8fr 25fr 29.2fr 25fr; /* 1–25 scale band proportions */
+  margin-top: 14px;
+  font-size: 11px;
+  line-height: 1.3;
+}
+.zone-scale-v2.dark .zone-legend > div {
+  padding: 0 6px;
+  text-align: center;
+  color: rgba(255,255,255,0.55);
+}
+.zone-scale-v2.dark .zone-legend > div strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.zone-scale-v2.dark .zone-legend .lg-risk strong  { color: #fda4af; }
+.zone-scale-v2.dark .zone-legend .lg-dev strong   { color: #fcd34d; }
+.zone-scale-v2.dark .zone-legend .lg-build strong { color: #6ee7b7; }
+.zone-scale-v2.dark .zone-legend .lg-ready strong { color: #93c5fd; }
+
+/* Single overall marker — uses --score-pos, sits above the bar */
+.score-marker.overall {
+  position: absolute;
+  top: -44px;
+  left: var(--score-pos);
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 5;
+  color: #ffda33;  /* andQfive yellow */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.score-marker.overall .pill {
+  display: inline-flex;
+  align-items: baseline;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(255, 218, 51, 0.08);
+  border: 1.5px solid currentColor;
+  color: #ffda33;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  min-width: 60px;
+  justify-content: center;
+}
+.score-marker.overall .pill .score {
+  font-variant-numeric: tabular-nums;
+}
+.score-marker.overall::after {
+  content: "";
+  width: 1.5px;
+  height: 18px;
+  background: currentColor;
+  margin-top: 5px;
+  opacity: 0.75;
+}
+
+.zone-scale-overall .zone-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 0;
+}
+.zone-scale-overall .zone-label #zone-label-score {
+  color: #ffda33;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 14px;
+}
+.zone-scale-v2 {
+  position: relative;
+  margin-top: 64px;
+  padding: 0 2px;
+}
+
 .zone-bar {
   position: relative;
   height: 10px;
   border-radius: 999px;
   background: linear-gradient(
     90deg,
-    #fecdd3 0%,      /* risk - pink */
-    #fde68a 37.5%,   /* dev - amber, transition at 2.5 */
-    #a7f3d0 62.5%,   /* build - green, transition at 3.5 */
-    #bfdbfe 82.5%,   /* ready - blue, transition at 4.3 */
+    #fecdd3 0%,
+    #fde68a 37.5%,
+    #a7f3d0 62.5%,
+    #bfdbfe 82.5%,
     #bfdbfe 100%
   );
 }
@@ -61,7 +189,7 @@
 
 .zone-legend {
   display: grid;
-  grid-template-columns: 37.5fr 25fr 20fr 17.5fr; /* matches the gradient stops */
+  grid-template-columns: 37.5fr 25fr 20fr 17.5fr;
   margin-top: 12px;
   font-size: 11px;
   line-height: 1.3;
@@ -94,8 +222,8 @@
 .score-marker .pill {
   display: inline-flex;
   align-items: baseline;
-  gap: 4px;
-  padding: 4px 9px;
+  gap: 5px;
+  padding: 4px 10px;
   border-radius: 999px;
   background: #fff;
   border: 1.5px solid currentColor;
@@ -103,12 +231,19 @@
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
+  min-width: 56px;       /* prevents "3.41" being clipped */
+  justify-content: center;
 }
 .score-marker .pill .label {
   font-size: 10px;
-  opacity: 0.75;
+  opacity: 0.7;
   font-weight: 600;
 }
+
+.pill .score {
+  font-variant-numeric: tabular-nums;  /* keeps 3.13 and 3.32 visually aligned */
+}
+
 .score-marker::after {
   content: "";
   width: 1.5px;

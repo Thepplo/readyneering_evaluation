@@ -2947,28 +2947,30 @@ function renderOrbit(res) {
 
 
 function setScoreMarkerPositions(score, rscore, pscore) {
-  let scorePos  = ((score  - 1) / (25 - 1)) * 100;
-  let pscorePos = ((pscore - 1) / (5  - 1)) * 100;
-  let rscorePos = ((rscore - 1) / (5  - 1)) * 100;
-  scorePos  = Math.max(0, Math.min(100, scorePos));
-  pscorePos = Math.max(0, Math.min(100, pscorePos));
-  rscorePos = Math.max(0, Math.min(100, rscorePos));
+  const overallPos = v => Math.max(0, Math.min(100, ((v - 1) / 24) * 100));
+  const subPos     = v => Math.max(0, Math.min(100, ((v - 1) / 4)  * 100));
 
-  const setVar = (id, name, value) => {
-    const el = document.getElementById(id);
-    if (el) el.style.setProperty(name, value);
-  };
-  const setAttr = (id, name, value) => {
-    const el = document.getElementById(id);
-    if (el) el.setAttribute(name, value);
-  };
+  const setVar  = (id, name, value) => { const el = document.getElementById(id); if (el) el.style.setProperty(name, value); };
+  const setText = (id, text)        => { const el = document.getElementById(id); if (el) el.textContent = text; };
 
-  setVar('zone-strip',    '--score-pos',   scorePos  + '%');
-  setVar('zone-strip-rp', '--score-pos-p', pscorePos + '%');
-  setVar('zone-strip-rp', '--score-pos-r', rscorePos + '%');
-  setAttr('zone-marker',               'data-score', score.toFixed(2));
-  setAttr('preparedness-zone-marker',  'data-score', pscore.toFixed(2));
-  setAttr('resilience-zone-marker',    'data-score', rscore.toFixed(2));
+  setVar('zone-strip', '--score-pos', overallPos(score) + '%');
+  setText('zone-marker-score', score.toFixed(2));
+  setText('zone-label-score',  score.toFixed(2));
+
+  const rPct = subPos(rscore);
+  const pPct = subPos(pscore);
+  setVar('zone-scale-rp', '--pos-r', rPct + '%');
+  setVar('zone-scale-rp', '--pos-p', pPct + '%');
+  setText('marker-r-score', rscore.toFixed(2));
+  setText('marker-p-score', pscore.toFixed(2));
+
+  const markerR = document.getElementById('marker-r');
+  const markerP = document.getElementById('marker-p');
+  if (markerR && markerP) {
+    const overlap = Math.abs(rPct - pPct) < 6;
+    markerR.classList.toggle('stacked-top',    overlap);
+    markerP.classList.toggle('stacked-bottom', overlap);
+  }
 }
 
 function activateVerdictZone(label) {

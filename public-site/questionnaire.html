@@ -195,16 +195,20 @@
           </div>
           <div id="mode-grid" class="reveal-block reveal-modes"></div>
         </div>
-        <div class="zone-scale">
-          <div class="zone-label" id="zone-label">Where does 13.3 sit on the full scale?</div>
+        <div class="zone-scale-overall">
+          <div class="zone-label" id="zone-label">Where does <span id="zone-label-score">10.79</span> sit on the full scale?</div>
 
-          <div class="zone-strip" id="zone-strip" style="--score-pos: 53.2%;">
-            <div class="zone z-risk">1–6<span>At risk</span></div>
-            <div class="zone z-dev">7–12<span>Developing</span></div>
-            <div class="zone z-build">13–19<span>Building</span></div>
-            <div class="zone z-ready">20–25<span>Ready</span></div>
-
-            <div class="zone-marker" id="zone-marker" data-score="13.3"></div>
+          <div class="zone-scale-v2 dark" id="zone-strip" style="--score-pos: 40.8%;">
+            <div class="score-marker overall" id="zone-marker">
+              <span class="pill"><span class="score" id="zone-marker-score">10.79</span></span>
+            </div>
+            <div class="zone-bar"></div>
+            <div class="zone-legend">
+              <div class="lg-risk"><strong>1–6</strong>At risk</div>
+              <div class="lg-dev"><strong>7–12</strong>Developing</div>
+              <div class="lg-build"><strong>13–19</strong>Building</div>
+              <div class="lg-ready"><strong>20–25</strong>Ready</div>
+            </div>
           </div>
         </div>
       </div>
@@ -213,13 +217,12 @@
         <h2 style="margin-bottom:0px; color: #1A1A1A; font-weight:600; ">Where you are strongest - and where you have room to grow</h2>
         <p class="page-sub" style="color:#555555 !important; line-height: 1.75; font-size: 13px; max-width: 755px; margin-bottom: 5%;">These scores reflect your patterns across all 20 scenarios - four for each of the andQfive Quotients. They are not a judgement of you as a person - they show how the environment you operate in tends to behave under pressure. This report is relevant whether you lead a team, work as part of one, or both.</p>
         <div id="mode-grid-wm" class="reveal-block reveal-modes"></div>
-        <div class="zone-scale-v2" 
-            style="--pos-r: 53.25%; --pos-p: 58.0%;">
-          <div class="score-marker resilience">
-            <span class="pill"><span class="label">R</span>3.13</span>
+        <div class="zone-scale-v2" id="zone-scale-rp">
+          <div class="score-marker resilience" id="marker-r">
+            <span class="pill"><span class="label">R</span><span class="score" id="marker-r-score">3.13</span></span>
           </div>
-          <div class="score-marker preparedness">
-            <span class="pill"><span class="label">P</span>3.32</span>
+          <div class="score-marker preparedness" id="marker-p">
+            <span class="pill"><span class="label">P</span><span class="score" id="marker-p-score">3.32</span></span>
           </div>
           <div class="zone-bar"></div>
           <div class="zone-legend">
