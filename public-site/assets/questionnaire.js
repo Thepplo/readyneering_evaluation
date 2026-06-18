@@ -2947,31 +2947,28 @@ function renderOrbit(res) {
 
 
 function setScoreMarkerPositions(score, rscore, pscore) {
-  let scorePos = ((score - 1) / (25 - 1)) * 100;
-  let pscorePos = ((pscore - 1) / (5 - 1)) * 100;
-  let rscorePos = ((rscore - 1) / (5 - 1)) * 100;
-
-  scorePos = Math.max(0, Math.min(100, scorePos));
+  let scorePos  = ((score  - 1) / (25 - 1)) * 100;
+  let pscorePos = ((pscore - 1) / (5  - 1)) * 100;
+  let rscorePos = ((rscore - 1) / (5  - 1)) * 100;
+  scorePos  = Math.max(0, Math.min(100, scorePos));
   pscorePos = Math.max(0, Math.min(100, pscorePos));
   rscorePos = Math.max(0, Math.min(100, rscorePos));
 
-  document.getElementById('zone-strip')
-    .style.setProperty('--score-pos', scorePos + '%');
+  const setVar = (id, name, value) => {
+    const el = document.getElementById(id);
+    if (el) el.style.setProperty(name, value);
+  };
+  const setAttr = (id, name, value) => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute(name, value);
+  };
 
-  document.getElementById('zone-strip-rp')
-    .style.setProperty('--score-pos-p', pscorePos + '%');
-
-  document.getElementById('zone-strip-rp')
-    .style.setProperty('--score-pos-r', rscorePos + '%');
-
-  document.getElementById('zone-marker')
-    .setAttribute('data-score', score.toFixed(2));
-
-  document.getElementById('preparedness-zone-marker')
-    .setAttribute('data-score', pscore.toFixed(2));
-
-  document.getElementById('resilience-zone-marker')
-    .setAttribute('data-score', rscore.toFixed(2));
+  setVar('zone-strip',    '--score-pos',   scorePos  + '%');
+  setVar('zone-strip-rp', '--score-pos-p', pscorePos + '%');
+  setVar('zone-strip-rp', '--score-pos-r', rscorePos + '%');
+  setAttr('zone-marker',               'data-score', score.toFixed(2));
+  setAttr('preparedness-zone-marker',  'data-score', pscore.toFixed(2));
+  setAttr('resilience-zone-marker',    'data-score', rscore.toFixed(2));
 }
 
 function activateVerdictZone(label) {
