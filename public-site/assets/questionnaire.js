@@ -2750,6 +2750,7 @@ function showResultsByToken(token) {
 
 async function refreshReportUnlockStatus(serverResult) {
   const status = document.getElementById('unlock-status');
+  if (!status) return;
   status.textContent = 'Checking unlock status...';
 
   const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/report`, {
@@ -2769,7 +2770,7 @@ async function refreshReportUnlockStatus(serverResult) {
   }
 
   const updated = { ...serverResult, locked: data.locked, report: data.report };
-  currentResult = updated; 
+  currentResult = updated;
   if (data.report.locked) {
     renderServerReport(updated);
   } else {
