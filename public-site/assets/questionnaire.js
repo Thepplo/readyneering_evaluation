@@ -1701,7 +1701,7 @@ function getQuotientRowColor(q) {
   return levelColors[level] || '#60a5fa';
 }
 
-function renderCompactQuotientRow(q) {
+/* function renderCompactQuotientRow(q) {
   var level = getQuotientLevel(q.score);
   var levelLabel = getQuotientLevelLabel(level);
   var barPercent = getQuotientBarPercent(q.score);
@@ -1730,8 +1730,30 @@ function renderCompactQuotientRow(q) {
       </div>
     </div>
   `;
-}
+} */
+function renderCompactQuotientRow(q) {
+  var level = getQuotientLevel(q.score);
+  var levelLabel = getQuotientLevelLabel(level);
+  var barPercent = getQuotientBarPercent(q.score);
+  var color = getQuotientRowColor(q);
 
+  return `
+    <div class="quotient-row">
+      <div class="q-meta">
+        <div class="q-chip ${q.key}">${q.label}</div>
+        <div class="q-desc">${q.roleS}</div>
+      </div>
+      <div class="q-scale" style="--pos:${barPercent};">
+        <div class="q-bar"></div>
+        <div class="q-tick"></div>
+      </div>
+      <div class="q-score">
+        <span class="q-value">${q.score.toFixed(1)}</span>
+        <span class="q-band band-build">${levelLabel}</span>
+      </div>
+    </div>
+  `;
+}
 function renderCompactQuotientSection(title, keys, quotients) {
   var rows = keys
     .map(function(key) {
