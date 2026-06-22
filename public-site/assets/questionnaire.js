@@ -24,6 +24,9 @@ function beginVerifyAndSubmit() {
 }
 
 function submitWithToken(token) {
+  if (currentResult && currentResult.result_id) {
+    return;
+  }
   pendingToken = token;
   showResultsPage(renderAfterVerify);
 }
@@ -44,10 +47,26 @@ async function renderAfterVerify() {
       history.replaceState(null, '', '?t=' + encodeURIComponent(currentResult.access_token));
     }
     clearAssessmentState();
+
+    teardownTurnstile();
+
     renderServerReport(currentResult);
   } catch (err) {
     showVerifyRetry(err.message || 'We couldn’t save your results. Please try again.');
   }
+}
+
+function teardownTurnstile() {
+  try {
+    if (turnstileWidgetId !== null && window.turnstile) {
+      window.turnstile.remove(turnstileWidgetId);
+    }
+  } catch (e) {}
+  turnstileWidgetId = null;
+  turnstilePending = null;
+  pendingToken = null;
+  const shell = document.getElementById('turnstile-shell');
+  if (shell) shell.classList.remove('challenge-active');
 }
 
 function showVerifyRetry(message) {
@@ -2281,8 +2300,8 @@ function renderOpenReport(open, res, quotientData) {
   document.getElementById('ranked-signal-wrapper').innerHTML =
     renderServerRankedSignalList(open.ranked);
 
-  document.getElementById('action-sub').innerHTML =
-    renderServerFocusSubtitle(open.focus);
+/*   document.getElementById('action-sub').innerHTML =
+    renderServerFocusSubtitle(open.focus); */
 
   document.getElementById('meta-line').innerHTML = renderReportMetaLine({
     completedDate: formatCompletedDate(new Date()),
@@ -2296,6 +2315,10 @@ function renderOpenReport(open, res, quotientData) {
 }
 
 function renderUnlockedSections(locked, open) {
+  document.getElementById('focus-copy').innerHTML = `
+    <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px; color:#BBBBBB;">Building your readiness capability</div>
+    <h2 style="margin-bottom:0px; color: #1A1A1A; font-weight:600;">Your three priorities for action</h2>
+  `;
   document.getElementById('action-sub').innerHTML =
     renderServerFocusSubtitle(open.focus);
 
