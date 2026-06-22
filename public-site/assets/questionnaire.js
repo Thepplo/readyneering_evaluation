@@ -2445,11 +2445,10 @@ function renderDebriefInvitationSection(serverResult) {
             </button>
           </div>
           <div class="next-divider"></div>
-          <p>
-            A Readiness score is a starting point.
-            <strong>Not a verdict. Not a destination.</strong>
+          <p class="next-lede">
+            A Readiness score is a starting point. <span class="next-lede--bold">Not a verdict. Not a destination.</span>
           </p>
-          <p>
+          <p class="next-lede">
             Your Mind is at 2.8. Your Execution is at 3.1. That specific 
             combination — developing Preparedness against building 
             Resilience — shows up in a predictable way. In meetings. 
@@ -2457,17 +2456,17 @@ function renderDebriefInvitationSection(serverResult) {
             and what actually happens.
           </p>
 
-          <p>
+          <p class="next-lede">
             The actions above are prepared for a reason. The right next move is specific
             to your pattern. A generic list would be motivational confetti. What you need
             is a conversation.
           </p>
-          <p>
+          <p class="next-lede">
             We have had this conversation before. We know which question 
             cuts through. And we can almost guarantee it is not the one 
             you are already asking yourself.
           </p>
-          <p class="what-next-strong">
+          <p class="next-lede next-lede--bold">
             Thirty minutes. Your scores, your patterns, your next move.
           </p>
           ${bookingUrl ? `
@@ -2482,78 +2481,6 @@ function renderDebriefInvitationSection(serverResult) {
                 <span class="arrow"></span>
               </a>
             ` : ''}
-          <!--
-
-          <p>
-            A Readiness score is a starting point.
-            <strong>Not a verdict. Not a destination.</strong>
-          </p>
-
-          <p>
-            Your scores show where your pattern is likely showing up:
-            in meetings, in Monday mornings, and in the gap between what you decide
-            and what actually happens.
-          </p>
-
-          <p>
-            The actions above are prepared for a reason. The right next move is specific
-            to your pattern. A generic list would be motivational confetti. What you need
-            is a conversation.
-          </p>
-
-          <p>
-            Once your debrief is booked, your personalized actions, stops, and questions
-            will appear here immediately, so you can review them before the call.
-          </p>
-
-          <p class="what-next-strong">
-            Thirty minutes. Your scores, your patterns, your next move.
-          </p>
-
-          <p class="what-next-italic">
-            If you do only one thing to build your Readiness — book the conversation that reveals what to do next.
-          </p>
-
-
-
-          ${serverResult.booking_ref ? `
-            <div class="booking-ref-box booking-ref-box--dark">
-              <span>Your booking reference</span>
-              <strong>${escapeHtml(serverResult.booking_ref)}</strong>
-            </div>
-          ` : ''}
-
-          <p class="what-next-footnote">
-            Your actions, stops, and questions reveal immediately after booking.
-            Bring them into the call so the conversation starts from your real pattern.
-          </p>
-
-          <p id="unlock-status" class="form-status what-next-status"></p>
-        </div>
-    </section>
-    <section class="debrief-invitation-section">
-      <div class="debrief-invitation-intro">
-        <div class="debrief-eyebrow">Prepared for your debrief</div>
-
-        <h2 class="section-title">
-          <span class="section-title__lead">Your prep is ready.</span>
-          <span class="section-title__sub">Book the conversation and read it now.</span>
-        </h2>
-
-        <p class="page-sub" style="color:#555555 !important; line-height: 1.75; font-size: 13px; max-width: 755px; margin-bottom: 5%;">
-          We’ve identified the specific actions, stops, and questions connected to your Readiness pattern.
-          Book your 30-minute debrief to reveal them immediately and bring them into the conversation.
-        </p>
-      </div>
-
-      <div class="debrief-preview-grid">
-        ${DEBRIEF_PREVIEW_SECTIONS.map(renderDebriefPreviewCard).join('')}
-      </div>
-
-      ${renderWhatHappensNextSection(serverResult)}
-      
-    </section>
-    --!>
   `;
 }
 
@@ -2575,7 +2502,7 @@ function renderDebriefPreviewCard(section) {
   `;
 }
 
-function renderWhatHappensNextSection(serverResult) {
+/* function renderWhatHappensNextSection(serverResult) {
   const bookingUrl = getBookingUrl(serverResult);
 
   return `
@@ -2657,7 +2584,8 @@ function renderWhatHappensNextSection(serverResult) {
       </div>
     </section>
   `;
-}
+} */
+
 function bindDebriefInvitationControls(serverResult) {
   const checkBtn = document.getElementById('check-unlock-btn');
 
