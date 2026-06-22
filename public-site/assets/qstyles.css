@@ -42,11 +42,7 @@
   font-weight: 700;
   margin-bottom: 2px;
 }
-.q-name.vitality   { color: #d97706; }
-.q-name.emotion    { color: #e11d48; }
-.q-name.mind       { color: #7c1d6f; }
-.q-name.execution  { color: #1d4ed8; }
-.q-name.alignment  { color: #0891b2; }
+
 .q-desc {
   font-size: 11px;
   color: #6b6b66;
@@ -108,8 +104,8 @@
   border-radius: 999px;
 }
 .band-risk     { background: #fff1f2; color: #9f1239; }
-.band-dev      { background: #fef3c7; color: #92400e; }
-.band-build    { background: #d1fae5; color: #047857; }
+.band-developing      { background: #fef3c7; color: #92400e; }
+.band-building    { background: #d1fae5; color: #047857; }
 .band-ready    { background: #dbeafe; color: #1d4ed8; }
 
 .zone-scale-v2 {
