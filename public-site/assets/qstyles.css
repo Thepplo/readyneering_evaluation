@@ -26,6 +26,15 @@
   font-family: "q5-heading-slim";
   src: url("./fonts/AndQFive_Headlinefont_Thin.ttf") format("truetype");
 }
+.next-offer__meta {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+}
 .next-q-name--vitality{
   color: #ffda33;
 }
@@ -1426,7 +1435,7 @@
 }
 
 #scr-results {
-  max-width: 900px; 
+  max-width: 920px; 
 }
 /* intro stats */
 .stat-row { display: flex; gap: 12px; margin: 20px 0;}
