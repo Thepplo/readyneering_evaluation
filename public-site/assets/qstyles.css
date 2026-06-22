@@ -105,7 +105,8 @@
     justify-content: center;
   }
 }
-
+.diag-dim.resilience { color:#665bd0}
+.diag-dim.preparedness { color:#24a987}
 #focus-section-unlocked,
 #focus-section-locked {
   transition: opacity 0.3s ease;

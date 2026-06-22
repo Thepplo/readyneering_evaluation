@@ -1491,14 +1491,14 @@ function renderPatternDiagnosis(open) {
     const strongerDim  = dimAScore <= dimBScore ? dimB : dimA;
     const weakerBand   = bandLabelFromScore(Math.min(dimAScore, dimBScore));
     const strongerBand = bandLabelFromScore(Math.max(dimAScore, dimBScore));
-    combinationLine = `${escapeHtml(weakerBand)} ${escapeHtml(weakerDim)} against ${escapeHtml(strongerBand)} ${escapeHtml(strongerDim)}`;
+    combinationLine = `${escapeHtml(weakerBand)} <span class="diag-dim ${weakerDim}">${escapeHtml(weakerDim)}</span> against ${escapeHtml(strongerBand)} <span class="diag-dim ${strongerDim}">${escapeHtml(strongerDim)}</span>`;
   }
 
   const symptomLine = getSymptomLine(a.key, b.key);
 
   return `
     <p class="next-lede">
-      A Readiness score is a starting point. <strong>Not a verdict. Not a destination.</strong>
+      A Readiness score is a starting point. <span class="next-lede__bold">Not a verdict. Not a destination.</span>
     </p>
     <p class="next-lede">
       Your <span class="q-chip ${a.key}">${a.label}</span> is at <strong>${a.score.toFixed(1)}</strong>. 
