@@ -113,12 +113,12 @@
 [hidden] { display: none !important; }
 
 .next-section {
-  background: radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.055), transparent 34%), linear-gradient(360deg, #292929 0%, #222222 100%);
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.055), transparent 34%), linear-gradient(360deg, #292929 0%, #222222 100%);
   overflow: hidden;
   color: #fff;
 }
 .next-header {
-  padding: 18px 32px;
+  padding: 12px 5%;
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .next-kicker {
@@ -129,7 +129,7 @@
   color: #ffda33;
 }
 .next-body {
-  padding: 40px 32px 36px;
+  padding: 5% 5%;
 }
 .next-tag {
   font-size: 11px;
@@ -140,7 +140,6 @@
   margin-bottom: 14px;
 }
 .next-title {
-  font-size: 38px;
   line-height: 1.1;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -151,7 +150,7 @@
 .next-divider {
   height: 1px;
   background: rgba(255,255,255,0.08);
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
 /* The three offers — card-like but lighter than standalone cards */
@@ -2564,7 +2563,7 @@
   font-weight: 650;
 }
 
-.page-break-label{background:#F5F4F0;padding:12px 44px;border:1px solid #DEDEDE;border-top:none;font-size:9px;font-weight:600;color:#AAAAAA;letter-spacing:2px;text-transform:uppercase}
+.page-break-label{background:#F5F4F0;padding:12px 5%;border:1px solid #DEDEDE;border-top:none;font-size:9px;font-weight:600;color:#AAAAAA;letter-spacing:2px;text-transform:uppercase}
 
 .focus-actions-section{
   display: flex;

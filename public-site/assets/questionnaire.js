@@ -1200,34 +1200,6 @@ function getModeStructure(rScore, pScore) {
   };
 }
 
-
-const quotientDebriefs = {
-  vitality: {
-    q: "Where is energy or capacity limiting consistent performance?",
-    n: "Without sustained energy, even strong intentions and plans become harder to maintain."
-  },
-  emotion: {
-    q: "Where are emotional reactions shaping outcomes more than intended?",
-    n: "Emotional steadiness influences how consistently people respond under pressure."
-  },
-  mind: {
-    q: "Where are people interpreting the same situation differently?",
-    n: "When clarity is weak, judgment and decision-making begin to drift."
-  },
-  execution: {
-    q: "Where are decisions failing to translate into reliable action?",
-    n: "Execution is what turns intent into consistent results."
-  },
-  alignment: {
-    q: "Where are people making different decisions in the same situation?",
-    n: "Alignment determines whether effort compounds or fragments."
-  },
-  default: {
-    q: "Where is performance depending more on individuals than on the system?",
-    n: "The most useful reflection is often where consistency still depends on people rather than design."
-  }
-};
-
 function buildModeInsights(results) {
   function avgLabel(key) {
     return key.charAt(0).toUpperCase() + key.slice(1);
@@ -1471,6 +1443,66 @@ function renderServerFocusSubtitle(focusActions) {
       They apply whether you are a people manager, an individual contributor, or both.
     </p>
   `;
+}
+function renderPatternDiagnosis(open) {
+  const lowest = getTwoLowestQuotients(open);
+  if (!lowest || lowest.length < 2) return '';
+
+  const [a, b] = lowest;
+  const sameDimension = a.dimension === b.dimension;
+
+  const bandA = bandLabel(a.score);
+  const bandB = bandLabel(b.score);
+
+  // Build the combination description — the "developing X against building Y" line
+  let combinationLine;
+  if (sameDimension) {
+    // Both quotients are in the same dimension — no "against," just describe the dimension
+    combinationLine = `${escapeHtml(bandA)} ${escapeHtml(a.name)} alongside ${escapeHtml(bandB)} ${escapeHtml(b.name)} — both in your ${escapeHtml(a.dimension)} foundation`;
+  } else {
+    // Mixed dimensions — the original framing works
+    // Order so the weaker dimension comes first ("developing X against building Y")
+    const weaker = a.score <= b.score ? a : b;
+    const stronger = a.score <= b.score ? b : a;
+    const weakerBand = bandLabel(weaker.score);
+    const strongerBand = bandLabel(stronger.score);
+    combinationLine = `${escapeHtml(weakerBand)} ${escapeHtml(weaker.dimension)} against ${escapeHtml(strongerBand)} ${escapeHtml(stronger.dimension)}`;
+  }
+
+  return `
+    <p class="next-body__para">
+      A Readiness score is a starting point. <strong>Not a verdict. Not a destination.</strong>
+    </p>
+    <p class="next-body__para">
+      Your <span class="next-q-name next-q-name--${escapeHtml(a.slug)}">${escapeHtml(a.name)}</span> is at <strong>${a.score.toFixed(1)}</strong>. 
+      Your <span class="next-q-name next-q-name--${escapeHtml(b.slug)}">${escapeHtml(b.name)}</span> is at <strong>${b.score.toFixed(1)}</strong>. 
+      That specific combination — ${combinationLine} — shows up in a predictable way. 
+      In meetings. In Monday mornings. In the gap between what you decide and what actually happens.
+    </p>
+    <p class="next-body__para">
+      The actions above are prepared for a reason. The right next move is specific to your pattern. 
+      A generic list would be motivational confetti. What you need is a conversation.
+    </p>
+    <p class="next-body__para">
+      We have had this conversation before. We know which question cuts through. 
+      And we can almost guarantee it is not the one you are already asking yourself.
+    </p>
+    <p class="next-body__para next-body__para--bold">
+      Thirty minutes. Your scores, your patterns, your next move.
+    </p>
+  `;
+}
+
+function getTwoLowestQuotients(open) {
+  const sorted = open.quotients.slice().sort((a, b) => a.score - b.score);
+  return sorted.slice(0, 2);
+}
+
+function bandLabel(score) {
+  if (score < 2.5) return 'at-risk';
+  if (score < 3.5) return 'developing';
+  if (score < 4.3) return 'building';
+  return 'ready';
 }
 
 function renderFocusCallout(focusActions) {
@@ -2447,14 +2479,7 @@ function renderDebriefInvitationSection(serverResult) {
           </div>
           <div class="next-divider"></div>
           <p class="next-lede">
-            A Readiness score is a starting point. <span class="next-lede--bold">Not a verdict. Not a destination.</span>
-          </p>
-          <p class="next-lede">
-            Your Mind is at 2.8. Your Execution is at 3.1. That specific 
-            combination — developing Preparedness against building 
-            Resilience — shows up in a predictable way. In meetings. 
-            In Monday mornings. In the gap between what you decide 
-            and what actually happens.
+            ${renderPatternDiagnosis(serverResult.report.open)}
           </p>
 
           <p class="next-lede">
