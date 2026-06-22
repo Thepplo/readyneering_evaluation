@@ -2357,7 +2357,7 @@ function renderServerReport(serverResult) {
   } else if (serverResult.locked) {
     renderBookingUnlockCTA(serverResult);
     show(lockedEl);
-    /* hide(unlockedEl); */
+    hide(unlockedEl);
   } else {
     renderNoLockedSections();
     hide(lockedEl);
@@ -2481,8 +2481,8 @@ function renderDebriefInvitationSection(serverResult) {
         <div class="next-body">
           <div class="next-tag">andQfive · Readyneering</div>
           <h2 class="next-title">
-            <span>You have seen the pattern.</span>
-            <span>Now turn it into your next move.</span>
+            <span>Your three priorities for action</span>
+            <span>Open them by booking the conversation.</span>
           </h2>
 
           <div class="next-divider"></div>
@@ -2503,7 +2503,10 @@ function renderDebriefInvitationSection(serverResult) {
               <p>Three prompts to bring to the conversation.</p>
             </article>
           </div>
-
+          <p class"next-lede next-lede--bold>
+            You have seen the pattern.
+            Now turn it into your next move.
+          </p>
           <p class="next-lede">
             Book your debrief and all three open immediately — read them before we talk.
           </p>
