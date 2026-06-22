@@ -1497,25 +1497,14 @@ function renderPatternDiagnosis(open) {
   const symptomLine = getSymptomLine(a.key, b.key);
 
   return `
-    <p class="next-body__para">
+    <p class="next-lede">
       A Readiness score is a starting point. <strong>Not a verdict. Not a destination.</strong>
     </p>
-    <p class="next-body__para">
-      Your <span class="next-q-name next-q-name--${escapeHtml(a.key)}">${escapeHtml(a.label)}</span> is at <strong>${a.score.toFixed(1)}</strong>. 
-      Your <span class="next-q-name next-q-name--${escapeHtml(b.key)}">${escapeHtml(b.label)}</span> is at <strong>${b.score.toFixed(1)}</strong>. 
+    <p class="next-lede">
+      Your <div class="q-chip ${a.key}">${a.label}</div> is at <strong>${a.score.toFixed(1)}</strong>. 
+      Your <div class="q-chip ${b.key}">${b.label}</div> is at <strong>${b.score.toFixed(1)}</strong>. 
       That specific combination — ${combinationLine} — shows up in a predictable way. 
       ${symptomLine}
-    </p>
-    <p class="next-body__para">
-      The actions above are prepared for a reason. The right next move is specific to your pattern. 
-      A generic list would be motivational confetti. What you need is a conversation.
-    </p>
-    <p class="next-body__para">
-      We have had this conversation before. We know which question cuts through. 
-      And we can almost guarantee it is not the one you are already asking yourself.
-    </p>
-    <p class="next-body__para next-body__para--bold">
-      Thirty minutes. Your scores, your patterns, your next move.
     </p>
   `;
 }
