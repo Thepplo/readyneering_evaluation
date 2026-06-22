@@ -27,14 +27,26 @@
   src: url("./fonts/AndQFive_Headlinefont_Thin.ttf") format("truetype");
 }
 
+.section-title__lead,
+.section-title__sub {
+  display: block;
+}
+.section-title__sub {
+  font-weight: 400;
+  color: rgba(15, 23, 42, 0.6);
+  margin-top: 4px;
+}
 .debrief-card {
   padding: 32px 28px;
   background: #fff;
-  border: 1px solid rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(15, 23, 42, 0.1);
   border-radius: 8px;
   text-align: center;
   transition: all 0.2s ease;
-  opacity: 0.65;
+  opacity: 1;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 8px 24px rgba(15, 23, 42, 0.06);
 }
 
 .debrief-card--active {

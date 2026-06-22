@@ -2392,7 +2392,10 @@ function renderDebriefInvitationSection(serverResult) {
       <div class="debrief-invitation-intro">
         <div class="debrief-eyebrow">Prepared for your debrief</div>
 
-        <h2>Your prep is ready. Book the conversation and read it now.</h2>
+        <h2 class="section-title">
+          <span class="section-title__lead">Your prep is ready.</span>
+          <span class="section-title__sub">Book the conversation and read it now.</span>
+        </h2>
 
         <p>
           We’ve identified the specific actions, stops, and questions connected to your Readiness pattern.
