@@ -1444,40 +1444,67 @@ function renderServerFocusSubtitle(focusActions) {
     </p>
   `;
 }
+const QUOTIENT_DIMENSIONS = {
+  vitality:  'Resilience',
+  emotion:   'Resilience',
+  mind:      'Preparedness',
+  execution: 'Preparedness',
+  alignment: 'Preparedness',
+};
+
+function bandLabelFromScore(score) {
+  if (score < 2.5) return 'at-risk';
+  if (score < 3.5) return 'developing';
+  if (score < 4.3) return 'building';
+  return 'strong';
+}
+
+function dimensionAverage(scores, dimension) {
+  // scores.dimensions has keys like 'R_vitality', 'P_mind', etc.
+  const prefix = dimension === 'Resilience' ? 'R_' : 'P_';
+  const dims = Object.keys(scores.dimensions).filter((k) => k.startsWith(prefix));
+  if (!dims.length) return null;
+  const sum = dims.reduce((acc, k) => acc + scores.dimensions[k], 0);
+  return sum / dims.length;
+}
+
 function renderPatternDiagnosis(open) {
-  const lowest = getTwoLowestQuotients(open);
-  if (!lowest || lowest.length < 2) return '';
+  const ranked = open.ranked || [];
+  if (ranked.length < 2) return '';
 
-  const [a, b] = lowest;
-  const sameDimension = a.dimension === b.dimension;
+  const [a, b] = ranked; // ascending by score — these are the two lowest
+  const dimA = QUOTIENT_DIMENSIONS[a.key];
+  const dimB = QUOTIENT_DIMENSIONS[b.key];
+  const sameDimension = dimA === dimB;
 
-  const bandA = bandLabel(a.score);
-  const bandB = bandLabel(b.score);
-
-  // Build the combination description — the "developing X against building Y" line
+  // Build the "developing X against building Y" line
   let combinationLine;
   if (sameDimension) {
-    // Both quotients are in the same dimension — no "against," just describe the dimension
-    combinationLine = `${escapeHtml(bandA)} ${escapeHtml(a.name)} alongside ${escapeHtml(bandB)} ${escapeHtml(b.name)} — both in your ${escapeHtml(a.dimension)} foundation`;
+    // Both lowest quotients in the same dimension — describe the strain on that side
+    const dimBand = bandLabelFromScore(dimensionAverage(open.scores, dimA));
+    combinationLine = `two ${escapeHtml(dimBand)} ${escapeHtml(dimA)} quotients pulling against the rest`;
   } else {
-    // Mixed dimensions — the original framing works
-    // Order so the weaker dimension comes first ("developing X against building Y")
-    const weaker = a.score <= b.score ? a : b;
-    const stronger = a.score <= b.score ? b : a;
-    const weakerBand = bandLabel(weaker.score);
-    const strongerBand = bandLabel(stronger.score);
-    combinationLine = `${escapeHtml(weakerBand)} ${escapeHtml(weaker.dimension)} against ${escapeHtml(strongerBand)} ${escapeHtml(stronger.dimension)}`;
+    // Mixed — original framing works, using dimension-level bands not quotient-level
+    const dimAScore = dimensionAverage(open.scores, dimA);
+    const dimBScore = dimensionAverage(open.scores, dimB);
+    const weakerDim    = dimAScore <= dimBScore ? dimA : dimB;
+    const strongerDim  = dimAScore <= dimBScore ? dimB : dimA;
+    const weakerBand   = bandLabelFromScore(Math.min(dimAScore, dimBScore));
+    const strongerBand = bandLabelFromScore(Math.max(dimAScore, dimBScore));
+    combinationLine = `${escapeHtml(weakerBand)} ${escapeHtml(weakerDim)} against ${escapeHtml(strongerBand)} ${escapeHtml(strongerDim)}`;
   }
+
+  const symptomLine = getSymptomLine(a.key, b.key);
 
   return `
     <p class="next-body__para">
       A Readiness score is a starting point. <strong>Not a verdict. Not a destination.</strong>
     </p>
     <p class="next-body__para">
-      Your <span class="next-q-name next-q-name--${escapeHtml(a.slug)}">${escapeHtml(a.name)}</span> is at <strong>${a.score.toFixed(1)}</strong>. 
-      Your <span class="next-q-name next-q-name--${escapeHtml(b.slug)}">${escapeHtml(b.name)}</span> is at <strong>${b.score.toFixed(1)}</strong>. 
+      Your <span class="next-q-name next-q-name--${escapeHtml(a.key)}">${escapeHtml(a.label)}</span> is at <strong>${a.score.toFixed(1)}</strong>. 
+      Your <span class="next-q-name next-q-name--${escapeHtml(b.key)}">${escapeHtml(b.label)}</span> is at <strong>${b.score.toFixed(1)}</strong>. 
       That specific combination — ${combinationLine} — shows up in a predictable way. 
-      In meetings. In Monday mornings. In the gap between what you decide and what actually happens.
+      ${symptomLine}
     </p>
     <p class="next-body__para">
       The actions above are prepared for a reason. The right next move is specific to your pattern. 
@@ -1493,16 +1520,32 @@ function renderPatternDiagnosis(open) {
   `;
 }
 
-function getTwoLowestQuotients(open) {
-  const sorted = open.quotients.slice().sort((a, b) => a.score - b.score);
-  return sorted.slice(0, 2);
-}
-
-function bandLabel(score) {
-  if (score < 2.5) return 'at-risk';
-  if (score < 3.5) return 'developing';
-  if (score < 4.3) return 'building';
-  return 'ready';
+function getSymptomLine(keyA, keyB) {
+  const pair = [keyA, keyB].sort().join('|');
+  const lines = {
+    'execution|mind':
+      'In meetings. In Monday mornings. In the gap between what you decide and what actually happens.',
+    'emotion|vitality':
+      'In the third hour of a hard week. In the response you wish you had not sent. In how you arrive home.',
+    'alignment|mind':
+      'In the meeting that did not move. In the strategy that sounded right but landed soft. In the second draft that never came.',
+    'execution|alignment':
+      'In the project that drifted. In the priorities that quietly multiplied. In what got shipped versus what got planned.',
+    'emotion|mind':
+      'In the decision made too fast. In the conversation you avoided. In the story you keep telling yourself about what happened.',
+    'execution|emotion':
+      'In the action you knew you needed to take. In the meeting you postponed. In how the day ends.',
+    'mind|vitality':
+      'In the strategy session at 4pm. In the thinking that should have been clearer. In the decisions made when the tank was empty.',
+    'alignment|emotion':
+      'In the team meeting where the real thing did not get said. In the silence after a hard call. In the trust that quietly thins.',
+    'alignment|vitality':
+      'In the week that lost its shape. In the priorities that shifted without anyone noticing. In what you meant to build versus what got built.',
+    'execution|vitality':
+      'In the action plan that ran out of fuel. In the Friday afternoon where commitments dissolve. In the things that got done versus the things that mattered.',
+  };
+  return lines[pair] ||
+    'In meetings. In transitions. In the quiet moments where the pattern repeats itself.';
 }
 
 function renderFocusCallout(focusActions) {
