@@ -2387,7 +2387,116 @@ function renderBookingUnlockCTA(serverResult) {
 }
 
 function renderDebriefInvitationSection(serverResult) {
+  const bookingUrl = getBookingUrl(serverResult);
   return `
+      <section class="next-section">
+        <header class="next-header">
+          <div class="next-kicker">What happens next</div>
+        </header>
+
+        <div class="next-body">
+          <div class="next-tag">andQfive · Readyneering</div>
+          <h2 class="next-title">
+            <span>You have seen the pattern.</span>
+            <span>Now turn it into your next move.</span>
+          </h2>
+
+          <div class="next-divider"></div>
+          <div class="next-offer-grid">
+            <article class="next-offer">
+              <div class="next-offer__icon next-offer__icon--more">↑</div>
+              <h3>Do more of this</h3>
+              <p>Three actions, shaped from your scores.</p>
+            </article>
+            <article class="next-offer">
+              <div class="next-offer__icon next-offer__icon--less">↓</div>
+              <h3>Do less of this</h3>
+              <p>Three patterns to interrupt before they cost you again.</p>
+            </article>
+            <article class="next-offer">
+              <div class="next-offer__icon next-offer__icon--sit">?</div>
+              <h3>Sit with these questions</h3>
+              <p>Three prompts to bring to the conversation.</p>
+            </article>
+          </div>
+
+          <p class="next-lede">
+            Book your debrief and all three open immediately — read them before we talk.
+          </p>
+          <p class="next-lede next-lede--bold">
+            Thirty minutes. Your scores, your patterns, your next move.
+          </p>
+          <div class="what-next-actions">
+            ${bookingUrl ? `
+              <a
+                class="btn primary"
+                id="book-followup-btn"
+                href="${escapeHtml(bookingUrl)}"
+                target="_blank"
+                rel="noopener"
+              >
+                Book your 30-minute debrief
+                <span class="arrow"></span>
+              </a>
+            ` : ''}
+
+            <button type="button" class="what-next-secondary-btn" id="check-unlock-btn">
+              I’ve booked - reveal my actions
+            </button>
+          </div>
+          <p class="next-whisper">
+            If you do only one thing to build your Readiness — book the conversation that reveals what to do next.
+          </p>
+
+          <!--
+          
+          <p>
+            A Readiness score is a starting point.
+            <strong>Not a verdict. Not a destination.</strong>
+          </p>
+
+          <p>
+            Your scores show where your pattern is likely showing up:
+            in meetings, in Monday mornings, and in the gap between what you decide
+            and what actually happens.
+          </p>
+
+          <p>
+            The actions above are prepared for a reason. The right next move is specific
+            to your pattern. A generic list would be motivational confetti. What you need
+            is a conversation.
+          </p>
+
+          <p>
+            Once your debrief is booked, your personalized actions, stops, and questions
+            will appear here immediately, so you can review them before the call.
+          </p>
+
+          <p class="what-next-strong">
+            Thirty minutes. Your scores, your patterns, your next move.
+          </p>
+
+          <p class="what-next-italic">
+            If you do only one thing to build your Readiness — book the conversation that reveals what to do next.
+          </p>
+
+
+
+          ${serverResult.booking_ref ? `
+            <div class="booking-ref-box booking-ref-box--dark">
+              <span>Your booking reference</span>
+              <strong>${escapeHtml(serverResult.booking_ref)}</strong>
+            </div>
+          ` : ''}
+
+          <p class="what-next-footnote">
+            Your actions, stops, and questions reveal immediately after booking.
+            Bring them into the call so the conversation starts from your real pattern.
+          </p>
+
+          <p id="unlock-status" class="form-status what-next-status"></p>
+        </div>
+    </section>
     <section class="debrief-invitation-section">
       <div class="debrief-invitation-intro">
         <div class="debrief-eyebrow">Prepared for your debrief</div>
@@ -2397,7 +2506,7 @@ function renderDebriefInvitationSection(serverResult) {
           <span class="section-title__sub">Book the conversation and read it now.</span>
         </h2>
 
-        <p>
+        <p class="page-sub" style="color:#555555 !important; line-height: 1.75; font-size: 13px; max-width: 755px; margin-bottom: 5%;">
           We’ve identified the specific actions, stops, and questions connected to your Readiness pattern.
           Book your 30-minute debrief to reveal them immediately and bring them into the conversation.
         </p>
@@ -2408,7 +2517,9 @@ function renderDebriefInvitationSection(serverResult) {
       </div>
 
       ${renderWhatHappensNextSection(serverResult)}
+      
     </section>
+    --!>
   `;
 }
 
