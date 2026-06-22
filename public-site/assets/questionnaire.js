@@ -2356,7 +2356,7 @@ const DEBRIEF_PREVIEW_SECTIONS = [
     type: 'do-more',
     iconType: 'up',
     title: 'Do more of this',
-    summary: '3 personalized actions prepared',
+    summary: 'Three specific actions, prepared from your pattern.',
     body: 'These will appear here as soon as your debrief is booked, so you can review them before the call.',
     status: 'Reveals after booking'
   },
@@ -2364,7 +2364,7 @@ const DEBRIEF_PREVIEW_SECTIONS = [
     type: 'do-less',
     iconType: 'down',
     title: 'Do less of this',
-    summary: '3 patterns to interrupt',
+    summary: 'Three patterns to interrupt before they cost you again.',
     body: 'You’ll see the specific defaults or behaviours that may be limiting your follow-through.',
     status: 'Reveals after booking'
   },
@@ -2373,7 +2373,7 @@ const DEBRIEF_PREVIEW_SECTIONS = [
     iconType: 'question',
     title: 'Sit with these questions',
     summary: '3 reflection prompts prepared',
-    body: 'Use these to make the debrief sharper, more honest, and more useful.',
+    body: 'Three reflection prompts to bring to the conversation.',
     status: 'Reveals after booking'
   }
 ];
@@ -2411,25 +2411,17 @@ function renderDebriefInvitationSection(serverResult) {
 
 function renderDebriefPreviewCard(section) {
   return `
-    <article class="debrief-preview-card debrief-preview-card--${escapeHtml(section.type)}">
-      <div class="debrief-preview-seal" aria-hidden="true"></div>
+    <article class="debrief-card debrief-preview-card--${escapeHtml(section.type)}">
 
       <div class="debrief-preview-card-header">
-        <span class="section-icon ${getDebriefIconClass(section.iconType)}" aria-hidden="true">
+        <span class="debrief-card__icon ${getDebriefIconClass(section.iconType)}" aria-hidden="true">
           ${renderDebriefIcon(section.iconType)}
         </span>
-
-        <div>
-          <h3>${escapeHtml(section.title)}</h3>
-          <span class="debrief-preview-status">
-            ${escapeHtml(section.status)}
-          </span>
-        </div>
       </div>
 
       <div class="debrief-preview-card-body">
-        <strong>${escapeHtml(section.summary)}</strong>
-        <p>${escapeHtml(section.body)}</p>
+        <strong class="debrief-preview-card__title">${escapeHtml(section.summary)}</strong>
+        <p class="debrief-card__desc">${escapeHtml(section.body)}</p>
       </div>
 
       <div class="debrief-preview-reveal-line" aria-hidden="true">
