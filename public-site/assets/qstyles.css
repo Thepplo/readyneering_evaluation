@@ -119,6 +119,17 @@
     justify-content: center;
   }
 }
+
+.next-offer__meta {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
 .diag-dim.Resilience { color:#665bd0}
 .diag-dim.Preparedness { color:#24a987}
 #focus-section-unlocked,
@@ -159,7 +170,7 @@
   font-weight: 700;
   letter-spacing: -0.02em;
   color: #ffda33;
-  margin: 0 0 28px;
+  margin: 0 0 12px;
 }
 .next-title span { display: block; }
 .next-divider {

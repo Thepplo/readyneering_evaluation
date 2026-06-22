@@ -2502,17 +2502,20 @@ function renderDebriefInvitationSection(serverResult) {
             <article class="next-offer">
               <div class="next-offer__icon next-offer__icon--more">↑</div>
               <h3>Do more of this</h3>
-              <p>Three actions to start this week.</p>
+              <p>The actions that move you forward, specific to your pattern.</p>
+              <p class="next-offer--meta">3 actions · one to start this week</p>
             </article>
             <article class="next-offer">
               <div class="next-offer__icon next-offer__icon--less">↓</div>
               <h3>Do less of this</h3>
-              <p>Three patterns to interrupt before they cost you again.</p>
+              <p>The defaults that quietly cost you, named and interrupted.</p>
+              <p>3 patterns · one to spot tomorrow</p>
             </article>
             <article class="next-offer">
               <div class="next-offer__icon next-offer__icon--sit">?</div>
               <h3>Sit with these questions</h3>
-              <p>Three prompts to bring to the conversation.</p>
+              <p>The reflections that go deeper than the report can.</p>
+              <p>3 prompts · one you have not asked yourself</p>
             </article>
           </div>
           <p class="next-lede">
