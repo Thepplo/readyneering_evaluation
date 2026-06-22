@@ -2527,7 +2527,7 @@ function renderDebriefInvitationSection(serverResult) {
           <p class="next-lede">
             Book your debrief and all three open immediately — read them before we talk.
           </p>
-          <p class"next-lede next-lede--bold" style="margin-bottom: 12px;">
+          <p class="next-lede next-lede--bold" style="margin-bottom: 12px;">
             You have seen the pattern.
             Now turn it into your next move.
           </p>
