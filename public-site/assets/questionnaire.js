@@ -2357,7 +2357,7 @@ function renderServerReport(serverResult) {
   } else if (serverResult.locked) {
     renderBookingUnlockCTA(serverResult);
     show(lockedEl);
-    hide(unlockedEl);
+    /* hide(unlockedEl); */
   } else {
     renderNoLockedSections();
     hide(lockedEl);
@@ -2381,17 +2381,16 @@ function renderUnlockedSections(locked, open) {
     if (el) el.innerHTML = html;
   };
 
-  setHTML('focus-copy', `
-    <div class="section-kicker">Building your readiness capability</div>
-    <h2 class="section-title">Your three priorities for action</h2>
-  `);
-  setHTML('action-sub', renderServerFocusSubtitle(open.focus));
   setHTML('focus-actions-wrapper', renderFocusActionsSection(locked));
 }
 
 function renderOpenReport(open, res, quotientData) {
   const debriefMode = buildModeInsights(res);
   const modeHtml = renderModeGrid(res);
+  const setHTML = (id, html) => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+  };
 
   document.getElementById('pattern-main').textContent = debriefMode.modeTag;
   document.getElementById('pattern-chip-p-score').textContent =
@@ -2417,6 +2416,10 @@ function renderOpenReport(open, res, quotientData) {
     industry: selectedIndustryLabel || selectedIndustry,
     companySize: selectedSizeLabel || selectedSize
   });
+  setHTML('focus-copy', `
+    <h2 class="section-title" style="margin-bottom:0px; color: #1A1A1A; font-weight:600;">Your three priorities for action</h2>
+  `);
+  setHTML('action-sub', renderServerFocusSubtitle(open.focus));
 
   renderOrbit(res);
   renderVerdictFromServer(open.verdict, res);
