@@ -2491,7 +2491,6 @@ function renderDebriefInvitationSection(serverResult) {
         </header>
 
         <div class="next-body">
-          <div class="next-tag">andQfive · Readyneering</div>
           <h2 class="next-title">
             <span>Your three priorities for action</span>
             <span style="color: #f5f5f5">Open them by booking the conversation.</span>
