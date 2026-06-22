@@ -1456,7 +1456,7 @@ function bandLabelFromScore(score) {
   if (score < 2.5) return 'at-risk';
   if (score < 3.5) return 'developing';
   if (score < 4.3) return 'building';
-  return 'strong';
+  return 'ready';
 }
 
 function dimensionAverage(scores, dimension) {
@@ -1471,38 +1471,42 @@ function dimensionAverage(scores, dimension) {
 function renderPatternDiagnosis(open) {
   const ranked = open.ranked || [];
   if (ranked.length < 2) return '';
-
-  const [a, b] = ranked; // ascending by score — these are the two lowest
+  const [a, b] = ranked;
   const dimA = QUOTIENT_DIMENSIONS[a.key];
   const dimB = QUOTIENT_DIMENSIONS[b.key];
   const sameDimension = dimA === dimB;
 
-  // Build the "developing X against building Y" line
   let combinationLine;
+
   if (sameDimension) {
-    // Both lowest quotients in the same dimension — describe the strain on that side
     const dimBand = bandLabelFromScore(dimensionAverage(open.scores, dimA));
     combinationLine = `two ${escapeHtml(dimBand)} ${escapeHtml(dimA)} quotients pulling against the rest`;
   } else {
-    // Mixed — original framing works, using dimension-level bands not quotient-level
     const dimAScore = dimensionAverage(open.scores, dimA);
     const dimBScore = dimensionAverage(open.scores, dimB);
-    const weakerDim    = dimAScore <= dimBScore ? dimA : dimB;
-    const strongerDim  = dimAScore <= dimBScore ? dimB : dimA;
-    const weakerBand   = bandLabelFromScore(Math.min(dimAScore, dimBScore));
-    const strongerBand = bandLabelFromScore(Math.max(dimAScore, dimBScore));
-    combinationLine = `${escapeHtml(weakerBand)} <span class="diag-dim ${weakerDim}">${escapeHtml(weakerDim)}</span> against ${escapeHtml(strongerBand)} <span class="diag-dim ${strongerDim}">${escapeHtml(strongerDim)}</span>`;
+    const bandA = bandLabelFromScore(dimAScore);
+    const bandB = bandLabelFromScore(dimBScore);
+    const sameBand = bandA === bandB;
+
+    if (sameBand) {
+      combinationLine = `both dimensions in the ${escapeHtml(bandA)} band, with ${escapeHtml(dimA)} and ${escapeHtml(dimB)} carrying the most weight`;
+    } else {
+      const weakerDim   = dimAScore <= dimBScore ? dimA : dimB;
+      const strongerDim = dimAScore <= dimBScore ? dimB : dimA;
+      const weakerBand   = bandLabelFromScore(Math.min(dimAScore, dimBScore));
+      const strongerBand = bandLabelFromScore(Math.max(dimAScore, dimBScore));
+      combinationLine = `${escapeHtml(weakerBand)} ${escapeHtml(weakerDim)} against ${escapeHtml(strongerBand)} ${escapeHtml(strongerDim)}`;
+    }
   }
 
   const symptomLine = getSymptomLine(a.key, b.key);
-
   return `
     <p class="next-lede">
       A Readiness score is a starting point. <span class="next-lede__bold">Not a verdict. Not a destination.</span>
     </p>
     <p class="next-lede">
-      Your <span class="q-chip ${a.key}">${a.label}</span> is at <strong>${a.score.toFixed(1)}</strong>. 
-      Your <span class="q-chip ${b.key}">${b.label}</span> is at <strong>${b.score.toFixed(1)}</strong>. 
+      Your <span class="next-q-name next-q-name--${escapeHtml(a.key)}">${escapeHtml(a.label)}</span> is at <strong>${a.score.toFixed(1)}</strong>. 
+      Your <span class="next-q-name next-q-name--${escapeHtml(b.key)}">${escapeHtml(b.label)}</span> is at <strong>${b.score.toFixed(1)}</strong>. 
       That specific combination — ${combinationLine} — shows up in a predictable way. 
       ${symptomLine}
     </p>

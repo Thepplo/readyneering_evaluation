@@ -26,7 +26,21 @@
   font-family: "q5-heading-slim";
   src: url("./fonts/AndQFive_Headlinefont_Thin.ttf") format("truetype");
 }
-
+.next-q-name--vitality{
+  color: #ffda33;
+}
+.next-q-name--emotion{
+  color: #E53846;
+}
+.next-q-name--execution{
+  color: #2D52B5;
+}
+.next-q-name--mind{
+  color: #770136;
+}
+.next-q-name--alignment{
+  color: #1B74CD;
+}
 .foot {
   display: flex;
   justify-content: space-between;
@@ -123,9 +137,9 @@
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .next-kicker {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: #ffda33;
 }
