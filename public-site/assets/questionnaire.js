@@ -2266,20 +2266,50 @@ function renderServerReport(serverResult) {
   const open = serverResult.report.open;
   const locked = serverResult.report.locked;
   const res = getScoresFromOpenReport(open);
-
-  const quotientData = open.quotients.slice().sort(function(a, b) {
-    return b.score - a.score;
-  });
+  const quotientData = open.quotients.slice().sort((a, b) => b.score - a.score);
 
   renderOpenReport(open, res, quotientData);
 
+  const unlockedEl = document.getElementById('focus-section-unlocked');
+  const lockedEl   = document.getElementById('focus-section-locked');
+
   if (locked) {
     renderUnlockedSections(locked, open);
+    show(unlockedEl);
+    hide(lockedEl);
   } else if (serverResult.locked) {
     renderBookingUnlockCTA(serverResult);
+    show(lockedEl);
+    hide(unlockedEl);
   } else {
     renderNoLockedSections();
+    hide(lockedEl);
+    hide(unlockedEl);
   }
+}
+
+function show(el) { if (el) el.hidden = false; }
+function hide(el) { if (el) el.hidden = true;  }
+
+function renderBookingUnlockCTA(serverResult) {
+  const el = document.getElementById('focus-section-locked');
+  if (!el) return;
+  el.innerHTML = renderDebriefInvitationSection(serverResult);
+  bindDebriefInvitationControls(serverResult);
+}
+
+function renderUnlockedSections(locked, open) {
+  const setHTML = (id, html) => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+  };
+
+  setHTML('focus-copy', `
+    <div class="section-kicker">Building your readiness capability</div>
+    <h2 class="section-title">Your three priorities for action</h2>
+  `);
+  setHTML('action-sub', renderServerFocusSubtitle(open.focus));
+  setHTML('focus-actions-wrapper', renderFocusActionsSection(locked));
 }
 
 function renderOpenReport(open, res, quotientData) {
@@ -2316,18 +2346,6 @@ function renderOpenReport(open, res, quotientData) {
   mountCompactQuotientList('q-grid-wrapper', quotientData);
 }
 
-function renderUnlockedSections(locked, open) {
-  document.getElementById('focus-copy').innerHTML = `
-    <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px; color:#BBBBBB;">Building your readiness capability</div>
-    <h2 style="margin-bottom:0px; color: #1A1A1A; font-weight:600;">Your three priorities for action</h2>
-  `;
-  document.getElementById('action-sub').innerHTML =
-    renderServerFocusSubtitle(open.focus);
-
-  document.getElementById('focus-actions-wrapper').innerHTML =
-    renderFocusActionsSection(locked);
-}
-
 function getBookingUrl(serverResult) {
   const base = serverResult.unlock?.bookings_url || FALLBACK_BOOKINGS_URL;
   let url;
@@ -2343,14 +2361,7 @@ function getBookingUrl(serverResult) {
   return url.toString();
 }
 
-function renderBookingUnlockCTA(serverResult) {
-  const el = document.getElementById('focus-actions-wrapper');
-  if (!el) return;
 
-  el.innerHTML = renderLockedFocusActionsSection(serverResult);
-
-  bindBookingUnlockControls(serverResult);
-}
 const DEBRIEF_PREVIEW_SECTIONS = [
   {
     type: 'do-more',
@@ -2378,13 +2389,6 @@ const DEBRIEF_PREVIEW_SECTIONS = [
   }
 ];
 
-function renderBookingUnlockCTA(serverResult) {
-  const el = document.getElementById('focus-actions-wrapper');
-  if (!el) return;
-
-  el.innerHTML = renderDebriefInvitationSection(serverResult);
-  bindDebriefInvitationControls(serverResult);
-}
 
 function renderDebriefInvitationSection(serverResult) {
   const bookingUrl = getBookingUrl(serverResult);
@@ -2469,18 +2473,17 @@ function renderDebriefInvitationSection(serverResult) {
           <p class="next-lede next-lede--bold">
             Thirty minutes. Your scores, your patterns, your next move.
           </p>
-          ${bookingUrl ? `
-              <a
-                class="btn primary"
-                id="book-followup-btn"
-                href="${escapeHtml(bookingUrl)}"
-                target="_blank"
-                rel="noopener"
-              >
-                Book your 30-minute debrief
-                <span class="arrow"></span>
-              </a>
-            ` : ''}
+        <div class="no-print button-div">
+          <button class="pdf-button" onclick="window.print()">
+            <svg class="icon" width="40" height="40" viewBox="0 0 24 24" fill="none">
+              <path d="M13.5 3H12H7C5.89543 3 5 3.89543 5 5V19C5 20.1046 5.89543 21 7 21H7.5M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V9.75V12V19C19 20.1046 18.1046 21 17 21H16.5"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 12V20M12 20L9.5 17.5M12 20L14.5 17.5"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <p>Download PDF</p>
+        </div>
   `;
 }
 

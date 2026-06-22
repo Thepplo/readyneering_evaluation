@@ -27,6 +27,12 @@
   src: url("./fonts/AndQFive_Headlinefont_Thin.ttf") format("truetype");
 }
 
+#focus-section-unlocked,
+#focus-section-locked {
+  transition: opacity 0.3s ease;
+}
+[hidden] { display: none !important; }
+
 .next-section {
   background: radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.055), transparent 34%), linear-gradient(360deg, #292929 0%, #222222 100%);
   border-radius: 16px;
