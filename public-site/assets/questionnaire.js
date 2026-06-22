@@ -2427,9 +2427,6 @@ function renderDebriefInvitationSection(serverResult) {
           <p class="next-lede">
             Book your debrief and all three open immediately — read them before we talk.
           </p>
-          <p class="next-lede next-lede--bold">
-            Thirty minutes. Your scores, your patterns, your next move.
-          </p>
           <div class="what-next-actions">
             ${bookingUrl ? `
               <a
@@ -2473,17 +2470,6 @@ function renderDebriefInvitationSection(serverResult) {
           <p class="next-lede next-lede--bold">
             Thirty minutes. Your scores, your patterns, your next move.
           </p>
-        <div class="no-print button-div">
-          <button class="pdf-button" onclick="window.print()">
-            <svg class="icon" width="40" height="40" viewBox="0 0 24 24" fill="none">
-              <path d="M13.5 3H12H7C5.89543 3 5 3.89543 5 5V19C5 20.1046 5.89543 21 7 21H7.5M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V9.75V12V19C19 20.1046 18.1046 21 17 21H16.5"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M12 12V20M12 20L9.5 17.5M12 20L14.5 17.5"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-          <p>Download PDF</p>
-        </div>
   `;
 }
 
@@ -3352,7 +3338,7 @@ document.getElementById('start-btn').addEventListener('click', startAssessment);
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && turnstilePending) cancelTurnstile();
 }); */
-
+/* 
 document.getElementById('btn-restart').addEventListener('click', function() {
   currentResult = null;
   placements = [];
@@ -3363,4 +3349,34 @@ document.getElementById('btn-restart').addEventListener('click', function() {
   document.getElementById('scr-results').style.display = 'none';
   document.getElementById('scr-intro').style.display = 'block';
   window.scrollTo(0, 0);
+}); */
+
+document.getElementById('foot-download-pdf').addEventListener('click', function() {
+  const originalTitle = document.title;
+  document.title = `andQfive Readiness Report — ${new Date().toISOString().slice(0,10)}`;
+  window.print();
+  // Restore title after print dialog closes
+  setTimeout(() => { document.title = originalTitle; }, 100);
+});
+
+document.getElementById('foot-copy-url').addEventListener('click', async function() {
+  const btn = this;
+  const label = document.getElementById('foot-copy-url-label');
+  if (!label) return;
+
+  try {
+    await navigator.clipboard.writeText(window.location.href);
+    const original = label.textContent;
+    label.textContent = 'Copied';
+    btn.classList.add('is-copied');
+    setTimeout(() => {
+      label.textContent = original;
+      btn.classList.remove('is-copied');
+    }, 1800);
+  } catch (err) {
+    label.textContent = 'Press Ctrl+C to copy';
+    setTimeout(() => {
+      label.textContent = 'Copy link to my report';
+    }, 2000);
+  }
 });

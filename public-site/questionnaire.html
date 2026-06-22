@@ -264,8 +264,26 @@
 
       <section id="focus-section-locked" hidden></section>
       <div class="foot">
-        <span class="foot-brand">andQfive · Readyneering</span>
-        <span class="foot-url">readiness.andqfive.com</span>
+        <div class="foot-brand-block">
+          <span class="foot-brand">andQfive · Readyneering</span>
+          <span class="foot-url">readiness.andqfive.com</span>
+        </div>
+        
+        <div class="foot-actions">
+          <button type="button" class="foot-action" id="foot-download-pdf">
+            <svg class="foot-action__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Save as PDF</span>
+          </button>
+          <button type="button" class="foot-action" id="foot-copy-url">
+            <svg class="foot-action__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <span id="foot-copy-url-label">Copy link to my report</span>
+          </button>
+        </div>
       </div>
 <!--       <div class="no-print button-div">
         <button class="pdf-button" onclick="window.print()">
@@ -278,11 +296,11 @@
         </button>
         <p>Download PDF</p>
       </div> -->
-  </div>
+<!--   </div>
     <div class="nav retake">
       <a class="btn no-print" id="btn-restart"><span class="arrow-back"></span> Retake Assessment</a>
     </div>
-  </div>
+  </div> -->
 
   </div><!-- .wrap -->
 </div>

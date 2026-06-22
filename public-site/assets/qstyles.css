@@ -27,6 +27,85 @@
   src: url("./fonts/AndQFive_Headlinefont_Thin.ttf") format("truetype");
 }
 
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 18px 24px;
+  background: #0f1115;
+  color: rgba(255,255,255,0.6);
+  font-size: 12px;
+  border-radius: 12px;
+  flex-wrap: wrap;
+}
+
+.foot-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.foot-brand {
+  color: #ffda33;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+.foot-url {
+  color: rgba(255,255,255,0.5);
+  font-size: 11px;
+}
+
+.foot-actions {
+  display: flex;
+  gap: 10px;
+}
+.foot-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 999px;
+  color: rgba(255,255,255,0.7);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.foot-action:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.04);
+}
+.foot-action__icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.foot-action.is-copied {
+  color: #6ee7b7;
+  border-color: rgba(110, 231, 183, 0.4);
+}
+
+@media (max-width: 560px) {
+  .foot {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .foot-actions {
+    width: 100%;
+  }
+  .foot-action {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
 #focus-section-unlocked,
 #focus-section-locked {
   transition: opacity 0.3s ease;
