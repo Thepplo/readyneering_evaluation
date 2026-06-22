@@ -2494,7 +2494,7 @@ function renderDebriefInvitationSection(serverResult) {
           <div class="next-tag">andQfive · Readyneering</div>
           <h2 class="next-title">
             <span>Your three priorities for action</span>
-            <span>Open them by booking the conversation.</span>
+            <span style="color: #f5f5f5">Open them by booking the conversation.</span>
           </h2>
           ${renderSourceComment(serverResult.report.open)}
           <div class="next-divider"></div>
@@ -2504,7 +2504,7 @@ function renderDebriefInvitationSection(serverResult) {
               <h3>Do more of this</h3>
               <p>The actions that move you forward, specific to your pattern.</p>
               <div class="next-offer--meta">
-                <p>3 actions · one to start this week</p>
+                <p>3 actions · one you can start this week</p>
               </div>
             </article>
             <article class="next-offer">
@@ -2512,7 +2512,7 @@ function renderDebriefInvitationSection(serverResult) {
               <h3>Do less of this</h3>
               <p>The defaults that quietly cost you, named and interrupted.</p>
               <div class="next-offer--meta">
-                <p>3 patterns · one to spot tomorrow</p>
+                <p>3 patterns · one you can spot tomorrow</p>
               </div>
             </article>
             <article class="next-offer">
