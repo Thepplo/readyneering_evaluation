@@ -1512,7 +1512,19 @@ function renderPatternDiagnosis(open) {
     </p>
   `;
 }
+function renderSourceComment(open) {
+  const ranked = open.ranked || [];
+  if (ranked.length < 2) return '';
+  const [a, b] = ranked;
+  const dimA = QUOTIENT_DIMENSIONS[a.key];
+  const dimB = QUOTIENT_DIMENSIONS[b.key];
 
+  return `
+    <p>
+      Three actions, shaped from your ${escapeHtml(a.label)} and ${escapeHtml(b.label)}scores.
+    </p>
+  `;
+}
 function getSymptomLine(keyA, keyB) {
   const pair = [keyA, keyB].sort().join('|');
   const lines = {
@@ -2490,7 +2502,9 @@ function renderDebriefInvitationSection(serverResult) {
             <article class="next-offer">
               <div class="next-offer__icon next-offer__icon--more">↑</div>
               <h3>Do more of this</h3>
-              <p>Three actions, shaped from your scores.</p>
+              <p class="next-lede">
+                ${renderSourceComment(serverResult.report.open)}
+              </p>
             </article>
             <article class="next-offer">
               <div class="next-offer__icon next-offer__icon--less">↓</div>
