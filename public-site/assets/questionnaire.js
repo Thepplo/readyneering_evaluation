@@ -1501,8 +1501,8 @@ function renderPatternDiagnosis(open) {
       A Readiness score is a starting point. <strong>Not a verdict. Not a destination.</strong>
     </p>
     <p class="next-lede">
-      Your <div class="q-chip ${a.key}">${a.label}</div> is at <strong>${a.score.toFixed(1)}</strong>. 
-      Your <div class="q-chip ${b.key}">${b.label}</div> is at <strong>${b.score.toFixed(1)}</strong>. 
+      Your <span class="q-chip ${a.key}">${a.label}</span> is at <strong>${a.score.toFixed(1)}</strong>. 
+      Your <span class="q-chip ${b.key}">${b.label}</span> is at <strong>${b.score.toFixed(1)}</strong>. 
       That specific combination — ${combinationLine} — shows up in a predictable way. 
       ${symptomLine}
     </p>
