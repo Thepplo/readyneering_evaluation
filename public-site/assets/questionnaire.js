@@ -1520,8 +1520,8 @@ function renderSourceComment(open) {
   const dimB = QUOTIENT_DIMENSIONS[b.key];
 
   return `
-    <p>
-      Three actions, shaped from your ${escapeHtml(a.label)} and ${escapeHtml(b.label)}scores.
+    <p class="next-lede">
+      Shaped from your ${escapeHtml(a.label)} and ${escapeHtml(b.label)} scores.
     </p>
   `;
 }
@@ -2496,15 +2496,13 @@ function renderDebriefInvitationSection(serverResult) {
             <span>Your three priorities for action</span>
             <span>Open them by booking the conversation.</span>
           </h2>
-
+          ${renderSourceComment(serverResult.report.open)}
           <div class="next-divider"></div>
           <div class="next-offer-grid">
             <article class="next-offer">
               <div class="next-offer__icon next-offer__icon--more">↑</div>
               <h3>Do more of this</h3>
-              <p class="next-lede">
-                ${renderSourceComment(serverResult.report.open)}
-              </p>
+              <p>Three actions to start this week.</p>
             </article>
             <article class="next-offer">
               <div class="next-offer__icon next-offer__icon--less">↓</div>
