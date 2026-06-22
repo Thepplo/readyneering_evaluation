@@ -1466,8 +1466,10 @@ function renderServerFocusSubtitle(focusActions) {
     : 'These come directly from your two lowest-scoring quotients - ';
 
   return `
-    ${intro}${chipHtml}.
-    They apply whether you are a people manager, an individual contributor, or both.
+    <p class="page-sub" style="color:#555555 !important; line-height: 1.75; font-size: 13px; max-width: 755px; margin-bottom: 5%;">
+      ${intro}${chipHtml}.
+      They apply whether you are a people manager, an individual contributor, or both.
+    </p>
   `;
 }
 
