@@ -1489,7 +1489,7 @@ function renderPatternDiagnosis(open) {
     const sameBand = bandA === bandB;
 
     if (sameBand) {
-      combinationLine = `both dimensions in the ${escapeHtml(bandA)} band, with ${escapeHtml(dimA)} and ${escapeHtml(dimB)} carrying the most weight`;
+      combinationLine = `both Resilience and Preparedness in the ${escapeHtml(bandA)} band, with ${escapeHtml(dimA)} and ${escapeHtml(dimB)} under the most strain`;
     } else {
       const weakerDim   = dimAScore <= dimBScore ? dimA : dimB;
       const strongerDim = dimAScore <= dimBScore ? dimB : dimA;
@@ -1518,24 +1518,33 @@ function getSymptomLine(keyA, keyB) {
   const lines = {
     'execution|mind':
       'In meetings. In Monday mornings. In the gap between what you decide and what actually happens.',
+
     'emotion|vitality':
-      'In the third hour of a hard week. In the response you wish you had not sent. In how you arrive home.',
+      'In the third day of a hard week. In the response you wish you had not sent. In how you arrive home.',
+
     'alignment|mind':
-      'In the meeting that did not move. In the strategy that sounded right but landed soft. In the second draft that never came.',
+      'In the meeting where the direction sounded clear and nothing moved. In the strategy you have explained three times and still see misread. In the second draft that never came.',
+
     'execution|alignment':
       'In the project that drifted. In the priorities that quietly multiplied. In what got shipped versus what got planned.',
+
     'emotion|mind':
-      'In the decision made too fast. In the conversation you avoided. In the story you keep telling yourself about what happened.',
-    'execution|emotion':
-      'In the action you knew you needed to take. In the meeting you postponed. In how the day ends.',
+      'In the decision made too fast to feel. In the conversation you keep meaning to have. In the story you keep telling yourself about why it has not happened yet.',
+
+    'emotion|execution':
+      'In the call you postponed. In the action you knew was right but did not take. In how Friday afternoon feels.',
+
     'mind|vitality':
-      'In the strategy session at 4pm. In the thinking that should have been clearer. In the decisions made when the tank was empty.',
+      'In the 4pm strategy session. In the decision made on an empty tank. In the thinking that should have been clearer than it was.',
+
     'alignment|emotion':
       'In the team meeting where the real thing did not get said. In the silence after a hard call. In the trust that quietly thins.',
+
     'alignment|vitality':
       'In the week that lost its shape. In the priorities that shifted without anyone noticing. In what you meant to build versus what got built.',
+
     'execution|vitality':
-      'In the action plan that ran out of fuel. In the Friday afternoon where commitments dissolve. In the things that got done versus the things that mattered.',
+      'In the plan that ran out of fuel before it ran out of work. In the Friday afternoon where commitments dissolve. In what got done versus what mattered.',
   };
   return lines[pair] ||
     'In meetings. In transitions. In the quiet moments where the pattern repeats itself.';
