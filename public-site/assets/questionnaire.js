@@ -1489,7 +1489,7 @@ function renderPatternDiagnosis(open) {
     const sameBand = bandA === bandB;
 
     if (sameBand) {
-      combinationLine = `both Resilience and Preparedness in the ${escapeHtml(bandA)} band, with ${escapeHtml(dimA)} and ${escapeHtml(dimB)} under the most strain`;
+      combinationLine = `both Resilience and Preparedness in the ${escapeHtml(bandA)} band, with ${escapeHtml(a.key)} and ${escapeHtml(b.key)} under the most strain`;
     } else {
       const weakerDim   = dimAScore <= dimBScore ? dimA : dimB;
       const strongerDim = dimAScore <= dimBScore ? dimB : dimA;
