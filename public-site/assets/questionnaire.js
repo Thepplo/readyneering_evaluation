@@ -2444,12 +2444,46 @@ function renderDebriefInvitationSection(serverResult) {
               I’ve booked - reveal my actions
             </button>
           </div>
-          <p class="next-whisper">
-            If you do only one thing to build your Readiness — book the conversation that reveals what to do next.
+          <div class="next-divider"></div>
+          <p>
+            A Readiness score is a starting point.
+            <strong>Not a verdict. Not a destination.</strong>
+          </p>
+          <p>
+            Your Mind is at 2.8. Your Execution is at 3.1. That specific 
+            combination — developing Preparedness against building 
+            Resilience — shows up in a predictable way. In meetings. 
+            In Monday mornings. In the gap between what you decide 
+            and what actually happens.
           </p>
 
+          <p>
+            The actions above are prepared for a reason. The right next move is specific
+            to your pattern. A generic list would be motivational confetti. What you need
+            is a conversation.
+          </p>
+          <p>
+            We have had this conversation before. We know which question 
+            cuts through. And we can almost guarantee it is not the one 
+            you are already asking yourself.
+          </p>
+          <p class="what-next-strong">
+            Thirty minutes. Your scores, your patterns, your next move.
+          </p>
+          ${bookingUrl ? `
+              <a
+                class="btn primary"
+                id="book-followup-btn"
+                href="${escapeHtml(bookingUrl)}"
+                target="_blank"
+                rel="noopener"
+              >
+                Book your 30-minute debrief
+                <span class="arrow"></span>
+              </a>
+            ` : ''}
           <!--
-          
+
           <p>
             A Readiness score is a starting point.
             <strong>Not a verdict. Not a destination.</strong>

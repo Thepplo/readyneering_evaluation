@@ -28,7 +28,7 @@
 }
 
 .next-section {
-  background: #0f1115;
+  background: radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.055), transparent 34%), linear-gradient(360deg, #292929 0%, #222222 100%);
   border-radius: 16px;
   overflow: hidden;
   color: #fff;
