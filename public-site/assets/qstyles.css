@@ -216,9 +216,9 @@
   font-size: 16px;
   font-weight: 700;
 }
-.next-offer__icon--more { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; }
-.next-offer__icon--less { background: rgba(239, 68, 68, 0.15);  color: #fca5a5; }
-.next-offer__icon--sit  { background: rgba(139, 92, 246, 0.15); color: #c4b5fd; }
+.next-offer__icon--more { /* background: rgba(16, 185, 129, 0.15); */ color: #6ee7b7; }
+.next-offer__icon--less { /* background: rgba(239, 68, 68, 0.15); */  color: #fca5a5; }
+.next-offer__icon--sit  { /* background: rgba(139, 92, 246, 0.15); */ color: #c4b5fd; }
 
 .next-offer h3 {
   margin: 0 0 6px;
