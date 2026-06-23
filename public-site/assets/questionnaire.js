@@ -2510,7 +2510,7 @@ function renderDebriefInvitationSection(serverResult) {
               </div>
               <h3>Build Readiness</h3>
               <p>Three actions, made specific to your pattern — and chosen together for which one to start with.</p>
-              <p class="next-offer__teaser">Including: How to put your stress patterns on the table before you need to.<em></em></p>
+              <div class="next-offer__teaser">Including: <em>How to put your stress patterns on the table before you need to.</em></div>
               <div class="next-offer--meta">
                 <p>3 actions · ready for the call</p>
               </div>
@@ -2525,7 +2525,7 @@ function renderDebriefInvitationSection(serverResult) {
               </div>
               <h3>Remove Friction</h3>
               <p>The patterns most likely to derail you, named so you can interrupt them.</p>
-              <p class="next-offer__teaser">Including: The default that makes the people around you read you without information.<em></em></p>
+              <div class="next-offer__teaser">Including: <em>The default that makes the people around you read you without information.</em></div>
               <div class="next-offer--meta">
                 <p>3 patterns · to work through together</p>
               </div>
@@ -2539,7 +2539,7 @@ function renderDebriefInvitationSection(serverResult) {
               </div>
               <h3>Go Deeper</h3>
               <p>The questions your scores raise that you cannot answer alone.</p>
-              <p class="next-offer__teaser">Including: The emotion you are managing privately that would change how others show up.<em></em></p>
+              <div class="next-offer__teaser">Including: <em>The emotion you are managing privately that would change how others show up.</em></div>
               <div class="next-offer--meta">
                 <p>3 prompts · to open the conversation</p>
               </div>
