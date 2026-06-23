@@ -129,6 +129,17 @@
   }
 }
 
+.next-offer__teaser {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+}
+.next-offer__teaser em {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.85);
+}
+
 .next-offer--meta {
   font-size: 11px;
   font-weight: 600;

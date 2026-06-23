@@ -1523,6 +1523,9 @@ function renderSourceComment(open) {
     <p class="next-lede">
       Built around your ${escapeHtml(a.label)} and ${escapeHtml(b.label)} scores — where the conversation will be most useful.
     </p>
+    <p class="next-lede">
+      Three things we'll work through together.
+    </p>
   `;
 }
 function getSymptomLine(keyA, keyB) {
@@ -2507,6 +2510,7 @@ function renderDebriefInvitationSection(serverResult) {
               </div>
               <h3>Build Readiness</h3>
               <p>Three actions, made specific to your pattern — and chosen together for which one to start with.</p>
+              <p class="next-offer__teaser">Including: How to put your stress patterns on the table before you need to.<em></em></p>
               <div class="next-offer--meta">
                 <p>3 actions · ready for the call</p>
               </div>
@@ -2521,6 +2525,7 @@ function renderDebriefInvitationSection(serverResult) {
               </div>
               <h3>Remove Friction</h3>
               <p>The patterns most likely to derail you, named so you can interrupt them.</p>
+              <p class="next-offer__teaser">Including: The default that makes the people around you read you without information.<em></em></p>
               <div class="next-offer--meta">
                 <p>3 patterns · to work through together</p>
               </div>
@@ -2534,6 +2539,7 @@ function renderDebriefInvitationSection(serverResult) {
               </div>
               <h3>Go Deeper</h3>
               <p>The questions your scores raise that you cannot answer alone.</p>
+              <p class="next-offer__teaser">Including: The emotion you are managing privately that would change how others show up.<em></em></p>
               <div class="next-offer--meta">
                 <p>3 prompts · to open the conversation</p>
               </div>
