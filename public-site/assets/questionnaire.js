@@ -2542,9 +2542,6 @@ function renderDebriefInvitationSection(serverResult) {
               </div>
             </article>
           </div>
-          <p class="next-lede">
-            Book your debrief to review your priorities before the session and arrive ready for the conversation.
-          </p>
           <p class="next-lede next-lede--bold" style="margin-bottom: 12px;">
             You have seen the pattern. Book the debrief and arrive ready for the conversation.
           </p>
