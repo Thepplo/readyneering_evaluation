@@ -2497,29 +2497,32 @@ function renderDebriefInvitationSection(serverResult) {
           </h2>
           ${renderSourceComment(serverResult.report.open)}
           <div class="next-divider"></div>
+          <h2 class="next-title>
+            <span>What we'll explore together</span>
+          </h2>
           <div class="next-offer-grid">
             <article class="next-offer">
               <div class="next-offer__icon next-offer__icon--more">↑</div>
-              <h3>Do more of this</h3>
-              <p>The actions that move you forward, specific to your pattern.</p>
+              <h3>Build Readiness</h3>
+              <p>The actions most relevant to your Emotion and Alignment scores.</p>
               <div class="next-offer--meta">
-                <p>3 actions · one you can start this week</p>
+                <p>3 actions prepared for discussion</p>
               </div>
             </article>
             <article class="next-offer">
               <div class="next-offer__icon next-offer__icon--less">↓</div>
-              <h3>Do less of this</h3>
-              <p>The defaults that quietly cost you, named and interrupted.</p>
+              <h3>Remove Friction</h3>
+              <p>The patterns most likely limiting readiness under pressure.</p>
               <div class="next-offer--meta">
-                <p>3 patterns · one you can spot tomorrow</p>
+                <p>3 patterns identified for discussion</p>
               </div>
             </article>
             <article class="next-offer">
               <div class="next-offer__icon next-offer__icon--sit">?</div>
-              <h3>Sit with these questions</h3>
-              <p>The reflections that go deeper than the report can.</p>
+              <h3>Go Deeper</h3>
+              <p>The questions your scores raise, but cannot answer alone.</p>
               <div class="next-offer--meta">
-                <p>3 prompts · one you have not asked yourself</p>
+                <p>3 coaching prompts prepared</p>
               </div>
             </article>
           </div>
