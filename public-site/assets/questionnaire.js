@@ -2497,9 +2497,6 @@ function renderDebriefInvitationSection(serverResult) {
           </h2>
           ${renderSourceComment(serverResult.report.open)}
           <div class="next-divider"></div>
-          <h2 class="next-title>
-            <span>What we'll explore together</span>
-          </h2>
           <div class="next-offer-grid">
             <article class="next-offer">
               <div class="next-offer__icon next-offer__icon--more">↑</div>
