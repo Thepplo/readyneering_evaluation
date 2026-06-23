@@ -1521,7 +1521,7 @@ function renderSourceComment(open) {
 
   return `
     <p class="next-lede">
-      Shaped from your ${escapeHtml(a.label)} and ${escapeHtml(b.label)} scores.
+      Prepared from your two lowest readiness quotients: ${escapeHtml(a.label)} and ${escapeHtml(b.label)}.
     </p>
   `;
 }
@@ -2492,8 +2492,8 @@ function renderDebriefInvitationSection(serverResult) {
 
         <div class="next-body">
           <h2 class="next-title">
-            <span>Your three priorities for action</span>
-            <span style="color: #f5f5f5">Open them by booking the conversation.</span>
+            <span>Three areas to explore.</span>
+            <span style="color: #f5f5f5">Open it by booking the conversation.</span>
           </h2>
           ${renderSourceComment(serverResult.report.open)}
           <div class="next-divider"></div>
@@ -2524,7 +2524,7 @@ function renderDebriefInvitationSection(serverResult) {
             </article>
           </div>
           <p class="next-lede">
-            Book your debrief and all three open immediately — read them before we talk.
+            Book your debrief to review your priorities before the session and arrive ready for the conversation.
           </p>
           <p class="next-lede next-lede--bold" style="margin-bottom: 12px;">
             You have seen the pattern.
