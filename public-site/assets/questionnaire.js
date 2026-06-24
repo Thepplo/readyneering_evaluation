@@ -1,6 +1,27 @@
 const TURNSTILE_SITE_KEY = '0x4AAAAAADTHusttqatb2uD0';
 const FALLBACK_BOOKINGS_URL = 'https://youtube.com';
 
+const ICON_BUILD_READINESS = `
+  <svg width="36px" height="36px" viewBox="0 0 24 24" fill="rgba(16, 185, 129, 0.15)" xmlns="http://www.w3.org/2000/svg">
+    <path d="M13.024 14.5601..." stroke="currentColor" stroke-width="1.5"/>
+    <path d="M7 3.33782..." stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+`;
+
+const ICON_REMOVE_FRICTION = `
+  <svg width="36px" height="36px" viewBox="0 0 24 24" fill="rgba(239, 68, 68, 0.15)" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 7V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="12" cy="16" r="1" fill="currentColor"/>
+  <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+`;
+const ICON_GO_DEEPER = `
+  <svg width="36px" height="36px" viewBox="0 0 24 24" fill="rgba(139, 92, 246, 0.15)" xmlns="http://www.w3.org/2000/svg">
+  <path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M6.75 3.27093C8.14732 2.46262 9.76964 2 11.5 2C16.7467 2 21 6.25329 21 11.5C21 16.7467 16.7467 21 11.5 21C6.25329 21 2 16.7467 2 11.5C2 9.76964 2.46262 8.14732 3.27093 6.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+`;
+
 let turnstileWidgetId = null;
 let turnstilePending = null;
 let turnstileReadyPromise = null;
@@ -2484,123 +2505,116 @@ const DEBRIEF_PREVIEW_SECTIONS = [
   }
 ];
 
+function getOfferCards(open) {
+  const hints = open?.focus?.hints || {};
 
-function renderDebriefInvitationSection(serverResult) {
-  const bookingUrl = getBookingUrl(serverResult);
-  return `
-      <section class="next-section">
-        <header class="next-header">
-          <div class="next-kicker">What happens next</div>
-        </header>
-
-        <div class="next-body">
-          <h2 class="next-title">
-            <span>Your debrief is ready.</span>
-            <span style="color: #f5f5f5">Open it by booking the conversation.</span>
-          </h2>
-          ${renderSourceComment(serverResult.report.open)}
-          <div class="next-divider"></div>
-          <div class="next-offer-grid">
-            <article class="next-offer">
-              <div class="next-offer__icon next-offer__icon--more">
-                <svg width="36px" height="36px" viewBox="0 0 24 24" fill="rgba(16, 185, 129, 0.15)" xmlns="http://www.w3.org/2000/svg">
-                <path d="M13.024 14.5601C10.7142 15.484 9.5593 15.946 8.89964 15.4977C8.74324 15.3914 8.60834 15.2565 8.50206 15.1001C8.0538 14.4405 8.51575 13.2856 9.43967 10.9758C9.63673 10.4831 9.73527 10.2368 9.90474 10.0435C9.94792 9.99429 9.99429 9.94792 10.0435 9.90474C10.2368 9.73527 10.4831 9.63673 10.9758 9.43966C13.2856 8.51575 14.4405 8.0538 15.1001 8.50206C15.2565 8.60834 15.3914 8.74324 15.4977 8.89964C15.946 9.5593 15.484 10.7142 14.5601 13.024C14.363 13.5166 14.2645 13.763 14.095 13.9562C14.0518 14.0055 14.0055 14.0518 13.9562 14.095C13.763 14.2645 13.5166 14.363 13.024 14.5601Z" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <h3>Build Readiness</h3>
-              <div class="next-offer__teaser">Including: <em>How to put your stress patterns on the table before you need to.</em></div>
-              <div class="next-offer--meta">
-                <p>3 actions · ready for the call</p>
-              </div>
-            </article>
-            <article class="next-offer">
-              <div class="next-offer__icon next-offer__icon--less">
-                <svg width="36px" height="36px" viewBox="0 0 24 24" fill="rgba(239, 68, 68, 0.15)" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 7V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <circle cx="12" cy="16" r="1" fill="currentColor"/>
-                <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <h3>Remove Friction</h3>
-              <div class="next-offer__teaser">Including: <em>The default that makes the people around you read you without information.</em></div>
-              <div class="next-offer--meta">
-                <p>3 patterns · to work through together</p>
-              </div>
-            </article>
-            <article class="next-offer">
-              <div class="next-offer__icon next-offer__icon--sit">
-                <svg width="36px" height="36px" viewBox="0 0 24 24" fill="rgba(139, 92, 246, 0.15)" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M6.75 3.27093C8.14732 2.46262 9.76964 2 11.5 2C16.7467 2 21 6.25329 21 11.5C21 16.7467 16.7467 21 11.5 21C6.25329 21 2 16.7467 2 11.5C2 9.76964 2.46262 8.14732 3.27093 6.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <h3>Go Deeper</h3>
-              <div class="next-offer__teaser">Including: <em>The emotion you are managing privately that would change how others show up.</em></div>
-              <div class="next-offer--meta">
-                <p>3 prompts · to open the conversation</p>
-              </div>
-            </article>
-          </div>
-          <p class="next-lede next-lede--bold" style="margin-bottom: 12px;">
-            You have seen the pattern. Book the debrief and arrive ready for the conversation.
-          </p>
-          <div class="what-next-actions">
-            ${bookingUrl ? `
-              <a
-                class="btn primary"
-                id="book-followup-btn"
-                href="${escapeHtml(bookingUrl)}"
-                target="_blank"
-                rel="noopener"
-              >
-                Book your 30-minute debrief
-                <span class="arrow"></span>
-              </a>
-            ` : ''}
-
-            <button type="button" class="what-next-secondary-btn" id="check-unlock-btn">
-              I’ve booked - reveal my actions
-            </button>
-          </div>
-          <div class="next-divider"></div>
-          <p class="next-lede">
-            ${renderPatternDiagnosis(serverResult.report.open)}
-          </p>
-
-          <p class="next-lede">
-            The actions above are prepared for a reason. The right next move is specific
-            to your pattern. A generic list would be motivational confetti. What you need
-            is a conversation.
-          </p>
-          <p class="next-lede">
-            We have had this conversation before. We know which question 
-            cuts through. And we can almost guarantee it is not the one 
-            you are already asking yourself.
-          </p>
-          <p class="next-lede next-lede--bold">
-            Thirty minutes. Your scores, your patterns, your next move.
-          </p>
-  `;
+  return [
+    {
+      type: 'more',
+      icon: ICON_BUILD_READINESS,
+      title: 'Build Readiness',
+      hint: hints.doMore,
+      meta: '3 actions · ready for the call',
+    },
+    {
+      type: 'less',
+      icon: ICON_REMOVE_FRICTION,
+      title: 'Remove Friction',
+      hint: hints.doLess,
+      meta: '3 patterns · to work through together',
+    },
+    {
+      type: 'sit',
+      icon: ICON_GO_DEEPER,
+      title: 'Go Deeper',
+      hint: hints.sitWith,
+      meta: '3 prompts · to open the conversation',
+    },
+  ];
 }
 
-function renderDebriefPreviewCard(section) {
+function renderOfferCard(offer) {
+  const teaser = offer.hint
+    ? `<div class="next-offer__teaser">Including: <em>${escapeHtml(offer.hint)}</em></div>`
+    : '';
+
   return `
-    <article class="debrief-card debrief-preview-card--${escapeHtml(section.type)}">
-
-      <div class="debrief-preview-card-header">
-        <span class="debrief-card__icon ${getDebriefIconClass(section.iconType)}" aria-hidden="true">
-          ${renderDebriefIcon(section.iconType)}
-        </span>
+    <article class="next-offer">
+      <div class="next-offer__icon next-offer__icon--${escapeHtml(offer.type)}">
+        ${offer.icon}
       </div>
-
-      <div class="debrief-preview-card-body">
-        <strong class="debrief-preview-card__title">${escapeHtml(section.summary)}</strong>
-        <p class="debrief-card__desc">${escapeHtml(section.body)}</p>
+      <h3>${escapeHtml(offer.title)}</h3>
+      ${teaser}
+      <div class="next-offer--meta">
+        <p>${escapeHtml(offer.meta)}</p>
       </div>
     </article>
   `;
 }
+
+function renderDebriefInvitationSection(serverResult) {
+  const bookingUrl = getBookingUrl(serverResult);
+  const offers = getOfferCards(serverResult.report.open);
+
+  return `
+    <section class="next-section">
+      <header class="next-header">
+        <div class="next-kicker">What happens next</div>
+      </header>
+
+      <div class="next-body">
+        <h2 class="next-title">
+          <span>Your debrief is ready.</span>
+          <span style="color: #f5f5f5">Open it by booking the conversation.</span>
+        </h2>
+
+        ${renderSourceComment(serverResult.report.open)}
+        <div class="next-divider"></div>
+
+        <div class="next-offer-grid">
+          ${offers.map(renderOfferCard).join('')}
+        </div>
+
+        <p class="next-lede next-lede--bold" style="margin-bottom: 12px;">
+          You have seen the pattern. Book the debrief and arrive ready for the conversation.
+        </p>
+
+        <div class="what-next-actions">
+          ${bookingUrl ? `
+            <a class="btn primary" id="book-followup-btn" href="${escapeHtml(bookingUrl)}" target="_blank" rel="noopener">
+              Book your 30-minute debrief
+              <span class="arrow"></span>
+            </a>
+          ` : ''}
+          <button type="button" class="what-next-secondary-btn" id="check-unlock-btn">
+            I've booked — reveal my actions
+          </button>
+        </div>
+
+        <div class="next-divider"></div>
+
+        <p class="next-lede">
+          ${renderPatternDiagnosis(serverResult.report.open)}
+        </p>
+        <p class="next-lede">
+          The actions above are prepared for a reason. The right next move is specific
+          to your pattern. A generic list would be motivational confetti. What you need
+          is a conversation.
+        </p>
+        <p class="next-lede">
+          We have had this conversation before. We know which question cuts through.
+          And we can almost guarantee it is not the one you are already asking yourself.
+        </p>
+        <p class="next-lede next-lede--bold">
+          Thirty minutes. Your scores, your patterns, your next move.
+        </p>
+      </div>
+    </section>
+  `;
+}
+
+
+
 
 /* function renderWhatHappensNextSection(serverResult) {
   const bookingUrl = getBookingUrl(serverResult);
