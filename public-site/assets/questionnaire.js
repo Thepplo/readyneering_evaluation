@@ -817,7 +817,7 @@ function makeSVG(idx) {
   var MAX_LINES = 5;                    // worst-case label height
   var SLOT_HEIGHT = MAX_LINES * LH;     // fixed reserved height for all labels
   var SLOT_WIDTH_SIDE = s(180);         // bottom-corner label box width
-  var SLOT_WIDTH_TOP = s(260);          // apex label box width
+  var SLOT_WIDTH_TOP = s(300);          // apex label box width
   var CORNER_GAP = s(14);               // gap between vertex dot and label
   var labelStyle = 'font-size:' + FS + 'px;color:#2a2a28;font-weight:500;'
     + 'font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif;'
