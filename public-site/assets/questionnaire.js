@@ -817,7 +817,7 @@ function makeSVG(idx) {
   var MAX_LINES = 5;                    // worst-case label height
   var SLOT_HEIGHT = MAX_LINES * LH;     // fixed reserved height for all labels
   var SLOT_WIDTH_SIDE = s(180);         // bottom-corner label box width
-  var SLOT_WIDTH_TOP = s(300);          // apex label box width
+  var SLOT_WIDTH_TOP = s(260);          // apex label box width
   var CORNER_GAP = s(14);               // gap between vertex dot and label
   var labelStyle = 'font-size:' + FS + 'px;color:#2a2a28;font-weight:500;'
     + 'font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif;'
@@ -856,10 +856,14 @@ function makeSVG(idx) {
   });
 
   // ── foreignObject helper ──────────────────────────────────
-  function labelBox(x, y, w, h, text) {
+  function labelBox(x, y, w, h, text, anchor) {
+    // anchor: 'top' (default) or 'bottom'
+    var align = anchor === 'bottom' ? 'flex-end' : 'flex-start';
+    var boxStyle = 'display:flex;align-items:' + align + ';justify-content:center;'
+      + 'height:' + h + 'px;width:100%;';
     return '<foreignObject x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '">'
-      + '<div xmlns="http://www.w3.org/1999/xhtml" style="' + labelStyle + '">'
-      + esc(text)
+      + '<div xmlns="http://www.w3.org/1999/xhtml" style="' + boxStyle + '">'
+      + '<div style="' + labelStyle + '">' + esc(text) + '</div>'
       + '</div>'
       + '</foreignObject>';
   }
@@ -878,9 +882,9 @@ function makeSVG(idx) {
     + '<circle cx="' + TB.x + '" cy="' + TB.y + '" r="' + s(5) + '" fill="#770136" opacity="0.4"/>'
     + '<circle cx="' + TC.x + '" cy="' + TC.y + '" r="' + s(5) + '" fill="#770136" opacity="0.4"/>'
 
-    + labelBox(aSlotX, aSlotY, SLOT_WIDTH_TOP, SLOT_HEIGHT, t.A)
-    + labelBox(bSlotX, sideSlotY, SLOT_WIDTH_SIDE, SLOT_HEIGHT, t.B)
-    + labelBox(cSlotX, sideSlotY, SLOT_WIDTH_SIDE, SLOT_HEIGHT, t.C)
+    + labelBox(aSlotX, aSlotY, SLOT_WIDTH_TOP, SLOT_HEIGHT, t.A, 'bottom')
+    + labelBox(bSlotX, sideSlotY, SLOT_WIDTH_SIDE, SLOT_HEIGHT, t.B, 'top')
+    + labelBox(cSlotX, sideSlotY, SLOT_WIDTH_SIDE, SLOT_HEIGHT, t.C, 'top')
 
     + '<circle id="ring-' + idx + '" cx="-999" cy="-999" r="' + s(20) + '" fill="rgba(119,1,54,0.8)" opacity="0" style="pointer-events:none"/>'
     + '<circle id="dot-' + idx + '"  cx="-999" cy="-999" r="' + s(11) + '" fill="#770136" opacity="0" style="pointer-events:none"/>'
