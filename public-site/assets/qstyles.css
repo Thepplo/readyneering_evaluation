@@ -1374,6 +1374,10 @@
 }
 
 @media (max-width: 800px) {
+  .scenario-wrapper{
+    padding-left: 5%;
+    padding-right: 5%;
+  }
   .brand {
     width: 84px;
     opacity: 0.5;
@@ -1493,7 +1497,7 @@
 .placed { text-align: center; font-size: 12px; color: #770136; min-height: 18px; margin-bottom: 4px; }
 
 /* nav */
-.nav { display: flex; gap: 10px; align-items: center; margin-top: 24px; }
+.nav { display: flex; gap: 10px; align-items: center; margin-top: 24px; position: fixed; bottom: 15px;}
 
 .btn:hover { background: #f1f0e8; gap: 14px; }
 .btn {

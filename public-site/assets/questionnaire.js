@@ -15,6 +15,7 @@ const ICON_REMOVE_FRICTION = `
   <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
   </svg>
 `;
+
 const ICON_GO_DEEPER = `
   <svg width="36px" height="36px" viewBox="0 0 24 24" fill="rgba(139, 92, 246, 0.15)" xmlns="http://www.w3.org/2000/svg">
   <path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -477,10 +478,11 @@ const TRIADS = [
     id:"emotion-3",
     scenario:"A peak moment is on the horizon. High stakes, personally significant, the kind of stretch that will test you in ways you can already feel. You have time to prepare. Not just operationally. As a person. The question is whether you use it.",
     question:"What does real personal preparation look like for you?",
-    A:"I focus on what needs to get done. How I feel is something I deal with as it comes.",
-    B:"I think about who I want to be in this moment — and I have that conversation with the people closest to me.",
+    
+    A:"I think about who I want to be in this moment — and I have that conversation with the people closest to me.",
+    B:"I focus on what needs to get done. How I feel is something I deal with as it comes.",
     C:"I reflect on my own. I do not tend to bring others into this kind of preparation.",
-    scores:{ R_emotion:[-0.4, 0.7, 0.2], P_emotion:[-0.8, 0.9, 0.1] }
+    scores:{ R_emotion:[0.7, -0.4, 0.2], P_emotion:[0.9, -0.8, 0.1] }
   },
 
   /* 13 - Mind (R) */
@@ -932,11 +934,13 @@ function buildSteps(savedState) {
     var display = i === current ? 'block' : 'none';
 
     html += '<div id="step-'+i+'" style="display:'+display+'">'
+      +'<div class="scenario-wrapper">'
       +'<div class="card">'
       +'<div class="scenario-text">'+esc(t.scenario)+'</div>'
       +'</div>'
       +'<div class="question">'+esc(t.question)
       +'<div class="hint">Click or tap anywhere inside the triangle. You can reposition your dot before moving on.</div>'
+      +'</div>'
       +'</div>'
       +'<div class="tri-wrap">'+makeSVG(i)+'</div>'
       +'<div class="placed" id="placed-'+i+'"></div>'
