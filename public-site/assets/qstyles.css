@@ -199,11 +199,11 @@
   margin-bottom: 32px;
 }
 
-/* The three offers — card-like but lighter than standalone cards */
 .next-offer-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
+  grid-template-rows: auto auto 1fr auto;
   margin-bottom: 28px;
 }
 .next-offer {
@@ -212,6 +212,9 @@
   border: 1px solid rgba(255,255,255,0.06);
   border-radius: 10px;
   transition: background 0.2s ease, border-color 0.2s ease;
+  display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
 }
 .next-offer:hover {
   background: rgba(255,255,255,0.05);
