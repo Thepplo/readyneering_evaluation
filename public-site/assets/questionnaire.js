@@ -812,75 +812,57 @@ function getBounds(pad) {
 
 function makeSVG(idx) {
   var t = SHUFFLED_TRIADS[idx];
-  var fs = 'font-size="' + FS + '" fill="#2a2a28" font-weight="500" font-family="-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif"';
 
-  // top label
-  var aWrapped = wrapText(ctx, t.A, s(250));
-  var aBottomY = TA.y - s(14);
-  var aTopY = aBottomY - (aWrapped.length - 1) * LH;
+  // ── Layout constants ──────────────────────────────────────
+  var MAX_LINES = 5;                    // worst-case label height
+  var SLOT_HEIGHT = MAX_LINES * LH;     // fixed reserved height for all labels
+  var SLOT_WIDTH_SIDE = s(180);         // bottom-corner label box width
+  var SLOT_WIDTH_TOP = s(260);          // apex label box width
+  var CORNER_GAP = s(14);               // gap between vertex dot and label
+  var labelStyle = 'font-size:' + FS + 'px;color:#2a2a28;font-weight:500;'
+    + 'font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif;'
+    + 'line-height:' + LH + 'px;text-wrap:balance;text-align:center;'
+    + 'pointer-events:none;';
 
-  // Explicit safe regions for side labels
-  // B region: starts just right of left vertex, extends downward
-  // C region: ends just left of right vertex, extends downward
-  var sideTop = TB.y + s(16);
-  var sideBottom = TB.y + s(108); // adjust this if you want more/less allowed height
-  var sideHeight = sideBottom - sideTop;
+  // ── Label slot positions ──────────────────────────────────
+  // Apex: box sits above TA, bottom edge CORNER_GAP above the dot
+  var aSlotX = TA.x - SLOT_WIDTH_TOP / 2;
+  var aSlotY = TA.y - CORNER_GAP - SLOT_HEIGHT;
 
-  var bRegion = {
-    x: TB.x + s(6),
-    y: sideTop,
-    width: GX - TB.x - s(28),
-    height: sideHeight
-  };
+  // Bottom corners: box sits below the dot, centered on the vertex x
+  var sideSlotY = TB.y + CORNER_GAP;
+  var bSlotX = TB.x - SLOT_WIDTH_SIDE / 2;
+  var cSlotX = TC.x - SLOT_WIDTH_SIDE / 2;
 
-  var cRegion = {
-    x: GX + s(28),
-    y: sideTop,
-    width: TC.x - GX - s(34),
-    height: sideHeight
-  };
-
-  var bFit = fitTextToRegion(ctx, t.B, bRegion, LH, {
-    minWidth: s(70),
-    maxWidth: s(150),
-    step: 4
-  });
-
-  var cFit = fitTextToRegion(ctx, t.C, cRegion, LH, {
-    minWidth: s(70),
-    maxWidth: s(150),
-    step: 4
-  });
-
-  var bTopY = bRegion.y;
-  var cTopY = cRegion.y;
-
+  // ── Median guide endpoints (unchanged) ────────────────────
   var gx = GX.toFixed(1), gy = GY.toFixed(1);
   var mABx = ((TA.x + TB.x) / 2).toFixed(1), mABy = ((TA.y + TB.y) / 2).toFixed(1);
   var mBCx = ((TB.x + TC.x) / 2).toFixed(1), mBCy = ((TB.y + TC.y) / 2).toFixed(1);
   var mCAx = ((TC.x + TA.x) / 2).toFixed(1), mCAy = ((TC.y + TA.y) / 2).toFixed(1);
 
-  // Bottom padding is driven by actual fitted block height, not just line count
-  var sideTextBottom = Math.max(
-    bRegion.y + bFit.textHeight,
-    cRegion.y + cFit.textHeight
-  );
-
-  var extraBottomPad = Math.max(
-    s(60),
-    sideTextBottom - TB.y + s(20)
-  );
-
+  // ── Bounds: fixed regardless of copy length ───────────────
   var vw = window.innerWidth;
-
   var sidePad = vw <= 1023 ? s(28) : s(90);
 
+  // Side slots extend SLOT_WIDTH_SIDE/2 outward from TB/TC, so the side
+  // padding must accommodate that. Take the larger of the two.
+  var sideOverhang = SLOT_WIDTH_SIDE / 2 + s(8);
+
   const B = getBounds({
-    top: s(80),
-    right: sidePad,
-    bottom: extraBottomPad,
-    left: sidePad
+    top: SLOT_HEIGHT + CORNER_GAP + s(12),
+    right: Math.max(sidePad, sideOverhang),
+    bottom: SLOT_HEIGHT + CORNER_GAP + s(12),
+    left: Math.max(sidePad, sideOverhang)
   });
+
+  // ── foreignObject helper ──────────────────────────────────
+  function labelBox(x, y, w, h, text) {
+    return '<foreignObject x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '">'
+      + '<div xmlns="http://www.w3.org/1999/xhtml" style="' + labelStyle + '">'
+      + esc(text)
+      + '</div>'
+      + '</foreignObject>';
+  }
 
   return '<svg id="svg-' + idx + '" viewBox="' + B.x + ' ' + B.y + ' ' + B.w + ' ' + B.h + '" xmlns="http://www.w3.org/2000/svg"'
     + ' style="display:block;width:100%;cursor:crosshair;touch-action:pan-y;user-select:none;overflow:visible">'
@@ -896,9 +878,9 @@ function makeSVG(idx) {
     + '<circle cx="' + TB.x + '" cy="' + TB.y + '" r="' + s(5) + '" fill="#770136" opacity="0.4"/>'
     + '<circle cx="' + TC.x + '" cy="' + TC.y + '" r="' + s(5) + '" fill="#770136" opacity="0.4"/>'
 
-    + '<text ' + fs + ' y="' + aTopY + '">' + tspansFromLines(aWrapped, 'middle', TA.x) + '</text>'
-    + '<text ' + fs + ' y="' + bTopY + '">' + tspansFromLines(bFit.lines, 'start', bRegion.x) + '</text>'
-    + '<text ' + fs + ' y="' + cTopY + '">' + tspansFromLines(cFit.lines, 'end', cRegion.x + cRegion.width) + '</text>'
+    + labelBox(aSlotX, aSlotY, SLOT_WIDTH_TOP, SLOT_HEIGHT, t.A)
+    + labelBox(bSlotX, sideSlotY, SLOT_WIDTH_SIDE, SLOT_HEIGHT, t.B)
+    + labelBox(cSlotX, sideSlotY, SLOT_WIDTH_SIDE, SLOT_HEIGHT, t.C)
 
     + '<circle id="ring-' + idx + '" cx="-999" cy="-999" r="' + s(20) + '" fill="rgba(119,1,54,0.8)" opacity="0" style="pointer-events:none"/>'
     + '<circle id="dot-' + idx + '"  cx="-999" cy="-999" r="' + s(11) + '" fill="#770136" opacity="0" style="pointer-events:none"/>'
