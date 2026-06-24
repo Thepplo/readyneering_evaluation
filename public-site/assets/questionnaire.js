@@ -175,7 +175,7 @@ function renderTurnstileWidgetOnce() {
   if (turnstileWidgetId !== null) return;
   turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
     sitekey: TURNSTILE_SITE_KEY,
-    appearance: 'always',
+    appearance: 'interaction-only',
     'before-interactive-callback': function () { showVerifyCard(); },
     'after-interactive-callback':  function () { hideVerifyCard(); },
     callback: function (token) { hideVerifyCard(); submitWithToken(token); },
