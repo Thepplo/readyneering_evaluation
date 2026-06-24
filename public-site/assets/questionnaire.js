@@ -814,8 +814,10 @@ function makeSVG(idx) {
   var t = SHUFFLED_TRIADS[idx];
 
   // ── Layout constants ──────────────────────────────────────
-  var MAX_LINES = 5;                    // worst-case label height
-  var SLOT_HEIGHT = MAX_LINES * LH;     // fixed reserved height for all labels
+  var MAX_LINES = 5;
+  var MAX_LINES_TOP=3;                    // worst-case label height
+  var SLOT_HEIGHT = MAX_LINES * LH;
+  var SLOT_HEIGHT_TOP = MAX_LINES_TOP * LH;
   var SLOT_WIDTH_SIDE = s(180);         // bottom-corner label box width
   var SLOT_WIDTH_TOP = s(260);          // apex label box width
   var CORNER_GAP = s(14);               // gap between vertex dot and label
@@ -882,7 +884,7 @@ function makeSVG(idx) {
     + '<circle cx="' + TB.x + '" cy="' + TB.y + '" r="' + s(5) + '" fill="#770136" opacity="0.4"/>'
     + '<circle cx="' + TC.x + '" cy="' + TC.y + '" r="' + s(5) + '" fill="#770136" opacity="0.4"/>'
 
-    + labelBox(aSlotX, aSlotY, SLOT_WIDTH_TOP, SLOT_HEIGHT, t.A, 'bottom')
+    + labelBox(aSlotX, aSlotY, SLOT_WIDTH_TOP, SLOT_HEIGHT_TOP, t.A, 'bottom')
     + labelBox(bSlotX, sideSlotY, SLOT_WIDTH_SIDE, SLOT_HEIGHT, t.B, 'top')
     + labelBox(cSlotX, sideSlotY, SLOT_WIDTH_SIDE, SLOT_HEIGHT, t.C, 'top')
 
