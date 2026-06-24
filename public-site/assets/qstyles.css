@@ -226,7 +226,6 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
-  margin-bottom: 14px;
   font-size: 16px;
   font-weight: 700;
 }
@@ -235,7 +234,6 @@
 .next-offer__icon--sit  { /* background: rgba(139, 92, 246, 0.15); */ color: #c4b5fd; }
 
 .next-offer h3 {
-  margin: 0 0 6px;
   font-size: 14px;
   font-weight: 700;
   color: #fff;
