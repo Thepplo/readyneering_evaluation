@@ -90,7 +90,7 @@ h1, h2 { margin-top: 0; }
 .btn:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
 
 #quotient-info .reflection{
-  background: color-mix(in srgb, var(--current-quotient) 7%, var(--surface,#FBF8F2));
+  background: color-mix(in srgb, var(--current-quotient) 7%, var(--surface,#faf8fb));
   /* border-left: 3px solid var(--current-quotient); */
   border-radius: 2px;
   padding: 18px 20px 19px;
