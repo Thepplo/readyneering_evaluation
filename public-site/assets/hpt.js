@@ -254,6 +254,21 @@ function buildSubmissionPayload() {
   };
 }
 
+function togglePrivacyDetails() {
+  var details = document.getElementById('privacy-details');
+  var toggle = document.getElementById('privacy-details-toggle');
+
+  if (!details || !toggle) return;
+
+  var isOpen = details.classList.toggle('is-open');
+
+  details.setAttribute('aria-hidden', String(!isOpen));
+  toggle.setAttribute('aria-expanded', String(isOpen));
+  toggle.textContent = isOpen
+    ? 'Hide privacy details'
+    : 'Read more about how your data is used';
+}
+
 async function saveAssessment(payload, turnstileToken = null) {
   const idempotencyKey = getSubmitAttemptId();
   const body = turnstileToken ? { ...payload, turnstileToken } : payload;
