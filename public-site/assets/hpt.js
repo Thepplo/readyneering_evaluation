@@ -8,7 +8,7 @@ const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app
 
 const quotientMeta = {
   vitality: {
-    title: "Vitality Q",
+    title: "Vitality",
     color: "var(--vitality)",
     description:
       "The collective energy, resilience and sustainability of the team.",
@@ -17,7 +17,7 @@ const quotientMeta = {
   },
 
   emotion: {
-    title: "Emotion Q",
+    title: "Emotion",
     color: "var(--emotion)",
     description:
       "The quality of trust, care and emotional honesty within the team.",
@@ -26,7 +26,7 @@ const quotientMeta = {
   },
 
   mind: {
-    title: "Mind Q",
+    title: "Mind",
     color: "var(--mind)",
     description:
       "How the team learns, challenges assumptions and makes sense of complexity.",
@@ -35,7 +35,7 @@ const quotientMeta = {
   },
 
   execution: {
-    title: "Execution Q",
+    title: "Execution",
     color: "var(--execution)",
     description:
       "The team's ability to coordinate, commit and reliably deliver together.",
@@ -44,7 +44,7 @@ const quotientMeta = {
   },
 
   alignment: {
-    title: "Alignment Q",
+    title: "Alignment",
     color: "var(--alignment)",
     description:
       "The shared purpose, identity and direction that connect the team.",
@@ -136,10 +136,10 @@ function renderQuotientInfo(quotient) {
   const title = document.getElementById("quotient-title");
   const info = document.getElementById("quotient-info");
 
-  document.documentElement.style.setProperty(
+/*   document.documentElement.style.setProperty(
     "--current-quotient",
     meta.color
-  );
+  ); */
 
   title.textContent = meta.title;
 
