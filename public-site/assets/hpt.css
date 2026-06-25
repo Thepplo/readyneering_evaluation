@@ -1,14 +1,20 @@
+:root {
+  --vitality: #FFD000;
+  --emotion: #E53846;
+  --execution: #2D52B5;
+  --mind: #770136;
+  --alignment: #1B74CD;
+}
+
 body { font-family: system-ui, sans-serif; /* max-width: 720px; */ margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
 .screen { display: none; }
 .screen.active { display: block; }
 h1, h2 { margin-top: 0; }
 .question {
-    margin: 1.25rem 0; 
-    background: #fff; 
-    border: 1px solid #e0dfd8; 
-    border-radius: 12px; 
-    padding: 20px 24px; 
-    }
+    padding: var(--qpad,32px) 0;
+    border-bottom: 1px solid var(--line,#E6DECF);
+
+}
 
 #scr-quotient {
     max-width: 1100px;
@@ -19,7 +25,13 @@ h1, h2 { margin-top: 0; }
     gap: 72px;
     align-items: start;
 }
-
+#quotient-info {
+  background: color-mix(in srgb, var(--vitality) 7%, var(--surface,#FBF8F2));
+  border-left: 3px solid var(--q);
+  border-radius: 2px;
+  padding: 18px 20px 19px;
+  margin-bottom: 38px;
+}
 .prog-wrapper {
     position: sticky;
     top: 52px;
@@ -62,7 +74,7 @@ h1, h2 { margin-top: 0; }
     max-width: 260px;
 }
 
-.answer-legend label{
+.answer-legend .grid label{
     text-align: center;
     font-size: 11px;
     letter-spacing: 0.02em;
@@ -76,7 +88,13 @@ h1, h2 { margin-top: 0; }
     gap: 24px;
 }
 
-.question .stem { margin-bottom: 0.5rem; }
+.question .stem { 
+    display: flex;
+    gap: 13px;
+    margin-bottom: 24px;
+    max-width: 600px; 
+}
+
 .likert { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 .likert label { display: flex; align-items: center; gap: 0.25rem; padding: 0.25rem 0.5rem; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; }
 .likert input:checked + span { font-weight: bold; }

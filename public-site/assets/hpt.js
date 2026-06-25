@@ -165,7 +165,7 @@ function renderQuotient() {
     const div = document.createElement('div');
     div.className = 'question';
     div.innerHTML = `
-      <div class="stem"><strong>${ITEM_INDEX[item.key]}.</strong> ${item.text}</div>
+      <div class="stem"><p><strong>${ITEM_INDEX[item.key]}.</strong></p> <p>${item.text}</p></div>
       <div class="likert">
       ${SCALE_CHOICES.map((v, i) => {
         const isMidpoint = SCALE_CHOICES.length % 2 === 0 && i === SCALE_CHOICES.length / 2;
