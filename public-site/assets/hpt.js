@@ -43,7 +43,6 @@ async function init() {
       alert('This variant is not an HPT assessment.');
       return;
     }
-    const def = VARIANT.instrument.definition;
     SCALE_LABELS = def.scale.labels ?? { 1: 'Never', 2: 'Rarely', 3: 'Sometimes', 4: 'Often', 5: 'Always' };
     SCALE_CHOICES = [];
     for (let v = def.scale.min; v <= def.scale.max; v++) SCALE_CHOICES.push(v);
@@ -57,73 +56,6 @@ async function init() {
 }
 
 init();
-
-/* const QUOTIENTS = [
-  {
-    key: 'vitality',
-    label: 'Vitality Q',
-    description: 'Energy, recovery, and sustainable engagement.',
-    items: [
-      { key: 'q1', text: 'Our team is small enough that every member carries real weight — there are no passengers.' },
-      { key: 'q2', text: 'We talk openly about workload. Overload is flagged early, before people burn out or disengage.' },
-      { key: 'q3', text: 'Team members show up fully — our interactions have real energy, not going-through-the-motions.' },
-      { key: 'q4', text: 'After intense periods, we deliberately recover together rather than pushing through exhaustion.' },
-      { key: 'q5', text: 'We celebrate progress and wins in ways that genuinely recharge the people in this team.' },
-    ],
-  },
-  {
-    key: 'emotion',
-    label: 'Emotion Q',
-    description: 'Trust, care, and how the team handles tension.',
-    items: [
-      { key: 'q6', text: "We are genuinely invested in each other's growth — not just delivery." },
-      { key: 'q7', text: 'Tensions and difficult emotions are named early, before they damage relationships or performance.' },
-      { key: 'q8', text: 'There is a quality of care in this team that goes beyond professionalism.' },
-      { key: 'q9', text: 'When we disagree, we resolve it — conflicts do not go underground or get buried under false consensus.' },
-      { key: 'q10', text: 'Feedback in this team is direct and honest. People say what they actually think, not what is easiest.' },
-    ],
-  },
-  {
-    key: 'mind',
-    label: 'Mind Q',
-    description: 'Skills, thinking quality, and collective intelligence.',
-    items: [
-      { key: 'q11', text: 'Our team has the right mix of technical and functional skills to meet our goals.' },
-      { key: 'q12', text: 'Our team actively develops the interpersonal skills needed to work well together.' },
-      { key: 'q13', text: 'When facing a complex problem, we slow down to separate facts from assumptions before deciding.' },
-      { key: 'q14', text: 'We actively challenge dominant narratives and our own collective blind spots.' },
-      { key: 'q15', text: 'After setbacks, we analyse what happened structurally — what our patterns reveal, not just who to blame.' },
-    ],
-  },
-  {
-    key: 'execution',
-    label: 'Execution Q',
-    description: 'Goals, working agreements, and accountability.',
-    items: [
-      { key: 'q16', text: 'Our team goals are specific and measurable — concrete outcomes everyone can point to and track.' },
-      { key: 'q17', text: 'We have explicit, agreed ways of working — how we meet, decide, and share progress is clear.' },
-      { key: 'q18', text: 'How we handle conflict is agreed and consistently followed.' },
-      { key: 'q19', text: 'When someone commits to something, everyone expects follow-through — we hold each other accountable.' },
-      { key: 'q20', text: 'We regularly review how we are working together, not only what we are delivering.' },
-      { key: 'q21', text: 'We adjust our ways of working when something is not working.' },
-      { key: 'q22', text: 'When we take on a challenge, we produce something together that none of us could have produced alone.' },
-    ],
-  },
-  {
-    key: 'alignment',
-    label: 'Alignment Q',
-    description: 'Shared purpose, identity, and direction.',
-    items: [
-      { key: 'q23', text: 'Our team has a shared purpose beyond the task list — a reason for existing every member could articulate.' },
-      { key: 'q24', text: 'That purpose genuinely shapes daily decisions, not just what gets said at kick-offs or off-sites.' },
-      { key: 'q25', text: 'Decisions made as a team are implemented consistently — even those who disagreed get behind the outcome.' },
-      { key: 'q26', text: 'Belonging to this team has shaped how members see themselves — there is a shared identity.' },
-      { key: 'q27', text: "Our team's purpose connects meaningfully to something larger than our own results." },
-      { key: 'q28', text: 'Every member could articulate why our work matters beyond us.' },
-    ],
-  },
-]; */
-
 let _idx = 1;
 for (const q of QUOTIENTS) for (const it of q.items) ITEM_INDEX[it.key] = _idx++;
 
