@@ -146,17 +146,7 @@ h1, h2 { margin-top: 0; }
     position: relative;
     line-height: 1.1;
 }
-.prog-wrapper h2::before {
-  content: "";
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  background: currentColor;
-}
+
 .prog-wrapper #quotient-info{
     font-size: 15px;
     line-height: 1.65;
