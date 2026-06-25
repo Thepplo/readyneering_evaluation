@@ -73,9 +73,11 @@ function buildQuotientsFromDefinition(def) {
   for (const k of Object.keys(itemsByQuotient)) {
     itemsByQuotient[k].sort((a, b) => a.index - b.index);
   }
-  return Object.entries(def.quotients).map(([key, meta]) => ({
+  const order = def.quotientOrder ?? Object.keys(def.quotients);
+
+  return order.map(key => ({
     key,
-    label: meta.label,
+    label: def.quotients[key].label,
     description: '',
     items: itemsByQuotient[key] ?? [],
   }));
@@ -95,15 +97,13 @@ async function init() {
     QUOTIENTS = buildQuotientsFromDefinition(def);
     let idx = 1;
     for (const q of QUOTIENTS) for (const it of q.items) ITEM_INDEX[it.key] = it.index ?? idx++;
+    $('btn-start').disabled = false;
   } catch (err) {
     console.error(err);
     alert('Failed to load assessment: ' + err.message);
   }
 }
 
-init();
-let _idx = 1;
-for (const q of QUOTIENTS) for (const it of q.items) ITEM_INDEX[it.key] = _idx++;
 
 const answers = {};
 let currentQuotient = 0;
@@ -330,3 +330,4 @@ $('btn-next').addEventListener('click', () => {
     submitAssessment();
   }
 });
+$('btn-start').disabled = true;
