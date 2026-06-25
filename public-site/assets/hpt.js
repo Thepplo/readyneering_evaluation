@@ -6,6 +6,52 @@
 // ---- Config ------------------------------------------------
 const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app/functions/v1';
 
+const quotientMeta = {
+  vitality: {
+    title: "Vitality Q",
+    color: "var(--vitality)",
+    description:
+      "The collective energy, resilience and sustainability of the team.",
+    reflection:
+      "Think about the team's typical rhythm over the past 3–6 months—not just the last busy week."
+  },
+
+  emotion: {
+    title: "Emotion Q",
+    color: "var(--emotion)",
+    description:
+      "The quality of trust, care and emotional honesty within the team.",
+    reflection:
+      "Consider what is consistently true, especially when the team is under pressure."
+  },
+
+  mind: {
+    title: "Mind Q",
+    color: "var(--mind)",
+    description:
+      "How the team learns, challenges assumptions and makes sense of complexity.",
+    reflection:
+      "Think about how decisions are actually made, not how they are intended to be made."
+  },
+
+  execution: {
+    title: "Execution Q",
+    color: "var(--execution)",
+    description:
+      "The team's ability to coordinate, commit and reliably deliver together.",
+    reflection:
+      "Focus on everyday habits and follow-through rather than exceptional moments."
+  },
+
+  alignment: {
+    title: "Alignment Q",
+    color: "var(--alignment)",
+    description:
+      "The shared purpose, identity and direction that connect the team.",
+    reflection:
+      "Think about whether purpose genuinely influences daily behaviour and decisions."
+  }
+};
 
 /* const SCALE_LABELS = { 1: 'Never', 2: 'Rarely', 3: 'Sometimes', 4: 'Often', 5: 'Always' }; */
 async function loadVariant() {
@@ -85,10 +131,33 @@ function getSubmitAttemptId() {
   return id;
 }
 
+function renderQuotientInfo(quotient) {
+  const meta = quotientMeta[quotient];
+  const title = document.getElementById("quotient-title");
+  const info = document.getElementById("quotient-info");
+
+  document.documentElement.style.setProperty(
+    "--current-quotient",
+    meta.color
+  );
+
+  title.textContent = meta.title;
+
+  info.innerHTML = `
+    <p class="description">${meta.description}</p>
+
+    <div class="reflection">
+      <strong>As you respond</strong>
+      <p>${meta.reflection}</p>
+    </div>
+  `;
+}
+
 function renderQuotient() {
   const q = QUOTIENTS[currentQuotient];
-  $('progress').textContent = `Page ${currentQuotient + 1} of ${QUOTIENTS.length} — ${q.label}`;
-  $('quotient-title').textContent = `${q.label}: ${q.description}`;
+  $('progress').textContent = `Page ${currentQuotient + 1} of ${QUOTIENTS.length}`;
+  /* $('quotient-title').textContent = `${q.label}: ${q.description}`; */
+  renderQuotientInfo(q)
 
   const container = $('questions-container');
   container.innerHTML = '';
