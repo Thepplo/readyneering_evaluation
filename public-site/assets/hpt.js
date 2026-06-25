@@ -170,7 +170,6 @@ function renderQuotient() {
       ${SCALE_CHOICES.map((v, i) => {
         const isMidpoint = SCALE_CHOICES.length % 2 === 0 && i === SCALE_CHOICES.length / 2;
         return `
-          ${isMidpoint ? '<span class="scale-divider" aria-hidden="true"></span>' : ''}
           <label>
             <input type="radio" name="${item.key}" value="${v}" ${answers[item.key] === v ? 'checked' : ''}>
             <!-- <span>${SCALE_LABELS[v] ?? v}</span> --!>

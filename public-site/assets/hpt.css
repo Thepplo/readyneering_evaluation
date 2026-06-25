@@ -114,6 +114,7 @@ h1, h2 { margin-top: 0; }
     display: grid;
     grid-template-columns: repeat(6,1fr);
     gap: 4px;
+    @style-before: content:''; position:absolute; left:8.33%; right:8.33%; top:50%; height:1px; background:var(--track,#E2DAC9); z-index:0;;
 }
 
 .likert label { 
