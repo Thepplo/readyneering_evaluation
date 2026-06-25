@@ -1,4 +1,4 @@
-body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+body { font-family: system-ui, sans-serif; /* max-width: 720px; */ margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
 .screen { display: none; }
 .screen.active { display: block; }
 h1, h2 { margin-top: 0; }
@@ -30,7 +30,7 @@ h1, h2 { margin-top: 0; }
     position: sticky;
     top: 0px;
     z-index: 5;
-    background: var(--paper,#F4EFE6);
+    background: white;
     padding: 22px 0px 14px;
     border-bottom: 1px solid var(--line,#E6DECF);
 }
@@ -46,7 +46,23 @@ h1, h2 { margin-top: 0; }
     grid-template-columns: repeat(6, 1fr);
     gap: 4px;
 }
-.answer-legend .label{
+.prog-wrapper h2{
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 0px 0px 16px;
+
+    line-height: 1.1;
+}
+.prog-wrapper #quotient-info{
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--muted,#97907E);
+    margin: 0px 0px 30px;
+    max-width: 260px;
+}
+
+.answer-legend label{
     text-align: center;
     font-size: 11px;
     letter-spacing: 0.02em;
