@@ -155,7 +155,8 @@ function renderQuotientInfo(quotient) {
 
 function renderQuotient() {
   const q = QUOTIENTS[currentQuotient];
-  $('progress').textContent = `Page ${currentQuotient + 1} of ${QUOTIENTS.length}`;
+  $('progress-page').textContent = `Page ${currentQuotient + 1} of ${QUOTIENTS.length}`;
+
   /* $('quotient-title').textContent = `${q.label}: ${q.description}`; */
   renderQuotientInfo(q.key)
 
@@ -199,11 +200,23 @@ function renderQuotient() {
       });
 
       $('quotient-err').hidden = true;
+      updatePageProgress();
     });
   });
 
   $('btn-back').disabled = currentQuotient === 0;
   $('btn-next').textContent = currentQuotient === QUOTIENTS.length - 1 ? 'Submit' : 'Next';
+  updatePageProgress();
+
+}
+
+function updatePageProgress() {
+  const q = QUOTIENTS[currentQuotient];
+  const total = q.items.length;
+  const answered = q.items.filter(it => Number.isInteger(answers[it.key])).length;
+  $('progress-answered').textContent = answered;
+  $('progress-total').textContent = total;
+  $('progress-fill').style.width = `${(answered / total) * 100}%`;
 }
 
 function validateCurrentQuotient() {
