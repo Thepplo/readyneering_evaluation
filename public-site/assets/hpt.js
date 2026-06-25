@@ -169,14 +169,16 @@ function renderQuotient() {
       <div class="likert">
       ${SCALE_CHOICES.map((v, i) => {
         const isSelected = answers[item.key] === v;
+        const isMidGap = SCALE_CHOICES.length % 2 === 0 && i === SCALE_CHOICES.length / 2;
         return `
+          ${isMidGap ? '<span class="scale-divider" aria-hidden="true"></span>' : ''}
           <button type="button"
-                  class="likert-btn"
+                  class="likert-btn${isSelected ? ' is-selected' : ''}"
                   role="radio"
-                  aria-checked="false"
-                  aria-label="3"
-                  data-item="q1"
-                  data-value="3">
+                  aria-checked="${isSelected}"
+                  aria-label="${SCALE_LABELS[v] ?? v}"
+                  data-item="${item.key}"
+                  data-value="${v}">
             <span class="likert-dot" aria-hidden="true"></span>
           </button>
         `;
