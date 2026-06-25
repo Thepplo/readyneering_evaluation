@@ -18,6 +18,7 @@ async function loadVariant() {
 let VARIANT = null;
 let QUOTIENTS = [];
 let ITEM_INDEX = {};
+let SCALE_CHOICES = [1, 2, 3, 4, 5];
 let SCALE_LABELS = {};
 
 function buildQuotientsFromDefinition(def) {
@@ -42,7 +43,10 @@ async function init() {
       alert('This variant is not an HPT assessment.');
       return;
     }
+    const def = VARIANT.instrument.definition;
     SCALE_LABELS = def.scale.labels ?? { 1: 'Never', 2: 'Rarely', 3: 'Sometimes', 4: 'Often', 5: 'Always' };
+    SCALE_CHOICES = [];
+    for (let v = def.scale.min; v <= def.scale.max; v++) SCALE_CHOICES.push(v);
     QUOTIENTS = buildQuotientsFromDefinition(def);
     let idx = 1;
     for (const q of QUOTIENTS) for (const it of q.items) ITEM_INDEX[it.key] = it.index ?? idx++;
@@ -162,12 +166,16 @@ function renderQuotient() {
     div.innerHTML = `
       <div class="stem"><strong>${ITEM_INDEX[item.key]}.</strong> ${item.text}</div>
       <div class="likert">
-        ${[1,2,3,4,5].map(v => `
+      ${SCALE_CHOICES.map((v, i) => {
+        const isMidpoint = SCALE_CHOICES.length % 2 === 0 && i === SCALE_CHOICES.length / 2;
+        return `
+          ${isMidpoint ? '<span class="scale-divider" aria-hidden="true"></span>' : ''}
           <label>
             <input type="radio" name="${item.key}" value="${v}" ${answers[item.key] === v ? 'checked' : ''}>
-            <span>${v} — ${SCALE_LABELS[v]}</span>
+            <span>${SCALE_LABELS[v] ?? v}</span>
           </label>
-        `).join('')}
+        `;
+      }).join('')}
       </div>
     `;
     container.appendChild(div);
