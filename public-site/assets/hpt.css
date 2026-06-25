@@ -30,7 +30,7 @@ h1, h2 { margin-top: 0; }
 }
 
 #scr-quotient.active{
-    display: grid;
+    display: grid !important;
 }
 
 #quotient-info .reflection{
