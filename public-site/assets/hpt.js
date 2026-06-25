@@ -9,8 +9,55 @@ const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app
 // ---- Instrument definition (mirrors instrument_versions.definition) ----
 // In a real app you'd fetch this from the server. Inlined here for simplicity.
 const SCALE_LABELS = { 1: 'Never', 2: 'Rarely', 3: 'Sometimes', 4: 'Often', 5: 'Always' };
+async function loadVariant() {
+  const variantKey = getQueryParam('variant') || 'hpt-test';
+  const r = await fetch(`${SUPABASE_FUNCTIONS_BASE}/variant?variant=${encodeURIComponent(variantKey)}`);
+  if (!r.ok) throw new Error('Failed to load variant');
+  return r.json();
+}
 
-const QUOTIENTS = [
+let VARIANT = null;          // populated at startup
+let QUOTIENTS = [];          // derived from VARIANT.instrument.definition
+let ITEM_INDEX = {};
+let SCALE_LABELS = {};
+
+function buildQuotientsFromDefinition(def) {
+  // def.quotients is { vitality: { label, items: ['q1',...], max }, ... }
+  // def.items is [{ key, text, index, quotient }, ...]
+  const itemsByQuotient = {};
+  for (const it of def.items) (itemsByQuotient[it.quotient] ??= []).push(it);
+  for (const k of Object.keys(itemsByQuotient)) {
+    itemsByQuotient[k].sort((a, b) => a.index - b.index);
+  }
+  return Object.entries(def.quotients).map(([key, meta]) => ({
+    key,
+    label: meta.label,
+    description: '',
+    items: itemsByQuotient[key] ?? [],
+  }));
+}
+
+async function init() {
+  try {
+    VARIANT = await loadVariant();
+    const def = VARIANT.instrument.definition;
+    if (def.type !== 'likert_sum') {
+      alert('This variant is not an HPT assessment.');
+      return;
+    }
+    SCALE_LABELS = def.scale.labels ?? { 1: 'Never', 2: 'Rarely', 3: 'Sometimes', 4: 'Often', 5: 'Always' };
+    QUOTIENTS = buildQuotientsFromDefinition(def);
+    let idx = 1;
+    for (const q of QUOTIENTS) for (const it of q.items) ITEM_INDEX[it.key] = it.index ?? idx++;
+  } catch (err) {
+    console.error(err);
+    alert('Failed to load assessment: ' + err.message);
+  }
+}
+
+init();
+
+/* const QUOTIENTS = [
   {
     key: 'vitality',
     label: 'Vitality Q',
@@ -74,7 +121,7 @@ const QUOTIENTS = [
       { key: 'q28', text: 'Every member could articulate why our work matters beyond us.' },
     ],
   },
-];
+]; */
 
 // Item index lookup so we send the same `item_index` the server expects.
 const ITEM_INDEX = {};
