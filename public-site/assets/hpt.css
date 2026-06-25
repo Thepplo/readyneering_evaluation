@@ -153,7 +153,7 @@ h1, h2 { margin-top: 0; }
   border-radius: 50%;
   background: var(--surface,#FBF8F2);
   border: 1.5px solid color-mix(in srgb, var(--muted,#97907E) 60%, transparent);
-  transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.35s ease;
 }
 
 @media (hover: hover) {
