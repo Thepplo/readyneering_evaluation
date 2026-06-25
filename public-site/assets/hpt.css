@@ -54,14 +54,6 @@ h1, h2 { margin-top: 0; }
     display: flex;
     flex-direction: column;
 }
-.questions-container {
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    black 60px,
-    black 100%
-  );
-}
 
 .answer-legend {
   position: sticky;
@@ -71,6 +63,19 @@ h1, h2 { margin-top: 0; }
   padding: 22px 0 14px;
   border-bottom: 1px solid var(--line, #E6DECF);
   /* no backdrop-filter */
+}
+.legend-fade {
+  position: sticky;
+  top: 60px;
+  height: 24px;
+  z-index: 4;
+  margin-bottom: -24px;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    var(--bg, #faf6ef),
+    transparent
+  );
 }
 .answer-legend .title{
     font-size: 14px;
