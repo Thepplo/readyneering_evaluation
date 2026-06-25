@@ -95,8 +95,19 @@ h1, h2 { margin-top: 0; }
     font-weight: 600;
     letter-spacing: -0.015em;
     margin: 0px 0px 16px;
-
+    position: relative;
     line-height: 1.1;
+}
+.prog-wrapper h2::before {
+  content: "";
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: currentColor;
 }
 .prog-wrapper #quotient-info{
     font-size: 15px;
