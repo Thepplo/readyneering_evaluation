@@ -54,14 +54,23 @@ h1, h2 { margin-top: 0; }
     display: flex;
     flex-direction: column;
 }
-.answer-legend{
-    position: sticky;
-    top: 0px;
-    z-index: 5;
-    background: transparent;
-    backdrop-filter: blur(5px);
-    padding: 22px 0px 14px;
-    border-bottom: 1px solid var(--line,#E6DECF);
+.questions-container {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    black 60px,
+    black 100%
+  );
+}
+
+.answer-legend {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: transparent;
+  padding: 22px 0 14px;
+  border-bottom: 1px solid var(--line, #E6DECF);
+  /* no backdrop-filter */
 }
 .answer-legend .title{
     font-size: 14px;
