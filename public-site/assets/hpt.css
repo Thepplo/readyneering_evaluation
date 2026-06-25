@@ -11,7 +11,8 @@ body {
     margin: 2rem auto; 
     padding: 0 1rem; 
     line-height: 1.5;
-    background: linear-gradient(#faf8fb, #f3eef6); 
+    background: linear-gradient(#faf8fb, #f3eef6);
+    min-height: 100vh;
 }
 .screen { display: none; }
 .screen.active { display: block; }
@@ -64,7 +65,7 @@ h1, h2 { margin-top: 0; }
 }
 .answer-legend .title{
     font-size: 14px;
-    color: var(--muted,#97907E);
+    color: #2A251E;
     line-height: 1.5;
     margin-bottom: 16px;
 }
@@ -93,9 +94,9 @@ h1, h2 { margin-top: 0; }
 
 .answer-legend .grid span{
     text-align: center;
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.02em;
-    color: var(--muted,#97907E);
+    color: #2A251E;
 }
 
 
