@@ -112,6 +112,26 @@ h1, h2 { margin-top: 0; }
     max-width: 600px; 
 }
 
+.brand {
+  position: fixed;
+  top: 20px;
+  left: 24px;
+  width: clamp(96px, 10vw, 180px);
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 1100px) {
+  .brand {
+    width: 110px;
+    opacity: 0.7;
+  }
+}
+@media (max-width: 640px) {
+  .brand {
+    display: none;
+  }
+}
 .stem-num {
     font-size: 17px;
     font-weight: 600;
