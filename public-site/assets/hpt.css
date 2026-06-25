@@ -15,16 +15,24 @@ h1, h2 { margin-top: 0; }
     border-bottom: 1px solid var(--line,#E6DECF);
 
 }
-
+#scr-intro {
+    max-width: 700px;
+    margin: 0px auto;
+}
 #scr-quotient {
     max-width: 1100px;
     margin: 0px auto;
     padding: 60px 48px 140px;
-    display: grid;
+    display: none;
     grid-template-columns: 300px 1fr;
     gap: 72px;
     align-items: start;
 }
+
+#scr-quotient {
+    display: grid;
+}
+
 #quotient-info .reflection{
   background: color-mix(in srgb, var(--vitality) 7%, var(--surface,#FBF8F2));
   border-left: 3px solid var(--q);
