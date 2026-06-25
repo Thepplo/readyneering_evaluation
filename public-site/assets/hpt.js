@@ -331,3 +331,5 @@ $('btn-next').addEventListener('click', () => {
   }
 });
 $('btn-start').disabled = true;
+
+init();
