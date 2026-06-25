@@ -168,12 +168,17 @@ function renderQuotient() {
       <div class="stem"><p class="stem-num">${ITEM_INDEX[item.key]}</p> <p class="stem-q">${item.text}</p></div>
       <div class="likert">
       ${SCALE_CHOICES.map((v, i) => {
-        const isMidpoint = SCALE_CHOICES.length % 2 === 0 && i === SCALE_CHOICES.length / 2;
+        const isSelected = answers[item.key] === v;
         return `
-          <label>
-            <input type="radio" name="${item.key}" value="${v}" ${answers[item.key] === v ? 'checked' : ''}>
-            <!-- <span>${SCALE_LABELS[v] ?? v}</span> --!>
-          </label>
+          <button type="button"
+                  class="likert-btn"
+                  role="radio"
+                  aria-checked="false"
+                  aria-label="3"
+                  data-item="q1"
+                  data-value="3">
+            <span class="likert-dot" aria-hidden="true"></span>
+          </button>
         `;
       }).join('')}
       </div>
@@ -181,9 +186,18 @@ function renderQuotient() {
     container.appendChild(div);
   }
 
-  container.querySelectorAll('input[type=radio]').forEach(input => {
-    input.addEventListener('change', e => {
-      answers[e.target.name] = Number(e.target.value);
+  container.querySelectorAll('.likert-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const itemKey = btn.dataset.item;
+      const value = Number(btn.dataset.value);
+      answers[itemKey] = value;
+
+      btn.parentElement.querySelectorAll('.likert-btn').forEach(b => {
+        const sel = Number(b.dataset.value) === value;
+        b.classList.toggle('is-selected', sel);
+        b.setAttribute('aria-checked', sel);
+      });
+
       $('quotient-err').hidden = true;
     });
   });
