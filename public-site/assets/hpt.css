@@ -69,6 +69,7 @@ h1, h2 { margin-top: 0; }
 }
 .prog-wrapper h2{
     font-size: 34px;
+    color: var(--current-quotient);
     font-weight: 600;
     letter-spacing: -0.015em;
     margin: 0px 0px 16px;
@@ -153,7 +154,8 @@ h1, h2 { margin-top: 0; }
 
 .likert-btn:focus { outline: none; }
 .likert-btn:focus-visible .likert-dot {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--muted,#97907E) 25%, transparent);
+  /* box-shadow: 0 0 0 3px color-mix(in srgb, var(--muted,#97907E) 25%, transparent); */
+  box-shadow:0 0 0 6px color-mix(in srgb, var(--current-quotient) 12%, transparent)
 }
 
 .likert-dot {
@@ -174,7 +176,9 @@ h1, h2 { margin-top: 0; }
 
 .likert-btn.is-selected .likert-dot {
   background: var(--current-quotient);
-  border-color: var(--current-quotient);
+  border-color: #f5f5f5;
+  box-shadow:0 0 0 6px color-mix(in srgb, var(--current-quotient) 12%, transparent)
+
 }
 
 .likert input:checked + span { font-weight: bold; }
