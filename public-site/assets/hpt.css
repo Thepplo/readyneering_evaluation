@@ -15,7 +15,8 @@ h1, h2 { margin-top: 0; }
     border-bottom: 1px solid var(--line,#E6DECF);
 
 }
-#scr-intro {
+#scr-intro,
+#scr-results {
     max-width: 700px;
     margin: 0px auto;
 }
@@ -34,8 +35,8 @@ h1, h2 { margin-top: 0; }
 }
 
 #quotient-info .reflection{
-  background: color-mix(in srgb, var(--vitality) 7%, var(--surface,#FBF8F2));
-  border-left: 3px solid var(--q);
+  background: color-mix(in srgb, var(--current-quotient) 7%, var(--surface,#FBF8F2));
+  border-left: 3px solid var(--current-quotient);
   border-radius: 2px;
   padding: 18px 20px 19px;
   margin-bottom: 38px;
@@ -172,8 +173,8 @@ h1, h2 { margin-top: 0; }
 }
 
 .likert-btn.is-selected .likert-dot {
-  background: var(--current-quotient, var(--ink,#2A251E));
-  border-color: var(--current-quotient, var(--ink,#2A251E));
+  background: var(--current-quotient);
+  border-color: var(--current-quotient);
 }
 
 .likert input:checked + span { font-weight: bold; }

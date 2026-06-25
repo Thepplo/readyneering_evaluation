@@ -136,10 +136,10 @@ function renderQuotientInfo(quotient) {
   const title = document.getElementById("quotient-title");
   const info = document.getElementById("quotient-info");
 
-/*   document.documentElement.style.setProperty(
+  document.documentElement.style.setProperty(
     "--current-quotient",
     meta.color
-  ); */
+  ); 
 
   title.textContent = meta.title;
 
