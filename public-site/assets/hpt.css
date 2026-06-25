@@ -128,7 +128,7 @@ h1, h2 { margin-top: 0; }
 } */
 .answer-legend .title{
     font-size: 14px;
-    color: #2A251E;
+    color: #2A251E99;
     line-height: 1.5;
     margin-bottom: 16px;
 }
@@ -138,6 +138,14 @@ h1, h2 { margin-top: 0; }
     grid-template-columns: repeat(6, 1fr);
     gap: 4px;
 }
+
+.answer-legend .grid span{
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: #2A251E99;
+}
+
 .prog-wrapper h2{
     font-size: 34px;
     color: var(--current-quotient);
@@ -156,12 +164,7 @@ h1, h2 { margin-top: 0; }
     max-width: 260px;
 }
 
-.answer-legend .grid span{
-    text-align: center;
-    font-size: 13px;
-    letter-spacing: 0.02em;
-    color: #2A251E;
-}
+
 
 
 .assessment {
