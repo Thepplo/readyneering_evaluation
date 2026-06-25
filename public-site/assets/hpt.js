@@ -157,7 +157,7 @@ function renderQuotient() {
   const q = QUOTIENTS[currentQuotient];
   $('progress').textContent = `Page ${currentQuotient + 1} of ${QUOTIENTS.length}`;
   /* $('quotient-title').textContent = `${q.label}: ${q.description}`; */
-  renderQuotientInfo(currentQuotient)
+  renderQuotientInfo(q.key)
 
   const container = $('questions-container');
   container.innerHTML = '';
