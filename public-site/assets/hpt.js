@@ -120,17 +120,13 @@ init();
   },
 ]; */
 
-// Item index lookup so we send the same `item_index` the server expects.
-const ITEM_INDEX = {};
 let _idx = 1;
 for (const q of QUOTIENTS) for (const it of q.items) ITEM_INDEX[it.key] = _idx++;
 
-// ---- State ------------------------------------------------
-const answers = {};            // { q1: 4, q2: 5, ... }
-let currentQuotient = 0;       // index into QUOTIENTS
-let currentResult = null;      // populated after submit
+const answers = {};
+let currentQuotient = 0;
+let currentResult = null;
 
-// ---- Helpers ------------------------------------------------
 function $(id) { return document.getElementById(id); }
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
@@ -153,7 +149,6 @@ function getSubmitAttemptId() {
   return id;
 }
 
-// ---- Render quotient page ------------------------------------------------
 function renderQuotient() {
   const q = QUOTIENTS[currentQuotient];
   $('progress').textContent = `Page ${currentQuotient + 1} of ${QUOTIENTS.length} — ${q.label}`;
@@ -178,7 +173,6 @@ function renderQuotient() {
     container.appendChild(div);
   }
 
-  // Wire up answer capture
   container.querySelectorAll('input[type=radio]').forEach(input => {
     input.addEventListener('change', e => {
       answers[e.target.name] = Number(e.target.value);
@@ -201,7 +195,6 @@ function validateCurrentQuotient() {
   return true;
 }
 
-// ---- Submission ------------------------------------------------
 function buildSubmissionPayload() {
   const items = [];
   for (const q of QUOTIENTS) {
@@ -220,7 +213,6 @@ function buildSubmissionPayload() {
       session_id: getSessionId(),
       metadata: {
         source: 'web_app',
-        // industry / size / privacy could be added here later
       },
     },
     items,
@@ -255,11 +247,10 @@ async function submitAssessment() {
   } catch (err) {
     console.error(err);
     alert('Submission failed: ' + err.message);
-    showScreen('scr-quotient'); // bounce back so user can retry
+    showScreen('scr-quotient');
   }
 }
 
-// ---- Render results ------------------------------------------------
 function renderResults(saved) {
   const report = saved.report?.open;
   if (!report) {
@@ -268,7 +259,6 @@ function renderResults(saved) {
     return;
   }
 
-  // Minimal summary — replace with real design
   const html = `
     <p><strong>Team type:</strong> ${report.teamType.label} (${report.teamType.range}) — total ${report.total}/140</p>
     <p>${report.teamType.description}</p>
@@ -294,7 +284,6 @@ function renderResults(saved) {
   $('results-debug').textContent = JSON.stringify(report, null, 2);
 }
 
-// ---- Wire up navigation ------------------------------------------------
 $('btn-start').addEventListener('click', () => {
   currentQuotient = 0;
   renderQuotient();
