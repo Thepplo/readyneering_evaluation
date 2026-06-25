@@ -166,7 +166,6 @@ h1, h2 { margin-top: 0; }
 .likert-btn.is-selected .likert-dot {
   background: var(--current-quotient, var(--ink,#2A251E));
   border-color: var(--current-quotient, var(--ink,#2A251E));
-  transform: scale(1.2);
 }
 
 .likert input:checked + span { font-weight: bold; }
