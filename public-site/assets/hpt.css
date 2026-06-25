@@ -2,7 +2,33 @@ body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; 
 .screen { display: none; }
 .screen.active { display: block; }
 h1, h2 { margin-top: 0; }
-.question { margin: 1.25rem 0; padding: 1rem; border: 1px solid #ddd; border-radius: 6px; }
+.question {
+    margin: 1.25rem 0; 
+    background: #fff; 
+    border: 1px solid #e0dfd8; 
+    border-radius: 12px; 
+    padding: 20px 24px; 
+    }
+
+#scr-quotient {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 700px);
+    gap: 64px;
+    justify-content: center;
+    align-items: start;
+}
+
+.prog-wrapper {
+    position: sticky;
+    top: 32px;
+}
+
+.assessment {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
 .question .stem { margin-bottom: 0.5rem; }
 .likert { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 .likert label { display: flex; align-items: center; gap: 0.25rem; padding: 0.25rem 0.5rem; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; }

@@ -20,14 +20,22 @@
   </div>
 
   <div id="scr-quotient" class="screen">
-    <div class="progress" id="progress"></div>
-    <h2 id="quotient-title"></h2>
-    <div id="questions-container"></div>
-    <div class="err" id="quotient-err" hidden></div>
-    <div class="nav">
-      <button id="btn-back">Back</button>
-      <button id="btn-next">Next</button>
-    </div>
+    <aside class="prog-wrapper">
+      <div class="progress" id="progress"></div>
+      <h2 id="quotient-title"></h2>
+      <p id="quotient-info"></p>
+    </aside>
+
+    <main class="assessment">
+      <div id="questions-container"></div>
+
+      <div class="err" id="quotient-err" hidden></div>
+
+      <div class="nav">
+        <button id="btn-back">Back</button>
+        <button id="btn-next">Next</button>
+      </div>
+    </main>
   </div>
 
   <div id="scr-loading" class="screen">
