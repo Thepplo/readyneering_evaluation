@@ -205,7 +205,7 @@ function renderQuotient() {
   });
 
   $('btn-back').disabled = currentQuotient === 0;
-  $('btn-next').textContent = currentQuotient === QUOTIENTS.length - 1 ? 'Submit' : 'Next';
+  $('btn-next-label').textContent = currentQuotient === QUOTIENTS.length - 1 ? 'Submit' : 'Next';
   updatePageProgress();
 
 }

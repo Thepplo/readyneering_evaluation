@@ -14,7 +14,9 @@
     <p>~5 minutes. Five quotients: Vitality, Emotion, Mind, Execution, Alignment.</p>
     <div class="nav">
       <span></span>
-      <button id="btn-start">Begin</button>
+      <button id="btn-start" class="btn primary">
+        Begin <span class="arrow" aria-hidden="true"></span>
+      </button>
     </div>
   </div>
 
@@ -26,7 +28,7 @@
         <div class="progress-flex">
           <div class="progress" id="progress-page"></div>
           <div class="progress" id="q-progress">
-            <span id="progress-answered">0</span> of <span id="progress-total">0</span> answered
+            <span id="progress-answered">0</span> of <span id="progress-total">0</span> questions
           </div>
         </div>
         <div class="quotient-progress-bar">
@@ -52,8 +54,14 @@
       <div class="err" id="quotient-err" hidden></div>
 
       <div class="nav">
-        <button id="btn-back">Back</button>
-        <button id="btn-next">Next</button>
+        <button id="btn-back" class="btn">
+          <span class="arrow-back" aria-hidden="true"></span> Back
+        </button>
+
+        <button id="btn-next" class="btn primary">
+          <span id="btn-next-label">Next</span>
+          <span class="arrow" aria-hidden="true"></span>
+        </button>
       </div>
     </main>
   </div>
