@@ -147,7 +147,7 @@ function renderQuotientInfo(quotient) {
     <p class="description">${meta.description}</p>
 
     <div class="reflection">
-      <strong>As you respond</strong>
+      <strong style="font-size: 11px;letter-spacing: 0.12em;text-transform: uppercase;font-weight: 600;color: var(--ink,#2A251E);margin-bottom: 9px;">As you respond</strong>
       <p>${meta.reflection}</p>
     </div>
   `;
