@@ -96,8 +96,7 @@ function getQueryParam(name) {
   return new URLSearchParams(window.location.search).get(name);
 }
 function getVariantKey() {
-  // Default for local dev — override with ?variant=... in URL
-  return getQueryParam('variant') || 'hpt-test';
+  return getQueryParam('variant') || 'hpt-default';
 }
 function getSessionId() {
   let s = sessionStorage.getItem('hpt_session');
