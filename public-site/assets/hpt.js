@@ -165,7 +165,7 @@ function renderQuotient() {
     const div = document.createElement('div');
     div.className = 'question';
     div.innerHTML = `
-      <div class="stem"><p><strong>${ITEM_INDEX[item.key]}.</strong></p> <p>${item.text}</p></div>
+      <div class="stem"><p class="stem-num">${ITEM_INDEX[item.key]}</p> <p class="stem-q">${item.text}</p></div>
       <div class="likert">
       ${SCALE_CHOICES.map((v, i) => {
         const isMidpoint = SCALE_CHOICES.length % 2 === 0 && i === SCALE_CHOICES.length / 2;
@@ -173,7 +173,7 @@ function renderQuotient() {
           ${isMidpoint ? '<span class="scale-divider" aria-hidden="true"></span>' : ''}
           <label>
             <input type="radio" name="${item.key}" value="${v}" ${answers[item.key] === v ? 'checked' : ''}>
-            <span>${SCALE_LABELS[v] ?? v}</span>
+            <!-- <span>${SCALE_LABELS[v] ?? v}</span> --!>
           </label>
         `;
       }).join('')}

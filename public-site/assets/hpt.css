@@ -25,7 +25,7 @@ h1, h2 { margin-top: 0; }
     gap: 72px;
     align-items: start;
 }
-#quotient-info {
+#quotient-info .reflection{
   background: color-mix(in srgb, var(--vitality) 7%, var(--surface,#FBF8F2));
   border-left: 3px solid var(--q);
   border-radius: 2px;
@@ -74,7 +74,7 @@ h1, h2 { margin-top: 0; }
     max-width: 260px;
 }
 
-.answer-legend .grid label{
+.answer-legend .grid span{
     text-align: center;
     font-size: 11px;
     letter-spacing: 0.02em;
@@ -95,8 +95,40 @@ h1, h2 { margin-top: 0; }
     max-width: 600px; 
 }
 
-.likert { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.likert label { display: flex; align-items: center; gap: 0.25rem; padding: 0.25rem 0.5rem; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; }
+.stem-num {
+    font-size: 17px;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--q) 68%, var(--ink,#2A251E));
+    flex: none;
+    min-width: 24px;
+}
+
+.stem-q {
+    font-size: 17px;
+    line-height: 1.55;
+    color: color-mix(in srgb, var(--ink,#2A251E) 92%, transparent);
+}
+
+.likert {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    gap: 4px;
+}
+
+.likert label { 
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
 .likert input:checked + span { font-weight: bold; }
 .nav { display: flex; justify-content: space-between; margin-top: 2rem; }
 button { padding: 0.6rem 1.2rem; font-size: 1rem; cursor: pointer; }
