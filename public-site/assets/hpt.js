@@ -394,6 +394,10 @@ function renderCompactQuotientRow(q) {
   `;
 }
 
+function stripSignalPrefix(text) {
+  return String(text || '').replace(/^[^:]+:\s*/, '');
+}
+
 function renderResults(saved) {
   const report = saved.report?.open;
   if (!report) {
@@ -441,14 +445,16 @@ function renderResults(saved) {
           </div>
 
           <div>
-            <small>${q.signal.text}</small>
+            <small>${stripSignalPrefix(q.signal.text)}</small>
           </div>
         </div>
       `;
     }).join("")}
     </div>
-    <h3>Critical questions for your team</h3>
-    <ol>${report.criticalQuestions.map(q => `<li>${q}</li>`).join('')}</ol>
+    <div class="result-question-wrapper">
+      <p class="results-eb">Critical questions for your team</p>
+      ${report.criticalQuestions.map(q => `<div class="result-question">${q}</div>`).join('')}
+    </div>
   `;
   $('results-summary').innerHTML = html;
   $('results-debug').textContent = JSON.stringify(report, null, 2);
