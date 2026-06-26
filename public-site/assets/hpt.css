@@ -542,6 +542,15 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   color: var(--muted,#8A9099);
 }
 
+.results-eb-title {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink,#2A251E);
+  margin: 0px 0px 8px;
+}
+
 .results-teamtype{
   font-size: 33px;
   font-weight: 600;
