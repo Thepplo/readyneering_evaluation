@@ -336,7 +336,8 @@ function renderResults(saved) {
   }
 
   const html = `
-    <p><strong>Team type:</strong> ${report.teamType.label} (${report.teamType.range}) — total ${report.total}/140</p>
+    <p class="results-eb">Team Type</p>
+    <p class="results-team"><span class=results-teamtype>${report.teamType.label}</span> (${report.teamType.range}) — total ${report.total}/140</p>
     <p>${report.teamType.description}</p>
     <h3>Indices</h3>
     <ul>
