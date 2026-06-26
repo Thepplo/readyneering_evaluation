@@ -144,12 +144,18 @@ h1, h2 { margin-top: 0; }
 }
 
 .privacy-details-toggle {
-  font-size: 13px;
+  margin-top: 0.4rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #111827;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--ink,#2A251E);
   text-decoration: none;
+  text-underline-offset: 3px;
   border-bottom: 1.5px solid color-mix(in srgb, var(--ink,#2A251E) 35%, transparent);
   padding-bottom: 1px;
+  cursor: pointer;
 }
 
 .privacy-details {
