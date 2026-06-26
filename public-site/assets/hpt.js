@@ -350,7 +350,7 @@ function submitAssessment() {
     alert('Verification is still loading. Please try again in a moment.');
     return;
   }
-  showScreen('scr-verify');
+  showScreen('turnstile-shell');
   renderTurnstileWidget();
 }
 
