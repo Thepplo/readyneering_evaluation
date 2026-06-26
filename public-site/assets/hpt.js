@@ -387,7 +387,7 @@ function renderResults(saved) {
   $('results-debug').textContent = JSON.stringify(report, null, 2);
 }
 
-document.getElementById('start-btn').addEventListener('click', startAssessment);
+document.getElementById('btn-start').addEventListener('click', startAssessment);
 
 
 $('btn-back').addEventListener('click', () => {
