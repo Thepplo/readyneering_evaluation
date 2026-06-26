@@ -594,9 +594,13 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   position: absolute;
   inset: 0;
   border-radius: 999px;
-  background: linear-gradient(90deg,
-    #fecdd3 0%, #fde68a 35%, #a7f3d0 62.5%, #bfdbfe 82.5%, #bfdbfe 100%
-  );
+  background: color-mix(in srgb, var(--muted,#97907E) 18%, transparent);
+}
+.q-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--current-quotient, var(--ink, #2A251E));
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .q-bar::before {
   content: "";
@@ -608,7 +612,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
     linear-gradient(90deg, transparent calc(62.5% - 0.5px), rgba(0,0,0,0.15) 62.5%, transparent calc(62.5% + 0.5px)),
     linear-gradient(90deg, transparent calc(82.5% - 0.5px), rgba(0,0,0,0.15) 82.5%, transparent calc(82.5% + 0.5px));
 }
-.q-tick {
+/* .q-tick {
   position: absolute;
   top: -3px;
   bottom: -3px;
@@ -618,7 +622,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   border-radius: 1px;
   transform: translateX(-50%);
   box-shadow: 0 0 0 2px #fff;
-}
+} */
 
 .q-score {
   display: flex;

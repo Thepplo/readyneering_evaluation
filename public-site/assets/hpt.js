@@ -427,7 +427,10 @@ function renderResults(saved) {
           </div>
           <div class="q-scale" style="--pos:${(q.pct * 100).toFixed(0)}%;">
             <div class="q-bar"></div>
-            <div class="q-tick"></div>
+            <div
+              class="q-bar-fill"
+              style="--width:${(q.pct * 100).toFixed(0)}%; --current-quotient:${q.key}"
+            ></div>
           </div>
           <div>
             <small>${q.signal.text}</small>
