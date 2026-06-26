@@ -416,7 +416,12 @@ function renderResults(saved) {
     <p><em>${report.readiness.resilienceVsPreparedness}</em> · Primary constraint: <strong>${report.readiness.primaryConstraint}</strong></p>
     <h3>Quotients</h3>
     <div>
-      ${Object.entries(report.quotients).map(([k, q]) => `
+    ${Object.entries(report.quotients).map(([k, q]) => {
+      const meta = quotientMeta[k] ?? {};
+      const color = meta.color ?? "#999";
+      const pct = (q.pct * 100).toFixed(0);
+
+      return `
         <div class="quotient-row">
           <div class="q-meta">
             <div class="q-chip ${q.label}">${q.label}</div>
@@ -425,18 +430,21 @@ function renderResults(saved) {
               <span class="q-band band-${q.signal.level}">${q.signal.level}</span>
             </div>
           </div>
-          <div class="q-scale" style="--pos:${(q.pct * 100).toFixed(0)}%;">
+
+          <div class="q-scale" style="--pos:${pct}%;">
             <div class="q-bar"></div>
             <div
               class="q-bar-fill"
-              style="--width:${(q.pct * 100).toFixed(0)}%; --current-quotient:${q.label}"
+              style="--width:${pct}%; --current-quotient:${color};"
             ></div>
           </div>
+
           <div>
             <small>${q.signal.text}</small>
           </div>
         </div>
-      `).join('')}
+      `;
+    }).join("")}
     </div>
     <h3>Critical questions for your team</h3>
     <ol>${report.criticalQuestions.map(q => `<li>${q}</li>`).join('')}</ol>
