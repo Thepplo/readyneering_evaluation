@@ -570,8 +570,8 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   align-items: start;
   flex-direction: column;
   gap: 5px;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-}
+/*   border-bottom: 1px solid rgba(0,0,0,0.05);
+ */}
 .q-meta {
   display: flex;
   width: 100%;
