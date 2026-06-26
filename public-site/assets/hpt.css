@@ -589,6 +589,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 .q-scale {
   position: relative;
   height: 6px;
+  width: 100%;
 }
 .q-bar {
   position: absolute;
