@@ -366,7 +366,7 @@ h1, h2 { margin-top: 0; }
 .prog-wrapper #quotient-info{
     font-size: 15px;
     line-height: 1.65;
-    color: var(--muted,#97907E);
+    color: var(--muted,#8A9099);
     margin: 0px 0px 30px;
     max-width: 260px;
 }
@@ -456,7 +456,7 @@ h1, h2 { margin-top: 0; }
 
 .likert-btn:focus { outline: none; }
 .likert-btn:focus-visible .likert-dot {
-  /* box-shadow: 0 0 0 3px color-mix(in srgb, var(--muted,#97907E) 25%, transparent); */
+  /* box-shadow: 0 0 0 3px color-mix(in srgb, var(--muted,#8A9099) 25%, transparent); */
   box-shadow:0 0 0 6px color-mix(in srgb, var(--current-quotient) 12%, transparent)
 }
 
@@ -465,13 +465,13 @@ h1, h2 { margin-top: 0; }
   height: 15px;
   border-radius: 50%;
   background: var(--surface,#FBF8F2);
-  border: 1.5px solid color-mix(in srgb, var(--muted,#97907E) 60%, transparent);
+  border: 1.5px solid color-mix(in srgb, var(--muted,#8A9099) 60%, transparent);
   transition: 0.35s ease;
 }
 
 @media (hover: hover) {
   .likert-btn:hover .likert-dot {
-    border-color: color-mix(in srgb, var(--muted,#97907E) 90%, transparent);
+    border-color: color-mix(in srgb, var(--muted,#8A9099) 90%, transparent);
     transform: scale(1.1);
   }
 }
@@ -494,7 +494,7 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
     justify-content: space-between;
     align-items: baseline;
     font-size: 12px;
-    color: var(--muted,#97907E);
+    color: var(--muted,#8A9099);
     margin-bottom: 9px;
     letter-spacing: 0.01em;
 }
@@ -529,7 +529,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 .title-sub {
   font-size: 16px;
   line-height: 1.7;
-  color: var(--muted,#97907E);
+  color: var(--muted,#8A9099);
   margin: 0 0 56px;
   max-width: 560px;
 }
@@ -539,7 +539,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   letter-spacing: 0.04em;
   text-transform: uppercase;
   font-weight: 600;
-  color: var(--muted,#97907E);
+  color: var(--muted,#8A9099);
 }
 
 .results-teamtype{
@@ -600,7 +600,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 .q-bar {
   border-radius: 999px;
   height: 100%;
-  background: color-mix(in srgb, var(--muted,#97907E) 18%, transparent);
+  background: color-mix(in srgb, var(--muted,#8A9099) 18%, transparent);
 }
 .q-bar-fill {
   height: 100%;
@@ -678,4 +678,8 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 .result-question {
   display: flex;
   gap: 18px;
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--ink,#20242A) 88%, transparent);
+  margin: 0;
 }

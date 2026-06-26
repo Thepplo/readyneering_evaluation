@@ -451,8 +451,9 @@ function renderResults(saved) {
       `;
     }).join("")}
     </div>
-    <div class="result-question-wrapper">
+    <div class="result-questions-wrapper">
       <p class="results-eb">Critical questions for your team</p>
+      <p clas="title-sub>Bring these to your team debrief. They matter more than the scores.</p>
       ${report.criticalQuestions.map(q => `<div class="result-question">${q}</div>`).join('')}
     </div>
   `;
