@@ -7,7 +7,7 @@ const quotientMeta = {
   vitality: {
     title: "Vitality",
     color: "var(--vitality)",
-    description:
+    description: 
       "The collective energy, resilience and sustainability of the team.",
     reflection:
       "Think about the team's typical rhythm over the past 3–6 months—not just the last busy week."
@@ -61,7 +61,7 @@ function escapeHtml(value) {
 
 /* const SCALE_LABELS = { 1: 'Never', 2: 'Rarely', 3: 'Sometimes', 4: 'Often', 5: 'Always' }; */
 async function loadVariant() {
-  const variantKey = getQueryParam('variant') || 'hpt-test';
+  const variantKey = getQueryParam('variant') || 'hpt-default';
   const r = await fetch(`${SUPABASE_FUNCTIONS_BASE}/variant?variant=${encodeURIComponent(variantKey)}`);
   if (!r.ok) throw new Error('Failed to load variant');
   return r.json();
