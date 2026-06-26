@@ -420,22 +420,19 @@ function renderResults(saved) {
         <div class="quotient-row">
           <div class="q-meta">
             <div class="q-chip ${q.key}">${q.label}</div>
+            <div class="q-score">
+              <span class="q-value">${q.score}/${q.max}</span>
+              <span class="q-band band-${q.signal.level}">${q.signal.level}</span>
+            </div>
           </div>
           <div class="q-scale" style="--pos:${(q.pct * 100).toFixed(0)}%;">
             <div class="q-bar"></div>
             <div class="q-tick"></div>
           </div>
-          <div class="q-score">
-            <span class="q-value">${q.score}/${q.max}</span>
-            <span class="q-band band-${q.signal.level}">${q.signal.level}</span>
-          </div>
           <div>
             <small>${q.signal.text}</small>
           </div>
         </div>
-
-        <li><strong>${q.label}:</strong> ${q.score}/${q.max} (${(q.pct * 100).toFixed(0)}%) — ${q.signal.level}<br>
-            <small>${q.signal.text}</small></li>
       `).join('')}
     </ul>
     <h3>Critical questions for your team</h3>
