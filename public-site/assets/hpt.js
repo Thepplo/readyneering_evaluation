@@ -13,7 +13,7 @@ function renderTurnstileWidget() {
     try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
     return;
   }
-  turnstileWidgetId = window.turnstile.render('#turnstile-container', {
+  turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
     sitekey: TURNSTILE_SITE_KEY,
     callback: onTurnstileSuccess,
     'error-callback': () => showVerifyError('Verification failed. Try again.'),
