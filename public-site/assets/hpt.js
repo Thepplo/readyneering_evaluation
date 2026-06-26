@@ -385,3 +385,54 @@ $('btn-next').addEventListener('click', () => {
 $('btn-start').disabled = true;
 
 init();
+
+async function loadResultByToken(token) {
+  const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/report`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ access_token: token })
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error || 'This results link is no longer valid.');
+  }
+  return {
+    result_id: data.result_id,
+    access_token: token,
+    locked: data.locked,
+    unlocked: data.unlocked,
+    report: data.report,
+    unlock: data.booking || null
+  };
+}
+
+async function renderResultsFromToken(token) {
+  try {
+    const serverResult = await loadResultByToken(token);
+    const state = loadAssessmentState() || {};
+    currentResult = serverResult; 
+    renderResults(serverResult);
+  } catch (err) {
+    const content = document.getElementById('results-content');
+    if (content) {
+      content.innerHTML = `
+        <div class="results-error">
+          <h2>This results link isn’t available.</h2>
+          <p>${escapeHtml(err.message || 'The link may have expired or is incorrect.')}</p>
+        </div>`;
+    }
+  }
+}
+
+function showResultsByToken(token) {
+  const intro = document.getElementById('scr-intro');
+  if (intro) intro.style.display = 'none';
+  return renderResults(function () { return renderResultsFromToken(token); });
+}
+
+const resultToken = getQueryParam('t');
+if (resultToken) {
+  showResultsByToken(resultToken);
+} else {
+ 
+}
