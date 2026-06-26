@@ -419,7 +419,7 @@ function renderResults(saved) {
       ${Object.entries(report.quotients).map(([k, q]) => `
         <div class="quotient-row">
           <div class="q-meta">
-            <div class="q-chip ${q}">${q.label}</div>
+            <div class="q-chip ${q.label}">${q.label}</div>
             <div class="q-score">
               <span class="q-value">${q.score}/${q.max}</span>
               <span class="q-band band-${q.signal.level}">${q.signal.level}</span>
@@ -429,7 +429,7 @@ function renderResults(saved) {
             <div class="q-bar"></div>
             <div
               class="q-bar-fill"
-              style="--width:${(q.pct * 100).toFixed(0)}%; --current-quotient:${q}"
+              style="--width:${(q.pct * 100).toFixed(0)}%; --current-quotient:${q.label}"
             ></div>
           </div>
           <div>

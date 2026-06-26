@@ -384,7 +384,7 @@
     #fecdd3 0%, #fde68a 35%, #a7f3d0 62.5%, #bfdbfe 82.5%, #bfdbfe 100%
   );
 }
-.q-bar::before {
+/* .q-bar::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -393,7 +393,7 @@
     linear-gradient(90deg, transparent calc(37.5% - 0.5px), rgba(0,0,0,0.15) 37.5%, transparent calc(37.5% + 0.5px)),
     linear-gradient(90deg, transparent calc(62.5% - 0.5px), rgba(0,0,0,0.15) 62.5%, transparent calc(62.5% + 0.5px)),
     linear-gradient(90deg, transparent calc(82.5% - 0.5px), rgba(0,0,0,0.15) 82.5%, transparent calc(82.5% + 0.5px));
-}
+} */
 .q-tick {
   position: absolute;
   top: -3px;
