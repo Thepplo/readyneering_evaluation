@@ -515,7 +515,9 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
 .err { color: #c00; margin-top: 1rem; }
 pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 
-
+#scr-results {
+  padding-top: 42px;
+}
 .results-title{
   font-size: 46px;
   font-weight: 600;
@@ -552,4 +554,5 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   font-size: 16px;
   color: var(--muted,#97907E);
   padding-bottom: 3px;
+  margin: 0px;
 }
