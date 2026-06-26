@@ -136,7 +136,18 @@
     <h3>Raw report (debug)</h3>
     <pre id="results-debug"></pre>
   </div>
-
+<div id="turnstile-shell" aria-hidden="true">
+  <div class="turnstile-card">
+    <div class="turnstile-title">Securing your submission</div>
+    <div class="turnstile-copy">
+      We’re checking this is a genuine assessment before saving your results.
+    </div>
+    <div id="turnstile-widget"></div>
+    <button type="button" id="turnstile-cancel" class="turnstile-cancel">Cancel</button>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit"></script>
 <script src="assets/hpt.js"></script>
 </body>
 </html>

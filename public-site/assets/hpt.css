@@ -14,6 +14,53 @@ body {
     background: #faf8fb;
     min-height: 100vh;
 }
+#turnstile-shell {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 9999;
+  padding: 24px;
+}
+
+#turnstile-shell.challenge-active {
+  display: flex;
+}
+
+.turnstile-card {
+  width: min(420px, 100%);
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.22);
+  text-align: center;
+}
+
+.turnstile-title {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.turnstile-copy {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+.turnstile-cancel {
+  margin-top: 16px;
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.turnstile-cancel:hover { color: #333; }
+
 .screen { display: none; }
 .screen.active { display: block; }
 h1, h2 { margin-top: 0; }
@@ -439,7 +486,7 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
     letter-spacing: 0.01em;
 }
 .quotient-progress-bar {
-  height: 2px;
+  height: 4px;
   background: color-mix(in srgb, var(--muted, #97907E) 25%, transparent);
   border-radius: 1px;
   overflow: hidden;

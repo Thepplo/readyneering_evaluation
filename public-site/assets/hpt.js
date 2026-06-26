@@ -1,10 +1,49 @@
-// ============================================================
-// HPT skeleton — minimal flow: intro → 5 quotient pages → results
-// Submits to the same /submit edge function as the triad app.
-// ============================================================
-
-// ---- Config ------------------------------------------------
+const TURNSTILE_SITE_KEY = '0x4AAAAAADTHusttqatb2uD0';
 const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app/functions/v1';
+// ---- Turnstile state ----
+let turnstileReady = false;
+let turnstileWidgetId = null;
+
+window.onTurnstileLoad = function () {
+  turnstileReady = true;
+};
+
+function renderTurnstileWidget() {
+  if (turnstileWidgetId !== null) {
+    try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
+    return;
+  }
+  turnstileWidgetId = window.turnstile.render('#turnstile-container', {
+    sitekey: TURNSTILE_SITE_KEY,
+    callback: onTurnstileSuccess,
+    'error-callback': () => showVerifyError('Verification failed. Try again.'),
+    'expired-callback': () => showVerifyError('Verification expired. Try again.'),
+  });
+}
+
+async function onTurnstileSuccess(token) {
+  showScreen('scr-loading');
+  $('loading-msg').textContent = 'Saving your responses.';
+  try {
+    const saved = await saveAssessment(buildSubmissionPayload(), token);
+    currentResult = saved;
+    $('loading-msg').textContent = 'Building your profile.';
+    renderResults(saved);
+    showScreen('scr-results');
+  } catch (err) {
+    console.error(err);
+    showVerifyError(err.message || 'Submission failed. Try again.');
+  }
+}
+
+function showVerifyError(message) {
+  const copy = document.querySelector('#scr-verify .turnstile-copy');
+  if (copy) copy.textContent = message;
+  showScreen('scr-verify');
+  if (turnstileWidgetId !== null) {
+    try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
+  }
+}
 
 const quotientMeta = {
   vitality: {
@@ -269,6 +308,29 @@ function togglePrivacyDetails() {
     : 'Read more about how your data is used';
 }
 
+function hasPrivacyConsent() {
+  var consent = document.getElementById('privacy-consent');
+  return consent && consent.checked;
+}
+
+function getPrivacyConsentRecord() {
+  return {
+    accepted: hasPrivacyConsent(),
+    acceptedAt: new Date().toISOString(),
+    noticeVersion: PRIVACY_NOTICE_VERSION
+  };
+}
+function startAssessment() {
+  currentResult = null;
+  if (!hasPrivacyConsent()) {
+    document.getElementById('privacy-warn').style.display = 'block';
+    return;
+  }
+  currentQuotient = 0;
+  renderQuotient();
+  showScreen('scr-quotient');
+}
+
 async function saveAssessment(payload, turnstileToken = null) {
   const idempotencyKey = getSubmitAttemptId();
   const body = turnstileToken ? { ...payload, turnstileToken } : payload;
@@ -283,22 +345,13 @@ async function saveAssessment(payload, turnstileToken = null) {
   return data;
 }
 
-async function submitAssessment() {
-  showScreen('scr-loading');
-  $('loading-msg').textContent = 'Saving your responses.';
-  try {
-    // NOTE: Turnstile not wired up here — add it the same way as the triad app
-    // if your edge function has TURNSTILE_SECRET_KEY configured.
-    const saved = await saveAssessment(buildSubmissionPayload());
-    currentResult = saved;
-    $('loading-msg').textContent = 'Building your profile.';
-    renderResults(saved);
-    showScreen('scr-results');
-  } catch (err) {
-    console.error(err);
-    alert('Submission failed: ' + err.message);
-    showScreen('scr-quotient');
+function submitAssessment() {
+  if (!turnstileReady) {
+    alert('Verification is still loading. Please try again in a moment.');
+    return;
   }
+  showScreen('scr-verify');
+  renderTurnstileWidget();
 }
 
 function renderResults(saved) {
@@ -334,11 +387,8 @@ function renderResults(saved) {
   $('results-debug').textContent = JSON.stringify(report, null, 2);
 }
 
-$('btn-start').addEventListener('click', () => {
-  currentQuotient = 0;
-  renderQuotient();
-  showScreen('scr-quotient');
-});
+document.getElementById('start-btn').addEventListener('click', startAssessment);
+
 
 $('btn-back').addEventListener('click', () => {
   if (currentQuotient > 0) {
@@ -359,5 +409,9 @@ $('btn-next').addEventListener('click', () => {
   }
 });
 $('btn-start').disabled = true;
+
+$('turnstile-cancel').addEventListener('click', () => {
+  showScreen('scr-quotient');
+});
 
 init();
