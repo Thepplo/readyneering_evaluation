@@ -37,9 +37,9 @@ async function onTurnstileSuccess(token) {
 }
 
 function showVerifyError(message) {
-  const copy = document.querySelector('#scr-verify .turnstile-copy');
+  const copy = document.querySelector('#turnstile-shell .turnstile-copy');
   if (copy) copy.textContent = message;
-  showScreen('scr-verify');
+  showScreen('turnstile-shell');
   if (turnstileWidgetId !== null) {
     try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
   }
