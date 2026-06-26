@@ -50,6 +50,15 @@ const quotientMeta = {
   }
 };
 
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
 /* const SCALE_LABELS = { 1: 'Never', 2: 'Rarely', 3: 'Sometimes', 4: 'Often', 5: 'Always' }; */
 async function loadVariant() {
   const variantKey = getQueryParam('variant') || 'hpt-test';
@@ -382,9 +391,7 @@ $('btn-next').addEventListener('click', () => {
     submitAssessment();
   }
 });
-$('btn-start').disabled = true;
 
-init();
 
 async function loadResultByToken(token) {
   const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/report`, {
@@ -409,7 +416,6 @@ async function loadResultByToken(token) {
 async function renderResultsFromToken(token) {
   try {
     const serverResult = await loadResultByToken(token);
-    const state = loadAssessmentState() || {};
     currentResult = serverResult; 
     renderResults(serverResult);
   } catch (err) {
@@ -425,14 +431,17 @@ async function renderResultsFromToken(token) {
 }
 
 function showResultsByToken(token) {
-  const intro = document.getElementById('scr-intro');
-  if (intro) intro.style.display = 'none';
-  return renderResults(function () { return renderResultsFromToken(token); });
+  showScreen('scr-loading');
+  $('loading-msg').textContent = 'Loading your report.';
+  return renderResultsFromToken(token);
 }
 
 const resultToken = getQueryParam('t');
+
+$('btn-start').disabled = true;
+
 if (resultToken) {
   showResultsByToken(resultToken);
 } else {
- 
+  init();
 }
