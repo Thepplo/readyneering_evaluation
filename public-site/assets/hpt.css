@@ -599,11 +599,12 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 }
 .q-bar {
   border-radius: 999px;
+  height: 100%;
   background: color-mix(in srgb, var(--muted,#97907E) 18%, transparent);
 }
 .q-bar-fill {
   height: 100%;
-  width: 0%;
+  width: var(--width);
   background: var(--current-quotient, var(--ink, #2A251E));
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
