@@ -415,7 +415,7 @@ function renderResults(saved) {
     </ul>
     <p><em>${report.readiness.resilienceVsPreparedness}</em> · Primary constraint: <strong>${report.readiness.primaryConstraint}</strong></p>
     <h3>Quotients</h3>
-    <ul>
+    <div>
       ${Object.entries(report.quotients).map(([k, q]) => `
         <div class="quotient-row">
           <div class="q-meta">
@@ -437,7 +437,7 @@ function renderResults(saved) {
           </div>
         </div>
       `).join('')}
-    </ul>
+    </div>
     <h3>Critical questions for your team</h3>
     <ol>${report.criticalQuestions.map(q => `<li>${q}</li>`).join('')}</ol>
   `;
