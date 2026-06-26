@@ -1,49 +1,7 @@
-const TURNSTILE_SITE_KEY = '0x4AAAAAADTHusttqatb2uD0';
 const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app/functions/v1';
 // ---- Turnstile state ----
-let turnstileReady = false;
-let turnstileWidgetId = null;
 
-window.onTurnstileLoad = function () {
-  turnstileReady = true;
-};
-
-function renderTurnstileWidget() {
-  if (turnstileWidgetId !== null) {
-    try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
-    return;
-  }
-  turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
-    sitekey: TURNSTILE_SITE_KEY,
-    callback: onTurnstileSuccess,
-    'error-callback': () => showVerifyError('Verification failed. Try again.'),
-    'expired-callback': () => showVerifyError('Verification expired. Try again.'),
-  });
-}
-
-async function onTurnstileSuccess(token) {
-  showScreen('scr-loading');
-  $('loading-msg').textContent = 'Saving your responses.';
-  try {
-    const saved = await saveAssessment(buildSubmissionPayload(), token);
-    currentResult = saved;
-    $('loading-msg').textContent = 'Building your profile.';
-    renderResults(saved);
-    showScreen('scr-results');
-  } catch (err) {
-    console.error(err);
-    showVerifyError(err.message || 'Submission failed. Try again.');
-  }
-}
-
-function showVerifyError(message) {
-  const copy = document.querySelector('#turnstile-shell .turnstile-copy');
-  if (copy) copy.textContent = message;
-  showScreen('turnstile-shell');
-  if (turnstileWidgetId !== null) {
-    try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
-  }
-}
+const PAGE_LOADED_AT = Date.now();
 
 const quotientMeta = {
   vitality: {
@@ -285,9 +243,9 @@ function buildSubmissionPayload() {
     submission: {
       variant_key: getVariantKey(),
       session_id: getSessionId(),
-      metadata: {
-        source: 'web_app',
-      },
+      started_at: PAGE_LOADED_AT,
+      website: document.getElementById('website-honeypot')?.value || '',
+      metadata: { source: 'web_app' },
     },
     items,
   };
@@ -331,13 +289,12 @@ function startAssessment() {
   showScreen('scr-quotient');
 }
 
-async function saveAssessment(payload, turnstileToken = null) {
+async function saveAssessment(payload) {
   const idempotencyKey = getSubmitAttemptId();
-  const body = turnstileToken ? { ...payload, turnstileToken } : payload;
   const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/submit`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey },
-    body: JSON.stringify(body),
+    body: JSON.stringify(payload),
   });
   const data = await response.json();
   if (!response.ok) throw new Error(data.error || 'Failed to save assessment');
@@ -345,13 +302,29 @@ async function saveAssessment(payload, turnstileToken = null) {
   return data;
 }
 
-function submitAssessment() {
-  if (!turnstileReady) {
-    alert('Verification is still loading. Please try again in a moment.');
-    return;
+async function submitAssessment() {
+  showScreen('scr-loading');
+  $('loading-msg').textContent = 'Saving your responses.';
+  try {
+    const saved = await saveAssessment(buildSubmissionPayload());
+    currentResult = saved;
+    $('loading-msg').textContent = 'Building your profile.';
+    renderResults(saved);
+    showScreen('scr-results');
+  } catch (err) {
+    console.error(err);
+    if (err.message?.includes('already submitted')) {
+      showScreen('scr-results');
+      $('results-summary').innerHTML = `
+        <p>You've already completed this assessment.
+        Your responses are saved with your facilitator.</p>
+      `;
+      $('results-debug').textContent = '';
+      return;
+    }
+    alert('Submission failed: ' + err.message);
+    showScreen('scr-quotient');
   }
-  showScreen('turnstile-shell');
-  renderTurnstileWidget();
 }
 
 function renderResults(saved) {
@@ -409,9 +382,5 @@ $('btn-next').addEventListener('click', () => {
   }
 });
 $('btn-start').disabled = true;
-
-$('turnstile-cancel').addEventListener('click', () => {
-  showScreen('scr-quotient');
-});
 
 init();
