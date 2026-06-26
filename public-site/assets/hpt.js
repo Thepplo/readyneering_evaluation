@@ -432,11 +432,12 @@ function renderResults(saved) {
           </div>
 
           <div class="q-scale" style="--pos:${pct}%;">
-            <div class="q-bar"></div>
-            <div
-              class="q-bar-fill"
-              style="--width:${pct}%; --current-quotient:${color};"
-            ></div>
+            <div class="q-bar">
+              <div
+                class="q-bar-fill"
+                style="--width:${pct}%; --current-quotient:${color};"
+              ></div>
+            </div>
           </div>
 
           <div>
