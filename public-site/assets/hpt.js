@@ -335,6 +335,64 @@ async function submitAssessment() {
     showScreen('scr-quotient');
   }
 }
+function getQuotientLevelLabel(level) {
+  var labels = {
+    risk: 'At risk',
+    developing: 'Developing',
+    building: 'Building',
+    ready: 'Ready'
+  };
+
+  return labels[level] || 'Developing';
+}
+function getQuotientBarPercent(score) {
+  var pos = ((score - 1) / (5 - 1)) * 100;
+  return Math.max(0, Math.min(100, pos));
+}
+
+function getQuotientLevel(score) {
+  if (score < 2.5) return 'risk';
+  if (score < 3.5) return 'developing';
+  if (score < 4.3) return 'building';
+  return 'ready';
+}
+
+function getQuotientRowColor(q) {
+  var level = getQuotientLevel(q.score);
+
+  var levelColors = {
+    risk: '#f87171',
+    developing: '#fbbf24',
+    building: '#34d399',
+    ready: '#60a5fa'
+  };
+
+  return levelColors[level] || '#60a5fa';
+}
+
+function renderCompactQuotientRow(q) {
+  var level = getQuotientLevel(q.score);
+  var levelLabel = getQuotientLevelLabel(level);
+  var barPercent = getQuotientBarPercent(q.score);
+  var color = getQuotientRowColor(q);
+
+  return `
+    <div class="quotient-row">
+      <div class="q-meta">
+        <div class="q-chip ${q.key}">${q.label}</div>
+        <div class="q-desc">${q.roleS}</div>
+      </div>
+      <div class="q-scale" style="--pos:${barPercent}%;">
+        <div class="q-bar"></div>
+        <div class="q-tick"></div>
+      </div>
+      <div class="q-score">
+        <span class="q-value">${q.score.toFixed(1)}</span>
+        <span class="q-band band-${level}">${levelLabel}</span>
+      </div>
+    </div>
+  `;
+}
 
 function renderResults(saved) {
   const report = saved.report?.open;
@@ -347,7 +405,7 @@ function renderResults(saved) {
   const html = `
     <p class="results-eb">Team Type</p>
     <p class="results-team"><span class=results-teamtype>${report.teamType.label}</span> (${report.teamType.range}) — total ${report.total}/140</p>
-    <p>${report.teamType.description}</p>
+    <p class="team-desc">${report.teamType.description}</p>
     <h3>Indices</h3>
     <ul>
       <li>Resilience: ${(report.indices.resilience * 100).toFixed(0)}%</li>
@@ -359,6 +417,23 @@ function renderResults(saved) {
     <h3>Quotients</h3>
     <ul>
       ${Object.entries(report.quotients).map(([k, q]) => `
+        <div class="quotient-row">
+          <div class="q-meta">
+            <div class="q-chip ${q.key}">${q.label}</div>
+          </div>
+          <div class="q-scale" style="--pos:${(q.pct * 100).toFixed(0)}%;">
+            <div class="q-bar"></div>
+            <div class="q-tick"></div>
+          </div>
+          <div class="q-score">
+            <span class="q-value">${q.score}/${q.max}</span>
+            <span class="q-band band-${q.signal.level}">${q.signal.level}</span>
+          </div>
+          <div>
+            <small>${q.signal.text}</small>
+          </div>
+        </div>
+
         <li><strong>${q.label}:</strong> ${q.score}/${q.max} (${(q.pct * 100).toFixed(0)}%) — ${q.signal.level}<br>
             <small>${q.signal.text}</small></li>
       `).join('')}

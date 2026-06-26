@@ -552,7 +552,14 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 
 .results-team {
   font-size: 16px;
-  color: var(--muted,#97907E);
   padding-bottom: 3px;
   margin: 0px;
+}
+
+.team-desc {
+  font-size: 16px;
+  line-height: 1.75;
+  color: color-mix(in srgb, var(--ink,#2A251E) 82%, transparent);
+  margin: 0;
+  max-width: 640px;
 }
