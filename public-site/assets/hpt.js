@@ -394,25 +394,40 @@ $('btn-next').addEventListener('click', () => {
 
 
 async function loadResultByToken(token) {
-  const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/report`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ access_token: token })
-  });
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(data.error || 'This results link is no longer valid.');
-  }
-  return {
-    result_id: data.result_id,
-    access_token: token,
-    locked: data.locked,
-    unlocked: data.unlocked,
-    report: data.report,
-    unlock: data.booking || null
-  };
-}
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
 
+  try {
+    const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/report`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ access_token: token }),
+      signal: controller.signal
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'This results link is no longer valid.');
+    }
+
+    return {
+      result_id: data.result_id,
+      access_token: token,
+      locked: Boolean(data.locked),
+      unlocked: Boolean(data.unlocked),
+      report: data.report,
+      booking: data.booking || null
+    };
+  } catch (err) {
+    if (err.name === 'AbortError') {
+      throw new Error('Loading the report timed out. Please refresh and try again.');
+    }
+    throw err;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 async function renderResultsFromToken(token) {
   try {
     const serverResult = await loadResultByToken(token);
