@@ -572,6 +572,12 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   gap: 5px;
   border-bottom: 1px solid rgba(0,0,0,0.05);
 }
+.q-meta {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: end;
+}
 .quotient-row:last-child { border-bottom: 0; }
 
 .q-name {
