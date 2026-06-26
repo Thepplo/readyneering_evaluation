@@ -431,10 +431,19 @@ async function loadResultByToken(token) {
 async function renderResultsFromToken(token) {
   try {
     const serverResult = await loadResultByToken(token);
-    currentResult = serverResult; 
+    currentResult = serverResult;
+
     renderResults(serverResult);
+    showScreen('scr-results');
   } catch (err) {
-    const content = document.getElementById('results-content');
+    console.error(err);
+
+    showScreen('scr-results');
+
+    const content =
+      document.getElementById('results-content') ||
+      document.getElementById('results-summary');
+
     if (content) {
       content.innerHTML = `
         <div class="results-error">
