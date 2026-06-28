@@ -141,8 +141,35 @@ let currentResult = null;
 
 function $(id) { return document.getElementById(id); }
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
-  $(id).classList.add('active');
+  const current = document.querySelector('.screen.active');
+  const next = document.getElementById(id);
+  if (!next || next === current) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    current?.classList.remove('active');
+    next.classList.add('active');
+    return;
+  }
+
+  const tl = gsap.timeline();
+
+  if (current) {
+    tl.to(current, {
+      opacity: 0,
+      y: -8,
+      duration: 0.2,
+      ease: 'power2.in',
+      onComplete: () => current.classList.remove('active'),
+    });
+  }
+
+  tl.add(() => next.classList.add('active'))
+    .fromTo(next,
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out', clearProps: 'transform,opacity' }
+    );
+
+  window.scrollTo({ top: 0, behavior: 'instant' });
 }
 function getQueryParam(name) {
   return new URLSearchParams(window.location.search).get(name);
@@ -215,6 +242,12 @@ function renderQuotient() {
       </div>
     `;
     container.appendChild(div);
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.fromTo('#questions-container .question',
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.3, stagger: 0.04, ease: 'power2.out', clearProps: 'all' }
+      );
+    }
   }
 
   container.querySelectorAll('.likert-btn').forEach(btn => {
@@ -342,6 +375,7 @@ async function submitAssessment() {
     const saved = await saveAssessment(buildSubmissionPayload());
     currentResult = saved;
     $('loading-msg').textContent = 'Building your profile.';
+    updateUrlForResult(saved.access_token); 
     renderResults(saved);
     showScreen('scr-results');
   } catch (err) {
@@ -658,6 +692,14 @@ $('btn-next').addEventListener('click', () => {
   }
 });
 
+function updateUrlForResult(token) {
+  if (!token) return;
+  const params = new URLSearchParams(window.location.search);
+  params.set('variant', getVariantKey());
+  params.set('t', token);
+  const newUrl = `${window.location.pathname}?${params.toString()}`;
+  window.history.replaceState({}, '', newUrl);
+}
 
 async function loadResultByToken(token) {
   const controller = new AbortController();
