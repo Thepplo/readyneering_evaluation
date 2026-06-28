@@ -466,8 +466,8 @@ function renderResults(saved) {
           <div class="quotient-row${isPrimary ? ' is-primary' : ''}"
               style="--current-quotient:${color};">
             <div class="q-meta">
-              <div class="q-chip ${q.label}">${q.label}</div>
-              ${isPrimary ? `<span class="q-tag">Primary constraint</span>` : ''}
+              <div class="q-chip ${q.label}">${q.label} ${isPrimary ? `<span class="q-tag">Primary constraint</span>` : ''}</div>
+              
               <div class="q-score">
                 <span class="q-value">${q.score}/${q.max}</span>
                 <span class="q-percent ${q.label}">${pct}%</span>
