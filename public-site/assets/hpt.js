@@ -447,9 +447,11 @@ function renderResults(saved) {
   const def = VARIANT.instrument.definition;
 
   const html = `
-    <p class="results-eb">Team Type</p>
-    ${renderTeamTypeBar(report.total,def.teamType.bands, report.teamType.label)}
-    <p class="team-desc">${stripSignalPrefix(report.teamType.description)}</p>
+    <div class="results-container">
+      <p class="results-eb">Team Type</p>
+      ${renderTeamTypeBar(report.total,def.teamType.bands, report.teamType.label)}
+      <p class="team-desc">${stripSignalPrefix(report.teamType.description)}</p>
+    </div>
     <p class="results-eb">The 5 Quotients</p>
     <p class="results-desc">Each dimension scored on its own scale. Your primary constraint is where attention will go furthest.</p>
     <div class="quotient-flex">
