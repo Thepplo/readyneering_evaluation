@@ -12,8 +12,8 @@ const indexMeta = {
   },
   preparedness: {
     label: "Preparedness Index",
-    formula: "Mind + Execution + Alignment",
-    components: ["mind", "execution", "alignment"],
+    formula: "Execution + Alignment",
+    components: ["execution", "alignment"],
     description: "Your team's readiness to act, decide, and deliver."
   },
   mind: {
