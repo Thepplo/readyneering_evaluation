@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPT Team Debrief</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body>
+
+  <!-- ───────────────────────────────────────────────────────
+       Loading + error states
+  ─────────────────────────────────────────────────────── -->
+  <div id="deck-loading" class="deck-overlay active">
+    <p>Loading team data…</p>
+  </div>
+
+  <div id="deck-error" class="deck-overlay">
+    <h2>Unable to load</h2>
+    <p id="deck-error-msg"></p>
+  </div>
+
+  <!-- ───────────────────────────────────────────────────────
+       Deck shell
+  ─────────────────────────────────────────────────────── -->
+  <main id="deck" class="deck" hidden>
+
+    <!-- Top bar: cohort identifier, slide counter -->
+    <header class="deck-header">
+      <div class="deck-cohort">
+        <span id="deck-variant"></span>
+        <span class="deck-cohort-sep">·</span>
+        <span id="deck-n"></span>
+      </div>
+      <div class="deck-counter">
+        <span id="slide-index">1</span> / <span id="slide-total">10</span>
+      </div>
+    </header>
+
+    <!-- Slide stage -->
+    <section class="deck-stage" id="slide-stage">
+      <!-- Slides injected here -->
+    </section>
+
+    <!-- Footer nav -->
+    <footer class="deck-footer">
+      <button id="deck-prev" class="deck-nav" aria-label="Previous">
+        <span class="arrow-back" aria-hidden="true"></span>
+      </button>
+
+      <nav class="deck-dots" id="deck-dots" aria-label="Slide navigation"></nav>
+
+      <button id="deck-next" class="deck-nav" aria-label="Next">
+        <span class="arrow" aria-hidden="true"></span>
+      </button>
+    </footer>
+  </main>
+
+<script src="assets/deck.js"></script>
+</body>
+</html>
