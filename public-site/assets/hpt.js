@@ -609,7 +609,7 @@ function renderResults(saved) {
     </div>
     <div class="results-container">
       <p class="results-eb">Indices</p>
-
+      <p class="results-desc">How the dimensions combine into readiness.</p>
       <div class="index-pair">
         ${renderIndexCard('resilience', report.indices.resilience, report)}
         ${renderIndexCard('preparedness', report.indices.preparedness, report)}
