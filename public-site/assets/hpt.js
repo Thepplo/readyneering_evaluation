@@ -452,7 +452,7 @@ function renderResults(saved) {
     <p class="team-desc">${stripSignalPrefix(report.teamType.description)}</p>
     <p class="results-eb">The 5 Quotients</p>
     <p class="results-desc">Each dimension scored on its own scale. Your primary constraint is where attention will go furthest.</p>
-    <div>
+    <div class="quotient-flex">
     ${Object.entries(report.quotients).map(([k, q]) => {
       const meta = quotientMeta[k] ?? {};
       const color = meta.color ?? "#999";
