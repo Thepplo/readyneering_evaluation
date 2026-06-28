@@ -478,7 +478,7 @@ function renderResults(saved) {
           </div>
 
           <div>
-            <small>${stripSignalPrefix(q.signal.text)}</small>
+            <p class="q-desc">${stripSignalPrefix(q.signal.text)}</p>
           </div>
         </div>
       `;
