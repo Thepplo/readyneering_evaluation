@@ -1,5 +1,5 @@
-
-const AGGREGATE_ENDPOINT = '/functions/v1/aggregate';
+const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app/functions/v1';
+const AGGREGATE_ENDPOINT = `${SUPABASE_FUNCTIONS_BASE}/aggregate`;
 
 // ---- State -------------------------------------------------
 let DATA = null;
@@ -30,7 +30,6 @@ function parseQuery() {
 }
 
 async function fetchAggregate(filters) {
-  // Auth assumed to come from Cloudflare/internal session; no service key in client.
   const body = {};
   if (filters.variants) body.variants = filters.variants;
   if (filters.date_from) body.date_from = filters.date_from;
@@ -41,7 +40,7 @@ async function fetchAggregate(filters) {
   const r = await fetch(AGGREGATE_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',           // forward session cookie if internal area uses one
+    credentials: 'include',
     body: JSON.stringify(body),
   });
   if (!r.ok) {
@@ -156,9 +155,6 @@ const SLIDES = [
     },
   },
 
-  // ---- 5–9. Quotient deep dives --------------------------
-  // One slide per quotient. Generated rather than hand-written so
-  // adding/removing a quotient doesn't require touching this file.
   ...['vitality', 'emotion', 'mind', 'execution', 'alignment'].map(q => ({
     id: `q-${q}`,
     title: capitalize(q),
@@ -313,7 +309,6 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// ---- Boot --------------------------------------------------
 async function init() {
   const filters = parseQuery();
   if (!filters.variants && !filters.date_from) {
