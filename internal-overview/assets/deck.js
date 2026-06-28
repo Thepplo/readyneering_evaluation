@@ -40,7 +40,6 @@ async function fetchAggregate(filters) {
   const r = await fetch(AGGREGATE_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
     body: JSON.stringify(body),
   });
   if (!r.ok) {
