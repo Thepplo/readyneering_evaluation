@@ -409,7 +409,7 @@ function renderTeamTypeBar(total, bands) {
   const pct = v => ((v - min) / span) * 100;
 
   let prevUpTo = min;
-  const segments = bands.map(b => {
+  const segments = bands.map((b, i) => {
     const left = pct(prevUpTo);
     const width = pct(b.upTo) - left;
     prevUpTo = b.upTo;
@@ -427,8 +427,8 @@ function renderTeamTypeBar(total, bands) {
     </div>
     <div class="tt-bar">
       ${segments.map(s => `
-        <div class="tt-seg ${s.key === activeKey ? 'is-active' : ''}"
-             style="left:${s.left}%; width:${s.width}%; ${s.isFirst ? 'is-first' : ''} ${s.isLast ? 'is-last' : ''}"></div>
+        <div class="tt-seg ${s.key === activeKey ? 'is-active' : ''}${s.isFirst ? 'is-first' : ''} ${s.isLast ? 'is-last' : ''}"
+             style="left:${s.left}%; width:${s.width}%;"></div>
       `).join('')}
       <div class="tt-tick" style="left:${tickPct}%;"></div>
     </div>
