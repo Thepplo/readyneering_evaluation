@@ -457,7 +457,7 @@ function renderTeamTypeBar(total, bands, label) {
     <div class="tt-axis"><span>${min}</span><span>${max}</span></div>
   `;
 }
-function renderReadinessBar(value, bands) {
+function renderReadinessBar(value, bands, level) {
   const min = 0;
   const max = 1;
   const pct = v => ((v - min) / (max - min)) * 100;
@@ -487,15 +487,18 @@ function renderReadinessBar(value, bands) {
   ].filter(Boolean).join(' ');
 
   return `
-    <div class="rd-bar">
-      ${segments.map(s => `
-        <div class="${segClass(s)}" style="left:${s.left}%; width:${s.width}%;"></div>
-      `).join('')}
-      <div class="rd-tick" style="left:${tickPct}%;"></div>
-    </div>
-    <div class="rd-poles">
-      <span>Structural Risk</span>
-      <span>Strategic Readiness</span>
+    <div class="rd-bar-wrap">
+      <span class="rd-level" style="left:${tickPct}%;">${level}</span>
+      <div class="rd-bar">
+        ${segments.map(s => `
+          <div class="${segClass(s)}" style="left:${s.left}%; width:${s.width}%;"></div>
+        `).join('')}
+        <div class="rd-tick" style="left:${tickPct}%;"></div>
+      </div>
+      <div class="rd-poles">
+        <span>Structural Risk</span>
+        <span>Strategic Readiness</span>
+      </div>
     </div>
   `;
 }
@@ -543,7 +546,7 @@ function renderReadinessCard(readiness, report, def) {
         <span class="readiness-value">${pct}%</span>
         <span class="readiness-level">- ${readiness.level}</span>
       </div>
-      ${renderReadinessBar(readiness.value, def.readiness.bands )}
+      ${renderReadinessBar(readiness.value, def.readiness.bands, readiness.level )}
       <p class="index-desc" style="color:rgba(255,255,255,0.75); margin-top:14px;">
         ${readiness.resilienceVsPreparedness} · Primary constraint:
         <strong style="color:#fff;">${report.quotients[readiness.primaryConstraint]?.label ?? readiness.primaryConstraint}</strong>
