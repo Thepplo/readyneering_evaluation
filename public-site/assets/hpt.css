@@ -911,7 +911,8 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 }
 .mind-card .index-value { font-size: 24px; color: var(--mind);}
 .mind-card .index-eb    { margin: 0; }
-.mind-card .index-bar   { margin: 0; align-self: center; background: var(--mind);}
+.mind-card .index-bar   { margin: 0; align-self: center;}
+.mind-card .index-bar .index-bar-fill  { background: var(--mind);}
 
 .readiness-card {
   padding: 28px;
