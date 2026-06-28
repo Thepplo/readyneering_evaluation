@@ -401,7 +401,7 @@ function stripSignalPrefix(text) {
   return String(text || '').replace(/^[^:]+:\s*/, '');
 }
 
-function renderTeamTypeBar(total, bands) {
+function renderTeamTypeBar(total, bands, label) {
   const min = parseInt(bands[0].range.split('–')[0].trim(), 10);
   const max = bands[bands.length - 1].upTo;
   const span = max - min;
@@ -422,6 +422,7 @@ function renderTeamTypeBar(total, bands) {
 
   return `
     <div class="tt-header">
+      <p class="results-team"><span class=results-teamtype>${label}</span></p>
       <strong>${total} / ${max}</strong>
       <span class="tt-band-label">BAND ${bands.find(b => b.key === activeKey).range}</span>
     </div>
@@ -447,8 +448,7 @@ function renderResults(saved) {
 
   const html = `
     <p class="results-eb">Team Type</p>
-    <p class="results-team"><span class=results-teamtype>${report.teamType.label}</span></p>
-    ${renderTeamTypeBar(report.total,def.teamType.bands)}
+    ${renderTeamTypeBar(report.total,def.teamType.bands, report.teamType.label)}
     <p class="team-desc">${stripSignalPrefix(report.teamType.description)}</p>
     <p><em>${report.readiness.resilienceVsPreparedness}</em> · Primary constraint: <strong>${report.readiness.primaryConstraint}</strong></p>
     <h3>Quotients</h3>
