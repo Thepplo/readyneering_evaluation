@@ -527,12 +527,14 @@ function renderMindCard(value, report) {
   const pct = (value * 100).toFixed(0);
   return `
     <div class="mind-card">
-      <div>
-        <p class="index-eb">${meta.label}</p>
-        <span class="index-value">${value.toFixed(2)}</span>
+      <p class="index-eb">${meta.label}</p>
+      <div class="mind-card-grid">
+        <div>
+          <span class="index-value">${value.toFixed(2)}</span>
+        </div>
+        <div class="index-bar"><div class="index-bar-fill" style="width:${pct}%;"></div></div>
+        <p class="index-desc" style="max-width:260px;">${meta.description}</p>
       </div>
-      <div class="index-bar"><div class="index-bar-fill" style="width:${pct}%;"></div></div>
-      <p class="index-desc" style="max-width:260px;">${meta.description}</p>
     </div>
   `;
 }
