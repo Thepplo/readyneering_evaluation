@@ -749,3 +749,28 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   font-weight: 600;
   letter-spacing: -0.005em;
 }
+
+
+.q-chip {
+  font-weight: 600;
+  position: relative;
+  padding-left: 10px;
+}
+
+.q-chip::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: currentColor;
+}
+
+.q-chip::before.Vitality  { color: var(--vitality); }
+.q-chip::before.Emotion   { color: var(--emotion); }
+.q-chip::before.Mind      { color: var(--mind); }
+.q-chip::before.Execution { color: var(--execution); }
+.q-chip::before.Alignment { color: var(--alignment); }
