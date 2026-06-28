@@ -72,6 +72,8 @@ let QUOTIENTS = [];
 let ITEM_INDEX = {};
 let SCALE_CHOICES = [1, 2, 3, 4, 5];
 let SCALE_LABELS = {};
+let MAX_SCORE = {};
+
 
 function buildQuotientsFromDefinition(def) {
   const itemsByQuotient = {};
@@ -99,6 +101,7 @@ async function init() {
     }
     SCALE_LABELS = def.scale.labels ?? { 1: 'Never', 2: 'Rarely', 3: 'Sometimes', 4: 'Often', 5: 'Always' };
     SCALE_CHOICES = [];
+    MAX_SCORE = def.total.max;
     for (let v = def.scale.min; v <= def.scale.max; v++) SCALE_CHOICES.push(v);
     QUOTIENTS = buildQuotientsFromDefinition(def);
     let idx = 1;
@@ -408,7 +411,7 @@ function renderResults(saved) {
 
   const html = `
     <p class="results-eb">Team Type</p>
-    <p class="results-team"><span class=results-teamtype>${report.teamType.label}</span> ${report.teamType.range} · total ${report.total}/140</p>
+    <p class="results-team"><span class=results-teamtype>${report.teamType.label}</span> ${report.teamType.range} · total ${report.total}/${MAX_SCORE}</p>
     <p class="team-desc">${report.teamType.description}</p>
     <h3>Indices</h3>
     <ul>
