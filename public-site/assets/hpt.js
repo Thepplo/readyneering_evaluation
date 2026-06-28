@@ -457,7 +457,36 @@ function renderTeamTypeBar(total, bands, label) {
     <div class="tt-axis"><span>${min}</span><span>${max}</span></div>
   `;
 }
+function renderReadinessBar(total, bands) {
+  const min = parseInt(bands[0].range.split('–')[0].trim(), 10);
+  const max = bands[bands.length - 1].upTo;
+  const span = max - min;
 
+  const pct = v => ((v - min) / span) * 100;
+
+  let prevUpTo = min;
+  const segments = bands.map((b, i) => {
+    const left = pct(prevUpTo);
+    const width = pct(b.upTo) - left;
+    prevUpTo = b.upTo;
+    return { ...b, left, width, isFirst: i === 0, isLast: i === bands.length - 1 };
+  });
+
+  const tickPct = Math.max(0, Math.min(100, pct(total)));
+
+  const activeKey = bands.find(b => total <= b.upTo)?.key ?? bands[bands.length - 1].key;
+
+  return `
+    <div class="tt-bar">
+      ${segments.map(s => `
+        <div class="tt-seg ${s.key === activeKey ? 'is-active' : ''}${s.isFirst ? 'is-first' : ''} ${s.isLast ? 'is-last' : ''}"
+             style="left:${s.left}%; width:${s.width}%;"></div>
+      `).join('')}
+      <div class="tt-tick" style="left:${tickPct}%;"></div>
+    </div>
+    <div class="tt-axis"><span>${min}</span><span>${max}</span></div>
+  `;
+}
 function renderIndexCard(key, value, report) {
   const meta = indexMeta[key];
   const score = meta.components.reduce((s, c) => s + report.quotients[c].score, 0);
@@ -493,7 +522,7 @@ function renderMindCard(value, report) {
   `;
 }
 
-function renderReadinessCard(readiness, report) {
+function renderReadinessCard(readiness, report, def) {
   const pct = (readiness.value * 100).toFixed(0);
   return `
     <div class="readiness-card">
@@ -503,6 +532,7 @@ function renderReadinessCard(readiness, report) {
         <span class="readiness-level">${readiness.level}</span>
       </div>
       <div class="index-bar"><div class="index-bar-fill" style="width:${pct}%;"></div></div>
+      ${renderReadinessBar(readiness.value, def.readiness.bands )}
       <p class="index-desc" style="color:rgba(255,255,255,0.75); margin-top:14px;">
         ${readiness.resilienceVsPreparedness} · Primary constraint:
         <strong style="color:#fff;">${report.quotients[readiness.primaryConstraint]?.label ?? readiness.primaryConstraint}</strong>
@@ -574,7 +604,7 @@ function renderResults(saved) {
 
       ${renderMindCard(report.indices.mind, report)}
 
-      ${renderReadinessCard(report.readiness, report)}
+      ${renderReadinessCard(report.readiness, report, def)}
     </div>
     <div class="result-questions-wrapper">
       <p class="results-eb-title">Critical questions for your team</p>
