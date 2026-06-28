@@ -449,7 +449,7 @@ function renderResults(saved) {
     <p class="results-eb">Team Type</p>
     <p class="results-team"><span class=results-teamtype>${report.teamType.label}</span></p>
     ${renderTeamTypeBar(report.total,def.teamType.bands)}
-    <p class="team-desc">${report.teamType.description}</p>
+    <p class="team-desc">${stripSignalPrefix(report.teamType.description)}</p>
     <p><em>${report.readiness.resilienceVsPreparedness}</em> · Primary constraint: <strong>${report.readiness.primaryConstraint}</strong></p>
     <h3>Quotients</h3>
     <div>
