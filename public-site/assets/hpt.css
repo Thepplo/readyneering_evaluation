@@ -985,6 +985,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   #scr-quotient {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
+    padding: 60px 12px 140px;
   }
   .quotient-info {
     max-width: none;
