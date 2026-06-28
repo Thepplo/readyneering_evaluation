@@ -541,9 +541,8 @@ function renderReadinessCard(readiness, report, def) {
       <p class="index-eb">Readiness</p>
       <div class="index-hero">
         <span class="readiness-value">${pct}%</span>
-        <span class="readiness-level">${readiness.level}</span>
+        <span class="readiness-level">- ${readiness.level}</span>
       </div>
-      <div class="index-bar"><div class="index-bar-fill" style="width:${pct}%;"></div></div>
       ${renderReadinessBar(readiness.value, def.readiness.bands )}
       <p class="index-desc" style="color:rgba(255,255,255,0.75); margin-top:14px;">
         ${readiness.resilienceVsPreparedness} · Primary constraint:
