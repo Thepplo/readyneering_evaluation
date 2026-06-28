@@ -4,6 +4,8 @@
   --execution: #2D52B5;
   --mind: #770136;
   --alignment: #1B74CD;
+  --muted: #8A9099;
+  --ink: #2A251E;
 }
 
 body { 
@@ -752,15 +754,17 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 
 
 .q-chip {
-  font-weight: 600;
   position: relative;
   padding-left: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .q-chip::before {
   content: "";
-  width: 6px;
-  height: 6px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   position: absolute;
   left: 0;
@@ -769,8 +773,8 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   background: currentColor;
 }
 
-.q-chip::before.Vitality  { color: var(--vitality); }
-.q-chip::before.Emotion   { color: var(--emotion); }
-.q-chip::before.Mind      { color: var(--mind); }
-.q-chip::before.Execution { color: var(--execution); }
-.q-chip::before.Alignment { color: var(--alignment); }
+.q-chip.Vitality::before  { color: var(--vitality); }
+.q-chip.Emotion::before   { color: var(--emotion); }
+.q-chip.Mind::before      { color: var(--mind); }
+.q-chip.Execution::before { color: var(--execution); }
+.q-chip.Alignment::before { color: var(--alignment); }
