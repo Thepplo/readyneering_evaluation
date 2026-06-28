@@ -460,11 +460,14 @@ function renderResults(saved) {
         const meta = quotientMeta[k] ?? {};
         const color = meta.color ?? "#999";
         const pct = (q.pct * 100).toFixed(0);
+        const isPrimary = k === report.readiness.primaryConstraint;
 
         return `
-          <div class="quotient-row">
+          <div class="quotient-row${isPrimary ? ' is-primary' : ''}"
+              style="--current-quotient:${color};">
             <div class="q-meta">
               <div class="q-chip ${q.label}">${q.label}</div>
+              ${isPrimary ? `<span class="q-tag">Primary constraint</span>` : ''}
               <div class="q-score">
                 <span class="q-value">${q.score}/${q.max}</span>
                 <span class="q-percent ${q.label}">${pct}%</span>
