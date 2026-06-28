@@ -3,6 +3,27 @@ const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app
 
 const PAGE_LOADED_AT = Date.now();
 
+const indexMeta = {
+  resilience: {
+    label: "Resilience Index",
+    formula: "Vitality + Emotion",
+    components: ["vitality", "emotion"],
+    description: "Your team's capacity to absorb pressure and recover."
+  },
+  preparedness: {
+    label: "Preparedness Index",
+    formula: "Mind + Execution + Alignment",
+    components: ["mind", "execution", "alignment"],
+    description: "Your team's readiness to act, decide, and deliver."
+  },
+  mind: {
+    label: "Mind Index",
+    formula: "Mind Q",
+    components: ["mind"],
+    description: "The cognitive enabler underlying both dimensions."
+  }
+};
+
 const quotientMeta = {
   vitality: {
     title: "Vitality",
@@ -437,6 +458,26 @@ function renderTeamTypeBar(total, bands, label) {
   `;
 }
 
+function renderIndexCard(key, value, report) {
+  const meta = indexMeta[key];
+  const score = meta.components.reduce((s, c) => s + report.quotients[c].score, 0);
+  const max   = meta.components.reduce((s, c) => s + report.quotients[c].max, 0);
+  const pct   = (value * 100).toFixed(0);
+
+  return `
+    <div class="index-card">
+      <p class="index-eb">${meta.label}</p>
+      <div class="index-hero">
+        <span class="index-value">${value.toFixed(2)}</span>
+        <span class="index-raw">${score} / ${max}</span>
+      </div>
+      <p class="index-formula">${meta.formula}</p>
+      <div class="index-bar"><div class="index-bar-fill" style="width:${pct}%;"></div></div>
+      <p class="index-desc">${meta.description}</p>
+    </div>
+  `;
+}
+
 function renderResults(saved) {
   const report = saved.report?.open;
   if (!report) {
@@ -467,7 +508,6 @@ function renderResults(saved) {
               style="--current-quotient:${color};">
             <div class="q-meta">
               <div class="q-chip ${q.label}">${q.label} ${isPrimary ? `<span class="q-tag">Primary constraint</span>` : ''}</div>
-              
               <div class="q-score">
                 <span class="q-value">${q.score}/${q.max}</span>
                 <span class="q-percent ${q.label}">${pct}%</span>
@@ -493,14 +533,12 @@ function renderResults(saved) {
       </div>
     </div>
     <p><em>${report.readiness.resilienceVsPreparedness}</em> · Primary constraint: <strong>${report.readiness.primaryConstraint}</strong></p>
-
-    <h3>Indices</h3>
-    <ul>
-      <li>Resilience: ${(report.indices.resilience * 100).toFixed(0)}%</li>
-      <li>Preparedness: ${(report.indices.preparedness * 100).toFixed(0)}%</li>
-      <li>Mind: ${(report.indices.mind * 100).toFixed(0)}%</li>
-      <li><strong>Readiness:</strong> ${(report.readiness.value * 100).toFixed(0)}% — ${report.readiness.level}</li>
-    </ul>
+    <div class="results-container">
+      <p class="results-eb">Indices</p>
+      <div class="index-grid">
+        ${Object.entries(report.indices).map(([k, v]) => renderIndexCard(k, v, report)).join('')}
+      </div>
+    </div>
     <div class="result-questions-wrapper">
       <p class="results-eb-title">Critical questions for your team</p>
       <p class="title-sub" style="margin-bottom: 10px !important;">Bring these to your team debrief. They matter more than the scores.</p>
