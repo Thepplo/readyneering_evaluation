@@ -761,7 +761,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 .tt-seg.is-last  { border-radius: 0 999px 999px 0; }
 
 .tt-seg.is-active { 
-  background: #b8b8b8; 
+  background: #a4a4a4; 
 }
 .tt-tick { 
   position: absolute; 
