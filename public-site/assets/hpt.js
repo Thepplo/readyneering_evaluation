@@ -427,7 +427,8 @@ function renderTeamTypeBar(total, bands) {
     </div>
     <div class="tt-bar">
       ${segments.map(s => `
-        <div class="tt-seg ${s.isFirst ? 'is-first' : ''} ${s.isLast ? 'is-last' : ''} ...">
+        <div class="tt-seg ${s.key === activeKey ? 'is-active' : ''}"
+             style="left:${s.left}%; width:${s.width}%; ${s.isFirst ? 'is-first' : ''} ${s.isLast ? 'is-last' : ''}"></div>
       `).join('')}
       <div class="tt-tick" style="left:${tickPct}%;"></div>
     </div>
