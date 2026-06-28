@@ -926,3 +926,15 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 }
 .readiness-card .index-bar { background: rgba(255,255,255,0.15); }
 .readiness-card .index-bar-fill { background: #fff; }
+
+.rd-bar { position: relative; height: 6px; background: rgba(255,255,255,0.12); border-radius: 3px; }
+.rd-seg { position: absolute; top: 0; height: 100%; background: transparent; }
+.rd-seg.is-active { background: #fff; }
+.rd-seg.is-first.is-active { border-radius: 3px 0 0 3px; }
+.rd-seg.is-last.is-active  { border-radius: 0 3px 3px 0; }
+.rd-tick { position: absolute; top: -4px; width: 2px; height: 14px; background: #fff; transform: translateX(-50%); }
+.rd-poles {
+  display: flex; justify-content: space-between;
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.55); margin-top: 8px;
+}
