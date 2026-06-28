@@ -443,11 +443,12 @@ function renderResults(saved) {
     $('results-debug').textContent = JSON.stringify(saved, null, 2);
     return;
   }
+  const def = VARIANT.instrument.definition;
 
   const html = `
     <p class="results-eb">Team Type</p>
     <p class="results-team"><span class=results-teamtype>${report.teamType.label}</span> ${report.teamType.range} · total ${report.total}/${Object.values(report.quotients).reduce((s, q) => s + q.max, 0)}</p>
-    ${renderTeamTypeBar}
+    ${renderTeamTypeBar(report.total,def.teamType.bands)}
     <p class="team-desc">${report.teamType.description}</p>
     <p><em>${report.readiness.resilienceVsPreparedness}</em> · Primary constraint: <strong>${report.readiness.primaryConstraint}</strong></p>
     <h3>Quotients</h3>
