@@ -460,7 +460,7 @@ function renderResults(saved) {
         const meta = quotientMeta[k] ?? {};
         const color = meta.color ?? "#999";
         const pct = (q.pct * 100).toFixed(0);
-        const isPrimary = k === report.readiness.primaryConstraint;
+        const isPrimary = q.label === report.readiness.primaryConstraint;
 
         return `
           <div class="quotient-row${isPrimary ? ' is-primary' : ''}"
