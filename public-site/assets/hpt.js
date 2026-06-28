@@ -585,7 +585,7 @@ async function renderResultsFromToken(token) {
   }
 }
 
-function showResultsByToken(token) {
+async function showResultsByToken(token) {
   VARIANT = await loadVariant();
   showScreen('scr-loading');
   $('loading-msg').textContent = 'Loading your report.';
