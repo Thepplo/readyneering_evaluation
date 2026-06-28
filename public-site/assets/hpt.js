@@ -564,7 +564,6 @@ function renderResults(saved) {
       }).join("")}
       </div>
     </div>
-    <p><em>${report.readiness.resilienceVsPreparedness}</em> · Primary constraint: <strong>${report.readiness.primaryConstraint}</strong></p>
     <div class="results-container">
       <p class="results-eb">Indices</p>
 
