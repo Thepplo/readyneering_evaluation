@@ -1,18 +1,10 @@
-// ============================================================
-// HPT Facilitator Deck
-// Fetches aggregate data once, renders fixed-slide PPT-style report.
-// Keyboard: ← / → navigates. Esc returns to overview (if hosted).
-// ============================================================
 
-// ---- Config ------------------------------------------------
-// Same-origin assumption — adjust if your routing differs.
 const AGGREGATE_ENDPOINT = '/functions/v1/aggregate';
 
 // ---- State -------------------------------------------------
-let DATA = null;          // full aggregate response
-let CURRENT = 0;          // current slide index
+let DATA = null;
+let CURRENT = 0;
 
-// ---- DOM helpers -------------------------------------------
 const $ = (id) => document.getElementById(id);
 
 function show(id) {
@@ -67,7 +59,6 @@ async function fetchAggregate(filters) {
 
 const SLIDES = [
 
-  // ---- 1. Cover ------------------------------------------
   {
     id: 'cover',
     title: 'Cover',
@@ -83,7 +74,6 @@ const SLIDES = [
     `,
   },
 
-  // ---- 2. Team type ---------------------------------------
   {
     id: 'team-type',
     title: 'Team type',
@@ -108,7 +98,6 @@ const SLIDES = [
     },
   },
 
-  // ---- 3. Readiness headline -----------------------------
   {
     id: 'readiness',
     title: 'Readiness',
@@ -128,14 +117,13 @@ const SLIDES = [
             ${(r.min * 100).toFixed(0)}% to ${(r.max * 100).toFixed(0)}%.
             ${r.std !== null && r.std > 0.15
               ? 'The team holds noticeably different views — worth surfacing.'
-              : 'The team's view is broadly consistent.'}
+              : 'The teams view is broadly consistent.'}
           </p>
         </article>
       `;
     },
   },
 
-  // ---- 4. Resilience vs Preparedness ---------------------
   {
     id: 'r-vs-p',
     title: 'Resilience vs Preparedness',
