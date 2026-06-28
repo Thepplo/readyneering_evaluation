@@ -621,7 +621,7 @@ function renderResults(saved) {
     </div>
     <div class="result-questions-wrapper">
       <p class="results-eb-title">Critical questions for your team</p>
-      <p class="title-sub" style="margin-bottom: 10px !important;">Bring these to your team debrief. They matter more than the scores.</p>
+      <p class="title-sub" style="margin-bottom: 25px !important;">Bring these to your team debrief. They matter more than the scores.</p>
       ${report.criticalQuestions.map((q, i) => `
         <div class="result-question">
           <span class="result-question-num">${String(i + 1).padStart(2, '0')}</span>
@@ -631,7 +631,7 @@ function renderResults(saved) {
     </div>
   `;
   $('results-summary').innerHTML = html;
-  $('results-debug').textContent = JSON.stringify(report, null, 2);
+/*   $('results-debug').textContent = JSON.stringify(report, null, 2); */
 }
 
 document.getElementById('btn-start').addEventListener('click', startAssessment);
