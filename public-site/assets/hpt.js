@@ -452,40 +452,42 @@ function renderResults(saved) {
       ${renderTeamTypeBar(report.total,def.teamType.bands, report.teamType.label)}
       <p class="team-desc">${stripSignalPrefix(report.teamType.description)}</p>
     </div>
-    <p class="results-eb">The 5 Quotients</p>
-    <p class="results-desc">Each dimension scored on its own scale. Your primary constraint is where attention will go furthest.</p>
-    <div class="quotient-flex">
-    ${Object.entries(report.quotients).map(([k, q]) => {
-      const meta = quotientMeta[k] ?? {};
-      const color = meta.color ?? "#999";
-      const pct = (q.pct * 100).toFixed(0);
+    <div class="results-container">
+      <p class="results-eb">The 5 Quotients</p>
+      <p class="results-desc">Each dimension scored on its own scale. Your primary constraint is where attention will go furthest.</p>
+      <div class="quotient-flex">
+      ${Object.entries(report.quotients).map(([k, q]) => {
+        const meta = quotientMeta[k] ?? {};
+        const color = meta.color ?? "#999";
+        const pct = (q.pct * 100).toFixed(0);
 
-      return `
-        <div class="quotient-row">
-          <div class="q-meta">
-            <div class="q-chip ${q.label}">${q.label}</div>
-            <div class="q-score">
-              <span class="q-value">${q.score}/${q.max}</span>
-              <span class="q-percent ${q.label}">${pct}%</span>
-              <span class="q-band band-${q.signal.level}">${q.signal.level}</span>
+        return `
+          <div class="quotient-row">
+            <div class="q-meta">
+              <div class="q-chip ${q.label}">${q.label}</div>
+              <div class="q-score">
+                <span class="q-value">${q.score}/${q.max}</span>
+                <span class="q-percent ${q.label}">${pct}%</span>
+                <span class="q-band band-${q.signal.level}">${q.signal.level}</span>
+              </div>
+            </div>
+
+            <div class="q-scale" style="--pos:${pct}%;">
+              <div class="q-bar">
+                <div
+                  class="q-bar-fill"
+                  style="--width:${pct}%; --current-quotient:${color};"
+                ></div>
+              </div>
+            </div>
+
+            <div>
+              <p class="q-desc">${stripSignalPrefix(q.signal.text)}</p>
             </div>
           </div>
-
-          <div class="q-scale" style="--pos:${pct}%;">
-            <div class="q-bar">
-              <div
-                class="q-bar-fill"
-                style="--width:${pct}%; --current-quotient:${color};"
-              ></div>
-            </div>
-          </div>
-
-          <div>
-            <p class="q-desc">${stripSignalPrefix(q.signal.text)}</p>
-          </div>
-        </div>
-      `;
-    }).join("")}
+        `;
+      }).join("")}
+      </div>
     </div>
     <p><em>${report.readiness.resilienceVsPreparedness}</em> · Primary constraint: <strong>${report.readiness.primaryConstraint}</strong></p>
 
