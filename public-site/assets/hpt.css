@@ -671,7 +671,12 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   color: var(--muted,#97907E);
 }
 
-
+.results-desc{
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted,#97907E);
+  margin: 0 0 30px;
+}
 .zone-scale-v2 {
   position: relative;
   margin-top: 64px;

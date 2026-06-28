@@ -450,8 +450,8 @@ function renderResults(saved) {
     <p class="results-eb">Team Type</p>
     ${renderTeamTypeBar(report.total,def.teamType.bands, report.teamType.label)}
     <p class="team-desc">${stripSignalPrefix(report.teamType.description)}</p>
-    <p><em>${report.readiness.resilienceVsPreparedness}</em> · Primary constraint: <strong>${report.readiness.primaryConstraint}</strong></p>
-    <h3>Quotients</h3>
+    <p class="results-eb">The 5 Quotients</p>
+    <p class="results-desc">Each dimension scored on its own scale. Your primary constraint is where attention will go furthest.</p>
     <div>
     ${Object.entries(report.quotients).map(([k, q]) => {
       const meta = quotientMeta[k] ?? {};
@@ -485,6 +485,8 @@ function renderResults(saved) {
       `;
     }).join("")}
     </div>
+    <p><em>${report.readiness.resilienceVsPreparedness}</em> · Primary constraint: <strong>${report.readiness.primaryConstraint}</strong></p>
+
     <h3>Indices</h3>
     <ul>
       <li>Resilience: ${(report.indices.resilience * 100).toFixed(0)}%</li>
