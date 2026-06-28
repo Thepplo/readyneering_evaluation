@@ -478,6 +478,38 @@ function renderIndexCard(key, value, report) {
   `;
 }
 
+function renderMindCard(value, report) {
+  const meta = indexMeta.mind;
+  const pct = (value * 100).toFixed(0);
+  return `
+    <div class="mind-card">
+      <div>
+        <p class="index-eb">${meta.label}</p>
+        <span class="index-value">${value.toFixed(2)}</span>
+      </div>
+      <div class="index-bar"><div class="index-bar-fill" style="width:${pct}%;"></div></div>
+      <p class="index-desc" style="max-width:260px;">${meta.description}</p>
+    </div>
+  `;
+}
+
+function renderReadinessCard(readiness, report) {
+  const pct = (readiness.value * 100).toFixed(0);
+  return `
+    <div class="readiness-card">
+      <p class="index-eb">Readiness</p>
+      <div class="index-hero">
+        <span class="readiness-value">${pct}%</span>
+        <span class="readiness-level">${readiness.level}</span>
+      </div>
+      <div class="index-bar"><div class="index-bar-fill" style="width:${pct}%;"></div></div>
+      <p class="index-desc" style="color:rgba(255,255,255,0.75); margin-top:14px;">
+        ${readiness.resilienceVsPreparedness} · Primary constraint:
+        <strong style="color:#fff;">${report.quotients[readiness.primaryConstraint]?.label ?? readiness.primaryConstraint}</strong>
+      </p>
+    </div>
+  `;
+}
 function renderResults(saved) {
   const report = saved.report?.open;
   if (!report) {
@@ -535,9 +567,15 @@ function renderResults(saved) {
     <p><em>${report.readiness.resilienceVsPreparedness}</em> · Primary constraint: <strong>${report.readiness.primaryConstraint}</strong></p>
     <div class="results-container">
       <p class="results-eb">Indices</p>
-      <div class="index-grid">
-        ${Object.entries(report.indices).map(([k, v]) => renderIndexCard(k, v, report)).join('')}
+
+      <div class="index-pair">
+        ${renderIndexCard('resilience', report.indices.resilience, report)}
+        ${renderIndexCard('preparedness', report.indices.preparedness, report)}
       </div>
+
+      ${renderMindCard(report.indices.mind, report)}
+
+      ${renderReadinessCard(report.readiness, report)}
     </div>
     <div class="result-questions-wrapper">
       <p class="results-eb-title">Critical questions for your team</p>

@@ -881,3 +881,48 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   color: #6b6357;
   margin: 0;
 }
+
+.index-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+/* Mind: lower-key, wider, sits as a "supporting" strip */
+.mind-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 20px;
+  background: #faf7f1;          /* softer than the cards above */
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.mind-card .index-value { font-size: 24px; }   /* smaller hero */
+.mind-card .index-eb    { margin: 0; }
+.mind-card .index-bar   { margin: 0; }
+
+/* Readiness: the closer. Bigger, bolder, set apart. */
+.readiness-card {
+  padding: 28px;
+  border-radius: 10px;
+  background: var(--ink, #2A251E);
+  color: #fff;
+  margin-top: 8px;
+}
+.readiness-card .index-eb { color: rgba(255,255,255,0.6); }
+.readiness-value {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+}
+.readiness-level {
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.readiness-card .index-bar { background: rgba(255,255,255,0.15); }
+.readiness-card .index-bar-fill { background: #fff; }
