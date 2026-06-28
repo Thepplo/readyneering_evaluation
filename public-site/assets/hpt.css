@@ -902,6 +902,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 .mind-card {
   display: flex;
   flex-direction: column;
+  border: 1px solid #7701363b;
 }
 .mind-card-grid {
   display: grid;
