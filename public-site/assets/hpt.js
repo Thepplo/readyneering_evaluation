@@ -401,6 +401,41 @@ function stripSignalPrefix(text) {
   return String(text || '').replace(/^[^:]+:\s*/, '');
 }
 
+function renderTeamTypeBar(total, bands) {
+  const min = parseInt(bands[0].range.split('–')[0].trim(), 10);
+  const max = bands[bands.length - 1].upTo;
+  const span = max - min;
+
+  const pct = v => ((v - min) / span) * 100;
+
+  let prevUpTo = min;
+  const segments = bands.map(b => {
+    const left = pct(prevUpTo);
+    const width = pct(b.upTo) - left;
+    prevUpTo = b.upTo;
+    return { ...b, left, width };
+  });
+
+  const tickPct = Math.max(0, Math.min(100, pct(total)));
+
+  const activeKey = bands.find(b => total <= b.upTo)?.key ?? bands[bands.length - 1].key;
+
+  return `
+    <div class="tt-header">
+      <strong>${total} / ${max}</strong>
+      <span class="tt-band-label">BAND ${bands.find(b => b.key === activeKey).range}</span>
+    </div>
+    <div class="tt-bar">
+      ${segments.map(s => `
+        <div class="tt-seg ${s.key === activeKey ? 'is-active' : ''}"
+             style="left:${s.left}%; width:${s.width}%;"></div>
+      `).join('')}
+      <div class="tt-tick" style="left:${tickPct}%;"></div>
+    </div>
+    <div class="tt-axis"><span>${min}</span><span>${max}</span></div>
+  `;
+}
+
 function renderResults(saved) {
   const report = saved.report?.open;
   if (!report) {
@@ -412,14 +447,8 @@ function renderResults(saved) {
   const html = `
     <p class="results-eb">Team Type</p>
     <p class="results-team"><span class=results-teamtype>${report.teamType.label}</span> ${report.teamType.range} · total ${report.total}/${Object.values(report.quotients).reduce((s, q) => s + q.max, 0)}</p>
+    ${renderTeamTypeBar}
     <p class="team-desc">${report.teamType.description}</p>
-    <h3>Indices</h3>
-    <ul>
-      <li>Resilience: ${(report.indices.resilience * 100).toFixed(0)}%</li>
-      <li>Preparedness: ${(report.indices.preparedness * 100).toFixed(0)}%</li>
-      <li>Mind: ${(report.indices.mind * 100).toFixed(0)}%</li>
-      <li><strong>Readiness:</strong> ${(report.readiness.value * 100).toFixed(0)}% — ${report.readiness.level}</li>
-    </ul>
     <p><em>${report.readiness.resilienceVsPreparedness}</em> · Primary constraint: <strong>${report.readiness.primaryConstraint}</strong></p>
     <h3>Quotients</h3>
     <div>
@@ -454,6 +483,13 @@ function renderResults(saved) {
       `;
     }).join("")}
     </div>
+    <h3>Indices</h3>
+    <ul>
+      <li>Resilience: ${(report.indices.resilience * 100).toFixed(0)}%</li>
+      <li>Preparedness: ${(report.indices.preparedness * 100).toFixed(0)}%</li>
+      <li>Mind: ${(report.indices.mind * 100).toFixed(0)}%</li>
+      <li><strong>Readiness:</strong> ${(report.readiness.value * 100).toFixed(0)}% — ${report.readiness.level}</li>
+    </ul>
     <div class="result-questions-wrapper">
       <p class="results-eb-title">Critical questions for your team</p>
       <p class="title-sub" style="margin-bottom: 10px !important;">Bring these to your team debrief. They matter more than the scores.</p>
