@@ -560,6 +560,7 @@ async function loadResultByToken(token) {
   }
 }
 async function renderResultsFromToken(token) {
+  VARIANT = await loadVariant();
   try {
     const serverResult = await loadResultByToken(token);
     currentResult = serverResult;
@@ -585,8 +586,7 @@ async function renderResultsFromToken(token) {
   }
 }
 
-async function showResultsByToken(token) {
-  VARIANT = await loadVariant();
+function showResultsByToken(token) {
   showScreen('scr-loading');
   $('loading-msg').textContent = 'Loading your report.';
   return renderResultsFromToken(token);
