@@ -343,10 +343,10 @@ h1, h2 { margin-top: 0; }
     margin-bottom: 16px;
 }
 
-.answer-legend .grid{
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 4px;
+.answer-legend .grid {
+  display: grid;
+  grid-template-columns: repeat(var(--scale-steps, 6), 1fr);
+  gap: 4px;
 }
 
 .answer-legend .grid span{

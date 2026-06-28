@@ -124,6 +124,7 @@ async function init() {
     SCALE_CHOICES = [];
     MAX_SCORE = def.total.max;
     for (let v = def.scale.min; v <= def.scale.max; v++) SCALE_CHOICES.push(v);
+    renderAnswerLegend(def);
     QUOTIENTS = buildQuotientsFromDefinition(def);
     let idx = 1;
     for (const q of QUOTIENTS) for (const it of q.items) ITEM_INDEX[it.key] = it.index ?? idx++;
@@ -210,11 +211,27 @@ function renderQuotientInfo(quotient) {
   `;
 }
 
+function renderAnswerLegend(def) {
+  const grid = $('answer-legend-grid');
+  const { min, max, labels = {} } = def.scale;
+
+  const spans = [];
+  for (let v = min; v <= max; v++) {
+    spans.push(`<span>${labels[v] ?? v}</span>`);
+  }
+  grid.innerHTML = spans.join('');
+
+  grid.style.setProperty('--scale-steps', max - min + 1);
+
+  if (def.scale.prompt) {
+    $('answer-legend-title').textContent = def.scale.prompt;
+  }
+}
+
 function renderQuotient() {
   const q = QUOTIENTS[currentQuotient];
   $('progress-page').textContent = `Page ${currentQuotient + 1} of ${QUOTIENTS.length}`;
 
-  /* $('quotient-title').textContent = `${q.label}: ${q.description}`; */
   renderQuotientInfo(q.key)
 
   const container = $('questions-container');
