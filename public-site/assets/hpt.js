@@ -622,7 +622,12 @@ function renderResults(saved) {
     <div class="result-questions-wrapper">
       <p class="results-eb-title">Critical questions for your team</p>
       <p class="title-sub" style="margin-bottom: 10px !important;">Bring these to your team debrief. They matter more than the scores.</p>
-      ${report.criticalQuestions.map(q => `<div class="result-question">${q}</div>`).join('')}
+      ${report.criticalQuestions.map((q, i) => `
+        <div class="result-question">
+          <span class="result-question-num">${String(i + 1).padStart(2, '0')}</span>
+          <p class="result-question-text">${q}</p>
+        </div>
+      `).join('')}
     </div>
   `;
   $('results-summary').innerHTML = html;
