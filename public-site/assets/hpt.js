@@ -143,30 +143,40 @@ let currentQuotient = 0;
 let currentResult = null;
 
 function $(id) { return document.getElementById(id); }
+let _screenTl = null;
+
 function showScreen(id) {
-  const current = document.querySelector('.screen.active');
   const next = document.getElementById(id);
-  if (!next || next === current) return;
+  if (!next) return;
+
+  if (_screenTl) { _screenTl.kill(); _screenTl = null; }
+  document.querySelectorAll('.screen').forEach(el => gsap.killTweensOf(el));
+
+  const current = document.querySelector('.screen.active');
+  if (current === next) return;
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    current?.classList.remove('active');
+    document.querySelectorAll('.screen').forEach(el => {
+      el.classList.remove('active');
+      gsap.set(el, { clearProps: 'transform,opacity' });
+    });
     next.classList.add('active');
     return;
   }
 
-  const tl = gsap.timeline();
+  _screenTl = gsap.timeline({ onComplete: () => { _screenTl = null; } });
 
   if (current) {
-    tl.to(current, {
-      opacity: 0,
-      y: -8,
-      duration: 0.2,
-      ease: 'power2.in',
-      onComplete: () => current.classList.remove('active'),
+    _screenTl.to(current, {
+      opacity: 0, y: -8, duration: 0.2, ease: 'power2.in',
+      onComplete: () => {
+        current.classList.remove('active');
+        gsap.set(current, { clearProps: 'transform,opacity' });
+      },
     });
   }
 
-  tl.add(() => next.classList.add('active'))
+  _screenTl.add(() => next.classList.add('active'))
     .fromTo(next,
       { opacity: 0, y: 12 },
       { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out', clearProps: 'transform,opacity' }
