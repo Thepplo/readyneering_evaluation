@@ -72,6 +72,7 @@ h1, h2 { margin-top: 0; }
 
 }
 #scr-intro,
+#scr-loading,
 #scr-results {
     max-width: 700px;
     margin: 0px auto;
