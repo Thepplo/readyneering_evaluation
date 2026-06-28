@@ -2,6 +2,7 @@ const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app
 // ---- Turnstile state ----
 
 const PAGE_LOADED_AT = Date.now();
+const DEV_MODE = getQueryParam('dev') === '1';
 
 const indexMeta = {
   resilience: {
@@ -180,10 +181,14 @@ function getVariantKey() {
   return getQueryParam('variant') || 'hpt-default';
 }
 function getSessionId() {
+  if (DEV_MODE) {
+    return crypto.randomUUID();
+  }
   let s = sessionStorage.getItem('hpt_session');
   if (!s) { s = crypto.randomUUID(); sessionStorage.setItem('hpt_session', s); }
   return s;
 }
+
 function getSubmitAttemptId() {
   let id = localStorage.getItem('hpt_submit_attempt_id');
   if (!id) { id = crypto.randomUUID(); localStorage.setItem('hpt_submit_attempt_id', id); }
