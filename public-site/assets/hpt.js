@@ -124,6 +124,7 @@ async function init() {
     SCALE_CHOICES = [];
     MAX_SCORE = def.total.max;
     for (let v = def.scale.min; v <= def.scale.max; v++) SCALE_CHOICES.push(v);
+    document.documentElement.style.setProperty('--scale-steps', SCALE_CHOICES.length);
     renderAnswerLegend(def);
     QUOTIENTS = buildQuotientsFromDefinition(def);
     let idx = 1;
@@ -259,13 +260,14 @@ function renderQuotient() {
       </div>
     `;
     container.appendChild(div);
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+
+  }
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       gsap.fromTo('#questions-container .question',
         { opacity: 0, y: 8 },
         { opacity: 1, y: 0, duration: 0.3, stagger: 0.04, ease: 'power2.out', clearProps: 'all' }
       );
     }
-  }
 
   container.querySelectorAll('.likert-btn').forEach(btn => {
     btn.addEventListener('click', () => {

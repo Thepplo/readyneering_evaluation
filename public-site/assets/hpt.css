@@ -427,15 +427,15 @@ h1, h2 { margin-top: 0; }
 .likert {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(6,1fr);
+    grid-template-columns: repeat(var(--scale-steps, 5), 1fr);
     gap: 4px;
 }
 
 .likert::before {
     content: "";
     position: absolute;
-    left: 8.33%;
-    right: 8.33%;
+    left:  calc(50% / var(--scale-steps, 5));
+    right: calc(50% / var(--scale-steps, 5));
     top: 50%;
     height: 1px;
     background: var(--track,#E2DAC9);
