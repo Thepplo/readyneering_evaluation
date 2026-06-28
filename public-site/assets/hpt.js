@@ -464,6 +464,7 @@ function renderResults(saved) {
             <div class="q-chip ${q.label}">${q.label}</div>
             <div class="q-score">
               <span class="q-value">${q.score}/${q.max}</span>
+              <span class="q-percent ${q.label}>${pct}%</span>
               <span class="q-band band-${q.signal.level}">${q.signal.level}</span>
             </div>
           </div>

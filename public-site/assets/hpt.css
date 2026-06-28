@@ -564,7 +564,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 .results-team {
   font-size: 16px;
   padding-bottom: 3px;
-  margin: 0 0 24px;
+  margin: 0;
 }
 
 .team-desc {
@@ -648,24 +648,29 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   gap: 10px;
   justify-content: flex-end;
 }
+.q-percent {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.q-percent.Vitality { color: var(--vitality); }
+.q-percent.Emotion { color: var(--emotion); }
+.q-percent.Mind    { color: var(--mind); }
+.q-percent.Execution { color: var(--execution); }
+.q-percent.Alignment { color: var(--alignment); }
+
+
 .q-value {
-  font-size: 22px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  color: #1a1a1a;
+  font-size: 13px;
+  color: var(--muted,#97907E);
 }
 .q-band {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
+  font-size: 12px;
   letter-spacing: 0.06em;
-  padding: 3px 7px;
-  border-radius: 999px;
+  text-transform: uppercase;
+  color: var(--muted,#97907E);
 }
-.band-risk     { background: #fff1f2; color: #9f1239; }
-.band-developing      { background: #fef3c7; color: #92400e; }
-.band-building    { background: #d1fae5; color: #047857; }
-.band-ready    { background: #dbeafe; color: #1d4ed8; }
+
 
 .zone-scale-v2 {
   position: relative;
@@ -743,7 +748,6 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   align-items: baseline;
   gap: 14px;
   flex-wrap: wrap;
-  margin-bottom: 22px;
 }
 
 .tt-header strong{
