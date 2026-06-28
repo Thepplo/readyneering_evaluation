@@ -457,34 +457,46 @@ function renderTeamTypeBar(total, bands, label) {
     <div class="tt-axis"><span>${min}</span><span>${max}</span></div>
   `;
 }
-function renderReadinessBar(total, bands) {
-  const min = parseInt(bands[0].range.split('–')[0].trim(), 10);
-  const max = bands[bands.length - 1].upTo;
-  const span = max - min;
+function renderReadinessBar(value, bands) {
+  const min = 0;
+  const max = 1;
+  const pct = v => ((v - min) / (max - min)) * 100;
 
-  const pct = v => ((v - min) / span) * 100;
-
-  let prevUpTo = min;
+  let prev = min;
   const segments = bands.map((b, i) => {
-    const left = pct(prevUpTo);
-    const width = pct(b.upTo) - left;
-    prevUpTo = b.upTo;
-    return { ...b, left, width, isFirst: i === 0, isLast: i === bands.length - 1 };
+    const left = pct(prev);
+    const right = pct(Math.min(b.upTo, max));
+    prev = b.upTo;
+    return {
+      ...b,
+      left,
+      width: right - left,
+      isFirst: i === 0,
+      isLast: i === bands.length - 1,
+    };
   });
 
-  const tickPct = Math.max(0, Math.min(100, pct(total)));
+  const tickPct = Math.max(0, Math.min(100, pct(value)));
+  const activeKey = bands.find(b => value <= b.upTo)?.key ?? bands.at(-1).key;
 
-  const activeKey = bands.find(b => total <= b.upTo)?.key ?? bands[bands.length - 1].key;
+  const segClass = s => [
+    'rd-seg',
+    s.key === activeKey && 'is-active',
+    s.isFirst && 'is-first',
+    s.isLast && 'is-last',
+  ].filter(Boolean).join(' ');
 
   return `
-    <div class="tt-bar">
+    <div class="rd-bar">
       ${segments.map(s => `
-        <div class="tt-seg ${s.key === activeKey ? 'is-active' : ''}${s.isFirst ? 'is-first' : ''} ${s.isLast ? 'is-last' : ''}"
-             style="left:${s.left}%; width:${s.width}%;"></div>
+        <div class="${segClass(s)}" style="left:${s.left}%; width:${s.width}%;"></div>
       `).join('')}
-      <div class="tt-tick" style="left:${tickPct}%;"></div>
+      <div class="rd-tick" style="left:${tickPct}%;"></div>
     </div>
-    <div class="tt-axis"><span>${min}</span><span>${max}</span></div>
+    <div class="rd-poles">
+      <span>Structural Risk</span>
+      <span>Strategic Readiness</span>
+    </div>
   `;
 }
 function renderIndexCard(key, value, report) {
