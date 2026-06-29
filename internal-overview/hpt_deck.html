@@ -9,9 +9,6 @@
 </head>
 <body>
 
-  <!-- ───────────────────────────────────────────────────────
-       Loading + error states
-  ─────────────────────────────────────────────────────── -->
   <div id="deck-loading" class="deck-overlay active">
     <p>Loading team data…</p>
   </div>
@@ -21,12 +18,8 @@
     <p id="deck-error-msg"></p>
   </div>
 
-  <!-- ───────────────────────────────────────────────────────
-       Deck shell
-  ─────────────────────────────────────────────────────── -->
   <main id="deck" class="deck" hidden>
 
-    <!-- Top bar: cohort identifier, slide counter -->
     <header class="deck-header">
       <div class="deck-cohort">
         <span id="deck-variant"></span>
@@ -38,12 +31,9 @@
       </div>
     </header>
 
-    <!-- Slide stage -->
     <section class="deck-stage" id="slide-stage">
-      <!-- Slides injected here -->
     </section>
 
-    <!-- Footer nav -->
     <footer class="deck-footer">
       <button id="deck-prev" class="deck-nav" aria-label="Previous">
         <span class="arrow-back" aria-hidden="true"></span>
