@@ -10,11 +10,11 @@
   --line: #E6DECF;
   --accent: #2A251E;
 
-  --vitality: #f5c542;
-  --emotion:  #d94e4e;
-  --mind:     #5a8db8;
-  --execution: #6ba368;
-  --alignment: #8a6db8;
+  --vitality: #FFD000;
+  --emotion: #E53846;
+  --execution: #2D52B5;
+  --mind: #770136;
+  --alignment: #1B74CD;
 }
 
 * { box-sizing: border-box; }
