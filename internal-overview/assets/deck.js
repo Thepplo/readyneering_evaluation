@@ -215,7 +215,7 @@ const SLIDES = [
           <li>The primary constraint — does the team accept it as the right focus?</li>
           <li>What would shifting this score by 10% look like in daily behaviour?</li>
         </ul>
-        <p class="slide-meta">Cohort: ${d.cohort.n} respondents, instrument v${d.cohort.instrument_version_id ?? '—'}.</p>
+        <p class="slide-meta">Cohort: ${d.cohort.n} respondents.</p>
       </article>
     `,
   },
