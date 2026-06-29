@@ -49,11 +49,6 @@ async function fetchAggregate(filters) {
   return r.json();
 }
 
-// ============================================================
-// Slide definitions
-// Each slide is { id, title, render(data) -> HTML string }
-// To add/remove a slide, edit this array. Nothing else changes.
-// ============================================================
 
 const SLIDES = [
 
@@ -180,7 +175,6 @@ const SLIDES = [
     },
   })),
 
-  // ---- 10. Primary constraint ----------------------------
   {
     id: 'constraint',
     title: 'Primary constraint',
@@ -202,7 +196,6 @@ const SLIDES = [
     },
   },
 
-  // ---- 11. Closing ---------------------------------------
   {
     id: 'close',
     title: 'Closing',
@@ -222,7 +215,6 @@ const SLIDES = [
 
 ];
 
-// ---- Render helpers ----------------------------------------
 function renderDistributionBars(dist, labelFn) {
   const total = Object.values(dist).reduce((n, c) => n + c, 0);
   if (total === 0) return '';
@@ -267,7 +259,6 @@ function capitalize(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-// ---- Slide navigation --------------------------------------
 function renderSlide(idx) {
   CURRENT = Math.max(0, Math.min(SLIDES.length - 1, idx));
   const slide = SLIDES[CURRENT];
@@ -294,7 +285,6 @@ function renderDots() {
 function next() { renderSlide(CURRENT + 1); }
 function prev() { renderSlide(CURRENT - 1); }
 
-// ---- Keyboard ---------------------------------------------
 document.addEventListener('keydown', (e) => {
   if (!DATA) return;
   if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
