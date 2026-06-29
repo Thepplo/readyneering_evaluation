@@ -94,13 +94,13 @@ h1, h2 { margin-top: 0; }
   margin: 0 0 28px;
 }
 .privact-notice-card h3{
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--ink,#2A251E);
-  margin-bottom: 12px;
-  font-style: normal;
+  font-size: 12px !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  color: var(--ink,#2A251E) !important;
+  margin-bottom: 12px !important;
+  font-style: normal !important;
 }
 .start-page-copy {
   font-size: 18px;
