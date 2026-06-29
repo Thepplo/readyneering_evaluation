@@ -1,5 +1,5 @@
 const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app/functions/v1';
-const AGGREGATE_ENDPOINT = 'functions/api/aggregate';
+const AGGREGATE_ENDPOINT = '/api/aggregate';
 
 // ---- State -------------------------------------------------
 let DATA = null;
