@@ -484,6 +484,9 @@ h1, h2 { margin-top: 0; }
   align-items: center;
   position: relative;
   z-index: 1;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
 }
 
 .likert-btn:focus { outline: none; }
