@@ -87,6 +87,20 @@ h1, h2 { margin-top: 0; }
   line-height: 1.05;
   margin: 0 0 28px;
 }
+.start-page-copy {
+  font-size: 18px;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--ink,#2A251E) 82%, transparent);
+  margin: 0px 0px 18px;
+  font-weight: 400;
+}
+.start-page-copy.muted {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--muted,#97907E);
+  margin: 0px 0px 46px;
+}
+
 .privacy-consent {
   display: flex;
   align-items: flex-start;
