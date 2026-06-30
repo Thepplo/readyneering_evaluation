@@ -659,6 +659,8 @@ function renderResults(saved) {
     return;
   }
   const def = VARIANT.instrument.definition;
+  const primaryConstraint = report.readiness?.primaryConstraint;
+  const hasPrimaryConstraint = primaryConstraint && primaryConstraint !== "none";
 
   const html = `
     <div class="results-container">
@@ -668,14 +670,19 @@ function renderResults(saved) {
     </div>
     <div class="results-container">
       <p class="results-eb">The 5 Quotients</p>
-      <p class="results-desc">Each dimension scored on its own scale. Your primary constraint is where attention will go furthest.</p>
+      <p class="results-desc">
+        ${hasPrimaryConstraint
+          ? "Each dimension scored on its own scale. Your primary constraint is where attention will go furthest."
+          : "Each dimension scored on its own scale. No single primary constraint stands out right now."
+        }
+      </p>
       <div class="quotient-flex">
       ${Object.entries(report.quotients).map(([k, q]) => {
         const meta = quotientMeta[k] ?? {};
         const color = meta.color ?? "#999";
         const pct = (q.pct * 100).toFixed(0);
         const isPrimary =
-          report.readiness.primaryConstraint !== "none" &&
+          hasPrimaryConstraint &&
           k === report.readiness.primaryConstraint;
 
         return `
