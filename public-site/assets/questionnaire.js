@@ -666,15 +666,6 @@ function fitTextToRegion(ctx, text, region, lineHeight, opts) {
 
   return best;
 }
-function tspansFromLines(lines, anchor, x) {
-  let out = '';
-  for (const i = 0; i < lines.length; i++) {
-    out += '<tspan x="' + x + '" dy="' + (i === 0 ? '0' : LH) + '" text-anchor="' + anchor + '">'
-      + esc(lines[i]) +
-      '</tspan>';
-  }
-  return out;
-}
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -810,7 +801,7 @@ function buildSteps(savedState) {
     ? savedState.current
     : 0;
 
-  for (const i = 0; i < SHUFFLED_TRIADS.length; i++) {
+  for (let i = 0; i < SHUFFLED_TRIADS.length; i++) {
     const t = SHUFFLED_TRIADS[i];
     const display = i === current ? 'block' : 'none';
 
@@ -831,7 +822,7 @@ function buildSteps(savedState) {
 
   wrap.innerHTML = html;
 
-  for (const j = 0; j < SHUFFLED_TRIADS.length; j++) {
+  for (let j = 0; j < SHUFFLED_TRIADS.length; j++) {
     attachEvents(j);
   }
 
@@ -839,7 +830,7 @@ function buildSteps(savedState) {
 }
 
 function rehydratePlacements() {
-  for (const idx = 0; idx < placements.length; idx++) {
+  for (let idx = 0; idx < placements.length; idx++) {
     const pt = placements[idx];
     if (!pt) continue;
 
@@ -955,7 +946,7 @@ function showStep(idx, direction) {
     duration: 0.18,
     ease: "power1.out",
     onComplete: function () {
-      for (const i = 0; i < SHUFFLED_TRIADS.length; i++) {
+      for (let i = 0; i < SHUFFLED_TRIADS.length; i++) {
         const el = document.getElementById('step-' + i);
         el.style.display = 'none';
         gsap.set(el, { clearProps: 'opacity,transform' });
@@ -1102,7 +1093,7 @@ function buildModeInsights(results) {
   const rParts = [];
   const pParts = [];
 
-  for (const i = 0; i < QDIMS.length; i++) {
+  for (let i = 0; i < QDIMS.length; i++) {
     const q = QDIMS[i];
     rParts.push({
       key: q,
