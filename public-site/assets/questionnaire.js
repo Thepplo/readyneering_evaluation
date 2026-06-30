@@ -32,7 +32,7 @@ let turnstileShellTimer = null;
 let turnstileReady = false;
 let pendingToken = null;
 
-window.onTurnstileLoad = function () { turnstileReady = true; };
+globalThis.onTurnstileLoad = function () { turnstileReady = true; };
 
 function showVerifyCard() { setTurnstileChallengeActive(true); }
 function hideVerifyCard() { setTurnstileChallengeActive(false); }
@@ -41,7 +41,7 @@ function beginVerifyAndSubmit() {
   if (turnstileWidgetId === null) {
     renderTurnstileWidgetOnce();
   } else {
-    try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
+    try { globalThis.turnstile.reset(turnstileWidgetId); } catch (e) {}
   }
 }
 
@@ -80,8 +80,8 @@ async function renderAfterVerify() {
 
 function teardownTurnstile() {
   try {
-    if (turnstileWidgetId !== null && window.turnstile) {
-      window.turnstile.remove(turnstileWidgetId);
+    if (turnstileWidgetId !== null && globalThis.turnstile) {
+      globalThis.turnstile.remove(turnstileWidgetId);
     }
   } catch (e) {}
   turnstileWidgetId = null;
@@ -139,17 +139,17 @@ function cancelTurnstile() {
   hideTurnstileShell();
 
   try {
-    window.turnstile.reset(turnstileWidgetId);
+    globalThis.turnstile.reset(turnstileWidgetId);
   } catch (e) {}
 }
 
 function waitForTurnstile() {
-  if (window.turnstile) return Promise.resolve();
+  if (globalThis.turnstile) return Promise.resolve();
   if (!turnstileReadyPromise) {
     turnstileReadyPromise = new Promise((resolve, reject) => {
       const startedAt = Date.now();
       const timer = setInterval(() => {
-        if (window.turnstile) {
+        if (globalThis.turnstile) {
           clearInterval(timer);
           resolve();
           return;
@@ -174,7 +174,7 @@ function setTurnstileChallengeActive(isActive) {
 
 function renderTurnstileWidgetOnce() {
   if (turnstileWidgetId !== null) return;
-  turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
+  turnstileWidgetId = globalThis.turnstile.render('#turnstile-widget', {
     sitekey: TURNSTILE_SITE_KEY,
     appearance: 'interaction-only',
     'before-interactive-callback': function () { showVerifyCard(); },
@@ -182,7 +182,7 @@ function renderTurnstileWidgetOnce() {
     callback: function (token) { hideVerifyCard(); submitWithToken(token); },
     'error-callback':   function () { showVerifyRetry('Verification failed. Please try again.'); },
     'timeout-callback': function () { showVerifyRetry('Verification timed out. Please try again.'); },
-    'expired-callback': function () { try { window.turnstile.reset(turnstileWidgetId); } catch (e) {} }
+    'expired-callback': function () { try { globalThis.turnstile.reset(turnstileWidgetId); } catch (e) {} }
   });
 }
 /* 
@@ -211,9 +211,9 @@ async function getTurnstileToken() {
     };
 
     try {
-      const r = window.turnstile.getResponse(turnstileWidgetId);
-      if (r) window.turnstile.reset(turnstileWidgetId);
-      window.turnstile.execute(turnstileWidgetId);
+      const r = globalThis.turnstile.getResponse(turnstileWidgetId);
+      if (r) globalThis.turnstile.reset(turnstileWidgetId);
+      globalThis.turnstile.execute(turnstileWidgetId);
     } catch (e) {
       clearTimeout(timeout);
       hideTurnstileShell();
@@ -724,7 +724,7 @@ function getSessionId() {
 }
 
 function getQueryParam(name) {
-  return new URLSearchParams(window.location.search).get(name);
+  return new URLSearchParams(globalThis.location.search).get(name);
 }
 
 function measureWrappedBlock(ctx, text, maxWidth, lineHeight) {
@@ -843,7 +843,7 @@ function makeSVG(idx) {
   var mCAx = ((TC.x + TA.x) / 2).toFixed(1), mCAy = ((TC.y + TA.y) / 2).toFixed(1);
 
   // ── Bounds: fixed regardless of copy length ───────────────
-  var vw = window.innerWidth;
+  var vw = globalThis.innerWidth;
   var sidePad = vw <= 1023 ? s(28) : s(90);
 
   // Side slots extend SLOT_WIDTH_SIDE/2 outward from TB/TC, so the side
@@ -1114,7 +1114,7 @@ document.getElementById('btn-next').addEventListener('click', function() {
   current = next;
   saveAssessmentState();
   setTimeout(updateUI, 100);
-  window.scrollTo(0, 0);
+  globalThis.scrollTo(0, 0);
 });
 
 document.getElementById('btn-back').addEventListener('click', function() {
@@ -1124,7 +1124,7 @@ document.getElementById('btn-back').addEventListener('click', function() {
     current = prev;
     saveAssessmentState();
     setTimeout(updateUI, 100);
-    window.scrollTo(0, 0);
+    globalThis.scrollTo(0, 0);
   }
 });
 
@@ -1659,7 +1659,7 @@ function buildActionsForQuotient(q, actionKey) {
 } */
 
 function getVariantKey() {
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(globalThis.location.search);
 
   return params.get('v') || 'public';
 }
@@ -2221,15 +2221,15 @@ async function showResultsPage(renderFn) {
   loader.classList.remove('active');
   content.classList.remove('is-hidden');
 
-  if (window.gsap) {
+  if (globalThis.gsap) {
     revealResults();
   }
 
-  window.scrollTo(0, 0);
+  globalThis.scrollTo(0, 0);
 }
 
 function revealResults() {
-  if (!window.gsap) return;
+  if (!globalThis.gsap) return;
 
   gsap.set('.reveal-hero, .reveal-modes, .reveal-debrief', {
     opacity: 0,
@@ -2993,7 +2993,7 @@ async function refreshReportUnlockStatus(serverResult) {
   }
 }
 
-window.addEventListener('focus', function () {
+globalThis.addEventListener('focus', function () {
   if (currentResult && currentResult.locked && !currentResult.report?.locked) {
     refreshReportUnlockStatus(currentResult);
   }
@@ -3405,7 +3405,7 @@ function startAssessment() {
 
   buildSteps();
   updateUI();
-  window.scrollTo(0, 0);
+  globalThis.scrollTo(0, 0);
 }
 function restoreAssessment() {
   const saved = loadAssessmentState();
@@ -3465,13 +3465,13 @@ document.getElementById('btn-restart').addEventListener('click', function() {
   clearAssessmentState();
   document.getElementById('scr-results').style.display = 'none';
   document.getElementById('scr-intro').style.display = 'block';
-  window.scrollTo(0, 0);
+  globalThis.scrollTo(0, 0);
 }); */
 
 document.getElementById('foot-download-pdf').addEventListener('click', function() {
   const originalTitle = document.title;
   document.title = `andQfive Readiness Report — ${new Date().toISOString().slice(0,10)}`;
-  window.print();
+  globalThis.print();
   // Restore title after print dialog closes
   setTimeout(() => { document.title = originalTitle; }, 100);
 });
@@ -3482,7 +3482,7 @@ document.getElementById('foot-copy-url').addEventListener('click', async functio
   if (!label) return;
 
   try {
-    await navigator.clipboard.writeText(window.location.href);
+    await navigator.clipboard.writeText(globalThis.location.href);
     const original = label.textContent;
     label.textContent = 'Copied';
     btn.classList.add('is-copied');
