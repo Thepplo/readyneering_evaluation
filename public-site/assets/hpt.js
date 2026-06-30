@@ -535,6 +535,7 @@ function renderReadinessBar(value, bands, level) {
     const left = pct(prev);
     const right = pct(Math.min(b.upTo, max));
     prev = b.upTo;
+
     return {
       ...b,
       left,
@@ -545,24 +546,38 @@ function renderReadinessBar(value, bands, level) {
   });
 
   const tickPct = Math.max(0, Math.min(100, pct(value)));
+  const labelPct = Math.max(6, Math.min(94, tickPct));
+
+  const labelTransform =
+    tickPct <= 6 ? "translateX(0)" :
+    tickPct >= 94 ? "translateX(-100%)" :
+    "translateX(-50%)";
+
   const activeKey = bands.find(b => value <= b.upTo)?.key ?? bands.at(-1).key;
 
   const segClass = s => [
-    'rd-seg',
-    s.key === activeKey && 'is-active',
-    s.isFirst && 'is-first',
-    s.isLast && 'is-last',
-  ].filter(Boolean).join(' ');
+    "rd-seg",
+    s.key === activeKey && "is-active",
+    s.isFirst && "is-first",
+    s.isLast && "is-last",
+  ].filter(Boolean).join(" ");
 
   return `
     <div class="rd-bar-wrap">
-      <span class="rd-level" style="left:${tickPct}%;">${level}</span>
+      <span
+        class="rd-level"
+        style="left:${labelPct}%; transform:${labelTransform};"
+      >
+        ${level}
+      </span>
+
       <div class="rd-bar">
         ${segments.map(s => `
           <div class="${segClass(s)}" style="left:${s.left}%; width:${s.width}%;"></div>
-        `).join('')}
+        `).join("")}
         <div class="rd-tick" style="left:${tickPct}%;"></div>
       </div>
+
       <div class="rd-poles">
         <span>Structural Risk</span>
         <span>Strategic Readiness</span>
@@ -570,6 +585,7 @@ function renderReadinessBar(value, bands, level) {
     </div>
   `;
 }
+
 function renderIndexCard(key, value, report) {
   const meta = indexMeta[key];
   const score = meta.components.reduce((s, c) => s + report.quotients[c].score, 0);
@@ -609,16 +625,28 @@ function renderMindCard(value, report) {
 
 function renderReadinessCard(readiness, report, def) {
   const pct = (readiness.value * 100).toFixed(0);
+  const primaryConstraint = readiness.primaryConstraint;
+  const hasPrimaryConstraint = primaryConstraint && primaryConstraint !== "none";
+
+  const primaryConstraintLabel = hasPrimaryConstraint
+    ? report.quotients[primaryConstraint]?.label ?? primaryConstraint
+    : null;
+
   return `
     <div class="readiness-card">
       <p class="index-eb">Readiness</p>
       <div class="index-hero">
         <span class="readiness-value">${pct}%</span>
       </div>
-      ${renderReadinessBar(readiness.value, def.readiness.bands, readiness.level )}
+
+      ${renderReadinessBar(readiness.value, def.readiness.bands, readiness.level)}
+
       <p class="index-desc" style="color:rgba(255,255,255,0.75); margin-top:14px;">
-        ${readiness.resilienceVsPreparedness} · Primary constraint:
-        <strong style="color:#fff;">${report.quotients[readiness.primaryConstraint]?.label ?? readiness.primaryConstraint}</strong>
+        ${readiness.resilienceVsPreparedness}
+        ${hasPrimaryConstraint ? `
+          · Primary constraint:
+          <strong style="color:#fff;">${primaryConstraintLabel}</strong>
+        ` : ""}
       </p>
     </div>
   `;
@@ -646,7 +674,9 @@ function renderResults(saved) {
         const meta = quotientMeta[k] ?? {};
         const color = meta.color ?? "#999";
         const pct = (q.pct * 100).toFixed(0);
-        const isPrimary = q.label === report.readiness.primaryConstraint;
+        const isPrimary =
+          report.readiness.primaryConstraint !== "none" &&
+          k === report.readiness.primaryConstraint;
 
         return `
           <div class="quotient-row${isPrimary ? ' is-primary' : ''}"
