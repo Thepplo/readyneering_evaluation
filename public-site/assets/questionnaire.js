@@ -1123,10 +1123,9 @@ function buildModeInsights(results) {
 
   const delta = results.P - results.R;
 
-  const structure = 'balanced';
+  let structure = 'balanced';
   if (delta > 0.25) structure = 'preparedness-heavy';
-  else if (delta < -0.25) structure = 'resilience-heavy';
-  const mode = getModeStructure(results.R, results.P);
+  else if (delta < -0.25) structure = 'resilience-heavy';  const mode = getModeStructure(results.R, results.P);
 
   return {
     delta: delta,
