@@ -159,14 +159,6 @@ h1, h2 { margin-top: 0; }
   margin-bottom: 42px;
 }
 
-.privacy-notice-card h3 {
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--ink,#2A251E);
-  margin-bottom: 12px;
-}
 
 .privacy-notice-card p {
   font-size: 14px;
