@@ -46,7 +46,7 @@ function beginVerifyAndSubmit() {
 }
 
 function submitWithToken(token) {
-  if (currentResult && currentResult.result_id) {
+  if (currentResult?.result_id) {
     return;
   }
   pendingToken = token;
@@ -61,7 +61,7 @@ async function renderAfterVerify() {
       result_id: saved.result_id,
       access_token: saved.access_token,
       locked: saved.locked,
-      unlocked: Boolean(saved.report && saved.report.locked),
+      unlocked: Boolean(saved.report?.locked),
       report: { open: saved.report.open, locked: saved.report.locked || null },
       unlock: saved.unlock || null
     };
@@ -80,15 +80,19 @@ async function renderAfterVerify() {
 
 function teardownTurnstile() {
   try {
-    if (turnstileWidgetId !== null && globalThis.turnstile) {
+    if (turnstileWidgetId !== null && globalThis.turnstile?.remove) {
       globalThis.turnstile.remove(turnstileWidgetId);
     }
-  } catch (e) {}
-  turnstileWidgetId = null;
-  turnstilePending = null;
-  pendingToken = null;
-  const shell = document.getElementById('turnstile-shell');
-  if (shell) shell.classList.remove('challenge-active');
+  } catch (err) {
+    console.warn('Failed to remove Turnstile widget during teardown:', err);
+  } finally {
+    turnstileWidgetId = null;
+    turnstilePending = null;
+    pendingToken = null;
+
+    const shell = document.getElementById('turnstile-shell');
+    if (shell) shell.classList.remove('challenge-active');
+  }
 }
 
 function showVerifyRetry(message) {
@@ -604,7 +608,7 @@ const GY = (TA.y + TB.y + TC.y) / 3;
 const ctx = document.createElement('canvas').getContext('2d');
 ctx.font = FS + 'px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
 function esc(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 }
 
 function getSessionId() {
@@ -2491,7 +2495,7 @@ async function refreshReportUnlockStatus(serverResult) {
 }
 
 globalThis.addEventListener('focus', function () {
-  if (currentResult && currentResult.locked && !currentResult.report?.locked) {
+  if (currentResult?.locked && !currentResult.report?.locked) {
     refreshReportUnlockStatus(currentResult);
   }
 });
