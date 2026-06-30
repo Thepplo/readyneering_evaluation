@@ -106,64 +106,7 @@ function showVerifyRetry(message) {
   if (titleEl) titleEl.textContent = title;
   if (copyEl) copyEl.textContent = copy;
 }
-/*
-function makeCancelError() {
-  const e = new Error('Verification cancelled.');
-  e.cancelled = true;
-  return e;
-}
 
-
-function showTurnstileShell() {
-  clearTimeout(turnstileShellTimer);
-
-  turnstileShellTimer = setTimeout(function () {
-    setTurnstileChallengeActive(true);
-  }, 350);
-}
-
-function hideTurnstileShell() {
-  clearTimeout(turnstileShellTimer);
-  turnstileShellTimer = null;
-  setTurnstileChallengeActive(false);
-}
-
-function cancelTurnstile() {
-  if (turnstilePending) {
-    clearTimeout(turnstilePending.timeout);
-    const reject = turnstilePending.reject;
-    turnstilePending = null;
-    reject(makeCancelError());
-  }
-
-  hideTurnstileShell();
-
-  try {
-    globalThis.turnstile.reset(turnstileWidgetId);
-  } catch (e) {}
-}
-
-function waitForTurnstile() {
-  if (globalThis.turnstile) return Promise.resolve();
-  if (!turnstileReadyPromise) {
-    turnstileReadyPromise = new Promise((resolve, reject) => {
-      const startedAt = Date.now();
-      const timer = setInterval(() => {
-        if (globalThis.turnstile) {
-          clearInterval(timer);
-          resolve();
-          return;
-        }
-        if (Date.now() - startedAt > 10_000) {
-          clearInterval(timer);
-          reject(new Error('Verification script failed to load. Please refresh and try again.'));
-        }
-      }, 50);
-    });
-  }
-  return turnstileReadyPromise;
-}
-*/
 function setTurnstileChallengeActive(isActive) {
   const shell = document.getElementById('turnstile-shell');
   if (!shell) return;
@@ -185,45 +128,10 @@ function renderTurnstileWidgetOnce() {
     'expired-callback': function () { try { globalThis.turnstile.reset(turnstileWidgetId); } catch (e) {} }
   });
 }
-/* 
-async function initTurnstile() {
-  await waitForTurnstile();
-  renderTurnstileWidgetOnce();
-}
 
-async function getTurnstileToken() {
-  await waitForTurnstile();
-  renderTurnstileWidgetOnce();
-
-  showTurnstileShell();
-
-  return new Promise(function (resolve, reject) {
-    const timeout = setTimeout(function () {
-      turnstilePending = null;
-      hideTurnstileShell();
-      reject(new Error('Verification didn’t complete. Please try again.'));
-    }, 120_000);
-
-    turnstilePending = {
-      resolve: function (token) { clearTimeout(timeout); hideTurnstileShell(); resolve(token); },
-      reject:  function (err)  { clearTimeout(timeout); hideTurnstileShell(); reject(err); },
-      timeout: timeout
-    };
-
-    try {
-      const r = globalThis.turnstile.getResponse(turnstileWidgetId);
-      if (r) globalThis.turnstile.reset(turnstileWidgetId);
-      globalThis.turnstile.execute(turnstileWidgetId);
-    } catch (e) {
-      clearTimeout(timeout);
-      hideTurnstileShell();
-      reject(e);
-    }
-  });
-} */  
 
 function escapeHtml(unsafe) {
-  return unsafe
+  return String(unsafe ?? '')
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
@@ -584,14 +492,14 @@ const TRIADS = [
 ];
 
 // ── Geometry ──────────────────────────────────────────────
-var SCALE = 1.5;
+const SCALE = 1.5;
 function s(n) { return n * SCALE; }
 
-var TA = {x:250 * SCALE, y:130 * SCALE};
-var TB = {x:48 * SCALE,  y:360 * SCALE};
-var TC = {x:452 * SCALE, y:360 * SCALE};
+const TA = {x: 250 * SCALE, y: 130 * SCALE};
+const TB = {x: 48  * SCALE, y: 360 * SCALE};
+const TC = {x: 452 * SCALE, y: 360 * SCALE};
 
-var SHUFFLED_TRIADS = [];
+let SHUFFLED_TRIADS = [];
 
 const STORAGE_KEY = 'readyneering_assessment_state';
 let currentResult = null;
@@ -631,44 +539,30 @@ function getCurrentScreen() {
 }
 
 document.getElementById('industry-select').addEventListener('change', function () {
-  var other = document.getElementById('industry-other');
+  const other = document.getElementById('industry-other');
   other.style.display = this.value === 'other' ? 'block' : 'none';
 });
 
 
 function bary(px, py) {
-  var d = (TB.y-TC.y)*(TA.x-TC.x) + (TC.x-TB.x)*(TA.y-TC.y);
-  var a = ((TB.y-TC.y)*(px-TC.x) + (TC.x-TB.x)*(py-TC.y)) / d;
-  var b = ((TC.y-TA.y)*(px-TC.x) + (TA.x-TC.x)*(py-TC.y)) / d;
+  const d = (TB.y-TC.y)*(TA.x-TC.x) + (TC.x-TB.x)*(TA.y-TC.y);
+  const a = ((TB.y-TC.y)*(px-TC.x) + (TC.x-TB.x)*(py-TC.y)) / d;
+  const b = ((TC.y-TA.y)*(px-TC.x) + (TA.x-TC.x)*(py-TC.y)) / d;
   return [a, b, 1-a-b];
 }
 
 function inTri(px, py) {
-  var b = bary(px, py);
+  const b = bary(px, py);
   return b[0] >= -0.02 && b[1] >= -0.02 && b[2] >= -0.02;
 }
 
 function svgPt(svg, e) {
-  var pt = svg.createSVGPoint();
-  var src = e.touches ? e.touches[0] : e;
+  const pt = svg.createSVGPoint();
+  const src = e.touches ? e.touches[0] : e;
   pt.x = src.clientX;
   pt.y = src.clientY;
   return pt.matrixTransform(svg.getScreenCTM().inverse());
 }
-
-/* function getBounds(pad) {
-  const minX = Math.min(TA.x, TB.x, TC.x) - pad;
-  const maxX = Math.max(TA.x, TB.x, TC.x) + pad;
-  const minY = Math.min(TA.y, TB.y, TC.y) - pad;
-  const maxY = Math.max(TA.y, TB.y, TC.y) + pad;
-
-  return {
-    x: minX,
-    y: minY,
-    w: maxX - minX,
-    h: maxY - minY
-  };
-} */
 
 
 function wrapText(ctx, text, maxWidth) {
@@ -694,20 +588,19 @@ function wrapText(ctx, text, maxWidth) {
 
 
 // ── State ─────────────────────────────────────────────────
-var current = 0;
-var placements = [];
-
-var selectedIndustry = null;
-var selectedIndustryLabel = null;
-var selectedSize = null;
-var selectedSizeLabel = null;
+let  current = 0;
+let  placements = [];
+let  selectedIndustry = null;
+let  selectedIndustryLabel = null;
+let  selectedSize = null;
+let  selectedSizeLabel = null;
 
 // ── SVG builder ───────────────────────────────────────────
 
-var VW = s(500), VH = s(520), LH = s(18), FS = s(13);
+const VW = s(500), VH = s(520), LH = s(18), FS = s(13);
+const GX = (TA.x + TB.x + TC.x) / 3;
+const GY = (TA.y + TB.y + TC.y) / 3;
 
-var GX = (TA.x+TB.x+TC.x)/3;
-var GY = (TA.y+TB.y+TC.y)/3;
 const ctx = document.createElement('canvas').getContext('2d');
 ctx.font = FS + 'px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
 function esc(s) {
@@ -774,8 +667,8 @@ function fitTextToRegion(ctx, text, region, lineHeight, opts) {
   return best;
 }
 function tspansFromLines(lines, anchor, x) {
-  var out = '';
-  for (var i = 0; i < lines.length; i++) {
+  let out = '';
+  for (const i = 0; i < lines.length; i++) {
     out += '<tspan x="' + x + '" dy="' + (i === 0 ? '0' : LH) + '" text-anchor="' + anchor + '">'
       + esc(lines[i]) +
       '</tspan>';
@@ -811,44 +704,44 @@ function getBounds(pad) {
 
 
 function makeSVG(idx) {
-  var t = SHUFFLED_TRIADS[idx];
+  const t = SHUFFLED_TRIADS[idx];
 
   // ── Layout constants ──────────────────────────────────────
-  var MAX_LINES = 5;
-  var MAX_LINES_TOP=3;                    // worst-case label height
-  var SLOT_HEIGHT = MAX_LINES * LH;
-  var SLOT_HEIGHT_TOP = MAX_LINES_TOP * LH;
-  var SLOT_WIDTH_SIDE = s(180);         // bottom-corner label box width
-  var SLOT_WIDTH_TOP = s(260);          // apex label box width
-  var CORNER_GAP = s(14);               // gap between vertex dot and label
-  var labelStyle = 'font-size:' + FS + 'px;color:#2a2a28;font-weight:500;'
+  const MAX_LINES = 5;
+  const MAX_LINES_TOP=3;                    // worst-case label height
+  const SLOT_HEIGHT = MAX_LINES * LH;
+  const SLOT_HEIGHT_TOP = MAX_LINES_TOP * LH;
+  const SLOT_WIDTH_SIDE = s(180);         // bottom-corner label box width
+  const SLOT_WIDTH_TOP = s(260);          // apex label box width
+  const CORNER_GAP = s(14);               // gap between vertex dot and label
+  const labelStyle = 'font-size:' + FS + 'px;color:#2a2a28;font-weight:500;'
     + 'font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif;'
     + 'line-height:' + LH + 'px;text-wrap:balance;text-align:center;'
     + 'pointer-events:none;';
 
   // ── Label slot positions ──────────────────────────────────
   // Apex: box sits above TA, bottom edge CORNER_GAP above the dot
-  var aSlotX = TA.x - SLOT_WIDTH_TOP / 2;
-  var aSlotY = TA.y - CORNER_GAP - SLOT_HEIGHT;
+  const aSlotX = TA.x - SLOT_WIDTH_TOP / 2;
+  const aSlotY = TA.y - CORNER_GAP - SLOT_HEIGHT;
 
   // Bottom corners: box sits below the dot, centered on the vertex x
-  var sideSlotY = TB.y + CORNER_GAP;
-  var bSlotX = TB.x - SLOT_WIDTH_SIDE / 2;
-  var cSlotX = TC.x - SLOT_WIDTH_SIDE / 2;
+  const sideSlotY = TB.y + CORNER_GAP;
+  const bSlotX = TB.x - SLOT_WIDTH_SIDE / 2;
+  const cSlotX = TC.x - SLOT_WIDTH_SIDE / 2;
 
   // ── Median guide endpoints (unchanged) ────────────────────
-  var gx = GX.toFixed(1), gy = GY.toFixed(1);
-  var mABx = ((TA.x + TB.x) / 2).toFixed(1), mABy = ((TA.y + TB.y) / 2).toFixed(1);
-  var mBCx = ((TB.x + TC.x) / 2).toFixed(1), mBCy = ((TB.y + TC.y) / 2).toFixed(1);
-  var mCAx = ((TC.x + TA.x) / 2).toFixed(1), mCAy = ((TC.y + TA.y) / 2).toFixed(1);
+  const gx = GX.toFixed(1), gy = GY.toFixed(1);
+  const mABx = ((TA.x + TB.x) / 2).toFixed(1), mABy = ((TA.y + TB.y) / 2).toFixed(1);
+  const mBCx = ((TB.x + TC.x) / 2).toFixed(1), mBCy = ((TB.y + TC.y) / 2).toFixed(1);
+  const mCAx = ((TC.x + TA.x) / 2).toFixed(1), mCAy = ((TC.y + TA.y) / 2).toFixed(1);
 
   // ── Bounds: fixed regardless of copy length ───────────────
-  var vw = globalThis.innerWidth;
-  var sidePad = vw <= 1023 ? s(28) : s(90);
+  const vw = globalThis.innerWidth;
+  const sidePad = vw <= 1023 ? s(28) : s(90);
 
   // Side slots extend SLOT_WIDTH_SIDE/2 outward from TB/TC, so the side
   // padding must accommodate that. Take the larger of the two.
-  var sideOverhang = SLOT_WIDTH_SIDE / 2 + s(8);
+  const sideOverhang = SLOT_WIDTH_SIDE / 2 + s(8);
 
   const B = getBounds({
     top: SLOT_HEIGHT + CORNER_GAP + s(12),
@@ -860,8 +753,8 @@ function makeSVG(idx) {
   // ── foreignObject helper ──────────────────────────────────
   function labelBox(x, y, w, h, text, anchor) {
     // anchor: 'top' (default) or 'bottom'
-    var align = anchor === 'bottom' ? 'flex-end' : 'flex-start';
-    var boxStyle = 'display:flex;align-items:' + align + ';justify-content:center;'
+    const align = anchor === 'bottom' ? 'flex-end' : 'flex-start';
+    const boxStyle = 'display:flex;align-items:' + align + ';justify-content:center;'
       + 'height:' + h + 'px;width:100%;';
     return '<foreignObject x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '">'
       + '<div xmlns="http://www.w3.org/1999/xhtml" style="' + boxStyle + '">'
@@ -898,8 +791,8 @@ function makeSVG(idx) {
 
 // ── Build all steps ───────────────────────────────────────
 function buildSteps(savedState) {
-  var wrap = document.getElementById('steps-wrap');
-  var html = '';
+  const wrap = document.getElementById('steps-wrap');
+  let html = '';
 
   if (savedState && savedState.triadOrder && savedState.triadOrder.length) {
     SHUFFLED_TRIADS = savedState.triadOrder
@@ -917,9 +810,9 @@ function buildSteps(savedState) {
     ? savedState.current
     : 0;
 
-  for (var i = 0; i < SHUFFLED_TRIADS.length; i++) {
-    var t = SHUFFLED_TRIADS[i];
-    var display = i === current ? 'block' : 'none';
+  for (const i = 0; i < SHUFFLED_TRIADS.length; i++) {
+    const t = SHUFFLED_TRIADS[i];
+    const display = i === current ? 'block' : 'none';
 
     html += '<div id="step-'+i+'" style="display:'+display+'">'
       +'<div class="scenario-wrapper">'
@@ -932,17 +825,13 @@ function buildSteps(savedState) {
       +'</div>'
       +'<div class="tri-wrap">'+makeSVG(i)+'</div>'
       +'<div class="placed" id="placed-'+i+'"></div>'
-/*       +'<div class="pills">'
-      +'<div class="pill">A: <b id="pa-'+i+'">-</b></div>'
-      +'<div class="pill">B: <b id="pb-'+i+'">-</b></div>'
-      +'<div class="pill">C: <b id="pc-'+i+'">-</b></div>' */
       +'</div>'
       +'</div>';
   }
 
   wrap.innerHTML = html;
 
-  for (var j = 0; j < SHUFFLED_TRIADS.length; j++) {
+  for (const j = 0; j < SHUFFLED_TRIADS.length; j++) {
     attachEvents(j);
   }
 
@@ -950,13 +839,13 @@ function buildSteps(savedState) {
 }
 
 function rehydratePlacements() {
-  for (var idx = 0; idx < placements.length; idx++) {
-    var pt = placements[idx];
+  for (const idx = 0; idx < placements.length; idx++) {
+    const pt = placements[idx];
     if (!pt) continue;
 
-    var ring = document.getElementById('ring-' + idx);
-    var dot  = document.getElementById('dot-' + idx);
-    var pip  = document.getElementById('pip-' + idx);
+    const ring = document.getElementById('ring-' + idx);
+    const dot  = document.getElementById('dot-' + idx);
+    const pip  = document.getElementById('pip-' + idx);
 
     if (!ring || !dot || !pip) continue;
 
@@ -971,29 +860,25 @@ function rehydratePlacements() {
     gsap.set(dot,  { opacity: 1 });
     gsap.set(pip,  { opacity: 1 });
 
-    var b = bary(pt.x, pt.y);
-    var tot = Math.max(b[0] + b[1] + b[2], 0.001);
+    const b = bary(pt.x, pt.y);
+    const tot = Math.max(b[0] + b[1] + b[2], 0.001);
 
-/*     document.getElementById('pa-' + idx).textContent = Math.round(b[0] / tot * 100) + '%';
-    document.getElementById('pb-' + idx).textContent = Math.round(b[1] / tot * 100) + '%';
-    document.getElementById('pc-' + idx).textContent = Math.round(b[2] / tot * 100) + '%'; */
-    /* document.getElementById('placed-' + idx).textContent = 'Dot placed - click to reposition'; */
   }
 }
 
 function attachEvents(idx) {
-  var svg = document.getElementById('svg-'+idx);
+  const svg = document.getElementById('svg-'+idx);
   if (!svg) return;
 
   function place(e) {
-    var pt = svgPt(svg, e);
+    const pt = svgPt(svg, e);
     if (!inTri(pt.x, pt.y)) return;
     e.preventDefault();
 
     placements[idx] = {x: pt.x, y: pt.y};
-    var ring = document.getElementById('ring-'+idx);
-    var dot  = document.getElementById('dot-'+idx);
-    var pip  = document.getElementById('pip-'+idx);
+    const ring = document.getElementById('ring-'+idx);
+    const dot  = document.getElementById('dot-'+idx);
+    const pip  = document.getElementById('pip-'+idx);
 
     ring.setAttribute('cx', pt.x);
     ring.setAttribute('cy', pt.y);
@@ -1021,12 +906,8 @@ function attachEvents(idx) {
       { attr: { r: s(5) }, duration: 0.2, delay: 0.05, ease: "power2.out" }
     );
 
-    var b = bary(pt.x, pt.y);
-    var tot = Math.max(b[0]+b[1]+b[2], 0.001);
-    /* document.getElementById('pa-'+idx).textContent = Math.round(b[0]/tot*100)+'%';
-    document.getElementById('pb-'+idx).textContent = Math.round(b[1]/tot*100)+'%';
-    document.getElementById('pc-'+idx).textContent = Math.round(b[2]/tot*100)+'%';
-    /* document.getElementById('placed-'+idx).textContent = 'Dot placed - click to reposition'; */
+    const b = bary(pt.x, pt.y);
+    const tot = Math.max(b[0]+b[1]+b[2], 0.001);
     document.getElementById('warn').style.display = 'none';
     saveAssessmentState();
   }
@@ -1038,7 +919,7 @@ function attachEvents(idx) {
 
 // ── Navigation ────────────────────────────────────────────
 function updateUI() {
-  var pct = (current / SHUFFLED_TRIADS.length * 100);
+  const pct = (current / SHUFFLED_TRIADS.length * 100);
 
   const isLast = current === SHUFFLED_TRIADS.length - 1;
   const isHalfway = (current + 1) === Math.ceil(SHUFFLED_TRIADS.length / 2);
@@ -1062,11 +943,11 @@ function updateUI() {
   }
 
 function showStep(idx, direction) {
-  var currentEl = document.getElementById('step-' + current);
-  var nextEl = document.getElementById('step-' + idx);
+  const currentEl = document.getElementById('step-' + current);
+  const nextEl = document.getElementById('step-' + idx);
 
-  var outY = direction === 'back' ? 8 : -8;
-  var inY  = direction === 'back' ? -8 : 8;
+  const outY = direction === 'back' ? 8 : -8;
+  const inY  = direction === 'back' ? -8 : 8;
 
   gsap.to(currentEl, {
     opacity: 0,
@@ -1074,8 +955,8 @@ function showStep(idx, direction) {
     duration: 0.18,
     ease: "power1.out",
     onComplete: function () {
-      for (var i = 0; i < SHUFFLED_TRIADS.length; i++) {
-        var el = document.getElementById('step-' + i);
+      for (const i = 0; i < SHUFFLED_TRIADS.length; i++) {
+        const el = document.getElementById('step-' + i);
         el.style.display = 'none';
         gsap.set(el, { clearProps: 'opacity,transform' });
       }
@@ -1109,7 +990,7 @@ document.getElementById('btn-next').addEventListener('click', function() {
     return;
   }
 
-  var next = current + 1;
+  const next = current + 1;
   showStep(next, 'forward');
   current = next;
   saveAssessmentState();
@@ -1119,7 +1000,7 @@ document.getElementById('btn-next').addEventListener('click', function() {
 
 document.getElementById('btn-back').addEventListener('click', function() {
   if (current > 0) {
-    var prev = current - 1;
+    const prev = current - 1;
     showStep(prev, 'back');
     current = prev;
     saveAssessmentState();
@@ -1218,11 +1099,11 @@ function buildModeInsights(results) {
     return key.charAt(0).toUpperCase() + key.slice(1);
   }
 
-  var rParts = [];
-  var pParts = [];
+  const rParts = [];
+  const pParts = [];
 
-  for (var i = 0; i < QDIMS.length; i++) {
-    var q = QDIMS[i];
+  for (const i = 0; i < QDIMS.length; i++) {
+    const q = QDIMS[i];
     rParts.push({
       key: q,
       label: avgLabel(q),
@@ -1235,14 +1116,14 @@ function buildModeInsights(results) {
     });
   }
 
-  var rAsc = rParts.slice().sort(function(a, b) { return a.value - b.value; });
-  var rDesc = rParts.slice().sort(function(a, b) { return b.value - a.value; });
-  var pAsc = pParts.slice().sort(function(a, b) { return a.value - b.value; });
-  var pDesc = pParts.slice().sort(function(a, b) { return b.value - a.value; });
+  const rAsc = rParts.slice().sort(function(a, b) { return a.value - b.value; });
+  const rDesc = rParts.slice().sort(function(a, b) { return b.value - a.value; });
+  const pAsc = pParts.slice().sort(function(a, b) { return a.value - b.value; });
+  const pDesc = pParts.slice().sort(function(a, b) { return b.value - a.value; });
 
-  var delta = results.P - results.R;
+  const delta = results.P - results.R;
 
-  var structure = 'balanced';
+  const structure = 'balanced';
   if (delta > 0.25) structure = 'preparedness-heavy';
   else if (delta < -0.25) structure = 'resilience-heavy';
   const mode = getModeStructure(results.R, results.P);
@@ -1316,12 +1197,12 @@ function getModeStructureLine(modeKey, structure) {
 }
 
 function buildModeCards(results) {
-  var insights = buildModeInsights(results);
+  const insights = buildModeInsights(results);
 
   return ['resilience', 'preparedness'].map(function(modeKey) {
-    var mode = insights[modeKey];
-    var meta = MODE_META[modeKey];
-    var level = mode.level;
+    const mode = insights[modeKey];
+    const meta = MODE_META[modeKey];
+    const level = mode.level;
 
     return {
       key: mode.key,
@@ -1342,13 +1223,13 @@ function buildModeCards(results) {
   });
 }
 
-var MODE_QS = {
+const MODE_QS = {
   resilience: ['vitality', 'emotion'],
   preparedness: ['execution', 'mind', 'alignment']
 };
 
 function renderQChipsForMode(key) {
-  var qs = MODE_QS[key] || [];
+  const qs = MODE_QS[key] || [];
 
   return qs.map(function(q) {
     return `<span class="q-chip ${q}">${q}</span>`;
@@ -1400,7 +1281,7 @@ function renderModeCard(m) {
 }
 
 function renderModeGrid(results) {
-  var modes = buildModeCards(results);
+  const modes = buildModeCards(results);
 
   return `
     <div class="mode-grid">
@@ -1410,15 +1291,15 @@ function renderModeGrid(results) {
 }
 
 // ── Scoring ───────────────────────────────────────────────
-var DIMS = ['R_vitality','R_emotion','R_mind','R_execution','R_alignment',
+const DIMS = ['R_vitality','R_emotion','R_mind','R_execution','R_alignment',
             'P_vitality','P_emotion','P_mind','P_execution','P_alignment'];
-var QDIMS = ['vitality','emotion','mind','execution','alignment'];
+const QDIMS = ['vitality','emotion','mind','execution','alignment'];
 
 
 function renderFocusChipList(items) {
   if (!items || !items.length) return '';
 
-  var chips = items.map(function(item) {
+  const chips = items.map(function(item) {
     return `
       <span class="q-chip ${item.key}">
         ${item.label} <span class="chip-build ${item.build}">(${capitalizeFirst(item.build)})</span>
@@ -1440,13 +1321,13 @@ function renderFocusChipList(items) {
 }
 
 function renderServerFocusSubtitle(focusActions) {
-  var items = focusActions.subtitleItems || [];
+  const items = focusActions.subtitleItems || [];
 
   if (!items.length) return '';
 
-  var chipHtml = renderFocusChipList(items);
+  const chipHtml = renderFocusChipList(items);
 
-  var intro = items.length === 1
+  const intro = items.length === 1
     ? 'These come directly from your lowest-scoring quotient - '
     : 'These come directly from your two lowest-scoring quotients - ';
 
@@ -1579,10 +1460,10 @@ function getSymptomLine(keyA, keyB) {
 }
 
 function renderFocusCallout(focusActions) {
-  var items = focusActions.subtitleItems || [];
-  var quotientChips = renderFocusChipList(items);
+  const items = focusActions.subtitleItems || [];
+  const quotientChips = renderFocusChipList(items);
 
-  var finalSentence = quotientChips
+  const finalSentence = quotientChips
     ? `Small, consistent shifts in ${quotientChips} will do more than a significant effort in an area where you are already strong.`
     : 'Small, consistent shifts where your scores are lowest will do more than a significant effort in an area where you are already strong.';
 
@@ -1612,10 +1493,10 @@ function buildActionGroup(quotients, actionKey, limit) {
     return buildActionsForQuotient(quotients[0], actionKey).slice(0, limit);
   }
 
-  var firstActions = buildActionsForQuotient(quotients[0], actionKey);
-  var secondActions = buildActionsForQuotient(quotients[1], actionKey);
+  const firstActions = buildActionsForQuotient(quotients[0], actionKey);
+  const secondActions = buildActionsForQuotient(quotients[1], actionKey);
 
-  var actions = [
+  const actions = [
     firstActions[0],
     firstActions[1],
     secondActions[0]
@@ -1636,27 +1517,6 @@ function buildActionsForQuotient(q, actionKey) {
     };
   });
 }
-
-/* function computeVerdict(overallScore) {
-  const levels = [
-    {min:20.0, cls:'v-s1', label:'Ready',
-     desc:'You operate as a deliberately designed system. Pressure reveals capability, not fragility.'},
-    {min:13.0, cls:'v-s2', label:'Building',
-     desc:'You execute well under normal conditions. One significant disruption will expose structural gaps.'},
-    {min:7.0, cls:'v-s3', label:'Developing',
-     desc:'Firefighting dominates. Heroics compensate for missing systems. Structural investment is the answer.'},
-    {min:0.0, cls:'v-s4', label:'At risk',
-     desc:'Instability is likely under sustained stress. Immediate structural intervention required.'}
-  ];
-
-  for (let i = 0; i < levels.length; i++) {
-    if (overallScore >= levels[i].min) {
-      return levels[i];
-    }
-  }
-
-  return levels[levels.length - 1];
-} */
 
 function getVariantKey() {
   const params = new URLSearchParams(globalThis.location.search);
@@ -1746,47 +1606,8 @@ function makeRing(score, min, max, color, trackColor, size) {
     </svg>
   `;
 }
-/* function renderQuotientCard(q, isLast) {
-  return `
-    <div class="q-card ${q.level} ${q.key} ${isLast ? 'span-2' : ''}">
-      <span class="orb orb-1"></span>
-      <span class="orb orb-2"></span>
-      <span class="orb orb-3"></span>
-      ${isLast ? '<div class="q-last">Your Primary Constraint</div>' : ''}
-      <div class="q-head">
-        <div class="q-label">${q.label}</div>
-        <div class="q-metrics">
-          <div class="q-score">${q.score.toFixed(1)}</div>
-          <div class="q-bars">
-            <div>R ${q.resilience.toFixed(1)}</div>
-            <span>·</span>
-            <div>P ${q.preparedness.toFixed(1)}</div>
-          </div>
-        </div>
-      </div>
 
-      <div class="q-role">${q.role}</div>
-
-      <div class="q-section">
-        <div class="q-section-label">What this layer reveals</div>
-        <div class="q-copy">${q.signal}</div>
-      </div>
-
-      <div class="q-section">
-        <div class="q-section-label">Failure mode</div>
-        <div class="q-copy">${q.failure}</div>
-      </div>
-
-      <div class="q-section">
-        <div class="q-section-label">Reflection question</div>
-        <div class="q-copy">${q.question}</div>
-      </div>
-    </div>
-  `;
-} */
-
-
-var MODE_QS_COMPACT = {
+const MODE_QS_COMPACT = {
   resilience: ['vitality', 'emotion'],
   preparedness: ['mind', 'execution', 'alignment']
 };
@@ -1799,7 +1620,7 @@ function getQuotientLevel(score) {
 }
 
 function getQuotientLevelLabel(level) {
-  var labels = {
+  const labels = {
     risk: 'At risk',
     developing: 'Developing',
     building: 'Building',
@@ -1810,14 +1631,14 @@ function getQuotientLevelLabel(level) {
 }
 
 function getQuotientBarPercent(score) {
-  var pos = ((score - 1) / (5 - 1)) * 100;
+  const pos = ((score - 1) / (5 - 1)) * 100;
   return Math.max(0, Math.min(100, pos));
 }
 
 function getQuotientRowColor(q) {
-  var level = getQuotientLevel(q.score);
+  const level = getQuotientLevel(q.score);
 
-  var levelColors = {
+  const levelColors = {
     risk: '#f87171',
     developing: '#fbbf24',
     building: '#34d399',
@@ -1827,61 +1648,31 @@ function getQuotientRowColor(q) {
   return levelColors[level] || '#60a5fa';
 }
 
-/* function renderCompactQuotientRow(q) {
-  var level = getQuotientLevel(q.score);
-  var levelLabel = getQuotientLevelLabel(level);
-  var barPercent = getQuotientBarPercent(q.score);
-  var color = getQuotientRowColor(q);
-
-  return `
-    <div class="q-compact-row ${q.key} ${level}">
-      <div class="q-compact-info">
-        <div class="q-chip ${q.key}">${q.label}</div>
-        <div class="q-compact-role">${q.roleS}</div>
-      </div>
-
-      <div class="q-compact-bar-wrap">
-        <div class="q-compact-bar-track">
-          <div 
-            class="q-compact-bar-fill" 
-            style="width: ${barPercent}%; background-color: ${color};">
-          </div>
-        </div>
-      </div>
-
-      <div class="q-compact-score">${q.score.toFixed(1)}</div>
-
-      <div class="q-compact-badge ${level}">
-        ${levelLabel}
-      </div>
-    </div>
-  `;
-} */
 function renderCompactQuotientRow(q) {
-  var level = getQuotientLevel(q.score);
-  var levelLabel = getQuotientLevelLabel(level);
-  var barPercent = getQuotientBarPercent(q.score);
-  var color = getQuotientRowColor(q);
+  const level = getQuotientLevel(q.score);
+  const levelLabel = getQuotientLevelLabel(level);
+  const barPercent = getQuotientBarPercent(q.score);
+  const color = getQuotientRowColor(q);
 
   return `
     <div class="quotient-row">
       <div class="q-meta">
-        <div class="q-chip ${q.key}">${q.label}</div>
-        <div class="q-desc">${q.roleS}</div>
+        <div class="q-chip ${escapeHtml(q.key)}">${escapeHtml(q.label)}</div>
+        <div class="q-desc">${escapeHtml(q.roleS)}</div>
       </div>
       <div class="q-scale" style="--pos:${barPercent}%;">
         <div class="q-bar"></div>
         <div class="q-tick"></div>
       </div>
       <div class="q-score">
-        <span class="q-value">${q.score.toFixed(1)}</span>
+        <span class="q-value">${escapeHtml(q.score.toFixed(1))}</span>
         <span class="q-band band-${level}">${levelLabel}</span>
       </div>
     </div>
   `;
 }
 function renderCompactQuotientSection(title, keys, quotients) {
-  var rows = keys
+  const rows = keys
     .map(function(key) {
       return quotients.find(function(q) {
         return q.key === key;
@@ -1889,8 +1680,8 @@ function renderCompactQuotientSection(title, keys, quotients) {
     })
     .filter(Boolean);
 
-  var subtitle = rows.map(function(q) {
-    return q.label;
+  const subtitle = rows.map(function(q) {
+    return escapeHtml(q.label);
   }).join(' · ');
 
   return `
@@ -1926,7 +1717,7 @@ function renderCompactQuotientList(quotients) {
 }
 
 function mountCompactQuotientList(wrapperId, quotients) {
-  var wrapper = document.getElementById(wrapperId);
+  const wrapper = document.getElementById(wrapperId);
 
   if (!wrapper) return;
 
@@ -1992,17 +1783,15 @@ function renderFocusActionList(items, actionType) {
     const upArrow = renderTinyUpArrow();
 
     return `
-      <div class="focus-action-card ${item.key}">
+      <div class="focus-action-card ${escapeHtml(item.key)}">
         <div class="focus-action-number">${index + 1}</div>
-
         <div class="focus-action-copy">
-          <h4 class="focus-action-heading">${parts.heading}</h4>
-          ${parts.body ? `<p class="focus-action-body">${parts.body}</p>` : ''}
-
+          <h4 class="focus-action-heading">${escapeHtml(parts.heading)}</h4>
+          ${parts.body ? `<p class="focus-action-body">${escapeHtml(parts.body)}</p>` : ''}
           <div class="focus-action-outcome">
             <span class="outcome-prefix">${outcomePrefix}</span>
-            <span class="q-chip ${item.key}">${item.label} ${upArrow}</span>
-            <span class="${item.build}">${item.build} ${upArrow}</span>
+            <span class="q-chip ${escapeHtml(item.key)}">${escapeHtml(item.label)} ${upArrow}</span>
+            <span class="${escapeHtml(item.build)}">${escapeHtml(item.build)} ${upArrow}</span>
           </div>
         </div>
       </div>
@@ -2062,7 +1851,7 @@ function renderFocusQuestionList(items) {
     <div class="focus-question-list">
       ${items.map(function(item) {
         return `
-          <p class="focus-question-item">${item.text}</p>
+          <p class="focus-question-item">${escapeHtml(item.text)}</p>
         `;
       }).join('')}
     </div>
@@ -2072,16 +1861,16 @@ function renderFocusQuestionList(items) {
 function renderRankedSignalRow(q, tone) {
   if (!q) return '';
 
-  var suffix = getRankedSignalSuffix(tone, [q]);
+  const suffix = getRankedSignalSuffix(tone, [q]);
 
   return `
     <div class="ranked-signal-row ${tone}">
-
       <div class="ranked-signal-copy">
         <div class="ranked-signal-copy-title-div">
-          <span class="q-chip ${q.key}">${q.label}</span> <strong>(${q.score.toFixed(1)} - ${formatLevel(q.score)}).</strong>
+          <span class="q-chip ${escapeHtml(q.key)}">${escapeHtml(q.label)}</span>
+          <strong>(${q.score.toFixed(1)} - ${formatLevel(q.score)}).</strong>
         </div>
-        ${q.signal}
+        ${escapeHtml(q.signal)}
         ${suffix ? `<span class="ranked-signal-suffix">${suffix}</span>` : ''}
       </div>
     </div>
@@ -2089,13 +1878,13 @@ function renderRankedSignalRow(q, tone) {
 }
 
 function getRankedSignalSuffix(tone, items) {
-  var build = items && items[0] ? items[0].build : null;
+  const build = items && items[0] ? items[0].build : null;
 
-  var buildLabel = build
+  const buildLabel = build
     ? build.charAt(0).toUpperCase() + build.slice(1)
     : 'readiness';
 
-  var suffixes = {
+  const suffixes = {
     risk: 'This is your most immediate ' + buildLabel + ' opportunity.',
     developing: 'Strengthening this builds your ' + buildLabel + ' foundation.',
     building: 'These are current strengths to repeat, and make more dependable.'
@@ -2107,14 +1896,14 @@ function getRankedSignalSuffix(tone, items) {
 function renderRankedSignalGroup(items, tone) {
   if (!items || !items.length) return '';
 
-  var scoreRange = getScoreRangeLabel(items);
-  var levelLabel = getGroupedLevelLabel(items);
+  const scoreRange = getScoreRangeLabel(items);
+  const levelLabel = getGroupedLevelLabel(items);
 
-  var copy = items.map(function(q) {
+  const copy = items.map(function(q) {
     return q.signal;
   }).join(' ');
 
-  var suffix = getRankedSignalSuffix(tone, items);
+  const suffix = getRankedSignalSuffix(tone, items);
 
   return `
     <div class="ranked-signal-row ${tone}">
@@ -2123,9 +1912,9 @@ function renderRankedSignalGroup(items, tone) {
           <span class="ranked-chip-list">
             ${renderQChipList(items)}
           </span>
-          <strong>(${scoreRange} - ${levelLabel}).</strong>
+          <strong>(${escapeHtml(scoreRange)}- ${escapeHtml(levelLabel)}).</strong>
         </div>
-        ${copy}
+        ${escapeHtml(copy)}
         ${suffix ? `<span class="ranked-signal-suffix">${suffix}</span>` : ''}
       </div>
     </div>
@@ -2133,7 +1922,7 @@ function renderRankedSignalGroup(items, tone) {
 }
 
 function renderQChip(q) {
-  return `<span class="q-chip ${q.key}">${q.label}</span>`;
+  return `<span class="q-chip ${escapeHtml(q.key)}">${escapeHtml(q.label)}</span>`;
 }
 
 function renderQChipList(items) {
@@ -2143,9 +1932,9 @@ function renderQChipList(items) {
 }
 
 function formatLevel(score) {
-  var level = getDebriefLevel(score);
+  const level = getDebriefLevel(score);
 
-  var labels = {
+  const labels = {
     risk: 'At risk',
     developing: 'Developing',
     building: 'Building',
@@ -2156,12 +1945,12 @@ function formatLevel(score) {
 }
 
 function getScoreRangeLabel(items) {
-  var scores = items.map(function(q) {
+  const scores = items.map(function(q) {
     return q.score;
   });
 
-  var min = Math.min.apply(null, scores);
-  var max = Math.max.apply(null, scores);
+  const min = Math.min.apply(null, scores);
+  const max = Math.max.apply(null, scores);
 
   if (min === max) return min.toFixed(1);
 
@@ -2169,11 +1958,11 @@ function getScoreRangeLabel(items) {
 }
 
 function getGroupedLevelLabel(items) {
-  var levels = items.map(function(q) {
+  const levels = items.map(function(q) {
     return q.level;
   });
 
-  var allSame = levels.every(function(level) {
+  const allSame = levels.every(function(level) {
     return level === levels[0];
   });
 
@@ -2275,7 +2064,7 @@ function renderReportMetaLine(profile) {
   function isRealMetaValue(value) {
     if (!value) return false;
 
-    var normalized = String(value).trim().toLowerCase();
+    const normalized = String(value).trim().toLowerCase();
 
     return ![
       'select industry',
@@ -2285,7 +2074,7 @@ function renderReportMetaLine(profile) {
     ].includes(normalized);
   }
 
-  var items = [
+  const items = [
     'Completed ' + profile.completedDate,
     profile.industry,
     profile.companySize
@@ -2296,7 +2085,7 @@ function renderReportMetaLine(profile) {
   return `
     <div class="report-meta-line">
       ${items.map(function(item) {
-        return `<span>${item}</span>`;
+        return `<span>${escapeHtml(item)}</span>`;
       }).join('')}
     </div>
   `;
@@ -2436,8 +2225,6 @@ function renderOpenReport(open, res, quotientData) {
   document.getElementById('ranked-signal-wrapper').innerHTML =
     renderServerRankedSignalList(open.ranked);
 
-/*   document.getElementById('action-sub').innerHTML =
-    renderServerFocusSubtitle(open.focus); */
 
   document.getElementById('meta-line').innerHTML = renderReportMetaLine({
     completedDate: formatCompletedDate(new Date()),
@@ -2606,92 +2393,6 @@ function renderDebriefInvitationSection(serverResult) {
 }
 
 
-
-
-/* function renderWhatHappensNextSection(serverResult) {
-  const bookingUrl = getBookingUrl(serverResult);
-
-  return `
-    <section class="what-happens-next-section">
-      <div class="what-next-bar">What happens next</div>
-
-      <div class="what-next-card">
-        <div class="what-next-brandline">andQfive · Readyneering</div>
-
-        <h2>
-          You have seen the pattern.<br>
-          Now turn it into your next move.
-        </h2>
-
-        <div class="what-next-rule"></div>
-
-        <p>
-          A Readiness score is a starting point.
-          <strong>Not a verdict. Not a destination.</strong>
-        </p>
-
-        <p>
-          Your scores show where your pattern is likely showing up:
-          in meetings, in Monday mornings, and in the gap between what you decide
-          and what actually happens.
-        </p>
-
-        <p>
-          The actions above are prepared for a reason. The right next move is specific
-          to your pattern. A generic list would be motivational confetti. What you need
-          is a conversation.
-        </p>
-
-        <p>
-          Once your debrief is booked, your personalized actions, stops, and questions
-          will appear here immediately, so you can review them before the call.
-        </p>
-
-        <p class="what-next-strong">
-          Thirty minutes. Your scores, your patterns, your next move.
-        </p>
-
-        <p class="what-next-italic">
-          If you do only one thing to build your Readiness — book the conversation that reveals what to do next.
-        </p>
-
-        <div class="what-next-actions">
-          ${bookingUrl ? `
-            <a
-              class="btn primary"
-              id="book-followup-btn"
-              href="${escapeHtml(bookingUrl)}"
-              target="_blank"
-              rel="noopener"
-            >
-              Book your 30-minute debrief
-              <span class="arrow"></span>
-            </a>
-          ` : ''}
-
-          <button type="button" class="what-next-secondary-btn" id="check-unlock-btn">
-            I’ve booked - reveal my actions
-          </button>
-        </div>
-
-        ${serverResult.booking_ref ? `
-          <div class="booking-ref-box booking-ref-box--dark">
-            <span>Your booking reference</span>
-            <strong>${escapeHtml(serverResult.booking_ref)}</strong>
-          </div>
-        ` : ''}
-
-        <p class="what-next-footnote">
-          Your actions, stops, and questions reveal immediately after booking.
-          Bring them into the call so the conversation starts from your real pattern.
-        </p>
-
-        <p id="unlock-status" class="form-status what-next-status"></p>
-      </div>
-    </section>
-  `;
-} */
-
 function bindDebriefInvitationControls(serverResult) {
   const checkBtn = document.getElementById('check-unlock-btn');
 
@@ -2723,200 +2424,6 @@ function renderDebriefIcon(type) {
     </svg>
   `;
 }
-/* const LOCKED_FOCUS_PREVIEWS = {
-  doMore: [
-    'Your highest-leverage action - unlocked in your debrief',
-    'The habit that closes the gap between deciding and doing',
-    'The one thing to start before the pressure starts'
-  ],
-  doLess: [
-    'Stop the pattern that is limiting your Readiness most',
-    'Stop the behavior that erodes Execution before it starts',
-    'The thing you are doing more of that feels like progress but is not'
-  ],
-  questions: [
-    'The question that reveals what you are avoiding',
-    'The question that shows where your energy is leaking',
-    'The question to bring into your 30-minute debrief'
-  ]
-};
-
-function renderLockedFocusActionsSection(serverResult) {
-  return `
-    <div class="focus-actions-section focus-actions-section--locked">
-      ${renderLockedFocusActionBlock({
-        type: 'do-more',
-        iconClass: 'section-icon-up',
-        title: 'Do more of this',
-        items: LOCKED_FOCUS_PREVIEWS.doMore,
-        lockCopy: 'Your specific actions are waiting in your debrief. Book your 30-minute conversation to unlock them.',
-        serverResult: serverResult
-      })}
-
-      ${renderLockedFocusActionBlock({
-        type: 'do-less',
-        iconClass: 'section-icon-down',
-        title: 'Do less of this',
-        items: LOCKED_FOCUS_PREVIEWS.doLess,
-        lockCopy: 'Your specific stops are waiting in your debrief. Book your 30-minute conversation to unlock them.',
-        serverResult: serverResult
-      })}
-
-      ${renderLockedFocusQuestionBlock({
-        items: LOCKED_FOCUS_PREVIEWS.questions,
-        lockCopy: 'Your specific reflection questions are waiting in your debrief. Book your 30-minute conversation to unlock them.'
-      })}
-      ${renderLockedBookingControls(serverResult)}
-    </div>
-  `;
-}
-
-function renderLockedFocusActionBlock(config) {
-  return `
-    <div class="focus-actions-block ${config.type} locked-focus-actions-block">
-      <div class="focus-actions-block-header">
-        <span class="section-icon ${config.iconClass}" aria-hidden="true">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 4L12 20M12 20L18 14M12 20L6 14" />
-          </svg>
-        </span>
-        <strong>${escapeHtml(config.title)}</strong>
-      </div>
-
-      <div class="locked-focus-list locked-focus-list--noninteractive">
-        ${config.items.map(function(item, index) {
-          return renderLockedFocusActionCard(item, index);
-        }).join('')}
-
-        <div class="locked-focus-overlay">
-          <div class="locked-focus-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg></div>
-          <p>${escapeHtml(config.lockCopy)}</p>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-function renderLockedFocusActionCard(text, index) {
-  return `
-    <div class="focus-action-card locked-focus-card ${index > 0 ? 'is-more-locked' : ''}" aria-hidden="true">
-      <div class="focus-action-number">${index + 1}</div>
-
-      <div class="focus-action-copy">
-        <h4 class="focus-action-heading">${escapeHtml(text)}</h4>
-
-        <p class="locked-blur-line locked-blur-line--wide"></p>
-        <p class="locked-blur-line locked-blur-line--medium"></p>
-      </div>
-    </div>
-  `;
-}
-
-function renderLockedFocusQuestionBlock(config) {
-  return `
-    <div class="focus-actions-block questions locked-focus-actions-block">
-      <div class="focus-actions-block-header">
-        <span class="section-icon section-icon-question" aria-hidden="true">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 19H12.01M8.21704 7.69689C8.75753 6.12753 10.2471 5 12 5C14.2091 5 16 6.79086 16 9C16 10.6565 14.9931 12.0778 13.558 12.6852C12.8172 12.9988 12.4468 13.1556 12.3172 13.2767C12.1629 13.4209 12.1336 13.4651 12.061 13.6634C12 13.8299 12 14.0866 12 14.6L12 16" />
-          </svg>
-        </span>
-        <strong>Sit with these questions</strong>
-      </div>
-
-      <p class="focus-question-intro">
-        These are questions to sit with, not problems to solve immediately. There are no right answers - just honest ones.
-      </p>
-
-      <div 
-        class="locked-focus-list locked-focus-list--noninteractive"
-        aria-hidden="true"
-        inert
-      >
-        <div class="focus-question-list locked-question-list">
-          ${config.items.map(function(item, index) {
-            return renderLockedFocusQuestionItem(item, index);
-          }).join('')}
-        </div>
-
-        <div class="locked-focus-overlay">
-          <div class="locked-focus-lock" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 13.1198 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <p>${escapeHtml(config.lockCopy)}</p>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-function renderLockedFocusQuestionItem(text, index) {
-  return `
-    <p class="focus-question-item locked-focus-question-item ${index > 0 ? 'is-more-locked' : ''}">
-      ${escapeHtml(text)}
-    </p>
-  `;
-}
-
-function renderLockedBookingControls(serverResult) {
-  const bookingUrl = getBookingUrl(serverResult);
-
-  return `
-    <div class="locked-report-card locked-report-card--compact">
-      <div class="locked-report-eyebrow">Full report locked</div>
-
-      <h3>Book a follow-up call to unlock your takeaways</h3>
-
-      <p>
-        Your full report includes what to do more of, what to do less of,
-        and the follow-up questions to bring into the call.
-      </p>
-
-      ${serverResult.booking_ref ? `
-        <div class="booking-ref-box">
-          <span>Your booking reference</span>
-          <strong>${escapeHtml(serverResult.booking_ref)}</strong>
-          <button type="button" id="copy-booking-ref">Copy</button>
-        </div>
-      ` : ''}
-
-      ${bookingUrl ? `
-        <a class="primary-btn" id="book-followup-btn" href="${escapeHtml(bookingUrl)}" target="_blank" rel="noopener">
-          Book follow-up call
-        </a>
-      ` : ''}
-
-      <button type="button" class="secondary-btn" id="check-unlock-btn">
-        I’ve booked — check unlock status
-      </button>
-
-      <p id="unlock-status" class="form-status"></p>
-    </div>
-  `;
-}
-
-function bindBookingUnlockControls(serverResult) {
-  const copyBtn = document.getElementById('copy-booking-ref');
-
-  if (copyBtn && serverResult.booking_ref) {
-    copyBtn.addEventListener('click', function() {
-      navigator.clipboard.writeText(serverResult.booking_ref);
-    });
-  }
-
-  const checkBtn = document.getElementById('check-unlock-btn');
-
-  if (checkBtn) {
-    checkBtn.addEventListener('click', function() {
-      refreshReportUnlockStatus(serverResult);
-    });
-  }
-}
- */
 
 
 async function loadResultByToken(token) {
@@ -3348,12 +2855,12 @@ function buildSignals(dim, R, P) {
 const PRIVACY_NOTICE_VERSION = '2026-04-28';
 
 function togglePrivacyDetails() {
-  var details = document.getElementById('privacy-details');
-  var toggle = document.getElementById('privacy-details-toggle');
+  const details = document.getElementById('privacy-details');
+  const toggle = document.getElementById('privacy-details-toggle');
 
   if (!details || !toggle) return;
 
-  var isOpen = details.classList.toggle('is-open');
+  const isOpen = details.classList.toggle('is-open');
 
   details.setAttribute('aria-hidden', String(!isOpen));
   toggle.setAttribute('aria-expanded', String(isOpen));
@@ -3363,7 +2870,7 @@ function togglePrivacyDetails() {
 }
 
 function hasPrivacyConsent() {
-  var consent = document.getElementById('privacy-consent');
+  const consent = document.getElementById('privacy-consent');
   return consent && consent.checked;
 }
 
@@ -3378,8 +2885,8 @@ function getPrivacyConsentRecord() {
 // ── Start ─────────────────────────────────────────────────
 function startAssessment() {
   currentResult = null;
-  var industrySelect = document.getElementById('industry-select');
-  var sizeSelect = document.getElementById('size-select');
+  const industrySelect = document.getElementById('industry-select');
+  const sizeSelect = document.getElementById('size-select');
 
   if (!industrySelect || !sizeSelect) {
     console.error('Industry or size select not found');
@@ -3451,22 +2958,6 @@ if (resultToken) {
 
 document.getElementById('start-btn').addEventListener('click', startAssessment);
 
-/* document.getElementById('turnstile-cancel').addEventListener('click', cancelTurnstile);
-document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape' && turnstilePending) cancelTurnstile();
-}); */
-/* 
-document.getElementById('btn-restart').addEventListener('click', function() {
-  currentResult = null;
-  placements = [];
-  for (var i=0; i<SHUFFLED_TRIADS.length; i++) placements.push(null);
-  current = 0;
-  history.replaceState(null, '', location.pathname);
-  clearAssessmentState();
-  document.getElementById('scr-results').style.display = 'none';
-  document.getElementById('scr-intro').style.display = 'block';
-  globalThis.scrollTo(0, 0);
-}); */
 
 document.getElementById('foot-download-pdf').addEventListener('click', function() {
   const originalTitle = document.title;
