@@ -1,5 +1,5 @@
 const TURNSTILE_SITE_KEY = '0x4AAAAAADTHusttqatb2uD0';
-const FALLBACK_BOOKINGS_URL = 'https://youtube.com';
+const FALLBACK_BOOKINGS_URL = 'https://calendly.com/theo-ext/30min';
 
 const ICON_BUILD_READINESS = `
   <svg width="36px" height="36px" viewBox="0 0 24 24" fill="rgba(16, 185, 129, 0.15)" xmlns="http://www.w3.org/2000/svg">
@@ -2244,8 +2244,8 @@ function getBookingUrl(serverResult) {
     console.warn('Invalid bookings_url:', base);
     return null;
   }
-  if (serverResult.booking_ref) {
-    url.searchParams.set('booking_ref', serverResult.booking_ref);
+  if (serverResult.result_id) {
+    url.searchParams.set('salesforce_uuid', serverResult.result_id);
   }
   return url.toString();
 }
