@@ -2159,20 +2159,24 @@ function renderServerReport(serverResult) {
   renderOpenReport(open, res, quotientData);
 
   const unlockedEl = document.getElementById('focus-section-unlocked');
+  const unlockedBreak = document.getElementById('focus-section-unlocked-break');
   const lockedEl   = document.getElementById('focus-section-locked');
 
   if (locked) {
     renderUnlockedSections(locked, open);
     show(unlockedEl);
+    show(unlockedBreak);
     hide(lockedEl);
   } else if (serverResult.locked) {
     renderBookingUnlockCTA(serverResult);
     show(lockedEl);
     hide(unlockedEl);
+    hide(unlockedBreak);
   } else {
     renderNoLockedSections();
     hide(lockedEl);
     hide(unlockedEl);
+    hide(unlockedBreak);
   }
 }
 
