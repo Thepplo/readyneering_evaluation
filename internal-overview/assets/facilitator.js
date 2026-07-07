@@ -12,6 +12,55 @@ const DIMS = ['R_vitality','R_emotion','R_mind','R_execution','R_alignment',
             'P_vitality','P_emotion','P_mind','P_execution','P_alignment'];
 const QDIMS = ['vitality','emotion','mind','execution','alignment'];
 
+const MODE_META = {
+  resilience: {
+    role: "How strong you are when the environment becomes unstable or unpredictable.",
+    signal: {
+      high: "The system tends to stay functional and effective when conditions get difficult.",
+      mid: "The system absorbs some pressure, but not always with consistency.",
+      low: "Pressure is more likely to disrupt consistency, judgment, or follow-through."
+    },
+    risk: {
+      high: "Strong resilience can hide where people are compensating for weak structure.",
+      mid: "Resilience may hold in some conditions, but break in others.",
+      low: "When pressure rises, performance is more likely to depend on individuals than on the system."
+    },
+    question: {
+      high: "Where does the system still hold mainly because capable people absorb the strain?",
+      mid: "What tends to break first when conditions become difficult?",
+      low: "Where does pressure expose weak points faster than the system can absorb them?"
+    }
+  },
+
+  preparedness: {
+    role: "How well prepared you are for known and unknown challenges ahead.",
+    signal: {
+      high: "The system appears well prepared, with expectations and structure in place ahead of time.",
+      mid: "Preparation exists, but not always at the level needed to create consistency.",
+      low: "The system is more reactive than designed, with readiness gaps showing up too late."
+    },
+    risk: {
+      high: "Strong preparedness can still fail if plans do not hold under live conditions.",
+      mid: "Preparedness may be present in principle, but not fully embedded in practice.",
+      low: "Too much depends on reaction and memory rather than design and readiness."
+    },
+    question: {
+      high: "Where do we know what good looks like-but fail to make it hold in practice?",
+      mid: "What are we repeatedly reacting to that should already be designed for?",
+      low: "Where is readiness depending more on memory than on structure?"
+    }
+  }
+};
+
+
+const QUOTIENT_ICONS = {
+  vitality: 'assets/images/q-vitality.svg',
+  emotion: 'assets/images/q-emotion.svg',
+  mind: 'assets/images/q-mind.svg',
+  execution: 'assets/images/q-execution.svg',
+  alignment: 'assets/images/q-alignment.svg'
+};
+
 function bary(px, py) {
   const d = (TB.y-TC.y)*(TA.x-TC.x) + (TC.x-TB.x)*(TA.y-TC.y);
   const a = ((TB.y-TC.y)*(px-TC.x) + (TC.x-TB.x)*(py-TC.y)) / d;
