@@ -364,7 +364,7 @@ async function loadAndRender(token) {
 }
 
 async function fetchFacilitatorReport(token) {
-  const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/facilitator-report`, {
+  const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/facilitator_report`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ facilitator_token: token }),
