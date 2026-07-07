@@ -8,6 +8,10 @@ function s(n) { return n * SCALE; }
 const TA = {x: 250 * SCALE, y: 130 * SCALE};
 const TB = {x: 48  * SCALE, y: 360 * SCALE};
 const TC = {x: 452 * SCALE, y: 360 * SCALE};
+const DIMS = ['R_vitality','R_emotion','R_mind','R_execution','R_alignment',
+            'P_vitality','P_emotion','P_mind','P_execution','P_alignment'];
+const QDIMS = ['vitality','emotion','mind','execution','alignment'];
+
 function bary(px, py) {
   const d = (TB.y-TC.y)*(TA.x-TC.x) + (TC.x-TB.x)*(TA.y-TC.y);
   const a = ((TB.y-TC.y)*(px-TC.x) + (TC.x-TB.x)*(py-TC.y)) / d;
