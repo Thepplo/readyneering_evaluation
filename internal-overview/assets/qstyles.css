@@ -1443,7 +1443,7 @@
 }
 
 /* screens */
-.screen { display: none; }
+.screen { display: block; }
 .screen.active { display: block; }
 
 #scr-intro {
