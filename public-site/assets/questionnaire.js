@@ -1075,7 +1075,7 @@ function getModeStructure(rScore, pScore) {
   if (rHigh && pHigh) {
     return {
       modeStructure: 'both-building-or-higher',
-      modeTag: 'Current pattern: solid across both dimensions - the priority now is consistency under sustained pressure',
+      modeTag: 'Solid across both dimensions - the priority now is consistency under sustained pressure',
       resilienceLevel: rLevel,
       preparednessLevel: pLevel
     };
