@@ -2367,6 +2367,7 @@ function renderDebriefInvitationSection(serverResult) {
             I've booked — reveal my actions
           </button>
         </div>
+        <p id="unlock-status" class="unlock-status" aria-live="polite"></p>
 
         <div class="next-divider"></div>
 
