@@ -2376,7 +2376,7 @@ function renderDebriefInvitationSection(serverResult) {
         </p>
         <p class="next-lede">
           The actions above are prepared for a reason. The right next move is specific
-          to your pattern. A generic list would be motivational confetti. <span class="next-lede--bold>What you need
+          to your pattern. A generic list would be motivational confetti. <span class="next-lede--bold">What you need
           is a conversation.</span>
         </p>
         <p class="next-lede">
