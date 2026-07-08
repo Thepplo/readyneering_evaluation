@@ -2480,10 +2480,8 @@
 }
 
 .pattern-closer {
-  margin: 32px auto 0;
-  max-width: 720px;
   text-align: center;
-  padding-top: 28px;
+  padding: 20px 22px 20px 24px;
   border-top: 1px solid rgba(255,255,255,0.08);
 }
 .pattern-closer .pattern-kicker {
