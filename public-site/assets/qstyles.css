@@ -37,18 +37,23 @@
 }
 .next-q-name--vitality{
   color: #ffda33;
+  font-weight: 700;
 }
 .next-q-name--emotion{
   color: #E53846;
+  font-weight: 700;
 }
 .next-q-name--execution{
-  color: #2D52B5;
+  color: #4879FF;
+  font-weight: 700;
 }
 .next-q-name--mind{
-  color: #770136;
+  color: #d80262;
+  font-weight: 700;
 }
 .next-q-name--alignment{
   color: #1B74CD;
+  font-weight: 700;
 }
 .foot {
   display: flex;
@@ -545,6 +550,9 @@
   opacity: 0.75;
 }
 
+.zone-scale-overall {
+  padding: 22px 18px 22px 0px;
+}
 .zone-scale-overall .zone-label {
   font-size: 12px;
   font-weight: 600;
@@ -2469,6 +2477,29 @@
   background:
     linear-gradient(180deg, rgba(255,255,255,0.96), rgba(249,250,251,0.96));
   box-shadow: none;
+}
+
+.pattern-closer {
+  margin: 32px auto 0;
+  max-width: 720px;
+  text-align: center;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.pattern-closer .pattern-kicker {
+  margin-bottom: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.pattern-closer .pattern-main {
+  font-size: 20px;
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: #f5f5f5;
 }
 
 .pattern-kicker {
