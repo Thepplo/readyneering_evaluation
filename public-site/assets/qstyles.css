@@ -1759,6 +1759,7 @@
 .q-grid-wrapper {
   width: 100%;
   display: block;
+  margin-top: 30px;
 }
 
 .q-grid { 
