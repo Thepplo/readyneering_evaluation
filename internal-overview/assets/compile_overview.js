@@ -1,840 +1,829 @@
-    /*
-      Expected backend response shape:
 
-      {
-        ok: true,
-        rows: [
-          {
-            batch_id: "demo-batch-001",
-            submission_count: 24,
-            first_submitted_at: "2026-05-01T10:00:00Z",
-            last_submitted_at: "2026-05-16T16:30:00Z",
-            industries: { "SaaS": 12, "Finance": 8 },
-            sizes: { "11-50": 10, "51-200": 14 },
-            sources: { "LinkedIn": 11, "Partner": 13 },
-            averages: {
-              resilience: 3.7,
-              preparedness: 3.2,
-              overall: 72
-            },
-            operating_pattern: "Resilience-heavy"
-          }
-        ],
-        filters: {
-          batch_ids: ["demo-batch-001"],
-          industries: ["SaaS", "Finance"],
-          sizes: ["11-50", "51-200"],
-          sources: ["LinkedIn", "Partner"]
-        }
-      }
-    */
+function getAuthJwt() {
+return window.__authJwt || null;
+}
 
-    const OVERVIEW_ENDPOINT = "/assessments/getResultsOverview";
+function authHeaders() {
+const jwt = getAuthJwt();
+return jwt
+? { Accept: "application/json", Authorization: `Bearer ${jwt}` }
+: { Accept: "application/json" };
+}
 
-    const sampleData = {
-      ok: true,
-      rows: [
-        {
-          batch_id: "demo-batch-001",
-          submission_count: 24,
-          first_submitted_at: "2026-05-01T10:00:00Z",
-          last_submitted_at: "2026-05-16T16:30:00Z",
+const OVERVIEW_ENDPOINT = "/assessments/getResultsOverview";
 
-          industries: { SaaS: 12, Finance: 8, Other: 4 },
-          sizes: { "11-50": 10, "51-200": 14 },
-          sources: { LinkedIn: 11, Partner: 13 },
+const sampleData = {
+  ok: true,
+  rows: [
+    {
+      batch_id: "demo-batch-001",
+      submission_count: 24,
+      first_submitted_at: "2026-05-01T10:00:00Z",
+      last_submitted_at: "2026-05-16T16:30:00Z",
 
-          averages: {
-            resilience: 3.7,
-            preparedness: 3.2,
-            overall: 72
-          },
+      industries: { SaaS: 12, Finance: 8, Other: 4 },
+      sizes: { "11-50": 10, "51-200": 14 },
+      sources: { LinkedIn: 11, Partner: 13 },
 
-          quotients: {
-            vitality: 3.4,
-            emotion: 3.1,
-            mind: 3.8,
-            execution: 3.6,
-            alignment: 3.2
-          },
+      averages: {
+        resilience: 3.7,
+        preparedness: 3.2,
+        overall: 72
+      },
 
-          operating_pattern: "Resilience-heavy"
-        },
+      quotients: {
+        vitality: 3.4,
+        emotion: 3.1,
+        mind: 3.8,
+        execution: 3.6,
+        alignment: 3.2
+      },
 
-        {
-          batch_id: "leadership-may-2026",
-          submission_count: 18,
-          first_submitted_at: "2026-05-03T09:15:00Z",
-          last_submitted_at: "2026-05-18T14:12:00Z",
+      operating_pattern: "Resilience-heavy"
+    },
 
-          industries: { Healthcare: 7, Consulting: 6, SaaS: 5 },
-          sizes: { "1-10": 4, "11-50": 9, "51-200": 5 },
-          sources: { Workshop: 18 },
+    {
+      batch_id: "leadership-may-2026",
+      submission_count: 18,
+      first_submitted_at: "2026-05-03T09:15:00Z",
+      last_submitted_at: "2026-05-18T14:12:00Z",
 
-          averages: {
-            resilience: 3.1,
-            preparedness: 3.6,
-            overall: 68
-          },
+      industries: { Healthcare: 7, Consulting: 6, SaaS: 5 },
+      sizes: { "1-10": 4, "11-50": 9, "51-200": 5 },
+      sources: { Workshop: 18 },
 
-          quotients: {
-            vitality: 2.9,
-            emotion: 3.4,
-            mind: 3.5,
-            execution: 3.8,
-            alignment: 3.2
-          },
+      averages: {
+        resilience: 3.1,
+        preparedness: 3.6,
+        overall: 68
+      },
 
-          operating_pattern: "Preparedness-heavy"
-        },
+      quotients: {
+        vitality: 2.9,
+        emotion: 3.4,
+        mind: 3.5,
+        execution: 3.8,
+        alignment: 3.2
+      },
 
-        {
-          batch_id: "founders-q2",
-          submission_count: 31,
-          first_submitted_at: "2026-04-22T11:20:00Z",
-          last_submitted_at: "2026-05-14T12:45:00Z",
+      operating_pattern: "Preparedness-heavy"
+    },
 
-          industries: { Startups: 21, SaaS: 10 },
-          sizes: { "1-10": 20, "11-50": 11 },
-          sources: { Newsletter: 15, Community: 16 },
+    {
+      batch_id: "founders-q2",
+      submission_count: 31,
+      first_submitted_at: "2026-04-22T11:20:00Z",
+      last_submitted_at: "2026-05-14T12:45:00Z",
 
-          averages: {
-            resilience: 3.4,
-            preparedness: 3.4,
-            overall: 70
-          },
+      industries: { Startups: 21, SaaS: 10 },
+      sizes: { "1-10": 20, "11-50": 11 },
+      sources: { Newsletter: 15, Community: 16 },
 
-          quotients: {
-            vitality: 3.6,
-            emotion: 3.2,
-            mind: 3.4,
-            execution: 3.3,
-            alignment: 3.5
-          },
+      averages: {
+        resilience: 3.4,
+        preparedness: 3.4,
+        overall: 70
+      },
 
-          operating_pattern: "Balanced"
-        }
-      ]
+      quotients: {
+        vitality: 3.6,
+        emotion: 3.2,
+        mind: 3.4,
+        execution: 3.3,
+        alignment: 3.5
+      },
+
+      operating_pattern: "Balanced"
+    }
+  ]
+};
+
+let allRows = [];
+let visibleRows = [];
+
+const els = {
+  heroSearchInput: document.getElementById("heroSearchInput"),
+  heroSearchButton: document.getElementById("heroSearchButton"),
+  demoButton: document.getElementById("demoButton"),
+  searchInput: document.getElementById("searchInput"),
+  batchSelect: document.getElementById("batchSelect"),
+  industrySelect: document.getElementById("industrySelect"),
+  sizeSelect: document.getElementById("sizeSelect"),
+  sourceSelect: document.getElementById("sourceSelect"),
+  applyButton: document.getElementById("applyButton"),
+  resetButton: document.getElementById("resetButton"),
+  resultCount: document.getElementById("resultCount"),
+  activeFiltersPill: document.getElementById("activeFiltersPill"),
+  batchGrid: document.getElementById("batchGrid"),
+  emptyState: document.getElementById("emptyState"),
+  tableBody: document.getElementById("overviewTableBody"),
+  metricBatches: document.getElementById("metricBatches"),
+  metricSubmissions: document.getElementById("metricSubmissions"),
+  metricResilience: document.getElementById("metricResilience"),
+  metricPreparedness: document.getElementById("metricPreparedness"),
+  metricOverall: document.getElementById("metricOverall")
+};
+
+function countKeys(obj = {}) {
+  return Object.keys(obj).length ? Object.keys(obj).join(", ") : "—";
+}
+
+function compactCounts(obj = {}, limit = 3) {
+  const entries = Object.entries(obj);
+  if (!entries.length) return "—";
+
+  const visible = entries
+    .slice(0, limit)
+    .map(([key, value]) => `${key} (${value})`)
+    .join(", ");
+
+  const remaining = entries.length - limit;
+  return remaining > 0 ? `${visible}, +${remaining}` : visible;
+}
+
+function formatDate(value) {
+  if (!value) return "—";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "—";
+  return date.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric"
+  });
+}
+
+function formatScore(value) {
+  if (value === null || value === undefined || Number.isNaN(Number(value))) return "—";
+  return Number(value).toFixed(1);
+}
+
+function getUniqueValues(rows, getter) {
+  return [...new Set(rows.flatMap(row => getter(row)).filter(Boolean))].sort();
+}
+
+function populateSelect(select, values, defaultLabel) {
+  const current = select.value;
+  select.innerHTML = `<option value="">${defaultLabel}</option>`;
+
+  values.forEach(value => {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    select.appendChild(option);
+  });
+
+  if (values.includes(current)) select.value = current;
+}
+
+function populateFilters(rows) {
+  populateSelect(els.batchSelect, getUniqueValues(rows, row => [row.batch_id]), "All batches");
+  populateSelect(els.industrySelect, getUniqueValues(rows, row => Object.keys(row.industries || {})), "All industries");
+  populateSelect(els.sizeSelect, getUniqueValues(rows, row => Object.keys(row.sizes || {})), "All sizes");
+  populateSelect(els.sourceSelect, getUniqueValues(rows, row => Object.keys(row.sources || {})), "All sources");
+}
+
+function rowMatches(row, filters) {
+  const haystack = [
+    row.batch_id,
+    row.operating_pattern,
+    ...Object.keys(row.industries || {}),
+    ...Object.keys(row.sizes || {}),
+    ...Object.keys(row.sources || {})
+  ].join(" ").toLowerCase();
+
+  if (filters.search && !haystack.includes(filters.search.toLowerCase())) return false;
+  if (filters.batch && row.batch_id !== filters.batch) return false;
+  if (filters.industry && !(row.industries || {})[filters.industry]) return false;
+  if (filters.size && !(row.sizes || {})[filters.size]) return false;
+  if (filters.source && !(row.sources || {})[filters.source]) return false;
+
+  return true;
+}
+
+function getFilters() {
+  return {
+    search: els.searchInput.value.trim(),
+    batch: els.batchSelect.value,
+    industry: els.industrySelect.value,
+    size: els.sizeSelect.value,
+    source: els.sourceSelect.value
+  };
+}
+
+function getActiveFilterLabels(filters) {
+  return Object.entries(filters)
+    .filter(([, value]) => value)
+    .map(([key, value]) => `${key}: ${value}`);
+}
+
+function applyFilters() {
+  const filters = getFilters();
+
+  fetchOverviewWithFilters(filters);
+}
+
+function pointOnEllipse(cx, cy, rx, ry, deg) {
+  const rad = (deg * Math.PI) / 180;
+  return {
+    x: cx + rx * Math.cos(rad),
+    y: cy + ry * Math.sin(rad)
+  };
+}
+
+function makeRing(score, min, max, color, trackColor, size) {
+  const R = size / 2;
+  const r = R - 11;
+  const cx = R;
+  const cy = R;
+  const circ = 2 * Math.PI * r;
+  const progress = Math.max(0, Math.min(1, (score - min) / (max - min)));
+  const dashOffset = circ * (1 - progress);
+
+  return `
+    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block">
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="white" stroke="${trackColor}" stroke-width="10" />
+      <circle
+        cx="${cx}" cy="${cy}" r="${r}"
+        fill="none"
+        stroke="${color}"
+        stroke-width="10"
+        stroke-dasharray="${circ}"
+        stroke-dashoffset="${dashOffset}"
+        stroke-linecap="round"
+        transform="rotate(-90 ${cx} ${cy})"
+      />
+      <text
+        x="${cx}" y="${cy + 2}"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        font-size="${size > 100 ? 20 : 16}"
+        font-weight="500"
+        fill="${color}"
+        font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+      >${score.toFixed(2)}</text>
+    </svg>
+  `;
+}
+
+function renderOrbit(rows) {
+  const weightedAverage = key => {
+    const totalWeight = rows.reduce(
+      (sum, row) => sum + Number(row.submission_count || 0),
+      0
+    );
+
+    if (!totalWeight) return null;
+
+    const total = rows.reduce((sum, row) => {
+      const score = Number(row.averages && row.averages[key]);
+      const weight = Number(row.submission_count || 0);
+
+      return Number.isFinite(score) ? sum + score * weight : sum;
+    }, 0);
+
+    return total / totalWeight;
+  };
+
+  const orbitCx = 315;
+  const orbitCy = 200;
+  const rx = 250;
+  const ry = 155;
+
+  const centerSize = 140;
+  const smallSize = 92;
+  const leftX = orbitCx - rx;
+  const rightX = orbitCx + rx;
+  const cy = orbitCy;
+
+  const resiliencePos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 215);
+  const preparednessPos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 325);
+
+  const resilienceX = resiliencePos.x - smallSize / 2;
+  const resilienceY = resiliencePos.y - smallSize / 2;
+  const preparednessX = preparednessPos.x - smallSize / 2;
+  const preparednessY = preparednessPos.y - smallSize / 2;
+
+  const centerX = orbitCx - centerSize / 2;
+  const centerY = orbitCy - centerSize / 2 - 5;
+
+  const rr = document.getElementById("ring-row");
+
+  if (!rr) return;
+
+  rr.innerHTML = `
+    <svg class="orbit-svg" viewBox="0 0 630 420" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="backArcFade" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#7d5c6e" stop-opacity="1" />
+          <stop offset="18%" stop-color="#7d5c6e" stop-opacity="0.78" />
+          <stop offset="50%" stop-color="#7d5c6e" stop-opacity="0.05" />
+          <stop offset="82%" stop-color="#7d5c6e" stop-opacity="0.78" />
+          <stop offset="100%" stop-color="#7d5c6e" stop-opacity="1" />
+        </linearGradient>
+
+        <linearGradient id="linkLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#534AB7" stop-opacity="0.28" />
+          <stop offset="100%" stop-color="#534AB7" stop-opacity="0.06" />
+        </linearGradient>
+
+        <linearGradient id="linkRight" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#1D9E75" stop-opacity="0.28" />
+          <stop offset="100%" stop-color="#1D9E75" stop-opacity="0.06" />
+        </linearGradient>
+      </defs>
+
+      <path
+        d="M ${leftX} ${cy} A ${rx} ${ry} 0 0 1 ${rightX} ${cy}"
+        fill="none"
+        stroke="url(#backArcFade)"
+        stroke-opacity="0.28"
+        stroke-width="1.5"
+      />
+
+      <path
+        d="M ${rightX} ${cy} A ${rx} ${ry} 0 0 1 ${leftX} ${cy}"
+        fill="none"
+        stroke="#7d5c6e"
+        stroke-opacity="0.28"
+        stroke-width="1.5"
+      />
+
+      <path
+        d="M ${resiliencePos.x} ${resiliencePos.y}
+          Q ${orbitCx - 95} ${orbitCy - 35} ${orbitCx} ${orbitCy}"
+        fill="none"
+        stroke="url(#linkLeft)"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+
+      <path
+        d="M ${preparednessPos.x} ${preparednessPos.y}
+          Q ${orbitCx + 95} ${orbitCy - 35} ${orbitCx} ${orbitCy}"
+        fill="none"
+        stroke="url(#linkRight)"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+
+      <foreignObject x="${resilienceX}" y="${resilienceY}" width="${smallSize}" height="${smallSize}">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
+          ${makeRing(weightedAverage("resilience"), 0, 5, "#534AB7", "#E8E7E0", smallSize)}
+        </div>
+      </foreignObject>
+
+      <text
+        x="${resiliencePos.x}"
+        y="${resiliencePos.y + smallSize / 2 + 18}"
+        text-anchor="middle"
+        class="score-label"
+      >
+        AVG. RESILIENCE
+      </text>
+
+      <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
+          ${makeRing(weightedAverage("preparedness"), 0, 5, "#1D9E75", "#E8E7E0", smallSize)}
+        </div>
+      </foreignObject>
+
+      <text
+        x="${preparednessPos.x}"
+        y="${preparednessPos.y + smallSize / 2 + 18}"
+        text-anchor="middle"
+        class="score-label"
+      >
+        AVG. PREPAREDNESS
+      </text>
+
+      <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
+          ${makeRing(weightedAverage("overall"), 0, 25, "#ffda33", "#ffda333f", centerSize)}
+        </div>
+      </foreignObject>
+
+      <text
+        x="${orbitCx}"
+        y="${centerY + centerSize + 18}"
+        text-anchor="middle"
+        class="score-label center-label"
+      >
+        AVG. OVERALL READINESS
+      </text>
+
+      <text
+        x="${orbitCx}"
+        y="${centerY + centerSize + 34}"
+        text-anchor="middle"
+        class="score-sub center-sub"
+      >
+        Across visible batches
+      </text>
+    </svg>
+  `;
+}
+function renderMetrics(rows) {
+  const totalSubmissions = rows.reduce((sum, row) => sum + Number(row.submission_count || 0), 0);
+
+  const weightedAverage = key => {
+    const totalWeight = rows.reduce((sum, row) => sum + Number(row.submission_count || 0), 0);
+    if (!totalWeight) return null;
+
+    const total = rows.reduce((sum, row) => {
+      const score = Number(row.averages && row.averages[key]);
+      const weight = Number(row.submission_count || 0);
+      return Number.isFinite(score) ? sum + score * weight : sum;
+    }, 0);
+
+    return total / totalWeight;
+  };
+
+  els.metricBatches.textContent = rows.length;
+  els.metricSubmissions.textContent = totalSubmissions;
+  els.metricResilience.textContent = formatScore(weightedAverage("resilience"));
+  els.metricPreparedness.textContent = formatScore(weightedAverage("preparedness"));
+  els.metricOverall.textContent = formatScore(weightedAverage("overall"));
+}
+function getBandPercents(bands) {
+  const low = bands?.low || 0;
+  const mid = bands?.mid || 0;
+  const high = bands?.high || 0;
+  const total = low + mid + high;
+
+  if (!total) {
+    return { low: 0, mid: 0, high: 0 };
+  }
+
+  return {
+    low: Math.round((low / total) * 100),
+    mid: Math.round((mid / total) * 100),
+    high: Math.round((high / total) * 100)
+  };
+}
+function renderDistribution(bands) {
+  const pct = getBandPercents(bands);
+
+  return `
+    <div class="q-distribution">
+      <div class="q-distribution-labels">
+        <span>Low ${pct.low}%</span>
+        <span>·</span>
+        <span>Mid ${pct.mid}%</span>
+        <span>·</span>
+        <span>High ${pct.high}%</span>
+      </div>
+
+      <div class="q-distribution-bar" aria-label="Distribution bar">
+        <div class="q-distribution-seg low" style="width:${pct.low}%"></div>
+        <div class="q-distribution-seg mid" style="width:${pct.mid}%"></div>
+        <div class="q-distribution-seg high" style="width:${pct.high}%"></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderOverviewQuotientGrid(quotientProfiles = {}) {
+  const entries = Object.entries(quotientProfiles);
+
+  if (!entries.length) {
+    return '<div class="empty">No quotient data available.</div>';
+  }
+
+  return `
+    <div class="q-grid overview">
+      ${entries.map(([key, profile]) => {
+        return renderOverviewQuotientCard({
+          key,
+          average: profile.average,
+          resilience_average: profile.resilience_average,
+          preparedness_average: profile.preparedness_average,
+          bands: profile.bands
+        });
+      }).join('')}
+    </div>
+  `;
+}
+
+function renderOverviewQuotientCard(q) {
+  const score = Number(q.average);
+  const hasScore = Number.isFinite(score);
+
+  return `
+    <div class="q-card ${q.key}">
+      <span class="orb orb-1"></span>
+
+      <div class="q-head">
+        <div class="q-label">${titleCase(q.key)}</div>
+        <div class="q-metrics">
+          <div class="q-score">${hasScore ? score.toFixed(1) : "—"}</div>
+        </div>
+      </div>
+
+      <div class="q-section">
+        <div class="q-section-label">Distribution across cohort</div>
+        ${renderDistribution(q.bands)}
+      </div>
+
+    </div>
+  `;
+}
+
+function getSimpleQuotientLine(key, score) {
+  if (!Number.isFinite(score)) return "No score available yet.";
+
+  if (score >= 4) return `${titleCase(key)} is a clear strength across this cohort.`;
+  if (score >= 3) return `${titleCase(key)} is moderately developed across this cohort.`;
+  return `${titleCase(key)} appears to be a development area across this cohort.`;
+}
+
+function getWeightedOverviewQuotientProfiles(rows) {
+  const keys = ["vitality", "emotion", "mind", "execution", "alignment"];
+  const result = {};
+
+  keys.forEach(key => {
+    let weightedAverageTotal = 0;
+    let weightedResilienceTotal = 0;
+    let weightedPreparednessTotal = 0;
+    let totalWeight = 0;
+
+    const bands = {
+      low: 0,
+      mid: 0,
+      high: 0
     };
 
-    let allRows = [];
-    let visibleRows = [];
+    rows.forEach(row => {
+      const profile = row.quotient_profiles?.[key];
+      const weight = Number(row.submission_count || 0);
 
-    const els = {
-      heroSearchInput: document.getElementById("heroSearchInput"),
-      heroSearchButton: document.getElementById("heroSearchButton"),
-      demoButton: document.getElementById("demoButton"),
-      searchInput: document.getElementById("searchInput"),
-      batchSelect: document.getElementById("batchSelect"),
-      industrySelect: document.getElementById("industrySelect"),
-      sizeSelect: document.getElementById("sizeSelect"),
-      sourceSelect: document.getElementById("sourceSelect"),
-      applyButton: document.getElementById("applyButton"),
-      resetButton: document.getElementById("resetButton"),
-      resultCount: document.getElementById("resultCount"),
-      activeFiltersPill: document.getElementById("activeFiltersPill"),
-      batchGrid: document.getElementById("batchGrid"),
-      emptyState: document.getElementById("emptyState"),
-      tableBody: document.getElementById("overviewTableBody"),
-      metricBatches: document.getElementById("metricBatches"),
-      metricSubmissions: document.getElementById("metricSubmissions"),
-      metricResilience: document.getElementById("metricResilience"),
-      metricPreparedness: document.getElementById("metricPreparedness"),
-      metricOverall: document.getElementById("metricOverall")
+      if (!profile || weight <= 0) return;
+
+      const avg = Number(profile.average);
+      const resilienceAvg = Number(profile.resilience_average);
+      const preparednessAvg = Number(profile.preparedness_average);
+
+      if (Number.isFinite(avg)) {
+        weightedAverageTotal += avg * weight;
+      }
+
+      if (Number.isFinite(resilienceAvg)) {
+        weightedResilienceTotal += resilienceAvg * weight;
+      }
+
+      if (Number.isFinite(preparednessAvg)) {
+        weightedPreparednessTotal += preparednessAvg * weight;
+      }
+
+      if (Number.isFinite(avg)) {
+        totalWeight += weight;
+      }
+
+      bands.low += Number(profile.bands?.low || 0);
+      bands.mid += Number(profile.bands?.mid || 0);
+      bands.high += Number(profile.bands?.high || 0);
+    });
+
+    result[key] = {
+      average: totalWeight > 0 ? weightedAverageTotal / totalWeight : null,
+      resilience_average: totalWeight > 0 ? weightedResilienceTotal / totalWeight : null,
+      preparedness_average: totalWeight > 0 ? weightedPreparednessTotal / totalWeight : null,
+      bands
     };
+  });
 
-    function countKeys(obj = {}) {
-      return Object.keys(obj).length ? Object.keys(obj).join(", ") : "—";
-    }
+  return result;
+}
 
-    function compactCounts(obj = {}, limit = 3) {
-      const entries = Object.entries(obj);
-      if (!entries.length) return "—";
+function renderCards(rows) {
+  els.batchGrid.innerHTML = "";
 
-      const visible = entries
-        .slice(0, limit)
-        .map(([key, value]) => `${key} (${value})`)
-        .join(", ");
+  rows.forEach(row => {
+    const card = document.createElement("article");
+    card.className = "batch-card";
 
-      const remaining = entries.length - limit;
-      return remaining > 0 ? `${visible}, +${remaining}` : visible;
-    }
+    const detailUrl = `results.html?batch_id=${encodeURIComponent(row.batch_id)}`;
 
-    function formatDate(value) {
-      if (!value) return "—";
-      const date = new Date(value);
-      if (Number.isNaN(date.getTime())) return "—";
-      return date.toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "short",
-        day: "numeric"
-      });
-    }
-
-    function formatScore(value) {
-      if (value === null || value === undefined || Number.isNaN(Number(value))) return "—";
-      return Number(value).toFixed(1);
-    }
-
-    function getUniqueValues(rows, getter) {
-      return [...new Set(rows.flatMap(row => getter(row)).filter(Boolean))].sort();
-    }
-
-    function populateSelect(select, values, defaultLabel) {
-      const current = select.value;
-      select.innerHTML = `<option value="">${defaultLabel}</option>`;
-
-      values.forEach(value => {
-        const option = document.createElement("option");
-        option.value = value;
-        option.textContent = value;
-        select.appendChild(option);
-      });
-
-      if (values.includes(current)) select.value = current;
-    }
-
-    function populateFilters(rows) {
-      populateSelect(els.batchSelect, getUniqueValues(rows, row => [row.batch_id]), "All batches");
-      populateSelect(els.industrySelect, getUniqueValues(rows, row => Object.keys(row.industries || {})), "All industries");
-      populateSelect(els.sizeSelect, getUniqueValues(rows, row => Object.keys(row.sizes || {})), "All sizes");
-      populateSelect(els.sourceSelect, getUniqueValues(rows, row => Object.keys(row.sources || {})), "All sources");
-    }
-
-    function rowMatches(row, filters) {
-      const haystack = [
-        row.batch_id,
-        row.operating_pattern,
-        ...Object.keys(row.industries || {}),
-        ...Object.keys(row.sizes || {}),
-        ...Object.keys(row.sources || {})
-      ].join(" ").toLowerCase();
-
-      if (filters.search && !haystack.includes(filters.search.toLowerCase())) return false;
-      if (filters.batch && row.batch_id !== filters.batch) return false;
-      if (filters.industry && !(row.industries || {})[filters.industry]) return false;
-      if (filters.size && !(row.sizes || {})[filters.size]) return false;
-      if (filters.source && !(row.sources || {})[filters.source]) return false;
-
-      return true;
-    }
-
-    function getFilters() {
-      return {
-        search: els.searchInput.value.trim(),
-        batch: els.batchSelect.value,
-        industry: els.industrySelect.value,
-        size: els.sizeSelect.value,
-        source: els.sourceSelect.value
-      };
-    }
-
-    function getActiveFilterLabels(filters) {
-      return Object.entries(filters)
-        .filter(([, value]) => value)
-        .map(([key, value]) => `${key}: ${value}`);
-    }
-
-    function applyFilters() {
-      const filters = getFilters();
-
-      fetchOverviewWithFilters(filters);
-    }
-
-    function pointOnEllipse(cx, cy, rx, ry, deg) {
-      const rad = (deg * Math.PI) / 180;
-      return {
-        x: cx + rx * Math.cos(rad),
-        y: cy + ry * Math.sin(rad)
-      };
-    }
-
-    function makeRing(score, min, max, color, trackColor, size) {
-      const R = size / 2;
-      const r = R - 11;
-      const cx = R;
-      const cy = R;
-      const circ = 2 * Math.PI * r;
-      const progress = Math.max(0, Math.min(1, (score - min) / (max - min)));
-      const dashOffset = circ * (1 - progress);
-
-      return `
-        <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block">
-          <circle cx="${cx}" cy="${cy}" r="${r}" fill="white" stroke="${trackColor}" stroke-width="10" />
-          <circle
-            cx="${cx}" cy="${cy}" r="${r}"
-            fill="none"
-            stroke="${color}"
-            stroke-width="10"
-            stroke-dasharray="${circ}"
-            stroke-dashoffset="${dashOffset}"
-            stroke-linecap="round"
-            transform="rotate(-90 ${cx} ${cy})"
-          />
-          <text
-            x="${cx}" y="${cy + 2}"
-            text-anchor="middle"
-            dominant-baseline="middle"
-            font-size="${size > 100 ? 20 : 16}"
-            font-weight="500"
-            fill="${color}"
-            font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
-          >${score.toFixed(2)}</text>
-        </svg>
-      `;
-    }
-
-    function renderOrbit(rows) {
-      const weightedAverage = key => {
-        const totalWeight = rows.reduce(
-          (sum, row) => sum + Number(row.submission_count || 0),
-          0
-        );
-
-        if (!totalWeight) return null;
-
-        const total = rows.reduce((sum, row) => {
-          const score = Number(row.averages && row.averages[key]);
-          const weight = Number(row.submission_count || 0);
-
-          return Number.isFinite(score) ? sum + score * weight : sum;
-        }, 0);
-
-        return total / totalWeight;
-      };
-
-      const orbitCx = 315;
-      const orbitCy = 200;
-      const rx = 250;
-      const ry = 155;
-
-      const centerSize = 140;
-      const smallSize = 92;
-      const leftX = orbitCx - rx;
-      const rightX = orbitCx + rx;
-      const cy = orbitCy;
-
-      const resiliencePos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 215);
-      const preparednessPos = pointOnEllipse(orbitCx, orbitCy, rx, ry, 325);
-
-      const resilienceX = resiliencePos.x - smallSize / 2;
-      const resilienceY = resiliencePos.y - smallSize / 2;
-      const preparednessX = preparednessPos.x - smallSize / 2;
-      const preparednessY = preparednessPos.y - smallSize / 2;
-
-      const centerX = orbitCx - centerSize / 2;
-      const centerY = orbitCy - centerSize / 2 - 5;
-
-      const rr = document.getElementById("ring-row");
-
-      if (!rr) return;
-
-      rr.innerHTML = `
-        <svg class="orbit-svg" viewBox="0 0 630 420" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="backArcFade" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#7d5c6e" stop-opacity="1" />
-              <stop offset="18%" stop-color="#7d5c6e" stop-opacity="0.78" />
-              <stop offset="50%" stop-color="#7d5c6e" stop-opacity="0.05" />
-              <stop offset="82%" stop-color="#7d5c6e" stop-opacity="0.78" />
-              <stop offset="100%" stop-color="#7d5c6e" stop-opacity="1" />
-            </linearGradient>
-
-            <linearGradient id="linkLeft" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#534AB7" stop-opacity="0.28" />
-              <stop offset="100%" stop-color="#534AB7" stop-opacity="0.06" />
-            </linearGradient>
-
-            <linearGradient id="linkRight" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#1D9E75" stop-opacity="0.28" />
-              <stop offset="100%" stop-color="#1D9E75" stop-opacity="0.06" />
-            </linearGradient>
-          </defs>
-
-          <path
-            d="M ${leftX} ${cy} A ${rx} ${ry} 0 0 1 ${rightX} ${cy}"
-            fill="none"
-            stroke="url(#backArcFade)"
-            stroke-opacity="0.28"
-            stroke-width="1.5"
-          />
-
-          <path
-            d="M ${rightX} ${cy} A ${rx} ${ry} 0 0 1 ${leftX} ${cy}"
-            fill="none"
-            stroke="#7d5c6e"
-            stroke-opacity="0.28"
-            stroke-width="1.5"
-          />
-
-          <path
-            d="M ${resiliencePos.x} ${resiliencePos.y}
-              Q ${orbitCx - 95} ${orbitCy - 35} ${orbitCx} ${orbitCy}"
-            fill="none"
-            stroke="url(#linkLeft)"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-
-          <path
-            d="M ${preparednessPos.x} ${preparednessPos.y}
-              Q ${orbitCx + 95} ${orbitCy - 35} ${orbitCx} ${orbitCy}"
-            fill="none"
-            stroke="url(#linkRight)"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-
-          <foreignObject x="${resilienceX}" y="${resilienceY}" width="${smallSize}" height="${smallSize}">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-              ${makeRing(weightedAverage("resilience"), 0, 5, "#534AB7", "#E8E7E0", smallSize)}
-            </div>
-          </foreignObject>
-
-          <text
-            x="${resiliencePos.x}"
-            y="${resiliencePos.y + smallSize / 2 + 18}"
-            text-anchor="middle"
-            class="score-label"
-          >
-            AVG. RESILIENCE
-          </text>
-
-          <foreignObject x="${preparednessX}" y="${preparednessY}" width="${smallSize}" height="${smallSize}">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node">
-              ${makeRing(weightedAverage("preparedness"), 0, 5, "#1D9E75", "#E8E7E0", smallSize)}
-            </div>
-          </foreignObject>
-
-          <text
-            x="${preparednessPos.x}"
-            y="${preparednessPos.y + smallSize / 2 + 18}"
-            text-anchor="middle"
-            class="score-label"
-          >
-            AVG. PREPAREDNESS
-          </text>
-
-          <foreignObject x="${centerX}" y="${centerY}" width="${centerSize}" height="${centerSize}">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="ring-node ring-node-center">
-              ${makeRing(weightedAverage("overall"), 0, 25, "#ffda33", "#ffda333f", centerSize)}
-            </div>
-          </foreignObject>
-
-          <text
-            x="${orbitCx}"
-            y="${centerY + centerSize + 18}"
-            text-anchor="middle"
-            class="score-label center-label"
-          >
-            AVG. OVERALL READINESS
-          </text>
-
-          <text
-            x="${orbitCx}"
-            y="${centerY + centerSize + 34}"
-            text-anchor="middle"
-            class="score-sub center-sub"
-          >
-            Across visible batches
-          </text>
-        </svg>
-      `;
-    }
-    function renderMetrics(rows) {
-      const totalSubmissions = rows.reduce((sum, row) => sum + Number(row.submission_count || 0), 0);
-
-      const weightedAverage = key => {
-        const totalWeight = rows.reduce((sum, row) => sum + Number(row.submission_count || 0), 0);
-        if (!totalWeight) return null;
-
-        const total = rows.reduce((sum, row) => {
-          const score = Number(row.averages && row.averages[key]);
-          const weight = Number(row.submission_count || 0);
-          return Number.isFinite(score) ? sum + score * weight : sum;
-        }, 0);
-
-        return total / totalWeight;
-      };
-
-      els.metricBatches.textContent = rows.length;
-      els.metricSubmissions.textContent = totalSubmissions;
-      els.metricResilience.textContent = formatScore(weightedAverage("resilience"));
-      els.metricPreparedness.textContent = formatScore(weightedAverage("preparedness"));
-      els.metricOverall.textContent = formatScore(weightedAverage("overall"));
-    }
-    function getBandPercents(bands) {
-      const low = bands?.low || 0;
-      const mid = bands?.mid || 0;
-      const high = bands?.high || 0;
-      const total = low + mid + high;
-
-      if (!total) {
-        return { low: 0, mid: 0, high: 0 };
-      }
-
-      return {
-        low: Math.round((low / total) * 100),
-        mid: Math.round((mid / total) * 100),
-        high: Math.round((high / total) * 100)
-      };
-    }
-    function renderDistribution(bands) {
-      const pct = getBandPercents(bands);
-
-      return `
-        <div class="q-distribution">
-          <div class="q-distribution-labels">
-            <span>Low ${pct.low}%</span>
-            <span>·</span>
-            <span>Mid ${pct.mid}%</span>
-            <span>·</span>
-            <span>High ${pct.high}%</span>
-          </div>
-
-          <div class="q-distribution-bar" aria-label="Distribution bar">
-            <div class="q-distribution-seg low" style="width:${pct.low}%"></div>
-            <div class="q-distribution-seg mid" style="width:${pct.mid}%"></div>
-            <div class="q-distribution-seg high" style="width:${pct.high}%"></div>
-          </div>
+    card.innerHTML = `
+      <div class="batch-card-head">
+        <div>
+          <div class="batch-id">${row.batch_id}</div>
+          <div class="subtle">Last submission: ${formatDate(row.last_submitted_at)}</div>
         </div>
-      `;
-    }
+        <div class="batch-status">${row.operating_pattern || "Unclassified"}</div>
+      </div>
 
-    function renderOverviewQuotientGrid(quotientProfiles = {}) {
-      const entries = Object.entries(quotientProfiles);
-
-      if (!entries.length) {
-        return '<div class="empty">No quotient data available.</div>';
-      }
-
-      return `
-        <div class="q-grid overview">
-          ${entries.map(([key, profile]) => {
-            return renderOverviewQuotientCard({
-              key,
-              average: profile.average,
-              resilience_average: profile.resilience_average,
-              preparedness_average: profile.preparedness_average,
-              bands: profile.bands
-            });
-          }).join('')}
+      <div class="batch-metrics">
+        <div class="batch-metric">
+          <div class="batch-metric-label">Submissions</div>
+          <div class="batch-metric-value">${row.submission_count || 0}</div>
         </div>
-      `;
-    }
-
-    function renderOverviewQuotientCard(q) {
-      const score = Number(q.average);
-      const hasScore = Number.isFinite(score);
-
-      return `
-        <div class="q-card ${q.key}">
-          <span class="orb orb-1"></span>
-
-          <div class="q-head">
-            <div class="q-label">${titleCase(q.key)}</div>
-            <div class="q-metrics">
-              <div class="q-score">${hasScore ? score.toFixed(1) : "—"}</div>
-            </div>
-          </div>
-
-          <div class="q-section">
-            <div class="q-section-label">Distribution across cohort</div>
-            ${renderDistribution(q.bands)}
-          </div>
-
+        <div class="batch-metric">
+          <div class="batch-metric-label">Resilience</div>
+          <div class="batch-metric-value">${formatScore(row.averages && row.averages.resilience)}</div>
         </div>
-      `;
-    }
+        <div class="batch-metric">
+          <div class="batch-metric-label">Preparedness</div>
+          <div class="batch-metric-value">${formatScore(row.averages && row.averages.preparedness)}</div>
+        </div>
+      </div>
 
-    function getSimpleQuotientLine(key, score) {
-      if (!Number.isFinite(score)) return "No score available yet.";
+      <div class="batch-meta">
+        <span class="pill">Industries: ${compactCounts(row.industries)}</span>
+        <span class="pill">Sizes: ${compactCounts(row.sizes)}</span>
+        <span class="pill">Sources: ${compactCounts(row.sources)}</span>
+      </div>
 
-      if (score >= 4) return `${titleCase(key)} is a clear strength across this cohort.`;
-      if (score >= 3) return `${titleCase(key)} is moderately developed across this cohort.`;
-      return `${titleCase(key)} appears to be a development area across this cohort.`;
-    }
+      <div class="batch-card-footer">
+        <div class="batch-date">From ${formatDate(row.first_submitted_at)} to ${formatDate(row.last_submitted_at)}</div>
+        <a class="view-link" href="${detailUrl}">View details</a>
+      </div>
+    `;
 
-    function getWeightedOverviewQuotientProfiles(rows) {
-      const keys = ["vitality", "emotion", "mind", "execution", "alignment"];
-      const result = {};
+    els.batchGrid.appendChild(card);
+  });
 
-      keys.forEach(key => {
-        let weightedAverageTotal = 0;
-        let weightedResilienceTotal = 0;
-        let weightedPreparednessTotal = 0;
-        let totalWeight = 0;
+  els.emptyState.style.display = rows.length ? "none" : "block";
+}
 
-        const bands = {
-          low: 0,
-          mid: 0,
-          high: 0
-        };
+function renderTable(rows) {
+  if (!rows.length) {
+    els.tableBody.innerHTML = `<tr><td colspan="9"><div class="empty">No matching batches found.</div></td></tr>`;
+    return;
+  }
 
-        rows.forEach(row => {
-          const profile = row.quotient_profiles?.[key];
-          const weight = Number(row.submission_count || 0);
+  els.tableBody.innerHTML = rows.map(row => {
+    const detailUrl = `results.html?batch_id=${encodeURIComponent(row.batch_id)}`;
 
-          if (!profile || weight <= 0) return;
+    return `
+      <tr>
+        <td><strong>${row.batch_id}</strong><br><span class="subtle">${row.operating_pattern || "Unclassified"}</span></td>
+        <td>${row.submission_count || 0}</td>
+        <td>${countKeys(row.industries)}</td>
+        <td>${countKeys(row.sizes)}</td>
+        <td>${countKeys(row.sources)}</td>
+        <td>${formatScore(row.averages && row.averages.resilience)}</td>
+        <td>${formatScore(row.averages && row.averages.preparedness)}</td>
+        <td>${formatDate(row.last_submitted_at)}</td>
+        <td class="table-actions"><a href="${detailUrl}">Open</a></td>
+      </tr>
+    `;
+  }).join("");
+}
 
-          const avg = Number(profile.average);
-          const resilienceAvg = Number(profile.resilience_average);
-          const preparednessAvg = Number(profile.preparedness_average);
+function titleCase(str) {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
-          if (Number.isFinite(avg)) {
-            weightedAverageTotal += avg * weight;
-          }
+function render(rows, filters = getFilters()) {
+  const activeLabels = getActiveFilterLabels(filters);
 
-          if (Number.isFinite(resilienceAvg)) {
-            weightedResilienceTotal += resilienceAvg * weight;
-          }
+  els.resultCount.textContent = `${rows.length} batch${rows.length === 1 ? "" : "es"} shown`;
+  els.activeFiltersPill.textContent = activeLabels.length ? activeLabels.join(" · ") : "No active filters";
 
-          if (Number.isFinite(preparednessAvg)) {
-            weightedPreparednessTotal += preparednessAvg * weight;
-          }
+  const overviewQuotients = getWeightedOverviewQuotientProfiles(visibleRows);
+  document.getElementById("q-grid-wrapper").innerHTML =
+  renderOverviewQuotientGrid(overviewQuotients);
+  renderMetrics(rows);
+  renderCards(rows);
+  renderTable(rows);
+  renderOrbit(rows);
+}
 
-          if (Number.isFinite(avg)) {
-            totalWeight += weight;
-          }
+function loadRows(payload) {
+  allRows = Array.isArray(payload.rows) ? payload.rows : [];
+  visibleRows = allRows.slice();
 
-          bands.low += Number(profile.bands?.low || 0);
-          bands.mid += Number(profile.bands?.mid || 0);
-          bands.high += Number(profile.bands?.high || 0);
-        });
+  populateFilters(allRows);
+  render(visibleRows, getFilters());
+}
 
-        result[key] = {
-          average: totalWeight > 0 ? weightedAverageTotal / totalWeight : null,
-          resilience_average: totalWeight > 0 ? weightedResilienceTotal / totalWeight : null,
-          preparedness_average: totalWeight > 0 ? weightedPreparednessTotal / totalWeight : null,
-          bands
-        };
-      });
+async function fetchOverview() {
+  document.body.classList.add("is-loading");
 
-      return result;
-    }
+  try {
+    const response = await fetch(OVERVIEW_ENDPOINT, {
+      headers: authHeaders()
+    });
 
-    function renderCards(rows) {
-      els.batchGrid.innerHTML = "";
-
-      rows.forEach(row => {
-        const card = document.createElement("article");
-        card.className = "batch-card";
-
-        const detailUrl = `results.html?batch_id=${encodeURIComponent(row.batch_id)}`;
-
-        card.innerHTML = `
-          <div class="batch-card-head">
-            <div>
-              <div class="batch-id">${row.batch_id}</div>
-              <div class="subtle">Last submission: ${formatDate(row.last_submitted_at)}</div>
-            </div>
-            <div class="batch-status">${row.operating_pattern || "Unclassified"}</div>
-          </div>
-
-          <div class="batch-metrics">
-            <div class="batch-metric">
-              <div class="batch-metric-label">Submissions</div>
-              <div class="batch-metric-value">${row.submission_count || 0}</div>
-            </div>
-            <div class="batch-metric">
-              <div class="batch-metric-label">Resilience</div>
-              <div class="batch-metric-value">${formatScore(row.averages && row.averages.resilience)}</div>
-            </div>
-            <div class="batch-metric">
-              <div class="batch-metric-label">Preparedness</div>
-              <div class="batch-metric-value">${formatScore(row.averages && row.averages.preparedness)}</div>
-            </div>
-          </div>
-
-          <div class="batch-meta">
-            <span class="pill">Industries: ${compactCounts(row.industries)}</span>
-            <span class="pill">Sizes: ${compactCounts(row.sizes)}</span>
-            <span class="pill">Sources: ${compactCounts(row.sources)}</span>
-          </div>
-
-          <div class="batch-card-footer">
-            <div class="batch-date">From ${formatDate(row.first_submitted_at)} to ${formatDate(row.last_submitted_at)}</div>
-            <a class="view-link" href="${detailUrl}">View details</a>
-          </div>
-        `;
-
-        els.batchGrid.appendChild(card);
-      });
-
-      els.emptyState.style.display = rows.length ? "none" : "block";
-    }
-
-    function renderTable(rows) {
-      if (!rows.length) {
-        els.tableBody.innerHTML = `<tr><td colspan="9"><div class="empty">No matching batches found.</div></td></tr>`;
-        return;
-      }
-
-      els.tableBody.innerHTML = rows.map(row => {
-        const detailUrl = `results.html?batch_id=${encodeURIComponent(row.batch_id)}`;
-
-        return `
-          <tr>
-            <td><strong>${row.batch_id}</strong><br><span class="subtle">${row.operating_pattern || "Unclassified"}</span></td>
-            <td>${row.submission_count || 0}</td>
-            <td>${countKeys(row.industries)}</td>
-            <td>${countKeys(row.sizes)}</td>
-            <td>${countKeys(row.sources)}</td>
-            <td>${formatScore(row.averages && row.averages.resilience)}</td>
-            <td>${formatScore(row.averages && row.averages.preparedness)}</td>
-            <td>${formatDate(row.last_submitted_at)}</td>
-            <td class="table-actions"><a href="${detailUrl}">Open</a></td>
-          </tr>
-        `;
-      }).join("");
-    }
-
-    function titleCase(str) {
-      if (!str) return '';
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-
-    function render(rows, filters = getFilters()) {
-      const activeLabels = getActiveFilterLabels(filters);
-
-      els.resultCount.textContent = `${rows.length} batch${rows.length === 1 ? "" : "es"} shown`;
-      els.activeFiltersPill.textContent = activeLabels.length ? activeLabels.join(" · ") : "No active filters";
-
-      const overviewQuotients = getWeightedOverviewQuotientProfiles(visibleRows);
-      document.getElementById("q-grid-wrapper").innerHTML =
-      renderOverviewQuotientGrid(overviewQuotients);
-      renderMetrics(rows);
-      renderCards(rows);
-      renderTable(rows);
-      renderOrbit(rows);
-    }
-
-    function loadRows(payload) {
-      allRows = Array.isArray(payload.rows) ? payload.rows : [];
-      visibleRows = allRows.slice();
-
-      populateFilters(allRows);
-      render(visibleRows, getFilters());
-    }
-
-    async function fetchOverview() {
-      document.body.classList.add("is-loading");
+    if (!response.ok) {
+      let errorPayload = null;
 
       try {
-        const response = await fetch(OVERVIEW_ENDPOINT, {
-          headers: { "Accept": "application/json" }
-        });
-
-        if (!response.ok) {
-          let errorPayload = null;
-
-          try {
-            errorPayload = await response.json();
-          } catch (_) {
-            errorPayload = await response.text();
-          }
-
-          console.error("Overview endpoint error payload:", errorPayload);
-
-          throw new Error(
-            `Overview endpoint returned ${response.status}: ${
-              typeof errorPayload === "string"
-                ? errorPayload
-                : JSON.stringify(errorPayload)
-            }`
-          );
-        }
-
-        const payload = await response.json();
-
-        if (!payload.ok) {
-          throw new Error(payload.error || "Overview endpoint returned ok:false");
-        }
-
-        loadRows(payload);
-      } catch (error) {
-        console.warn("Using sample overview data because live endpoint failed:", error);
-        loadRows(sampleData);
-      } finally {
-        document.body.classList.remove("is-loading");
+        errorPayload = await response.json();
+      } catch (_) {
+        errorPayload = await response.text();
       }
+
+      console.error("Overview endpoint error payload:", errorPayload);
+
+      throw new Error(
+        `Overview endpoint returned ${response.status}: ${
+          typeof errorPayload === "string"
+            ? errorPayload
+            : JSON.stringify(errorPayload)
+        }`
+      );
     }
-    async function fetchOverviewWithFilters(filters = {}) {
-      document.body.classList.add("is-loading");
 
-      const params = new URLSearchParams();
+    const payload = await response.json();
 
-      if (filters.batch) params.set("batch_id", filters.batch);
-      if (filters.industry) params.set("industry", filters.industry);
-      if (filters.size) params.set("size", filters.size);
-      if (filters.source) params.set("source", filters.source);
-      if (filters.submitted_after) params.set("submitted_after", filters.submitted_after);
-      if (filters.submitted_before) params.set("submitted_before", filters.submitted_before);
+    if (!payload.ok) {
+      throw new Error(payload.error || "Overview endpoint returned ok:false");
+    }
 
-      const url = `${OVERVIEW_ENDPOINT}${params.toString() ? `?${params.toString()}` : ""}`;
+    loadRows(payload);
+  } catch (error) {
+    console.warn("Using sample overview data because live endpoint failed:", error);
+    loadRows(sampleData);
+  } finally {
+    document.body.classList.remove("is-loading");
+  }
+}
+async function fetchOverviewWithFilters(filters = {}) {
+  document.body.classList.add("is-loading");
+
+  const params = new URLSearchParams();
+
+  if (filters.batch) params.set("batch_id", filters.batch);
+  if (filters.industry) params.set("industry", filters.industry);
+  if (filters.size) params.set("size", filters.size);
+  if (filters.source) params.set("source", filters.source);
+  if (filters.submitted_after) params.set("submitted_after", filters.submitted_after);
+  if (filters.submitted_before) params.set("submitted_before", filters.submitted_before);
+
+  const url = `${OVERVIEW_ENDPOINT}${params.toString() ? `?${params.toString()}` : ""}`;
+
+  try {
+    const response = await fetch(url, {
+      headers: authHeaders()
+    });
+
+    if (!response.ok) {
+      let errorPayload;
 
       try {
-        const response = await fetch(url, {
-          headers: { Accept: "application/json" }
-        });
-
-        if (!response.ok) {
-          let errorPayload;
-
-          try {
-            errorPayload = await response.json();
-          } catch (_) {
-            errorPayload = await response.text();
-          }
-
-          console.error("Overview endpoint error payload:", errorPayload);
-          throw new Error(`Overview endpoint returned ${response.status}`);
-        }
-
-        const payload = await response.json();
-
-        if (!payload.ok) {
-          throw new Error(payload.error || "Overview endpoint returned ok:false");
-        }
-
-        loadRows(payload);
-      } catch (error) {
-        console.warn("Using sample overview data because live endpoint failed:", error);
-        loadRows(sampleData);
-      } finally {
-        document.body.classList.remove("is-loading");
+        errorPayload = await response.json();
+      } catch (_) {
+        errorPayload = await response.text();
       }
+
+      console.error("Overview endpoint error payload:", errorPayload);
+      throw new Error(`Overview endpoint returned ${response.status}`);
     }
-    els.applyButton.addEventListener("click", applyFilters);
 
-    els.resetButton.addEventListener("click", () => {
-      els.searchInput.value = "";
-      els.heroSearchInput.value = "";
-      els.batchSelect.value = "";
-      els.industrySelect.value = "";
-      els.sizeSelect.value = "";
-      els.sourceSelect.value = "";
-      applyFilters();
-    });
+    const payload = await response.json();
 
-    els.heroSearchButton.addEventListener("click", () => {
-      els.searchInput.value = els.heroSearchInput.value.trim();
-      applyFilters();
-    });
+    if (!payload.ok) {
+      throw new Error(payload.error || "Overview endpoint returned ok:false");
+    }
 
-    els.heroSearchInput.addEventListener("keydown", event => {
-      if (event.key === "Enter") {
-        els.searchInput.value = els.heroSearchInput.value.trim();
-        applyFilters();
-      }
-    });
+    loadRows(payload);
+  } catch (error) {
+    console.warn("Using sample overview data because live endpoint failed:", error);
+    loadRows(sampleData);
+  } finally {
+    document.body.classList.remove("is-loading");
+  }
+}
+els.applyButton.addEventListener("click", applyFilters);
 
-    els.searchInput.addEventListener("keydown", event => {
-      if (event.key === "Enter") applyFilters();
-    });
+els.resetButton.addEventListener("click", () => {
+  els.searchInput.value = "";
+  els.heroSearchInput.value = "";
+  els.batchSelect.value = "";
+  els.industrySelect.value = "";
+  els.sizeSelect.value = "";
+  els.sourceSelect.value = "";
+  applyFilters();
+});
 
-    els.demoButton.addEventListener("click", () => {
-      loadRows(sampleData);
-    });
+els.heroSearchButton.addEventListener("click", () => {
+  els.searchInput.value = els.heroSearchInput.value.trim();
+  applyFilters();
+});
 
-    fetchOverviewWithFilters();
+els.heroSearchInput.addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    els.searchInput.value = els.heroSearchInput.value.trim();
+    applyFilters();
+  }
+});
+
+els.searchInput.addEventListener("keydown", event => {
+  if (event.key === "Enter") applyFilters();
+});
+
+els.demoButton.addEventListener("click", () => {
+  loadRows(sampleData);
+});
+
+function initOverview() {
+  fetchOverviewWithFilters();
+}
+
+if (window.__authReady) {
+  initOverview();
+} else {
+  window.addEventListener('auth-ready', initOverview);
+}

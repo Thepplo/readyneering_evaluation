@@ -5,9 +5,9 @@ function json(data, status = 200) {
     status,
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': 'https://facilitator.andqfive.com',
       'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type'
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization'
     }
   });
 }
@@ -16,9 +16,9 @@ export async function onRequestOptions() {
   return new Response(null, {
     status: 204,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': 'https://facilitator.andqfive.com',
       'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type'
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization'
     }
   });
 }
@@ -384,6 +384,42 @@ function groupByBatch(shapedSubmissions) {
 
   return grouped;
 }
+async function requireFacilitator(request, env) {
+  const jwt = (request.headers.get('Authorization') || '').replace(/^Bearer\s+/, '');
+  if (!jwt) {
+    return { ok: false, response: json({ error: 'Not authenticated' }, 401) };
+  }
+
+  const userResp = await fetch(`${env.SUPABASE_URL}/auth/v1/user`, {
+    headers: {
+      'Authorization': `Bearer ${jwt}`,
+      'apikey': env.SUPABASE_ANON_KEY,
+    },
+  });
+
+  if (!userResp.ok) {
+    return { ok: false, response: json({ error: 'Not authenticated' }, 401) };
+  }
+
+  const user = await userResp.json();
+  if (!user?.email) {
+    return { ok: false, response: json({ error: 'Not authenticated' }, 401) };
+  }
+
+  const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+  const { data: match } = await supabase
+    .from('variants')
+    .select('variant_key')
+    .eq('facilitator_email', user.email)
+    .limit(1)
+    .maybeSingle();
+
+  if (!match) {
+    return { ok: false, response: json({ error: 'Not authorized' }, 403) };
+  }
+
+  return { ok: true, user };
+}
 
 export async function onRequestGet(context) {
   try {
@@ -400,6 +436,9 @@ export async function onRequestGet(context) {
         500
       );
     }
+
+    const auth = await requireFacilitator(request, env);
+    if (!auth.ok) return auth.response;
 
     const supabase = createClient(
       env.SUPABASE_URL,

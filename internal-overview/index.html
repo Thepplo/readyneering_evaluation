@@ -9,7 +9,10 @@
 </head>
 
 <body>
-  <div class="bg">
+<div id="auth-loading" style="text-align:center; padding:60px 20px;">
+  <p>Signing you in…</p>
+</div>
+  <div class="bg" style="display: none;">
     <section class="hero">
       <div class="hero-content">
         <!-- Lightweight logo placeholder. Replace with your full SVG if preferred. -->
@@ -174,6 +177,19 @@
   </div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script src="assets/compile_overview.js"></script>
+<script type="module">
+  import { requireSession } from '/assets/auth.js';
+  const session = await requireSession();
+  if (session) {
+    document.getElementById('auth-loading').style.display = 'none';
+    document.getElementById('app-content').style.display = 'block';
+    window.__authReady = true;
+    window.__authJwt = session.access_token;
+    window.dispatchEvent(new CustomEvent('auth-ready'));
+  }
+</script>
+
 <script src="assets/compile_overview.js"></script>
 </body>
 </html>
