@@ -8,7 +8,10 @@
 <link rel="stylesheet" href="/assets/qstyles.css">
 </head>
 <body>
-<div class="bg">
+<div id="auth-loading" style="text-align:center; padding:60px 20px;">
+<p>Signing you in…</p>
+</div>
+<div class="bg" id="app-content" style="display: none;">
   <div class="logo-div">
     <svg class="brand" viewBox="0 0 478 116" xmlns="http://www.w3.org/2000/svg">
       <path fill-rule="evenodd" clip-rule="evenodd" d="M32.2587 3.26127C43.8868 -3.45215 58.7556 0.531553 65.4692 12.1594C67.6954 16.0152 68.7505 20.2494 68.7295 24.4221L53.8791 24.3477C53.8872 22.7357 53.4832 21.0999 52.6083 19.5846C49.9955 15.0596 44.2091 13.5096 39.684 16.1222C35.1862 18.7192 33.6293 24.4503 36.1762 28.9631L57.1204 61.9569C58.5987 57.9027 59.4017 53.1986 59.4018 48.0057H74.2522C74.2522 58.3665 71.7546 68.3821 66.3212 76.4521L77.1324 93.4824L59.5452 93.4851L55.5106 87.1295C49.1849 91.2179 41.4313 93.4851 32.4853 93.4851C14.7377 93.4851 0.000203344 81.1643 0 63.3202C3.08098e-05 49.7292 8.81726 37.5185 21.7327 33.0764C17.4736 22.0895 21.7365 9.33649 32.2587 3.26127ZM29.6347 46.3678C20.9411 47.7179 14.8505 55.1477 14.8504 63.3202C14.8506 71.6185 21.5274 78.6347 32.4853 78.6347C38.7527 78.6347 43.6994 77.1083 47.5497 74.5885L29.6347 46.3678Z" fill="black"/>
@@ -17,19 +20,9 @@
       <path d="M200.479 55.4297C200.479 61.395 201.177 65.0511 201.992 67.7031C202.887 70.6156 204.037 72.8168 205.949 76.6536C207.796 80.3609 210.055 85.077 211.741 91.5888C213.425 98.0939 214.401 105.82 214.401 115.76L195.838 115.76C195.838 107.918 195.074 102.863 194.148 99.2867C193.224 95.7174 192.001 93.051 190.368 89.773C188.799 86.6244 186.469 82.2368 184.754 76.6559C182.959 70.814 181.916 64.0706 181.916 55.4297L200.479 55.4297Z" fill="black"/>
     </svg>
   </div>
-  <!-- RESULTS -->
   <div id="scr-results" class="screen">
     <div id="facilitator-header"></div>
     <div class="results-shell">
-<!--       <div id="results-loader" class="results-loader active">
-          <div class="results-loader-inner">
-            <div class="results-spinner"></div>
-            <div class="results-loader-title">Building your readiness profile</div>
-            <div class="results-loader-copy">
-              Analyzing system patterns across resilience, preparedness, and the five quotients.
-            </div>
-          </div>
-      </div> -->
       <div id="results-content">
       <div class="index-wrapper">
         <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#ffda33;margin-bottom:6px">andQfive &middot; READYNEERING</div>
@@ -163,6 +156,18 @@
   integrity="sha384-sG0Hv1tP1lZCk9KQmrIbY/XNwi+OY84GQqhMscbnsoBFqAz8KNCil1kvfL3Hbbk2"
   crossorigin="anonymous"
 ></script>
-<script src="/assets/facilitator.js"></script>
+<script type="module">
+  import { requireSession } from '/assets/auth.js';
+  const session = await requireSession();
+  if (session) {
+    document.getElementById('auth-loading').style.display = 'none';
+    document.getElementById('app-content').style.display = 'block';
+    window.__authJwt = session.access_token;
+    window.__authReady = true;
+    window.dispatchEvent(new CustomEvent('auth-ready'));
+  }
+</script>
+<script src="assets/facilitator.js"></script>
+
 </body>
 </html>

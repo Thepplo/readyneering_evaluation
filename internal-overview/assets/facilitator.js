@@ -381,14 +381,20 @@ let selectedSize = null;
 
 // ─── entrypoint ────────────────────────────────────────────────────
 
-document.addEventListener('DOMContentLoaded', () => {
+function init() {
   const token = getFacilitatorTokenFromURL();
   if (!token) {
     showError('No facilitator token in URL.');
     return;
   }
   loadAndRender(token);
-});
+}
+
+if (window.__authReady) {
+  init();
+} else {
+  window.addEventListener('auth-ready', init);
+}
 
 function getFacilitatorTokenFromURL() {
   // Path is /facilitator/report/<token> or ?t=<token> depending on your routing
@@ -417,9 +423,10 @@ async function loadAndRender(token) {
 }
 
 async function fetchFacilitatorReport(token) {
+  const jwt = window.__authJwt;
   const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/facilitator_report`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${jwt}` },
     body: JSON.stringify({ facilitator_token: token }),
   });
   const data = await response.json();
