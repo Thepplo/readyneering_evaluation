@@ -1586,7 +1586,7 @@ function buildSubmissionPayload() {
   return {
     submission: {
       variant_key: getVariantKey(),
-      session_id: getSessionId(),
+      session_id: crypto.randomUUID(),
       metadata: {
         source: 'web_app',
         batch_id: getQueryParam('batch_id'),
