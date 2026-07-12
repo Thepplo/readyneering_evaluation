@@ -37,7 +37,34 @@ globalThis.onTurnstileLoad = function () { turnstileReady = true; };
 function showVerifyCard() { setTurnstileChallengeActive(true); }
 function hideVerifyCard() { setTurnstileChallengeActive(false); }
 
+function showVerifyLoading() {
+  const shell = document.getElementById('turnstile-shell');
+  if (!shell) return;
+
+  const titleEl = shell.querySelector('.turnstile-title');
+  const copyEl = shell.querySelector('.turnstile-copy');
+  const cancelBtn = document.getElementById('turnstile-cancel');
+
+  if (titleEl) titleEl.textContent = 'Securing your submission';
+  if (copyEl) copyEl.textContent = 'One moment while we set up verification…';
+  if (cancelBtn) {
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.onclick = hideVerifyCard;
+  }
+
+  shell.classList.add('challenge-active', 'is-loading');
+  shell.setAttribute('aria-hidden', 'false');
+
+  clearTimeout(turnstileShellTimer);
+  turnstileShellTimer = setTimeout(() => {
+    if (!shell.classList.contains('is-loading')) return;
+    if (copyEl) copyEl.textContent = 'Still setting up… check your connection and try again.';
+    if (cancelBtn) { cancelBtn.textContent = 'Try again'; cancelBtn.onclick = beginVerifyAndSubmit; }
+  }, 8000);
+}
+
 function beginVerifyAndSubmit() {
+  showVerifyLoading();
   if (turnstileWidgetId === null) {
     renderTurnstileWidgetOnce();
   } else {
@@ -92,6 +119,7 @@ function teardownTurnstile() {
 
     const shell = document.getElementById('turnstile-shell');
     if (shell) shell.classList.remove('challenge-active');
+    clearTimeout(turnstileShellTimer);
   }
 }
 
@@ -124,8 +152,20 @@ function renderTurnstileWidgetOnce() {
   turnstileWidgetId = globalThis.turnstile.render('#turnstile-widget', {
     sitekey: TURNSTILE_SITE_KEY,
     appearance: 'interaction-only',
-    'before-interactive-callback': function () { showVerifyCard(); },
-    'after-interactive-callback':  function () { hideVerifyCard(); },
+    'before-interactive-callback': function () {
+      clearTimeout(turnstileShellTimer);
+      const shell = document.getElementById('turnstile-shell');
+      if (shell) shell.classList.remove('is-loading');
+      const copy = document.querySelector('#turnstile-shell .turnstile-copy');
+      if (copy) copy.textContent = 'Please complete the check below to continue.';
+      showVerifyCard();
+    },
+    'after-interactive-callback': function () { hideVerifyCard(); },
+      callback: function (token) {
+        clearTimeout(turnstileShellTimer);
+        hideVerifyCard();
+        submitWithToken(token);
+    },
     callback: function (token) { hideVerifyCard(); submitWithToken(token); },
     'error-callback':   function () { showVerifyRetry('Verification failed. Please try again.'); },
     'timeout-callback': function () { showVerifyRetry('Verification timed out. Please try again.'); },
@@ -158,10 +198,10 @@ const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app
 
 async function saveAssessment(payload, token) {
   setResultsLoaderText('Saving your responses', 'Your answers are being securely saved before we build your profile.');
-  const idempotencyKey = getSubmitAttemptId();
+  /* const idempotencyKey = getSubmitAttemptId(); */
   const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/submit`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey },
+    headers: { 'Content-Type': 'application/json'},
     body: JSON.stringify({ ...payload, turnstileToken: token })
   });
 
