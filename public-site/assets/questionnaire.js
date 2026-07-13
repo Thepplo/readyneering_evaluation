@@ -641,7 +641,7 @@ let  selectedSizeLabel = null;
 
 // ── SVG builder ───────────────────────────────────────────
 
-const VW = s(500), VH = s(520), LH = s(18), FS = s(13);
+const VW = s(500), VH = s(520), LH = s(18), FS = s(15);
 const GX = (TA.x + TB.x + TC.x) / 3;
 const GY = (TA.y + TB.y + TC.y) / 3;
 
@@ -743,39 +743,32 @@ function makeSVG(idx) {
 
   // ── Layout constants ──────────────────────────────────────
   const MAX_LINES = 5;
-  const MAX_LINES_TOP=3;                    // worst-case label height
+  const MAX_LINES_TOP=3;
   const SLOT_HEIGHT = MAX_LINES * LH;
   const SLOT_HEIGHT_TOP = MAX_LINES_TOP * LH;
-  const SLOT_WIDTH_SIDE = s(180);         // bottom-corner label box width
-  const SLOT_WIDTH_TOP = s(260);          // apex label box width
-  const CORNER_GAP = s(14);               // gap between vertex dot and label
+  const SLOT_WIDTH_SIDE = s(180);
+  const SLOT_WIDTH_TOP = s(260);
+  const CORNER_GAP = s(14);
   const labelStyle = 'font-size:' + FS + 'px;color:#2a2a28;font-weight:500;'
     + 'font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif;'
     + 'line-height:' + LH + 'px;text-wrap:balance;text-align:center;'
     + 'pointer-events:none;';
 
-  // ── Label slot positions ──────────────────────────────────
-  // Apex: box sits above TA, bottom edge CORNER_GAP above the dot
   const aSlotX = TA.x - SLOT_WIDTH_TOP / 2;
   const aSlotY = TA.y - CORNER_GAP - SLOT_HEIGHT;
 
-  // Bottom corners: box sits below the dot, centered on the vertex x
   const sideSlotY = TB.y + CORNER_GAP;
   const bSlotX = TB.x - SLOT_WIDTH_SIDE / 2;
   const cSlotX = TC.x - SLOT_WIDTH_SIDE / 2;
 
-  // ── Median guide endpoints (unchanged) ────────────────────
   const gx = GX.toFixed(1), gy = GY.toFixed(1);
   const mABx = ((TA.x + TB.x) / 2).toFixed(1), mABy = ((TA.y + TB.y) / 2).toFixed(1);
   const mBCx = ((TB.x + TC.x) / 2).toFixed(1), mBCy = ((TB.y + TC.y) / 2).toFixed(1);
   const mCAx = ((TC.x + TA.x) / 2).toFixed(1), mCAy = ((TC.y + TA.y) / 2).toFixed(1);
 
-  // ── Bounds: fixed regardless of copy length ───────────────
   const vw = globalThis.innerWidth;
   const sidePad = vw <= 1023 ? s(28) : s(90);
 
-  // Side slots extend SLOT_WIDTH_SIDE/2 outward from TB/TC, so the side
-  // padding must accommodate that. Take the larger of the two.
   const sideOverhang = SLOT_WIDTH_SIDE / 2 + s(8);
 
   const B = getBounds({
@@ -785,9 +778,7 @@ function makeSVG(idx) {
     left: Math.max(sidePad, sideOverhang)
   });
 
-  // ── foreignObject helper ──────────────────────────────────
   function labelBox(x, y, w, h, text, anchor) {
-    // anchor: 'top' (default) or 'bottom'
     const align = anchor === 'bottom' ? 'flex-end' : 'flex-start';
     const boxStyle = 'display:flex;align-items:' + align + ';justify-content:center;'
       + 'height:' + h + 'px;width:100%;';
