@@ -641,7 +641,7 @@ let  selectedSizeLabel = null;
 
 // ── SVG builder ───────────────────────────────────────────
 
-const VW = s(500), VH = s(520), LH = s(18), FS = s(15);
+const VW = s(500), VH = s(520), LH = s(18), FS = s(16);
 const GX = (TA.x + TB.x + TC.x) / 3;
 const GY = (TA.y + TB.y + TC.y) / 3;
 
