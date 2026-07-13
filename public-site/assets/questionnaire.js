@@ -743,7 +743,7 @@ function makeSVG(idx) {
 
   // ── Layout constants ──────────────────────────────────────
   const MAX_LINES = 5;
-  const MAX_LINES_TOP=3;
+  const MAX_LINES_TOP=4;
   const SLOT_HEIGHT = MAX_LINES * LH;
   const SLOT_HEIGHT_TOP = MAX_LINES_TOP * LH;
   const SLOT_WIDTH_SIDE = s(180);
