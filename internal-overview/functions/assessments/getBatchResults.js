@@ -351,7 +351,7 @@ function buildExecutiveSignals(quotientInsights, modeInsights) {
   };
 }
 
-function buildSessionSummary(batchId, submissions) {
+function buildSessionSummary(variantKey, submissions) {
   const allScoreKeys = new Set();
   for (const submission of submissions) {
     for (const key of Object.keys(submission.scores || {})) {
@@ -387,7 +387,7 @@ function buildSessionSummary(batchId, submissions) {
   const executive_signals = buildExecutiveSignals(quotient_insights, mode_insights);
 
   return {
-    batch_id: batchId,
+    variant_key: variantKey,
     submission_count: submissions.length,
     averages,
     distributions,
@@ -407,10 +407,10 @@ export async function onRequestGet(context) {
   try {
     const { request, env } = context;
     const url = new URL(request.url);
-    const batchId = url.searchParams.get('batch_id');
+    const variantKey = url.searchParams.get('variant_key');
 
-    if (!batchId) {
-      return json({ error: 'Missing batch_id' }, 400);
+    if (!variantKey) {
+      return json({ error: 'Missing variant_key' }, 400);
     }
 
     if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
@@ -426,11 +426,39 @@ export async function onRequestGet(context) {
       env.SUPABASE_SERVICE_ROLE_KEY
     );
 
-    // Fetch broadly first, then filter in JS to avoid JSON-path query issues
-    const { data: allSubmissions, error: submissionsError } = await supabase
+    const { data: resultRows, error: resultsError } = await supabase
+      .from('results')
+      .select('submission_id')
+      .eq('variant_key', variantKey);
+
+    if (resultsError) {
+      return json({
+        error: 'Failed to fetch results',
+        details: resultsError.message || resultsError
+      }, 500);
+    }
+
+    const submissionIds = [
+      ...new Set(
+        (resultRows || [])
+          .map(row => row.submission_id)
+          .filter(Boolean)
+      )
+    ];
+
+    if (!submissionIds.length) {
+      return json({
+        ok: true,
+        variant_key: variantKey,
+        session: buildSessionSummary(variantKey, []),
+        submissions: []
+      });
+    }
+
+    const { data: submissions, error: submissionsError } = await supabase
       .from('submissions')
       .select('id, metadata, submitted_at')
-      .not('metadata', 'is', null);
+      .in('id', submissionIds);
 
     if (submissionsError) {
       return json({
@@ -438,21 +466,6 @@ export async function onRequestGet(context) {
         details: submissionsError.message || submissionsError
       }, 500);
     }
-
-    const submissions = (allSubmissions || []).filter(
-      s => s.metadata && s.metadata.batch_id === batchId
-    );
-
-    if (!submissions.length) {
-      return json({
-        ok: true,
-        batch_id: batchId,
-        session: buildSessionSummary(batchId, []),
-        submissions: []
-      });
-    }
-
-    const submissionIds = submissions.map(s => s.id);
 
     const { data: scoreRows, error: scoresError } = await supabase
       .from('submission_scores')
@@ -475,7 +488,7 @@ export async function onRequestGet(context) {
       scoresBySubmissionId[row.submission_id][row.score_key] = getScoreValue(row);
     }
 
-    const shapedSubmissions = submissions.map(submission => ({
+    const shapedSubmissions = (submissions || []).map(submission => ({
       id: submission.id,
       submitted_at: submission.submitted_at,
       metadata: submission.metadata || {},
@@ -484,8 +497,8 @@ export async function onRequestGet(context) {
 
     return json({
       ok: true,
-      batch_id: batchId,
-      session: buildSessionSummary(batchId, shapedSubmissions),
+      variant_key: variantKey,
+      session: buildSessionSummary(variantKey, shapedSubmissions),
       submissions: shapedSubmissions
     });
   } catch (err) {

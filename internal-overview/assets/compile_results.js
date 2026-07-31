@@ -6,10 +6,10 @@
   alignment: 'assets/images/q-alignment.svg'
 }; */
 const els = {
-  batchIdInput: document.getElementById('batchIdInput'),
+  variantkeyInput: document.getElementById('variantkeyInput'),
   loadButton: document.getElementById('loadButton'),
   /* demoButton: document.getElementById('demoButton'), */
-  //metricBatchId: document.getElementById('metricBatchId'),
+  //metricvariantkey: document.getElementById('metricvariantkey'),
   metricCount: document.getElementById('metricCount'),
   //metricOverall: document.getElementById('metricOverall'),
   metricPattern: document.getElementById('metricPattern'),
@@ -38,10 +38,10 @@ const els = {
 document.addEventListener('DOMContentLoaded', () => {
   initAtomAnimation();
 
-  const initialBatchId = getBatchIdFromPageState();
-  if (initialBatchId) {
-    els.batchIdInput.value = initialBatchId;
-    loadBatch(initialBatchId);
+  const initialvariantkey = getvariantkeyFromPageState();
+  if (initialvariantkey) {
+    els.variantkeyInput.value = initialvariantkey;
+    loadBatch(initialvariantkey);
   }
 });
 
@@ -757,7 +757,7 @@ const state = {
   isLoaded: false,
   isLoading: false,
   activeRequestId: 0,
-  currentBatchId: null,
+  currentvariantkey: null,
   metaDataRevealed: false,
 };
 
@@ -788,10 +788,10 @@ function toggleMetaDataCard() {
   syncMetaDataCard();
 }
 
-const BATCH_STORAGE_KEY = 'compile_results_batch_id';
+const BATCH_STORAGE_KEY = 'compile_results_variant_key';
 
-function getBatchIdFromPageState() {
-  const fromUrl = new URLSearchParams(window.location.search).get('batch_id');
+function getvariantkeyFromPageState() {
+  const fromUrl = new URLSearchParams(window.location.search).get('variant_key');
   if (fromUrl) return fromUrl.trim();
 
   const fromStorage = localStorage.getItem(BATCH_STORAGE_KEY);
@@ -800,15 +800,15 @@ function getBatchIdFromPageState() {
   return '';
 }
 
-function persistBatchId(batchId) {
-  const trimmed = (batchId || '').trim();
+function persistvariantkey(variantkey) {
+  const trimmed = (variantkey || '').trim();
   const url = new URL(window.location.href);
 
   if (trimmed) {
-    url.searchParams.set('batch_id', trimmed);
+    url.searchParams.set('variant_key', trimmed);
     localStorage.setItem(BATCH_STORAGE_KEY, trimmed);
   } else {
-    url.searchParams.delete('batch_id');
+    url.searchParams.delete('variant_key');
     localStorage.removeItem(BATCH_STORAGE_KEY);
   }
 
@@ -865,14 +865,14 @@ function setLoadingState(isLoading, message = 'Loading...') {
   }
 }
 
-function setLoadedState(batchId) {
+function setLoadedState(variantkey) {
   state.isLoaded = true;
-  state.currentBatchId = batchId;
+  state.currentvariantkey = variantkey;
 }
 
 function setUnloadedState() {
   state.isLoaded = false;
-  state.currentBatchId = null;
+  state.currentvariantkey = null;
 }
 
 function requireLoaded() {
@@ -932,12 +932,12 @@ function renderSession(payload) {
 
 let currentController = null;
 
-async function fetchBatchResults(batchId) {
+async function fetchBatchResults(variantkey) {
   if (currentController) currentController.abort();
   currentController = new AbortController();
 
   const response = await fetch(
-    `/assessments/getBatchResults?batch_id=${encodeURIComponent(batchId)}`,
+    `/assessments/getBatchResults?variant_key=${encodeURIComponent(variantkey)}`,
     { signal: currentController.signal }
   );
 
@@ -952,23 +952,23 @@ async function fetchBatchResults(batchId) {
   return JSON.parse(text);
 }
 
-async function loadBatch(batchId) {
-  const trimmedBatchId = (batchId || '').trim();
-  if (!trimmedBatchId || state.isLoading) return;
+async function loadBatch(variantkey) {
+  const trimmedvariantkey = (variantkey || '').trim();
+  if (!trimmedvariantkey || state.isLoading) return;
 
   const requestId = ++state.activeRequestId;
   setUnloadedState();
-  setLoadingState(true, `Loading batch ${trimmedBatchId}...`);
-  els.batchIdInput.value = trimmedBatchId;
+  setLoadingState(true, `Loading batch ${trimmedvariantkey}...`);
+  els.variantkeyInput.value = trimmedvariantkey;
 
   try {
-    const data = await fetchBatchResults(trimmedBatchId);
+    const data = await fetchBatchResults(trimmedvariantkey);
 
     if (requestId !== state.activeRequestId) return;
 
     renderSession(data);
-    setLoadedState(trimmedBatchId);
-    persistBatchId(trimmedBatchId);
+    setLoadedState(trimmedvariantkey);
+    persistvariantkey(trimmedvariantkey);
   } catch (error) {
     if (error.name === 'AbortError') return;
     if (requestId !== state.activeRequestId) return;
@@ -986,13 +986,13 @@ async function loadBatch(batchId) {
 }
 
 els.loadButton.addEventListener('click', async () => {
-  await loadBatch(els.batchIdInput.value);
+  await loadBatch(els.variantkeyInput.value);
 });
 
-els.batchIdInput.addEventListener('keydown', event => {
+els.variantkeyInput.addEventListener('keydown', event => {
   if (event.key === 'Enter') {
     event.preventDefault();
-    loadBatch(els.batchIdInput.value);
+    loadBatch(els.variantkeyInput.value);
   }
 });
 
@@ -1006,10 +1006,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   syncMetaDataCard();
-  const initialBatchId = getBatchIdFromPageState();
+  const initialvariantkey = getvariantkeyFromPageState();
 
-  if (initialBatchId) {
-    els.batchIdInput.value = initialBatchId;
-    loadBatch(initialBatchId);
+  if (initialvariantkey) {
+    els.variantkeyInput.value = initialvariantkey;
+    loadBatch(initialvariantkey);
   }
 });
