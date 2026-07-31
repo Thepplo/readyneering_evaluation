@@ -137,6 +137,40 @@ function scoreBand(value, low = 2.75, high = 3.35) {
   return 'high';
 }
 
+function normalizeResultScores(rawScores) {
+  if (!rawScores || typeof rawScores !== 'object') {
+    return {};
+  }
+
+  const dimensions =
+    rawScores.dimensions &&
+    typeof rawScores.dimensions === 'object' &&
+    !Array.isArray(rawScores.dimensions)
+      ? rawScores.dimensions
+      : {};
+
+  return {
+    overall_score: rawScores.overall ?? null,
+    resilience_score: rawScores.resilience ?? null,
+    preparedness_score: rawScores.preparedness ?? null,
+
+    P_vitality: dimensions.P_vitality ?? null,
+    R_vitality: dimensions.R_vitality ?? null,
+
+    P_emotion: dimensions.P_emotion ?? null,
+    R_emotion: dimensions.R_emotion ?? null,
+
+    P_mind: dimensions.P_mind ?? null,
+    R_mind: dimensions.R_mind ?? null,
+
+    P_execution: dimensions.P_execution ?? null,
+    R_execution: dimensions.R_execution ?? null,
+
+    P_alignment: dimensions.P_alignment ?? null,
+    R_alignment: dimensions.R_alignment ?? null
+  };
+}
+
 function buildNumericProfiles(submissions, allScoreKeys) {
   const numeric_profiles = {};
 
@@ -428,7 +462,7 @@ export async function onRequestGet(context) {
 
     const { data: resultRows, error: resultsError } = await supabase
       .from('results')
-      .select('submission_id')
+      .select('submission_id, scores')
       .eq('variant_key', variantKey);
 
     if (resultsError) {
@@ -467,25 +501,13 @@ export async function onRequestGet(context) {
       }, 500);
     }
 
-    const { data: scoreRows, error: scoresError } = await supabase
-      .from('submission_scores')
-      .select('submission_id, score_key, numeric_value, text_value, json_value')
-      .in('submission_id', submissionIds);
-
-    if (scoresError) {
-      return json({
-        error: 'Failed to fetch submission_scores',
-        details: scoresError.message || scoresError
-      }, 500);
-    }
-
     const scoresBySubmissionId = {};
 
-    for (const row of scoreRows || []) {
-      if (!scoresBySubmissionId[row.submission_id]) {
-        scoresBySubmissionId[row.submission_id] = {};
-      }
-      scoresBySubmissionId[row.submission_id][row.score_key] = getScoreValue(row);
+    for (const row of resultRows || []) {
+      if (!row.submission_id) continue;
+
+      scoresBySubmissionId[row.submission_id] =
+        normalizeResultScores(row.scores);
     }
 
     const shapedSubmissions = (submissions || []).map(submission => ({
