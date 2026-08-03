@@ -423,10 +423,13 @@ async function loadAndRender(token) {
 }
 
 async function fetchFacilitatorReport(token) {
-  const jwt = window.__authJwt;
   const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/facilitator_report`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${jwt}` },
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+    },
     body: JSON.stringify({ facilitator_token: token }),
   });
   const data = await response.json();
@@ -434,14 +437,6 @@ async function fetchFacilitatorReport(token) {
     throw new Error(data.error || 'Report not available.');
   }
   return data;
-  // Expected shape:
-  // {
-  //   report: { open, locked },   // both always present for facilitator
-  //   participant: { name, email, submitted_at },
-  //   booking: { scheduled_time, facilitator_name, facilitator_email },
-  //   variant: { key, ... },
-  //   prep: { ai_content, notes, ... } | null   // null until v2
-  // }
 }
 
 // ─── facilitator header ────────────────────────────────────────────
