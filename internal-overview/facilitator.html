@@ -157,15 +157,10 @@
   crossorigin="anonymous"
 ></script>
 <script type="module">
-  import { requireSession } from '/assets/auth.js';
-  const session = await requireSession();
-  if (session) {
-    document.getElementById('auth-loading').style.display = 'none';
-    document.getElementById('app-content').style.display = 'block';
-    window.__authJwt = session.access_token;
-    window.__authReady = true;
-    window.dispatchEvent(new CustomEvent('auth-ready'));
-  }
+  document.getElementById('auth-loading').style.display = 'none';
+  document.getElementById('app-content').style.display = 'block';
+  window.__authReady = true;
+  window.dispatchEvent(new CustomEvent('auth-ready'));
 </script>
 <script src="assets/facilitator.js"></script>
 
