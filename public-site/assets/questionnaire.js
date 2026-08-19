@@ -2390,7 +2390,7 @@ function renderDebriefInvitationSection(serverResult) {
         <div class="what-next-actions">
           ${bookingUrl ? `
             <a class="btn primary" id="book-followup-btn" href="${escapeHtml(bookingUrl)}" target="_blank" rel="noopener">
-              Book your 30-minute debrief
+              Book your 45-minute debrief
               <span class="arrow"></span>
             </a>
           ` : ''}
