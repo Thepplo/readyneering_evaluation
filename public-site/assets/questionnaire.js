@@ -1,5 +1,5 @@
 const TURNSTILE_SITE_KEY = '0x4AAAAAADTHusttqatb2uD0';
-const FALLBACK_BOOKINGS_URL = 'https://calendly.com/theo-ext/30min';
+const FALLBACK_BOOKINGS_URL = 'https://calendly.com/berry-ext/andqfive-readiness-debrief';
 
 const ICON_BUILD_READINESS = `
   <svg width="36px" height="36px" viewBox="0 0 24 24" fill="rgba(16, 185, 129, 0.15)" xmlns="http://www.w3.org/2000/svg">
