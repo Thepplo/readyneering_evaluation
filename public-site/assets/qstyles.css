@@ -3410,7 +3410,7 @@
   .index-wrapper {
     padding-top: 25px !important;
     gap: 0px !important;
-    border-radius: 0 !important;
+/*     border-radius: 0 !important; */
   }
   .wrap {
     padding-top: 25px !important;
