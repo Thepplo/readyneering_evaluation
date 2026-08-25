@@ -3439,6 +3439,9 @@
   .q-card::before {
     display: none !important;
   }
+  .foot-actions {
+    display: none !important;
+  }
   .q-card {
 /*     border:1px solid #000 !important;
     color: #000 !important; */
@@ -3511,6 +3514,8 @@
   .ranked-signal-card::before,
   .q-bar,
   .zone-bar,
+  .q-tick,
+  .score-marker::after,
   .q-compact-bar-fill {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
