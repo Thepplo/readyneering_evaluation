@@ -3509,6 +3509,8 @@
   .focus-action-number,
   .ranked-signal-card,
   .ranked-signal-card::before,
+  .q-bar,
+  .zone-bar,
   .q-compact-bar-fill {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
