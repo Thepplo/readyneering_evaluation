@@ -581,7 +581,7 @@ function makeSVG(idx) {
 async function buildSteps(savedState) {
   const wrap = document.getElementById('steps-wrap');
   let html = '';
-  const TRIADS = await loadVariant().instrument.definitions.triads;
+  const TRIADS = (await loadVariant()).instrument.definition.triads;
   if (savedState && savedState.triadOrder && savedState.triadOrder.length) {
     SHUFFLED_TRIADS = savedState.triadOrder
       .map(id => TRIADS.find(t => t.id === id))
