@@ -2010,8 +2010,8 @@ function renderOpenReport(open, res, quotientData) {
   document.getElementById('pattern-chip-r-mode').textContent =
     debriefMode.resilienceLevel;
 
-  document.getElementById('mode-grid').innerHTML = modeHtml;
-  document.getElementById('mode-grid-wm').innerHTML = modeHtml;
+/*   document.getElementById('mode-grid').innerHTML = modeHtml;
+  document.getElementById('mode-grid-wm').innerHTML = modeHtml; */
 
   document.getElementById('ranked-signal-wrapper').innerHTML =
     renderServerRankedSignalList(open.ranked);
