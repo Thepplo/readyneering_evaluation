@@ -288,252 +288,14 @@ const QUOTIENT_ICONS = {
   alignment: 'assets/images/q-alignment.svg'
 };
 
-const TRIADS = [
+const TRIADS = []
 
-  /* 1 - Vitality (R) */
-  {
-    quotient:"Vitality",
-    id:"vitality-1",
-    scenario:"Recent months have been relentless. At work and at home. You hit every deadline. You held it together. But Sunday evening has a feeling you recognize — a knot, a low hum of dread. Monday morning is something you are getting through, not looking forward to.",
-    question:"What does your energy actually tell you right now?",
-    A:"No energy. No momentum. I got through it. That is about all I can say.",
-    B:"I am genuinely back. Recovery was something I planned for, protected, and used.",
-    C:"I am tired. But I bounce back. I always have. That is just how I operate.",
-    scores:{ R_vitality:[-0.9, 0.9, 0.4], P_vitality:[-0.5, 0.9, 0.2] }
-  },
-
-  /* 2 - Emotion (R) */
-  {
-    quotient:"Emotion",
-    id:"emotion-1",
-    scenario:"Something went wrong and emotions ran high. A fallout, a failure, a moment that left a mark. The professional thing was to move on. You moved on. But something stayed.",
-    question:"How honest are you being about what that experience actually cost you?",
-    A:"I moved past it. What matters is what comes next. Looking back is not useful.",
-    B:"I stayed professional. But if I am honest, I never fully processed it. The residue is still there.",
-    C:"I named it — to myself and to the people it affected. I worked through it and came out of it differently.",
-
-
-    scores:{ R_emotion:[-0.8, 0.1, 0.9], P_emotion:[-0.6, 0.1, 0.7] }
-  },
-
-  /* 3 - Mind (P) */
-  {
-    quotient:"Mind",
-    id:"mind-1",
-    scenario:"You can see the pressure building. A significant challenge. A period where the usual playbook will not be enough. The world is too full, too loud, too unclear right now. And it does not wait for you to feel ready.",
-    question:"How do you actually prepare your thinking before the storm hits?",
-    A:"I lock in my priorities and hold them. Clarity before chaos. That is what I know how to do.",
-    B:"I plan for the most likely scenario and stay flexible from there.",
-    C:"I work through multiple possibilities and what I would do in each. Discomfort in the thinking is better than surprise in the moment.",
-    scores:{ R_mind:[0.2, -0.5, 0.8], P_mind:[0.3, -0.8, 0.9] }
-  },
-
-  /* 4 - Alignment (R) */
-  {
-    quotient:"Alignment",
-    id:"alignment-1",
-    scenario:"A key person you depend on is suddenly unavailable. A colleague, a partner, a caregiver. The system was built around them. Now they are gone. There is no plan. This is yours to navigate.",
-    question:"What does owning this situation actually look like?",
-    A:"I see it. I step up. I absorb the strain and keep things moving. That is what is needed.",
-    B:"Real disruption. Too much was sitting with one person. Including things it should not have been.",
-    C:"Minimal disruption. I built enough shared clarity that others can navigate without me holding it all together.",
-    scores:{ R_alignment:[-0.1, -0.9, 0.9], P_alignment:[-0.1, -0.9, 0.8] }
-  },
-
-  /* 5 - Execution (R) */
-  {
-    quotient:"Execution",
-    id:"execution-1",
-    scenario:"Something lands without warning. A message, a call, a development that changes everything. No time to plan. No meeting to schedule. The world just became non-linear and it is happening right now.",
-    question:"What does the next hour actually look like?",
-    A:"I absorb it. Orient. Start moving. Clarity comes fast even when the situation does not.",
-    B:"I freeze briefly then push through. There is a cost — to my thinking, to the people around me. But I move.",
-    C:"The urgency is running me. I am already on the defensive before I have had time to think.",
-    scores:{ R_execution:[0.4, 0.9, -0.8], P_execution:[0.3, 0.8, -0.6] }
-  },
-
-  /* 6 - Vitality (P) */
-  {
-    quotient:"Vitality",
-    id:"vitality-2",
-    scenario:"The calendar is full. Big commitments at work, real responsibilities at home. Aging parents. School pickups. You are close to the limit and the next few months are not getting lighter. You know what this has cost you before. The question is what you do about it this time.",
-    question:"What does deliberately managing your capacity actually look like?",
-    A:"I build in recovery and protect it like any other commitment. Sustainability is a design choice.",
-    B:"I try to model a pace I would be comfortable asking of the people around me.",
-    C:"I run at full capacity and deal with the consequences later. That is what this phase requires.",
-    scores:{ R_vitality:[0.2, 0.8, -0.6], P_vitality:[0.2, 0.9, -0.8] }
-  },
-
-  /* 7 - Emotion (R) */
-  {
-    quotient:"Emotion",
-    id:"emotion-2",
-    scenario:"Someone you work closely with needs to hear something difficult. A pattern they cannot see. An impact they are not owning. You have been avoiding the conversation. So have they. Keeping quiet is comfortable. It is also a choice with consequences.",
-    question:"What do you actually do?",
-    A:"I find a way to say it carefully. Sometimes it lands well, sometimes it does not.",
-    B:"I say it directly. With care but without softening it until the message disappears. It gets received.",
-    C:"I tell myself I am waiting for the right moment. The right moment rarely arrives.",
-    scores:{ R_emotion:[0.1, 0.9, -0.7], P_emotion:[0.2, 0.7, -0.5] }
-  },
-
-  /* 8 - Alignment (R) */
-  {
-    quotient:"Alignment",
-    id:"alignment-2",
-    scenario:"Something that matters to you is getting quietly squeezed. Nobody is going to resolve this for you. Nobody even knows it is a conflict because you have not told them. You are already on the defensive and no one in the room knows why.",
-    question:"How do you actually make the call?",
-    A:"The loudest demand tends to win. I respond to what is in front of me rather than what matters most.",
-    B:"I make deliberate choices. I own those choices, even the uncomfortable ones.",
-    C:"I have a clear personal hierarchy of what matters. I apply it — especially when it is inconvenient.",
-    scores:{ R_alignment:[-0.8, 0.2, 0.9], P_alignment:[-0.7, 0.1, 0.7] }
-  },
-
-  /* 9 - Execution (P) */
-  {
-    quotient:"Execution",
-    id:"execution-2",
-    scenario:"A moment that truly matters is approaching. High stakes. Real pressure. The kind of situation where being unprepared is not an option. The question is not whether you will face it. The question is whether you are already ready — before the pressure starts.",
-    question:"What do you actually have in place right now?",
-    A:"I have thought through my decision principles. I know what I stand for before I need to stand for it.",
-    B:"I know what I own and what I will do first. The picture is clear even if not everything is written down.",
-    C:"I have thought about it in theory. Nothing is rehearsed. I will figure it out when I get there.",
-    scores:{ R_execution:[0.8, 0.1, -0.7], P_execution:[0.9, 0.2, -0.8] }
-  },
-
-  /* 10 - Vitality (R) */
-  {
-    quotient:"Vitality",
-    id:"vitality-3",
-    scenario:"The signals have been building for months. More tired than usual. Shorter fuse. The things that used to give you energy now feel like obligations. You have been telling yourself it is temporary. You have been saying that for a while.",
-    question:"How honest are you being with yourself about what you are actually seeing?",
-    A:"I am still calling it a phase. It will ease up. It always does. Eventually.",
-    B:"I see it clearly. I am naming it — to myself and to at least one other person who can actually hear it.",
-    C:"I see it. But I manage it alone. Because naming it feels like admitting something I am not ready to admit.",
-    scores:{ R_vitality:[-0.6, 0.9, -0.1], P_vitality:[-0.4, 0.8, 0.0] }
-  },
-
-  /* 11 - Execution (R) */
-  {
-    quotient:"Execution",
-    id:"execution-3",
-    scenario:"You made a significant decision. Two weeks later the execution has drifted. Quietly. Incrementally. Each small shift seemed reasonable at the time. The gap between what you decided and what is actually happening is real. And it belongs to you.",
-    question:"How do you handle the gap between deciding and doing?",
-    A:"Rarely happens. I build regular check ins into how I work and catch drift early.",
-    B:"Occasionally. I notice and correct before it becomes a real problem.",
-    C:"It is a pattern I recognize in myself. I decide well and execute loosely. The two rarely stay aligned for long.",
-    scores:{ R_execution:[0.9, 0.3, -0.8], P_execution:[0.8, 0.2, -0.7] }
-  },
-
-  /* 12 - Emotion (P) */
-  {
-    quotient:"Emotion",
-    id:"emotion-3",
-    scenario:"A peak moment is on the horizon. High stakes, personally significant, the kind of stretch that will test you in ways you can already feel. You have time to prepare. Not just operationally. As a person. The question is whether you use it.",
-    question:"What does real personal preparation look like for you?",
-    
-    A:"I think about who I want to be in this moment — and I have that conversation with the people closest to me.",
-    B:"I focus on what needs to get done. How I feel is something I deal with as it comes.",
-    C:"I reflect on my own. I do not tend to bring others into this kind of preparation.",
-    scores:{ R_emotion:[0.7, -0.4, 0.2], P_emotion:[0.9, -0.8, 0.1] }
-  },
-
-  /* 13 - Mind (R) */
-  {
-    quotient:"Mind",
-    id:"mind-2",
-    scenario:"Something significant did not work. A strategy that missed, a decision that backfired, a result that fell short. The pessimism is real. The derailing thoughts are louder than you would like. Now comes the reflection. The question is whether it changes something — or just evaporates.",
-    question:"What does the reflection that actually makes you stronger look like?",
-    A:"I look at what in my process created the conditions for this. That is where the change lives.",
-    B:"I focus on the outcome — what went wrong and what I own. That feels like the right place to start.",
-    C:"I keep it surface level and move on. Sitting with failure too long is not useful.",
-    scores:{ R_mind:[0.9, -0.3, -0.6], P_mind:[0.8, 0.1, -0.5] }
-  },
-
-  /* 14 - Alignment (P) */
-  {
-    quotient:"Alignment",
-    id:"alignment-3",
-    scenario:"You have a clear direction. In your work, your priorities, what matters. Or so you believe. Six months in you pause and ask the people closest to you whether they see the same thing. Not to validate it. To find out whether it actually landed.",
-    question:"What do you find?",
-    A:"Consistent clarity. They describe it the way I do. They can act on it without me in the room.",
-    B:"Clear in my head. Others have fragments. The gap between my clarity and theirs is larger than I expected.",
-    C:"Significant divergence. What they describe is not what I intended. The direction I thought I had shared never actually landed.",
-    scores:{ R_alignment:[0.6, 0.1, -0.7], P_alignment:[0.9, 0.2, -0.8] }
-  },
-
-  /* 15 - Mind (R) */
-  {
-    quotient:"Mind",
-    id:"mind-3",
-    scenario:"Under pressure a story has taken hold. About why things are hard, who is responsible, what is and is not possible. It has been running so long it has become the wallpaper. Nobody questions it anymore. Including you. That is exactly when it becomes dangerous.",
-    question:"How do you relate to your own narrative when it has stopped feeling like a choice?",
-    A:"I interrogate it deliberately. Comfortable stories are where blind spots live. Thinking differently is the work.",
-    B:"I accept it. Challenging my own narrative feels like undermining myself or the people around me.",
-    C:"I sense it is limiting. But naming it out loud feels like a risk I am not ready to take.",
-    scores:{ R_mind:[0.9, -0.7, -0.2], P_mind:[0.7, -0.5, -0.1] }
-  },
-
-  /* 16 - Vitality */
-  {
-    quotient:"Vitality",
-    id:"vitality-4",
-    scenario:"You have made sacrifices to keep up — sleep, relationships, things that matter to you outside of work. Each one felt necessary at the time. Together they form a pattern. The question is not whether you can keep going. It is whether this is how you want to lead.",
-    question:"What does that pattern tell you about how you are actually operating?",
-    A:"I run at the limit and absorb the cost. That is what this stage of life and leadership requires.",
-    B:"I see the costs clearly. I know the pattern. I have not changed it yet.",
-    C:"I have deliberately designed recovery and protection into how I live and work. And I hold that boundary.",
-    scores:{ R_vitality:[-0.9, 0.2, 0.9], P_vitality:[-0.8, 0.2, 0.9] }
-  },
-
-  /* 17 - Emotion */
-  {
-    quotient:"Emotion",
-    id:"emotion-4",
-    scenario:"Emotions are running strong. In this conversation, this room, this moment. Something has triggered you. You can feel it. So can everyone else. This is the moment where Readiness is either real or it is not.",
-    question:"What actually happens next?",
-    A:"I react. I see the impact afterwards. By then it has already landed.",
-    B:"I notice it. I pause long enough to choose my response rather than just express my reaction.",
-    C:"I have practiced this enough that the pause is almost automatic. The discomfort is familiar. I can work with it.",
-    scores:{ R_emotion:[0.9, 0.2, -0.8], P_emotion:[0.9, 0.2, -0.9] }
-  },
-
-  /* 18 - Mind */
-  {
-    quotient:"Mind",
-    id:"mind-4",
-    scenario:"The situation is moving fast. The information is a mixture of confirmed fact, rumor, and your own interpretation. Too full. Too loud. Too unclear. You need to make sense of it. You need to move. The question is which of those two you are actually doing.",
-    question:"How clearly do you separate what you know from what you are assuming?",
-    A:"I explicitly label what I know, what I am assuming, and what I am still interpreting. I decide from the first category.",
-    B:"Facts and assumptions blur. I act on the full picture even when parts of it are not yet confirmed.",
-    C:"I rely on instinct and experience. I read the room and move. Analysis takes time I do not have.",
-    scores:{ R_mind:[0.9, -0.8, 0.2], P_mind:[0.8, -0.7, 0.1] }
-  },
-
-  /* 19 - Execution */
-  {
-    quotient:"Execution",
-    id:"execution-4",
-    scenario:"You just completed something significant. The calendar does not stop. There is already pressure to move to the next thing. A small voice says: pause. Learn something that actually sticks this time. Not knowledge that evaporates after two weeks. Real change.",
-    question:"What do you do with that voice?",
-    A:"I create space for it. Real reflection changes how I approach the next thing. That is the whole point.",
-    B:"I make time for a brief debrief. If I am honest, the insights rarely change what I do next.",
-    C:"I move on. There is always something more urgent waiting. I cannot afford to look backwards.",
-    scores:{ R_execution:[0.9, 0.1, -0.8], P_execution:[0.8, 0.1, -0.8] }
-  },
-
-  /* 20 - Alignment */
-  {
-    quotient:"Alignment",
-    id:"alignment-4",
-    scenario:"Significant change is coming. Professionally, personally, in circumstances beyond your control. The direction is unclear. Roles may shift. The structure has not caught up with the new reality. In a brittle and anxious world, this is the moment that separates leaders who run on instruction from leaders who run on clarity.",
-    question:"How do you hold yourself and others together when the map has not been redrawn yet?",
-    A:"I communicate clearly. Direction does not wait for structure. We navigate from a shared sense of what matters.",
-    B:"I lean on informal relationships and instinct. I fill gaps where I can and wait where I cannot.",
-    C:"I wait for clarity before I move. Ambiguity without a clear answer tends to paralyze me.",
-    scores:{ R_alignment:[0.9, 0.0, -0.8], P_alignment:[0.8, -0.1, -0.8] }
-  }
-
-];
+async function loadVariant() {
+  const variantKey = getQueryParam('variant') || 'public';
+  const r = await fetch(`${SUPABASE_FUNCTIONS_BASE}/variant?variant=${encodeURIComponent(variantKey)}`);
+  if (!r.ok) throw new Error('Failed to load variant');
+  return r.json();
+}
 
 // ── Geometry ──────────────────────────────────────────────
 const SCALE = 1.5;
@@ -816,10 +578,10 @@ function makeSVG(idx) {
 }
 
 // ── Build all steps ───────────────────────────────────────
-function buildSteps(savedState) {
+async function buildSteps(savedState) {
   const wrap = document.getElementById('steps-wrap');
   let html = '';
-
+  const TRIADS = await loadVariant().instrument.definitions.triads;
   if (savedState && savedState.triadOrder && savedState.triadOrder.length) {
     SHUFFLED_TRIADS = savedState.triadOrder
       .map(id => TRIADS.find(t => t.id === id))
@@ -1221,7 +983,7 @@ function getModeStructureLine(modeKey, structure) {
   return "Resilience and preparedness are relatively balanced in the current profile.";
 }
 
-function buildModeCards(results) {
+/* function buildModeCards(results) {
   const insights = buildModeInsights(results);
 
   return ['resilience', 'preparedness'].map(function(modeKey) {
@@ -1246,7 +1008,7 @@ function buildModeCards(results) {
       spread: mode.spread
     };
   });
-}
+} */
 
 const MODE_QS = {
   resilience: ['vitality', 'emotion'],
@@ -1304,7 +1066,7 @@ function renderModeCard(m) {
     </div>
   `;
 }
-
+/* 
 function renderModeGrid(results) {
   const modes = buildModeCards(results);
 
@@ -1313,7 +1075,7 @@ function renderModeGrid(results) {
       ${modes.map(renderModeCard).join('')}
     </div>
   `;
-}
+} */
 
 // ── Scoring ───────────────────────────────────────────────
 const DIMS = ['R_vitality','R_emotion','R_mind','R_execution','R_alignment',
@@ -2232,7 +1994,7 @@ function renderUnlockedSections(locked, open) {
 
 function renderOpenReport(open, res, quotientData) {
   const debriefMode = buildModeInsights(res);
-  const modeHtml = renderModeGrid(res);
+/*   const modeHtml = renderModeGrid(res); */
   const setHTML = (id, html) => {
     const el = document.getElementById(id);
     if (el) el.innerHTML = html;
@@ -2285,33 +2047,6 @@ function getBookingUrl(serverResult) {
   return url.toString();
 }
 
-
-const DEBRIEF_PREVIEW_SECTIONS = [
-  {
-    type: 'do-more',
-    iconType: 'up',
-    title: 'Do more of this',
-    summary: 'Three actions, shaped from your scores.',
-    body: 'All three open as soon as you book. The conversation is where they become commitments.',
-    status: 'Reveals after booking'
-  },
-  {
-    type: 'do-less',
-    iconType: 'down',
-    title: 'Do less of this',
-    summary: 'Three patterns to interrupt before they cost you again.',
-    body: 'All three open as soon as you book. The conversation is where they become commitments.',
-    status: 'Reveals after booking'
-  },
-  {
-    type: 'questions',
-    iconType: 'question',
-    title: 'Sit with these questions',
-    summary: 'Three prompts to bring to the conversation.',
-    body: 'All three open as soon as you book. The conversation is where they become commitments.',
-    status: 'Reveals after booking'
-  }
-];
 
 function getOfferCards(open) {
   const hints = open?.focus?.hints || {};
@@ -2768,118 +2503,6 @@ function renderVerdictFromServer(verdict, res) {
   vmodel.className = 'verdict-ov-mode ' + verdict.cls;
 
   activateVerdictZone(verdict.label);
-}
-
-function getStructuralSignal(structure, R, P) {
-  if (structure === 'preparedness-heavy') {
-    return `<strong>Preparedness</strong> (${P.toFixed(2)}) is ahead of <strong>Resilience</strong> (${R.toFixed(2)}). Plans and intended standards may be stronger than live performance under pressure.`;
-  }
-
-  if (structure === 'resilience-heavy') {
-    return `<strong>Resilience</strong> (${R.toFixed(2)}) is ahead of <strong>Preparedness</strong> (${P.toFixed(2)}). The system is coping in the moment more than it is designing in advance.`;
-  }
-
-  return `<strong>Resilience</strong> (${R.toFixed(2)}) and <strong>Preparedness</strong> (${P.toFixed(2)}) are relatively balanced. The main constraint is less about mode imbalance and more about where specific quotients are lagging.`;
-}
-
-function getGapSignal(item) {
-  if (item.gap > 0.35) {
-    return `it is stronger under pressure than it is structurally prepared for, which may not be sustainable.`;
-  }
-  if (item.gap < -0.35) {
-    return `it is better designed in principle than it is enacted under pressure, suggesting an implementation gap.`;
-  }
-  return `resilience and preparedness are reasonably aligned here.`;
-}
-
-function buildSignals(dim, R, P) {
-  const sg = document.getElementById('signal-grid');
-
-  const qScores = QDIMS.map(q => {
-    const key = q.toLowerCase();
-    const r = dim[`R_${key}`];
-    const p = dim[`P_${key}`];
-    return {
-      q,
-      r,
-      p,
-      avg: (r + p) / 2,
-      gap: r - p,
-      absGap: Math.abs(r - p)
-    };
-  });
-
-  const byAvgDesc = qScores.slice().sort((a, b) => b.avg - a.avg);
-  const byAvgAsc = qScores.slice().sort((a, b) => a.avg - b.avg);
-  const byGapDesc = qScores.slice().sort((a, b) => b.absGap - a.absGap);
-
-  const strongest = byAvgDesc[0];
-  const weakest = byAvgAsc[0];
-  const biggestGap = byGapDesc[0];
-
-  const delta = P - R;
-  const structure =
-    delta > 0.25 ? 'preparedness-heavy' :
-    delta < -0.25 ? 'resilience-heavy' :
-    'balanced';
-
-  const weakerMode = R < P ? 'Resilience' : 'Preparedness';
-  const leverageLift = (0.3 * Math.max(R, P)).toFixed(2);
-
-  sg.innerHTML = `
-    <div class="signal-card strength ${strongest.q.toLowerCase()}">
-      <div class="sc-head">Consistent strength</div>
-      <div class="signal-item">
-        <div class="signal-dot" style="background:#1D9E75"></div>
-        <div class="signal-text">
-          <strong><span class="q-chip ${strongest.q.toLowerCase()}">${strongest.q}</span></strong> is currently your most reliable strength across both resilience and preparedness
-          <span class="signal-meta">(avg ${strongest.avg.toFixed(1)})</span>.
-        </div>
-      </div>
-    </div>
-
-    <div class="signal-card constraint ${weakest.q.toLowerCase()}">
-      <div class="sc-head">Primary constraint</div>
-      <div class="signal-item">
-        <div class="signal-dot" style="background:#D85A30"></div>
-        <div class="signal-text">
-          <strong><span class="q-chip ${weakest.q.toLowerCase()}">${weakest.q}</span></strong> is the main constraint in the system right now
-          <span class="signal-meta">(avg ${weakest.avg.toFixed(1)})</span>.
-          This is the most likely place where performance breaks first.
-        </div>
-      </div>
-    </div>
-
-    <div class="signal-card pattern">
-      <div class="sc-head">Structural pattern</div>
-      <div class="signal-item">
-        <div class="signal-dot" style="background:#534AB7"></div>
-        <div class="signal-text">
-          ${getStructuralSignal(structure, R, P)}
-        </div>
-      </div>
-      ${biggestGap.absGap > 0.35 ? `
-        <div class="signal-item">
-          <div class="signal-dot" style="background:#BA7517"></div>
-          <div class="signal-text">
-            The largest internal imbalance is in <strong>${biggestGap.q}</strong>:
-            ${getGapSignal(biggestGap)}.
-          </div>
-        </div>
-      ` : ''}
-    </div>
-
-    <div class="signal-card leverage">
-      <div class="sc-head">Highest leverage</div>
-      <div class="signal-item">
-        <div class="signal-dot" style="background:#534AB7"></div>
-        <div class="signal-text">
-          Small gains in <strong>${weakerMode}</strong> will have outsized impact on overall readiness.
-          A +0.3 increase would lift the total by approximately <strong>${leverageLift}</strong>.
-        </div>
-      </div>
-    </div>
-  `;
 }
 
 const PRIVACY_NOTICE_VERSION = '2026-04-28';
