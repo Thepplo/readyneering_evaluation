@@ -291,7 +291,7 @@ const QUOTIENT_ICONS = {
 const TRIADS = []
 
 async function loadVariant() {
-  const variantKey = getQueryParam('variant') || 'public';
+  const variantKey = getQueryParam('v') || 'public';
   const r = await fetch(`${SUPABASE_FUNCTIONS_BASE}/variant?variant=${encodeURIComponent(variantKey)}`);
   if (!r.ok) throw new Error('Failed to load variant');
   return r.json();
