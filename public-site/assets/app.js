@@ -1,57 +1,9 @@
 const Q = [
-  {
-    name:'Vitality', 
-    r:3.8, 
-    p:3.2,
-    icon:'./assets/images/q-vitality.svg',
-    dr:'How well you sustain energy, focus and pace under prolonged pressure without burning out.',
-    dp:'Whether capacity, recovery cycles and wellbeing practices are deliberately built into your personal system.',
-    color:'#FFAA33',
-    textColor: '#0000007e'
-    
-  },
-  {
-    name:'Emotion', 
-    r:4.1, 
-    p:3.6,
-    icon:'./assets/images/q-emotion.svg',
-    dr:'How well you regulate emotional responses during conflict, failure and uncertainty.',
-    dp:'Whether you prepare in advance for predictable emotional patterns in high-pressure situations.',
-    color: '#C30615',
-    textColor: '#fff'
-    
-  },
-  {
-    name:'Mind', 
-    r:3.5, 
-    p:3.0,
-    icon:'./assets/images/q-mind.svg',
-    dr:'The quality of your thinking and decision-making when data is incomplete and time is short.',
-    dp:'Whether scenario thinking, pre-mortems and assumption-testing are built into how you prepare.',
-    color: '#64012D',
-    textColor: '#fff'
-
-  },
-  {
-    name:'Execution', 
-    r:4.3, 
-    p:3.9,
-    icon:'./assets/images/q-execution.svg',
-    dr:'How decisively and consistently you act under constraint and real-time pressure.',
-    dp:'Whether priorities, decision rules and action plans are defined before pressure peaks.',
-    color: '#2428AB',
-    textColor: '#fff'
-  },
-  {
-    name:'Alignment', 
-    r:3.6, 
-    p:3.4,
-    icon:'./assets/images/q-alignment.svg',
-    dr:'Whether you stay coherent - values, priorities, roles and commitments - when under stress.',
-    dp:'Whether your goals, commitments and boundaries are clarified before competing demands intensify.',
-    color: '#1B74CD',
-    textColor: '#0000007e'
-  }
+  { key: 'vitality',  r: 3.8, p: 3.2, icon: '/assets/images/q-vitality.svg',  color: '#FFAA33', textColor: '#0000007e' },
+  { key: 'emotion',   r: 4.1, p: 3.6, icon: '/assets/images/q-emotion.svg',   color: '#C30615', textColor: '#fff' },
+  { key: 'mind',      r: 3.5, p: 3.0, icon: '/assets/images/q-mind.svg',      color: '#64012D', textColor: '#fff' },
+  { key: 'execution', r: 4.3, p: 3.9, icon: '/assets/images/q-execution.svg', color: '#2428AB', textColor: '#fff' },
+  { key: 'alignment', r: 3.6, p: 3.4, icon: '/assets/images/q-alignment.svg', color: '#1B74CD', textColor: '#0000007e' },
 ];
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -60,6 +12,10 @@ let hovered = null;
 let selected = 0;
 let isAnimating = false;
 let orbitOffset = 0;
+
+const t = (key) => key.split('.').reduce((o, k) => o?.[k], window.__I18N__) ?? key;
+const qName = (q) => t(`quotients.${q.key}.name`);
+const qDesc = (q, mode) => t(`quotients.${q.key}.${mode === 'R' ? 'dr' : 'dp'}`);
 
 const focusRatio = 0.00;
 const nodeRefs = [];
@@ -162,8 +118,8 @@ function animateInfoChange(nextIndex) {
   tl.add(() => {
     elR.textContent = q.r.toFixed(1);
     elP.textContent = q.p.toFixed(1);
-    title.textContent = q.name;
-    desc.textContent = mode === 'R' ? q.dr : q.dp;
+    title.textContent = qName(q);
+    desc.textContent = mode === 'R' ? qDesc(q, mode) : qDesc(q, mode);
 
     animateTrackFill(s, q.color);
   });
@@ -288,7 +244,7 @@ function initNodes() {
     });
 
     scoreT.textContent = q[mode.toLowerCase()].toFixed(1);
-    nameT.textContent = q.name.toUpperCase();
+    nameT.textContent = qName(q).toUpperCase();
 
     ng.appendChild(hit);
     ng.appendChild(icon);
@@ -439,12 +395,12 @@ function updateInfo() {
   animateTrackFill(s, q.color);
 
   if (title) {
-    title.textContent = q.name;
+    title.textContent = qName(q);
     title.style.color = q.color;
   }
 
   if (desc) {
-    desc.textContent = mode === 'R' ? q.dr : q.dp;
+    desc.textContent = mode === 'R' ? qDesc(q, mode) : qDesc(q, mode);
     /* desc.style.color = q.color; */
   }
 
@@ -461,7 +417,7 @@ if (dotWrap) {
   Q.forEach((q, i) => {
     const d = document.createElement('div');
     d.className = 'q-dot';
-    d.innerHTML = `<span class="q-dot-tip">${q.name}</span>`;
+    d.innerHTML = `<span class="q-dot-tip">${qName(q)}</span>`;
     d.addEventListener('click', () => {
       selected = i;
       hovered = null;
@@ -490,9 +446,9 @@ function initialPaint() {
   elP.textContent = q.p.toFixed(1);
   elR.style.fill = q.color;
   elP.style.fill = q.color;
-  title.textContent = q.name;
+  title.textContent = qName(q);
   title.style.color = q.color;
-  desc.textContent = mode === 'R' ? q.dr : q.dp;
+  desc.textContent = mode === 'R' ? qDesc(q, mode) : qDesc(q, mode);
   meter.style.width = ((q.r - 1) / 4 * 100) + '%';
   meter.style.backgroundColor = q.color;
   setTrackFill(s, q.color);

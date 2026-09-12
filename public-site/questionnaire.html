@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>READYNEERING Diagnostic · andQfive</title>
+<title>{{t.meta.title_q}}</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/qstyles.css">
+<link rel="stylesheet" href="/assets/qstyles.css">
 </head>
 <body>
 <div class="bg">
@@ -20,45 +20,43 @@
   <div class="wrap">
   <div id="scr-intro" class="screen active">
     <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:6px">andQfive &middot; READYNEERING</div>
-    <h1>Organizational Readiness Diagnostic</h1>
-    <p style="margin-top:8px">You will encounter 20 real organizational situations.<br>
-      For each one, place your dot inside the triangle -<br>closer to whichever corner rings most true.<br>
-      No right answers. The geometry reveals your readiness profile.
+    <h1>{{t.hero.top_tag}}</h1>
+    <p style="margin-top:8px">{{t.questionnaire.body}}
       <br><br>
-      You’ll choose between competing realities-not ideal answers.
+      {{t.questionnaire.body_2}}
       <br><br>
-      <span class="intro-meta">Responses combine into a system-level profile—not independent scores.</span>
+      <span class="intro-meta">{{t.questionnaire.body_meta}}</span>
     </p>
     <div class="stat-row">
-      <div class="stat"><div class="stat-num">20</div><div class="stat-lbl">Situations</div></div>
-      <div class="stat"><div class="stat-num">~20</div><div class="stat-lbl">Minutes</div></div>
-      <div class="stat"><div class="stat-num">5</div><div class="stat-lbl">Quotients scored</div></div>
+      <div class="stat"><div class="stat-num">20</div><div class="stat-lbl">{{t.questionnaire.stat_1}}</div></div>
+      <div class="stat"><div class="stat-num">~20</div><div class="stat-lbl">{{t.questionnaire.stat_2}}</div></div>
+      <div class="stat"><div class="stat-num">5</div><div class="stat-lbl">{{t.questionnaire.stat_3}}</div></div>
     </div>
     <div class="cta-div">
     <div class="select-div">
-      <div class="sec-title">Your industry (optional)</div>
+      <div class="sec-title">{{t.questionnaire.industry_select.title}}</div>
       <div style="display:flex;align-items:start;gap:12px;">
       <select class="form-select"id="industry-select">
-        <option value="">Select industry</option>
-        <option value="adhesives-and-tapes">Adhesives and Tapes</option>
-        <option value="aerospace-and-defense">Aerospace and Defense</option>
-        <option value="healthcare">Healthcare</option>
-        <option value="consumer-packaged-goods-cpg">Consumer Packaged Goods (CPG)</option>
-        <option value="management-strategy-consulting">Management & Strategy Consulting</option>
-        <option value="payments-fintech">Payments & Fintech</option>
-        <option value="power-cable-solutions-hvdc-hvac">Power Cable Solutions (HVDC, HVAC)</option>
-        <option value="technology">Technology</option>
-        <option value="other">Other</option>
+        <option value="">{{t.questionnaire.industry_select.placeholder}}</option>
+        <option value="adhesives-and-tapes">{{t.questionnaire.industry_select.opt_1}}</option>
+        <option value="aerospace-and-defense">{{t.questionnaire.industry_select.opt_2}}</option>
+        <option value="healthcare">{{t.questionnaire.industry_select.opt_3}}</option>
+        <option value="consumer-packaged-goods-cpg">{{t.questionnaire.industry_select.opt_4}}</option>
+        <option value="management-strategy-consulting">{{t.questionnaire.industry_select.opt_5}}</option>
+        <option value="payments-fintech">{{t.questionnaire.industry_select.opt_6}}</option>
+        <option value="power-cable-solutions-hvdc-hvac">{{t.questionnaire.industry_select.opt_7}}</option>
+        <option value="technology">{{t.questionnaire.industry_select.opt_8}}</option>
+        <option value="other">{{t.questionnaire.industry_select.opt_9}}</option>
       </select>
 
-      <input id="industry-other" type="text" placeholder="Please specify"
+      <input id="industry-other" type="text" placeholder="{{t.questionnaire.industry_select.other_text_input}}"
             style="display:none;" />
       </div>
     </div>
     <div class="select-div">
-      <div class="sec-title">Company Size (optional)</div>
+      <div class="sec-title">{{t.questionnaire.company_select.title}}</div>
       <select class="form-select" id="size-select">
-        <option value="">Company Size</option>
+        <option value="">{{t.questionnaire.company_select.placeholder}}</option>
         <option value="1-10">1-10</option>
         <option value="11-100">11 - 100</option>
         <option value="101-500">101 - 500</option>
@@ -119,7 +117,7 @@
       </p>
     </div>
     <a class="btn primary" id="start-btn" style="margin-bottom:1.5rem;">
-      Begin diagnostic <span class="arrow"></span>
+      {{t.info.cta}} <span class="arrow"></span>
     </a>
     <div id="industry-warn" style="display:none;color:red;margin-top:8px;">
       Please select an industry before continuing.
@@ -134,11 +132,11 @@
       <div class="pbar"><div class="pfill" id="prog" style="width:0%"></div></div>
     </div>
     <div id="steps-wrap"></div>
-    <div class="warn" id="warn">Please place your dot in the triangle before continuing.</div>
+    <div class="warn" id="warn">{{t.questionnaire.warn}}</div>
     <div class="nav">
-      <button class="btn" id="btn-back"><span class="arrow-back"></span> Back</button>
+      <button class="btn" id="btn-back"><span class="arrow-back"></span> {{t.questionnaire.back-cta}}</button>
       <a class="btn primary" id="btn-next">
-          Next <span class="arrow"></span>
+          {{t.questionnaire.next-cta}} <span class="arrow"></span>
       </a>
       
     </div>
@@ -151,17 +149,17 @@
       <div id="results-loader" class="results-loader active">
           <div class="results-loader-inner">
             <div class="results-spinner"></div>
-            <div class="results-loader-title">Building your readiness profile</div>
+            <div class="results-loader-title">{{t.questionnaire.results.loader-title}}</div>
             <div class="results-loader-copy">
-              Analyzing system patterns across resilience, preparedness, and the five quotients.
+             {{t.questionnaire.results.loader-body}}
             </div>
           </div>
       </div>
       <div id="results-content" class="is-hidden">
       <div class="index-wrapper">
         <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#ffda33;margin-bottom:6px">andQfive &middot; READYNEERING</div>
-        <h1 style="margin-bottom:0px; color: #f5f5f5;">Your Readiness Index</h1>
-        <p class="page-sub" style=" color:#AAAAAA !important">Individual readiness results</p>
+        <h1 style="margin-bottom:0px; color: #f5f5f5;">{{t.questionnaire.results.main-title}}</h1>
+        <p class="page-sub" style=" color:#AAAAAA !important">{{t.questionnaire.results.main-sub-title}}</p>
         <div class="ring-row reveal-block reveal-hero" id="ring-row"></div>
         <div id="meta-line"></div>
         <div class="index-content-wrapper">
@@ -181,10 +179,10 @@
               <div class="verdict-ov-score" id="v-ov-val"></div>
               <div class="verdict-ov-desc">
                 <div class="verdict-ov-flex">
-                  <div class="verdict-ov-label" style="font-weight: 500;">Readiness Score</div>
+                  <div class="verdict-ov-label" style="font-weight: 500;">{{t.questionnaire.results.score-title}}</div>
                   <div class="verdict-ov-mode" id="v-ov-mode"></div>
                 </div>
-                <div class="verdict-ov-description">Readiness = Preparedness × Resilience. The multiplication is deliberate - someone who collapses on one dimension is not ready, regardless of how strong the other is.</div>
+                <div class="verdict-ov-description">{{t.questionnaire.results.score-description}}</div>
               </div>
             </div>
           </div>
@@ -198,15 +196,15 @@
             </div>
             <div class="zone-bar"></div>
             <div class="zone-legend">
-              <div class="lg-risk"><strong>1–6</strong>At risk</div>
-              <div class="lg-dev"><strong>7–12</strong>Developing</div>
-              <div class="lg-build"><strong>13–19</strong>Building</div>
-              <div class="lg-ready"><strong>20–25</strong>Ready</div>
+              <div class="lg-risk"><strong>1–6</strong>{{t.questionnaire.results.zone-legend.zone-risk}}</div>
+              <div class="lg-dev"><strong>7–12</strong>{{t.questionnaire.results.zone-legend.zone-dev}}</div>
+              <div class="lg-build"><strong>13–19</strong>{{t.questionnaire.results.zone-legend.zone-build}}</div>
+              <div class="lg-ready"><strong>20–25</strong>{{t.questionnaire.results.zone-legend.zone-ready}}</div>
             </div>
           </div>
         </div>
         <div class="pattern-closer pattern-developing">
-          <div class="pattern-kicker" id="pattern-kicker">Current pattern</div>
+          <div class="pattern-kicker" id="pattern-kicker">{{t.questionnaire.results.pattern-kicker}}</div>
 
           <div class="pattern-main" id="pattern-main">
             Strong direction and execution, but the personal resilience foundation is fragile
@@ -228,9 +226,9 @@
         </div>
       </div>
       <div class="content-wrapper" id="first-cw">
-        <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px; color:#BBBBBB;">Your readiness profile</div>
-        <h2 style="margin-bottom:0px; color: #1A1A1A; font-weight:600; ">Where you are strongest - and where you have room to grow</h2>
-        <p class="page-sub" style="color:#555555 !important; line-height: 1.75; font-size: 13px; max-width: 755px; margin-bottom: 5%;">These scores reflect your patterns across all 20 scenarios - four for each of the andQfive Quotients. They are not a judgement of you as a person - they show how the environment you operate in tends to behave under pressure. This report is relevant whether you lead a team, work as part of one, or both.</p>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px; color:#BBBBBB;">{{t.questionnaire.results.main-title-2}}</div>
+        <h2 style="margin-bottom:0px; color: #1A1A1A; font-weight:600; ">{{t.questionnaire.results.main-sub-title-2}}</h2>
+        <p class="page-sub" style="color:#555555 !important; line-height: 1.75; font-size: 13px; max-width: 755px; margin-bottom: 5%;">{{t.questionnaire.results.main-sub-description-2}}</p>
         <div id="mode-grid-wm" class="reveal-block reveal-modes"></div>
         <div class="zone-scale-v2" id="zone-scale-rp">
           <div class="score-marker resilience" id="marker-r">
@@ -241,19 +239,19 @@
           </div>
           <div class="zone-bar"></div>
           <div class="zone-legend">
-            <div class="lg-risk"><strong>1.0–2.4</strong>Actively working against you</div>
-            <div class="lg-dev"><strong>2.5–3.4</strong>Developing — needs deliberate work</div>
-            <div class="lg-build"><strong>3.5–4.2</strong>Building — good foundation</div>
-            <div class="lg-ready"><strong>4.3–5.0</strong>Strong — a genuine asset</div>
+            <div class="lg-risk"><strong>1.0–2.4</strong>{{t.questionnaire.results.zone-legend-2.zone-risk-2}}</div>
+            <div class="lg-dev"><strong>2.5–3.4</strong>{{t.questionnaire.results.zone-legend-2.zone-dev-2}}</div>
+            <div class="lg-build"><strong>3.5–4.2</strong>{{t.questionnaire.results.zone-legend-2.zone-build-2}}</div>
+            <div class="lg-ready"><strong>4.3–5.0</strong>{{t.questionnaire.results.zone-legend-2.zone-ready-2}}</div>
           </div>
         </div>
 
         <div class="q-grid-wrapper reveal-block reveal-quotients" id="q-grid-wrapper"></div>
         <div id="ranked-signal-wrapper"></div>
       </div>
-      <div id="focus-section-unlocked-break" class="page-break-label">Page 2 — Building your readiness capability</div>
+      <div id="focus-section-unlocked-break" class="page-break-label">{{t.questionnaire.results.focus-section-unlocked-break}}</div>
       <section id="focus-section-unlocked" class="content-wrapper" hidden>
-        <div id="focus-copy"><h2 class="section-title" style="margin-bottom:0px; color: #1A1A1A; font-weight:600;">Your three priorities for action</h2></div>
+        <div id="focus-copy"><h2 class="section-title" style="margin-bottom:0px; color: #1A1A1A; font-weight:600;">{{t.questionnaire.results.focus-section-unlocked-title}}</h2></div>
         <div id="action-sub"></div>
         <div id="focus-actions-wrapper" class="reveal-block reveal-actions"></div>
       </section>
@@ -270,14 +268,14 @@
             <svg class="foot-action__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span>Save as PDF</span>
+            <span>{{t.questionnaire.results.foot-download-pdf}}</span>
           </button>
           <button type="button" class="foot-action" id="foot-copy-url">
             <svg class="foot-action__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
               <path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5" stroke="currentColor" stroke-width="1.5"/>
             </svg>
-            <span id="foot-copy-url-label">Copy link to my report</span>
+            <span id="foot-copy-url-label">{{t.questionnaire.results.foot-copy-url}}</span>
           </button>
         </div>
       </div>
@@ -288,13 +286,13 @@
 </div>
 <div id="turnstile-shell" aria-hidden="true">
   <div class="turnstile-card">
-    <div class="turnstile-title">Securing your submission</div>
+    <div class="turnstile-title">{{t.questionnaire.results.turnstile-title}}</div>
     <div class="turnstile-copy">
-      We’re checking this is a genuine assessment before saving your results.
+      {{t.questionnaire.results.turnstile-copy}}
     </div>
     <div class="turnstile-spinner" aria-hidden="true"></div>
     <div id="turnstile-widget"></div>
-    <button type="button" id="turnstile-cancel" class="turnstile-cancel">Cancel</button>
+    <button type="button" id="turnstile-cancel" class="turnstile-cancel">{{t.questionnaire.results.turnstile-cancel}}</button>
   </div>
 </div>
 <script
@@ -303,6 +301,7 @@
   crossorigin="anonymous"
 ></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit"></script>
-<script src="assets/questionnaire.js"></script>
+<script>window.__I18N__ = {{{{i18nJson}}}};</script>
+<script src="/assets/questionnaire.js"></script>
 </body>
 </html>

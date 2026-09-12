@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "title": "andQfive · Organizational Readiness",
+    "title_q": "READYNEERING Index · andQfive"
+  },
+  "hero": {
+    "top_tag": "Individual Readiness Index",
+    "tagline_1": "Are you",
+    "tagline_2": "truly ready?",
+    "body_1": "Performance is not a personal trait. It's a pattern that emerges from how your habits, mindset, and environment operate under pressure.",
+    "body_2": "High performance isn't about effort alone. It's about how well your personal system holds together when it matters most.",
+    "body_3": "Using the Readyneering framework, you'll gain practical tools to:",
+    "list_1": "Make clear decisions under uncertainty",
+    "list_2": "Maintain confidence and composure when conditions are unstable",
+    "list_3": "Act with credibility when it matters most",
+    "formula": "Readiness = Resilience × Preparedness"
+  },
+  "calc": {
+    "readiness": {
+      "title": "Readiness",
+      "body": "Readiness is the system that builds mental robustness through preparation and resilience, supported by a mindset of humility that sustains trust, morale, and focus."
+    },
+    "resilience": {
+      "title": "Resilience",
+      "body": "Seven pillars to remain calm amid the storm and enable swift, decisive decision-making."
+    },
+    "preparedness": {
+      "title": "Preparedness",
+      "body": "Following a pilot's approach of \"expect the unexpected\": facts, emotions, solutions."
+    }
+  },
+  "orbit": {
+    "mode": {
+      "resilience": "Resilience",
+      "preparedness": "Preparedness"
+    },
+    "label": {
+      "resilience": "RESILIENCE",
+      "preparedness": "PREPAREDNESS"
+    }
+  },
+  "info": {
+    "title": "Five quotients of readiness",
+    "desc": "Hover a quotient node to explore. Each is assessed under pressure and by structural design.",
+    "meter": {
+      "left": "Structural Risk",
+      "right": "Strategic Readiness"
+    },
+    "cta": "Take the index"
+  },
+  "quotients": {
+    "vitality": {
+      "name": "Vitality",
+      "dr": "How well you sustain energy, focus and pace under prolonged pressure without burning out.",
+      "dp": "Whether capacity, recovery cycles and wellbeing practices are deliberately built into your personal system."
+    },
+    "emotion": {
+      "name": "Emotion",
+      "dr": "How well you regulate emotional responses during conflict, failure and uncertainty.",
+      "dp": "Whether you prepare in advance for predictable emotional patterns in high-pressure situations."
+    },
+    "mind": {
+      "name": "Mind",
+      "dr": "The quality of your thinking and decision-making when data is incomplete and time is short.",
+      "dp": "Whether scenario thinking, pre-mortems and assumption-testing are built into how you prepare."
+    },
+    "execution": {
+      "name": "Execution",
+      "dr": "How decisively and consistently you act under constraint and real-time pressure.",
+      "dp": "Whether priorities, decision rules and action plans are defined before pressure peaks."
+    },
+    "alignment": {
+      "name": "Alignment",
+      "dr": "Whether you stay coherent - values, priorities, roles and commitments - when under stress.",
+      "dp": "Whether your goals, commitments and boundaries are clarified before competing demands intensify."
+    }
+  },
+  "questionnaire": {
+    "body": "You will encounter 20 real organizational situations. For each one, place your dot inside the triangle - closer to whichever corner rings most true. No right answers. The geometry reveals your readiness profile.",
+    "body_2": "You’ll choose between competing realities-not ideal answers.",
+    "body_meta": "Responses combine into a system-level profile—not independent scores.",
+    "stat_1": "Situations",
+    "stat_2": "Minutes",
+    "stat_3": "Quotients scored",
+    "industry_select":{
+      "title": "Your industry (optional)",
+      "placeholder": "Branche wählen",
+      "opt_1": "Adhesives and Tapes",
+      "opt_2": "Aerospace and Defense",
+      "opt_3": "Healthcare",
+      "opt_4": "Consumer Packaged Goods (CPG)",
+      "opt_5": "Management & Strategy Consulting",
+      "opt_6": "Payments & Fintech",
+      "opt_7": "Power Cable Solutions (HVDC, HVAC)",
+      "opt_8": "Technology",
+      "opt_9": "Other",
+      "other_text_input": "Please specify"
+
+    },
+    "company_select":{
+      "title": "Your company (optional)",
+      "placeholder": "Company name"
+    },
+    "warn": "Please place your dot in the triangle before continuing.",
+    "back-cta": "Back",
+    "next-cta": "Next",
+    "results": {
+      "main-title": "Your Readiness Index",
+      "main-title-2": "Your readiness profile",
+      "main-sub-title": "Individual readiness results",
+      "main-sub-title-2": "Where you are strongest - and where you have room to grow",
+      "main-sub-description-2": "These scores reflect your patterns across all 20 scenarios - four for each of the andQfive Quotients. They are not a judgement of you as a person - they show how the environment you operate in tends to behave under pressure. This report is relevant whether you lead a team, work as part of one, or both.",
+      "loader-title": "Building your readiness profile",
+      "loader-body": "Analyzing system patterns across resilience, preparedness, and the five quotients.",
+      "score-title": "Readiness Score",
+      "score-description": "Readiness = Preparedness × Resilience. The multiplication is deliberate - someone who collapses on one dimension is not ready, regardless of how strong the other is.",
+      "zone-legend": {
+        "zone-risk": "At risk",
+        "zone-dev": "Developing",
+        "zone-build": "Building",
+        "zone-ready": "Ready"
+      },
+      "zone-legend-2": {
+        "zone-risk-2": "Actively working against you",
+        "zone-dev-2": "Developing — needs deliberate work",
+        "zone-build-2": "Building — good foundation",
+        "zone-ready-2": "Strong — a genuine asset"
+      },
+      "pattern-kicker": "Current pattern",
+      "focus-section-unlocked-break": "Page 2 — Building your readiness capability",
+      "focus-section-unlocked-title": "Your three priorities for action",
+      "foot-download-pdf": "Save as PDF",
+      "foot-copy-url": "Copy link to my report",
+      "turnstile-title": "Securing your submission",
+      "turnstile-copy": "We’re checking this is a genuine assessment before saving your results.",
+      "turnstile-cancel": "Cancel"
+    }
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "meta": {
+    "title": "andQfive · Organisationale Readiness",
+    "title_q": "READYNEERING Index · andQfive"
+  },
+  "hero": {
+    "top_tag": "Individueller Readiness Index",
+    "tagline_1": "Bist du",
+    "tagline_2": "wirklich ready?",
+    "body_1": "Performance ist keine Charaktereigenschaft. Sie ist ein Muster, das sich daraus ergibt, wie deine Gewohnheiten, deine Denkweise und dein Umfeld unter Druck zusammenwirken.",
+    "body_2": "Bei Spitzenleistung geht es um mehr als Anstrengung. Es geht darum, wie gut dein persönliches System zusammenhält, wenn es darauf ankommt.",
+    "body_3": "Mit dem Readyneering Framework bekommst du praktische Werkzeuge, um:",
+    "list_1": "Unter Unsicherheit klare Entscheidungen zu treffen",
+    "list_2": "Souverän und gelassen zu bleiben, wenn die Lage instabil ist",
+    "list_3": "Glaubwürdig zu handeln, wenn es darauf ankommt",
+    "formula": "Readiness = Resilience × Preparedness"
+  },
+  "calc": {
+    "readiness": {
+      "title": "Readiness",
+      "body": "Readiness ist das System, das mentale Robustheit durch Vorbereitung und Resilienz aufbaut, getragen von einer Haltung der Bescheidenheit, die Vertrauen, Motivation und Fokus erhält."
+    },
+    "resilience": {
+      "title": "Resilience",
+      "body": "Sieben Säulen, um im Sturm ruhig zu bleiben und schnelle, entschlossene Entscheidungen zu ermöglichen."
+    },
+    "preparedness": {
+      "title": "Preparedness",
+      "body": "Nach dem Prinzip von Pilotinnen und Piloten \"Erwarte das Unerwartete\": Fakten, Emotionen, Lösungen."
+    }
+  },
+  "orbit": {
+    "mode": {
+      "resilience": "Resilience",
+      "preparedness": "Preparedness"
+    },
+    "label": {
+      "resilience": "RESILIENCE",
+      "preparedness": "PREPAREDNESS"
+    }
+  },
+  "info": {
+    "title": "Fünf Quotienten für Readiness",
+    "desc": "Bewege den Mauszeiger über einen Quotienten, um mehr zu erfahren. Jeder Quotient wird unter Druck und anhand seiner strukturellen Gestaltung bewertet.",
+    "meter": {
+      "left": "Strukturelles Risiko",
+      "right": "Strategische Readiness"
+    },
+    "cta": "Readiness Index starten"
+  },
+  "quotients": {
+    "vitality": {
+      "name": "Vitality",
+      "dr": "Wie gut du Energie, Fokus und Tempo auch unter anhaltendem Druck aufrechterhältst, ohne auszubrennen.",
+      "dp": "Ob Kapazität, Erholungsphasen und Wellbeing-Praktiken bewusst in dein persönliches System eingebaut sind."
+    },
+    "emotion": {
+      "name": "Emotion",
+      "dr": "Wie gut du emotionale Reaktionen bei Konflikten, Misserfolgen und Unsicherheit regulierst.",
+      "dp": "Ob du dich im Vorfeld auf vorhersehbare emotionale Muster in Situationen mit hohem Druck vorbereitest."
+    },
+    "mind": {
+      "name": "Mind",
+      "dr": "Die Qualität deines Denkens und Entscheidens, wenn Daten unvollständig und Entscheidungen unter Zeitdruck getroffen werden müssen.",
+      "dp": "Ob Szenariodenken, Pre-Mortems und das Hinterfragen von Annahmen fest in deine Vorbereitung integriert sind."
+    },
+    "execution": {
+      "name": "Execution",
+      "dr": "Wie entschlossen und konsistent du unter Einschränkungen und in Echtzeit unter Druck handelst.",
+      "dp": "Ob Prioritäten, Entscheidungsregeln und konkrete Handlungspläne festgelegt sind, bevor der Druck seinen Höhepunkt erreicht."
+    },
+    "alignment": {
+      "name": "Alignment",
+      "dr": "Ob du auch unter Stress bei dir bleibst, in Bezug auf deine Werte, Prioritäten, Rollen und Verpflichtungen.",
+      "dp": "Ob deine Ziele, Verpflichtungen und Grenzen geklärt sind, bevor konkurrierende Anforderungen zunehmen."
+    }
+  },
+  "questionnaire": {
+    "body": "Du wirst 20 realen Situationen aus dem Arbeitsalltag begegnen. Platziere bei jeder Situation deinen Punkt innerhalb des Dreiecks und zwar näher an der Ecke, die für dich am ehesten zutrifft. Es gibt keine richtigen oder falschen Antworten. Die Position deines Punktes zeigt dein persönliches Readiness-Profil.",
+    "body_2": "Du wirst dich zwischen konkurrierenden Realitäten entscheiden müssen, nicht zwischen idealen Antworten.",
+    "body_meta": "Deine Antworten ergeben ein ganzheitliches Readiness-Profil, nicht eine Reihe unabhängiger Einzelwerte.",
+    "stat_1": "Situationen",
+    "stat_2": "Minuten",
+    "stat_3": "Bewertete Quotienten",
+    "industry_select":{
+      "title": "Deine Branche (optional)",
+      "placeholder": "Branche wählen",
+      "opt_1": "Klebstoffe und Klebebänder",
+      "opt_2": "Luft- und Raumfahrt, Verteidigung",
+      "opt_3": "Gesundheitswesen",
+      "opt_4": "Konsumgüter",
+      "opt_5": "Management- und Strategieberatung",
+      "opt_6": "Payments und Fintech",
+      "opt_7": "Energiekabellösungen (HVDC, HVAC)",
+      "opt_8": "Technologie",
+      "opt_9": "Sonstige",
+      "other_text_input": "Bitte angeben"
+
+
+    },
+    "company_select": {
+      "title": "Unternehmensgröße (optional)",
+      "placeholder": "Unternehmensgröße"
+    },
+    "warn": "Bitte setz deinen Punkt in das Dreieck, um fortzufahren.",
+    "back-cta": "Zurück",
+    "next-cta": "Weiter",
+    "results": {
+      "main-title": "Dein Readiness Index",
+      "main-title-2": "Dein Readiness Profil",
+      "main-sub-title": "Ergebnisse Individueller Readiness Index",
+      "main-sub-title-2": "Wo du am stärksten bist und wo Raum für Entwicklung liegt",
+      "main-sub-description-2": "Diese Werte spiegeln deine Muster über alle 20 Szenarien wider - vier je andQfive Quotient. Sie sind kein Urteil über dich als Person. Sie zeigen, wie sich dein Umfeld unter Druck typischerweise verhält. Dieser Report ist relevant, ob du ein Team führst, in einem Team arbeitest oder beides.",
+      "loader-title": "Dein Readiness-Profil wird erstellt",
+      "loader-body": "Analyse der Systemmuster über Resilience, Preparedness und die fünf Quotienten.",
+      "score-title": "Readiness-Wert",
+      "score-description": "Readiness = Resilience × Preparedness. Die Multiplikation ist bewusst gewählt: Wer in einer Dimension einbricht, erreicht keine Readiness, wie stark die andere auch ist.",
+      "zone-legend": {
+        "zone-risk": "Im Risikobereich",
+        "zone-dev": "In Entwicklung",
+        "zone-build": "Im Aufbau",
+        "zone-ready": "Ready"
+      },
+      "zone-legend-2": {
+        "zone-risk-2": "Wirkt aktiv gegen dich",
+        "zone-dev-2": "In Entwicklung: braucht bewusste Arbeit",
+        "zone-build-2": "Im Aufbau: gute Grundlage",
+        "zone-ready-2": "Stark: eine echte Ressource"
+      },
+      "pattern-kicker": "Aktuelles Muster",
+      "focus-section-unlocked-break": "Seite 2 - Readiness aufbauen",
+      "focus-section-unlocked-title": "Deine drei Handlungsprioritäten",
+      "foot-download-pdf": "Als PDF speichern",
+      "foot-copy-url": "Link zu meinem Report kopieren",
+      "turnstile-title": "Deine Eingabe wird gesichert",
+      "turnstile-copy": "Wir prüfen kurz, ob deine Eingaben gültig sind, bevor wir deine Ergebnisse speichern.",
+      "turnstile-cancel": "Abbrechen"
+    }
+  }
+}
