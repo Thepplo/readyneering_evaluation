@@ -130,6 +130,7 @@
         "zone-ready-2": "Stark: eine echte Ressource"
       },
       "pattern-kicker": "Aktuelles Muster",
+      "overall-score": "GESAMT-READINESS",
       "focus-section-unlocked-break": "Seite 2 - Readiness aufbauen",
       "focus-section-unlocked-title": "Deine drei Handlungsprioritäten",
       "foot-download-pdf": "Als PDF speichern",
@@ -185,7 +186,12 @@
         "offer-next-closing-lede-1": "Die Handlungsschritte oben sind aus einem Grund vorbereitet. Der richtige nächste Schritt hängt von deinem individuellen Muster ab. Eine allgemeine Liste wäre nichts weiter als leere Worte.<strong>Was du brauchst, ist ein Gespräch.</strong>",
         "offer-next-closing-lede-2": "Wir haben dieses Gespräch schon oft geführt. Wir wissen, welche Frage wirklich trifft. Und ziemlich sicher ist es eine andere als die, die du dir selbst schon stellst.",
         "offer-next-closing-lede-3": "Dreißig Minuten. Deine Werte, deine Muster, dein nächster Schritt.",
-        "offer-teaser": "Darunter: <em>{hint}</em>"
+        "offer-teaser": "Darunter: <em>{hint}</em>",
+        "do-more-heading": "Mach mehr davon",
+        "do-less-heading": "Mach weniger davon",
+        "sit-with-heading": "Bleib bei diesen Fragen",
+        "sit-with-subheading": "Das sind Fragen, über die man nachdenken sollte, keine Probleme, die man sofort lösen muss. Es gibt keine richtigen Antworten, nur ehrliche."
+
       },
       "pattern": {
         "lede_intro": "Ein Readiness-Wert ist ein Ausgangspunkt.",

@@ -130,6 +130,7 @@
         "zone-ready-2": "Strong — a genuine asset"
       },
       "pattern-kicker": "Current pattern",
+      "overall-score": "OVERALL READINESS",
       "focus-section-unlocked-break": "Page 2 — Building your readiness capability",
       "focus-section-unlocked-title": "Your three priorities for action",
       "foot-download-pdf": "Save as PDF",
@@ -185,7 +186,11 @@
         "offer-next-closing-lede-1": "The actions above are prepared for a reason. The right next move is specific to your pattern. A generic list would be motivational confetti. <strong>What you need is a conversation.</strong>",
         "offer-next-closing-lede-2": "We have had this conversation before. We know which question cuts through. And we can almost guarantee it is not the one you are already asking yourself.",
         "offer-next-closing-lede-3": "Thirty minutes. Your scores, your patterns, your next move.",
-        "offer-teaser": "Including: <em>{hint}</em>"
+        "offer-teaser": "Including: <em>{hint}</em>",
+        "do-more-heading": "Do more of this",
+        "do-less-heading": "Do less of this",
+        "sit-with-heading": "Sit with these questions",
+        "sit-with-subheading": "These are questions to sit with, not problems to solve immediately. There are no right answers — just honest ones."
       },
       "pattern": {
         "lede_intro": "A Readiness score is a starting point.",

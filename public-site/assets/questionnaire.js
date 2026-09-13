@@ -1629,7 +1629,7 @@ function renderFocusActionsSection(focusActions) {
               <path d="M12 4L12 20M12 20L18 14M12 20L6 14" />
             </svg>
           </span>
-          <strong>Do more of this</strong>
+          <strong>${t('focus.do-more-heading')}</strong>
         </div>
         ${renderFocusActionList(focusActions.doMore, 'doMore')}
       </div>
@@ -1641,7 +1641,7 @@ function renderFocusActionsSection(focusActions) {
               <path d="M12 4L12 20M12 20L18 14M12 20L6 14" />
             </svg>
           </span>
-          <strong>Do less of this</strong>
+          <strong>${t('focus.do-less-heading')}</strong>
         </div>
         ${renderFocusActionList(focusActions.doLess, 'doLess')}
       </div>
@@ -1653,10 +1653,10 @@ function renderFocusActionsSection(focusActions) {
               <path d="M12 19H12.01M8.21704 7.69689C8.75753 6.12753 10.2471 5 12 5C14.2091 5 16 6.79086 16 9C16 10.6565 14.9931 12.0778 13.558 12.6852C12.8172 12.9988 12.4468 13.1556 12.3172 13.2767C12.1629 13.4209 12.1336 13.4651 12.061 13.6634C12 13.8299 12 14.0866 12 14.6L12 16" />
             </svg>
           </span>
-          <strong>Sit with these questions</strong>
+          <strong>${t('focus.sit-with-heading')}</strong>
         </div>
         <p class="focus-question-intro">
-          These are questions to sit with, not problems to solve immediately. There are no right answers - just honest ones.
+          ${t('focus.sit-with-subheading')}
         </p>
         ${renderFocusQuestionList(focusActions.sitWith)}
       </div>
@@ -2450,7 +2450,7 @@ function renderOrbit(res) {
       </foreignObject>
 
       <text x="${orbitCx}" y="${centerY + centerSize + 18}" text-anchor="middle" class="score-label center-label">
-        OVERALL READINESS
+        ${t('results.overall-score')}
       </text>
       <text x="${orbitCx}" y="${centerY + centerSize + 34}" text-anchor="middle" class="score-sub center-sub">
         Resilience × Preparedness
