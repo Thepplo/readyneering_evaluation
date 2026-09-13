@@ -107,7 +107,8 @@
     "next-cta": "Weiter",
     "assessment": {
       "next-button-halfway": "Halbzeit",
-      "next-button-submit": "Mein Readiness-Profil erstellen"
+      "next-button-submit": "Mein Readiness-Profil erstellen",
+      "next-button-next": "Weiter"
     },
     "results": {
       "main-title": "Dein Readiness Index",

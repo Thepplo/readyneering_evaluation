@@ -720,7 +720,7 @@ function updateUI() {
 
   const isLast = current === SHUFFLED_TRIADS.length - 1;
   const isHalfway = (current + 1) === Math.ceil(SHUFFLED_TRIADS.length / 2);
-  let label = 'Next';
+  let label = t('questionnaire.assessment.next-button-next');
   
   if (isLast) {
     label = t('questionnaire.assessment.next-button-submit');
