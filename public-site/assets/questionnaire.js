@@ -1577,14 +1577,14 @@ function splitFirstSentence(text) {
 
 function getOutcomePrefix(actionType) {
   if (actionType === 'doLess') {
-    return t('questionnaire.results.questionnaire.results.focus.outcome-prefix-do-less');
+    return t('questionnaire.results.focus.outcome-prefix-do-less');
   }
 
   if (actionType === 'sitWith') {
-    return t('questionnaire.results.questionnaire.results.focus.outcome-prefix-sit-with');
+    return t('questionnaire.results.focus.outcome-prefix-sit-with');
   }
 
-  return t('questionnaire.results.questionnaire.results.focus.outcome-prefix-do-more');
+  return t('questionnaire.results.focus.outcome-prefix-do-more');
 }
 
 function renderTinyUpArrow() {
@@ -2087,30 +2087,30 @@ function getOfferCards(open) {
     {
       type: 'more',
       icon: ICON_BUILD_READINESS,
-      title: t('questionnaire.results.questionnaire.results.focus.do-more.title'),
+      title: t('questionnaire.results.focus.do-more.title'),
       hint: hints.doMore,
-      meta: t('questionnaire.results.questionnaire.results.focus.do-more.body'),
+      meta: t('questionnaire.results.focus.do-more.body'),
     },
     {
       type: 'less',
       icon: ICON_REMOVE_FRICTION,
-      title: t('questionnaire.results.questionnaire.results.focus.do-less.title'),
+      title: t('questionnaire.results.focus.do-less.title'),
       hint: hints.doLess,
-      meta: t('questionnaire.results.questionnaire.results.focus.do-less.body'),
+      meta: t('questionnaire.results.focus.do-less.body'),
     },
     {
       type: 'sit',
       icon: ICON_GO_DEEPER,
-      title: t('questionnaire.results.questionnaire.results.focus.do-sit.title'),
+      title: t('questionnaire.results.focus.do-sit.title'),
       hint: hints.sitWith,
-      meta: t('questionnaire.results.questionnaire.results.focus.do-sit.body'),
+      meta: t('questionnaire.results.focus.do-sit.body'),
     },
   ];
 }
 
 function renderOfferCard(offer) {
 const teaser = offer.hint
-  ? `<div class="next-offer__teaser">${t('questionnaire.results.questionnaire.results.focus.offer-teaser', { hint: escapeHtml(offer.hint) })}</div>`
+  ? `<div class="next-offer__teaser">${t('questionnaire.results.focus.offer-teaser', { hint: escapeHtml(offer.hint) })}</div>`
   : '';
 
   return `
@@ -2134,13 +2134,13 @@ function renderDebriefInvitationSection(serverResult) {
   return `
     <section class="next-section">
       <header class="next-header">
-        <div class="next-kicker">${t('questionnaire.results.questionnaire.results.focus.offer-next-kicker')}</div>
+        <div class="next-kicker">${t('questionnaire.results.focus.offer-next-kicker')}</div>
       </header>
 
       <div class="next-body">
         <h2 class="next-title">
-          <span>${t('questionnaire.results.questionnaire.results.focus.offer-next-title')}</span>
-          <span style="color: #f5f5f5">${t('questionnaire.results.questionnaire.results.focus.offer-next-subtitle')}</span>
+          <span>${t('questionnaire.results.focus.offer-next-title')}</span>
+          <span style="color: #f5f5f5">${t('questionnaire.results.focus.offer-next-subtitle')}</span>
         </h2>
 
         ${renderSourceComment(serverResult.report.open)}
@@ -2151,18 +2151,18 @@ function renderDebriefInvitationSection(serverResult) {
         </div>
 
         <p class="next-lede next-lede--bold" style="margin-bottom: 12px;">
-          ${t('questionnaire.results.questionnaire.results.focus.offer-next-cta')}
+          ${t('questionnaire.results.focus.offer-next-cta')}
         </p>
 
         <div class="what-next-actions">
           ${bookingUrl ? `
             <a class="btn primary" id="book-followup-btn" href="${escapeHtml(bookingUrl)}" target="_blank" rel="noopener">
-              ${t('questionnaire.results.questionnaire.results.focus.offer-next-cta-book')}
+              ${t('questionnaire.results.focus.offer-next-cta-book')}
               <span class="arrow"></span>
             </a>
           ` : ''}
           <button type="button" class="what-next-secondary-btn" id="check-unlock-btn">
-            ${t('questionnaire.results.questionnaire.results.focus.offer-next-cta-reveal')}
+            ${t('questionnaire.results.focus.offer-next-cta-reveal')}
           </button>
         </div>
         <p id="unlock-status" class="unlock-status" aria-live="polite"></p>
@@ -2173,13 +2173,13 @@ function renderDebriefInvitationSection(serverResult) {
           ${renderPatternDiagnosis(serverResult.report.open)}
         </p>
         <p class="next-lede">
-          ${t('questionnaire.results.questionnaire.results.focus.offer-next-closing-lede-1')}
+          ${t('questionnaire.results.focus.offer-next-closing-lede-1')}
         </p>
         <p class="next-lede">
-          ${t('questionnaire.results.questionnaire.results.focus.offer-next-closing-lede-2')}
+          ${t('questionnaire.results.focus.offer-next-closing-lede-2')}
         </p>
         <p class="next-lede next-lede--bold">
-          ${t('questionnaire.results.questionnaire.results.focus.offer-next-closing-lede-3')}
+          ${t('questionnaire.results.focus.offer-next-closing-lede-3')}
         </p>
       </div>
     </section>
