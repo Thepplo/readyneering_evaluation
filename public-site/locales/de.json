@@ -113,6 +113,8 @@
       "main-sub-description-2": "Diese Werte spiegeln deine Muster über alle 20 Szenarien wider - vier je andQfive Quotient. Sie sind kein Urteil über dich als Person. Sie zeigen, wie sich dein Umfeld unter Druck typischerweise verhält. Dieser Report ist relevant, ob du ein Team führst, in einem Team arbeitest oder beides.",
       "loader-title": "Dein Readiness-Profil wird erstellt",
       "loader-body": "Analyse der Systemmuster über Resilience, Preparedness und die fünf Quotienten.",
+      "loader-title-pre": "Speichern Ihrer Antworten:",
+      "loader-body-pre": "Ihre Antworten werden sicher gespeichert, bevor wir Ihr Profil erstellen.",
       "score-title": "Readiness-Wert",
       "score-description": "Readiness = Resilience × Preparedness. Die Multiplikation ist bewusst gewählt: Wer in einer Dimension einbricht, erreicht keine Readiness, wie stark die andere auch ist.",
       "zone-legend": {
@@ -134,7 +136,29 @@
       "foot-copy-url": "Link zu meinem Report kopieren",
       "turnstile-title": "Deine Eingabe wird gesichert",
       "turnstile-copy": "Wir prüfen kurz, ob deine Eingaben gültig sind, bevor wir deine Ergebnisse speichern.",
-      "turnstile-cancel": "Abbrechen"
+      "turnstile-cancel": "Abbrechen",
+      "turnstile-copy-2": "Einen Moment, die Verifizierung wird vorbereitet …",
+      "turnstile-loading-failed": "Die Verifizierung läuft noch. Prüf deine Verbindung und versuch es erneut.",
+      "turnstile-retry": "Erneut versuchen",
+      "next-button-submit": "Mein Readiness-Profil erstellen",
+      "next-button-halfway": "Halfway there",
+      "next-button-submitting": "Profil wird erstellt...",
+      "mode-tag-both-strong": "Wirklich ready. Behalte das bei und hilf anderen, es aufzubauen.",
+      "mode-tag-both-low": "Das Fundament braucht Arbeit in beiden Dimensionen",
+      "mode-tag-preparedness-high-resilience-low": "Klare Richtung und starke Umsetzung, doch die Grundlage der persönlichen Resilienz ist noch fragil",
+      "mode-tag-resilience-high-preparedness-low": "Getragen von individueller Anstrengung, wo gemeinsame Gewohnheiten und klareres Denken die Arbeit übernehmen könnten",
+      "mode-tag-both-building-or-higher": "Solide in beiden Dimensionen. Die Priorität ist jetzt Konsistenz unter anhaltendem Druck",
+      "focus-subtitle-single": "Diese kommen direkt aus deinem niedrigsten Quotienten: ",
+      "focus-subtitle-multiple": "Diese kommen direkt aus deinen zwei niedrigsten Quotienten: ",
+      "focus": {
+        "callout": {
+          "intro": "Diese drei Prioritäten kommen aus den Bereichen, in denen deine Werte über die fünf Quotients am niedrigsten ausgeprägt sind.",
+          "reminder": "Zur Erinnerung: <strong>Readiness = Resilience × Preparedness.</strong> Eine Lücke in einer Dimension lässt sich durch Stärke in der anderen nicht ausgleichen.",
+          "final_with_chips": "Kleine, stetige Veränderungen bei {chips} bringen mehr als ein großer Einsatz in einem Bereich, in dem du schon stark bist.",
+          "final_fallback": "Kleine, stetige Veränderungen dort, wo deine Werte am niedrigsten sind, bringen mehr als ein großer Einsatz in einem Bereich, in dem du schon stark bist."
+        }
+      }
+
     }
   }
 }

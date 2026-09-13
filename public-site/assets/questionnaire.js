@@ -32,6 +32,16 @@ let turnstileShellTimer = null;
 let turnstileReady = false;
 let pendingToken = null;
 
+function t(key, vars) {
+  let str = key.split('.').reduce((o, k) => o?.[k], window.__I18N__) ?? key;
+  if (vars) {
+    for (const [k, v] of Object.entries(vars)) {
+      str = str.replaceAll(`{${k}}`, v);
+    }
+  }
+  return str;
+}
+
 globalThis.onTurnstileLoad = function () { turnstileReady = true; };
 
 function showVerifyCard() { setTurnstileChallengeActive(true); }
@@ -45,10 +55,10 @@ function showVerifyLoading() {
   const copyEl = shell.querySelector('.turnstile-copy');
   const cancelBtn = document.getElementById('turnstile-cancel');
 
-  if (titleEl) titleEl.textContent = 'Securing your submission';
-  if (copyEl) copyEl.textContent = 'One moment while we set up verification…';
+  if (titleEl) titleEl.textContent = t('questionnaire.results.turnstile-title');
+  if (copyEl) copyEl.textContent = t('questionnaire.results.turnstile-copy');
   if (cancelBtn) {
-    cancelBtn.textContent = 'Cancel';
+    cancelBtn.textContent = t('questionnaire.results.turnstile-cancel');
     cancelBtn.onclick = hideVerifyCard;
   }
 
@@ -58,8 +68,8 @@ function showVerifyLoading() {
   clearTimeout(turnstileShellTimer);
   turnstileShellTimer = setTimeout(() => {
     if (!shell.classList.contains('is-loading')) return;
-    if (copyEl) copyEl.textContent = 'Still setting up… check your connection and try again.';
-    if (cancelBtn) { cancelBtn.textContent = 'Try again'; cancelBtn.onclick = beginVerifyAndSubmit; }
+    if (copyEl) copyEl.textContent = t('questionnaire.results.turnstile-loading-failed');
+    if (cancelBtn) { cancelBtn.textContent = t('questionnaire.results.turnstile-retry'); cancelBtn.onclick = beginVerifyAndSubmit; }
   }, 8000);
 }
 
@@ -127,7 +137,7 @@ function showVerifyRetry(message) {
   const copy = document.querySelector('#turnstile-shell .turnstile-copy');
   if (copy) copy.textContent = message;
   const btn = document.getElementById('turnstile-cancel');
-  if (btn) { btn.textContent = 'Try again'; btn.onclick = beginVerifyAndSubmit; }
+  if (btn) { btn.textContent = t('questionnaire.results.turnstile-retry'); btn.onclick = beginVerifyAndSubmit; }
   showVerifyCard();
 }
 
@@ -197,7 +207,7 @@ function getSubmitAttemptId() {
 const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app/functions/v1';
 
 async function saveAssessment(payload, token) {
-  setResultsLoaderText('Saving your responses', 'Your answers are being securely saved before we build your profile.');
+  setResultsLoaderText(t('questionnaire.results.loader-title-pre'), t('questionnaire.results.loader-body-pre'));
   /* const idempotencyKey = getSubmitAttemptId(); */
   const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/submit`, {
     method: 'POST',
@@ -214,8 +224,7 @@ async function saveAssessment(payload, token) {
   localStorage.removeItem('submit_attempt_id');
 
   setResultsLoaderText(
-    'Building your readiness profile',
-    'Analyzing system patterns across resilience, preparedness, and the five quotients.'
+    t('questionnaire.results.loader-title'), t('questionnaire.results.loader-copy')
   );
 
   return data;
@@ -238,7 +247,7 @@ async function submitAssessmentOnce() {
   };
   return currentResult;
 }
-
+/* 
 const MODE_META = {
   resilience: {
     role: "How strong you are when the environment becomes unstable or unpredictable.",
@@ -277,7 +286,7 @@ const MODE_META = {
       low: "Where is readiness depending more on memory than on structure?"
     }
   }
-};
+}; */
 
 
 const QUOTIENT_ICONS = {
@@ -714,9 +723,9 @@ function updateUI() {
   let label = 'Next';
   
   if (isLast) {
-    label = 'Generate my readiness profile';
+    label = t('questionnaire.assessment.next-button-submit');
   } else if (isHalfway) {
-    label = 'Halfway there';
+    label = t('questionnaire.assessment.next-button-halfway');
     gsap.fromTo('#prog',
       { boxShadow: '0 0 0 rgba(255,218,51,0)' },
       { boxShadow: '0 0 12px rgba(255,218,51,0.6)', duration: 0.4, yoyo: true, repeat: 1 }
@@ -769,7 +778,7 @@ document.getElementById('btn-next').addEventListener('click', function() {
 
   if (current === SHUFFLED_TRIADS.length - 1) {
     isSubmittingAssessment = true;
-    document.getElementById('btn-next').innerHTML = 'Generating profile...';
+    document.getElementById('btn-next').innerHTML = t('questionnaire.assessment.next-button-submitting') + ' <span class="arrow"></span>';
     document.getElementById('btn-next').style.pointerEvents = 'none';
     document.getElementById('btn-back').disabled = true;
 
@@ -832,7 +841,7 @@ function getModeStructure(rScore, pScore) {
   if (rLevel === 'strong' && pLevel === 'strong') {
     return {
       modeStructure: 'both-strong',
-      modeTag: 'Genuinely ready - protect this and help others build it',
+      modeTag: t('questionnaire.results.mode-tag-both-strong'),
       resilienceLevel: rLevel,
       preparednessLevel: pLevel
     };
@@ -841,7 +850,7 @@ function getModeStructure(rScore, pScore) {
   if (rLow && pLow) {
     return {
       modeStructure: 'both-low',
-      modeTag: 'The foundation needs work across both dimensions',
+      modeTag: t('questionnaire.results.mode-tag-both-low'),
       resilienceLevel: rLevel,
       preparednessLevel: pLevel
     };
@@ -850,7 +859,7 @@ function getModeStructure(rScore, pScore) {
   if (rLow && pHigh) {
     return {
       modeStructure: 'preparedness-high-resilience-low',
-      modeTag: 'Strong direction and execution, but the personal resilience foundation is fragile',
+      modeTag: t('questionnaire.results.mode-tag-preparedness-high-resilience-low'),
       resilienceLevel: rLevel,
       preparednessLevel: pLevel
     };
@@ -859,7 +868,7 @@ function getModeStructure(rScore, pScore) {
   if (rHigh && pLow) {
     return {
       modeStructure: 'resilience-high-preparedness-low',
-      modeTag: 'Relying on individual effort where shared habits and clearer thinking could do the work',
+      modeTag: t('questionnaire.results.mode-tag-resilience-high-preparedness-low'),
       resilienceLevel: rLevel,
       preparednessLevel: pLevel
     };
@@ -868,7 +877,7 @@ function getModeStructure(rScore, pScore) {
   if (rHigh && pHigh) {
     return {
       modeStructure: 'both-building-or-higher',
-      modeTag: 'Solid across both dimensions - the priority now is consistency under sustained pressure',
+      modeTag: t('questionnaire.results.mode-tag-both-building-or-higher'),
       resilienceLevel: rLevel,
       preparednessLevel: pLevel
     };
@@ -945,15 +954,15 @@ function buildModeInsights(results) {
   };
 }
 
-function getModeSupportLine(mode) {
+/* function getModeSupportLine(mode) {
   function styledLabel(q) {
     return `<span class="q-chip ${q.key}">${q.label}</span>`;
   }
 
   return `Supported most by ${styledLabel(mode.strongest)}, constrained most by ${styledLabel(mode.weakest)}.`;
-}
+} */
 
-function getModeSpreadLine(mode) {
+/* function getModeSpreadLine(mode) {
   if (mode.spread > 0.6) {
     return "This pattern is uneven across quotients, suggesting it depends on a few stronger areas more than a complete system.";
   }
@@ -981,7 +990,7 @@ function getModeStructureLine(modeKey, structure) {
   }
 
   return "Resilience and preparedness are relatively balanced in the current profile.";
-}
+} */
 
 /* function buildModeCards(results) {
   const insights = buildModeInsights(results);
@@ -1022,7 +1031,7 @@ function renderQChipsForMode(key) {
     return `<span class="q-chip ${q}">${q}</span>`;
   }).join('');
 }
-
+/* 
 function renderModeCard(m) {
   return `
     <div class="mode-card ${m.key} ${m.level}">
@@ -1065,7 +1074,7 @@ function renderModeCard(m) {
       -->
     </div>
   `;
-}
+} */
 /* 
 function renderModeGrid(results) {
   const modes = buildModeCards(results);
@@ -1115,8 +1124,8 @@ function renderServerFocusSubtitle(focusActions) {
   const chipHtml = renderFocusChipList(items);
 
   const intro = items.length === 1
-    ? 'These come directly from your lowest-scoring quotient - '
-    : 'These come directly from your two lowest-scoring quotients - ';
+    ? t('questionnaire.results.focus-subtitle-single') + ' '
+    : t('questionnaire.results.focus-subtitle-multiple') + ' ';
 
   return `
     <p class="page-sub" style="color:#555555 !important; line-height: 1.75; font-size: 13px; max-width: 755px; margin-bottom: 5%;">
@@ -1134,10 +1143,10 @@ const QUOTIENT_DIMENSIONS = {
 };
 
 function bandLabelFromScore(score) {
-  if (score < 2.5) return 'at-risk';
-  if (score < 3.5) return 'developing';
-  if (score < 4.3) return 'building';
-  return 'ready';
+  if (score < 2.5) return t('questionnaire.results.zone-legend.zone-risk');
+  if (score < 3.5) return t('questionnaire.results.zone-legend.zone-dev');
+  if (score < 4.3) return t('questionnaire.results.zone-legend.zone-build');
+  return t('questionnaire.results.zone-legend.zone-ready');
 }
 
 function dimensionAverage(scores, dimension) {
@@ -1251,16 +1260,15 @@ function renderFocusCallout(focusActions) {
   const quotientChips = renderFocusChipList(items);
 
   const finalSentence = quotientChips
-    ? `Small, consistent shifts in ${quotientChips} will do more than a significant effort in an area where you are already strong.`
-    : 'Small, consistent shifts where your scores are lowest will do more than a significant effort in an area where you are already strong.';
+    ? t('focus.callout.final_with_chips', { chips: quotientChips })
+    : t('focus.callout.final_fallback');
 
   return `
     <div class="focus-actions-callout">
       <p>
-        These three priorities come from where your scores are lowest across the Five Quotients.
+        ${t('focus.callout.intro')}
         <br>
-        Remember: <strong>Readiness = Preparedness × Resilience.</strong>
-        A gap in either dimension cannot be covered by strength in the other.
+        ${t('focus.callout.reminder')}
         <br>
         ${finalSentence}
       </p>
@@ -1408,10 +1416,10 @@ function getQuotientLevel(score) {
 
 function getQuotientLevelLabel(level) {
   const labels = {
-    risk: 'At risk',
-    developing: 'Developing',
-    building: 'Building',
-    ready: 'Ready'
+    risk: t('questionnaire.results.zone-legend.zone-risk'),
+    developing: t('questionnaire.results.zone-legend.zone-dev'),
+    building: t('questionnaire.results.zone-legend.zone-build'),
+    ready: t('questionnaire.results.zone-legend.zone-ready')
   };
 
   return labels[level] || 'Developing';

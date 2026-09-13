@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "@supabase/supabase-js": "^2.103.0"
+  },
+  "scripts": {
+    "build": "node scripts/build-i18n.mjs"
   }
 }

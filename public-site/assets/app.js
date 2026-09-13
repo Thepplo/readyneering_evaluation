@@ -479,7 +479,7 @@ function setMode(m) {
   updateNodeStyles();
 }
 
-fetch('./assets/images/atom-model.svg')
+fetch('/./assets/images/atom-model.svg')
   .then(res => res.text())
   .then(svg => {
     const wrap = document.getElementById('atom-svg');

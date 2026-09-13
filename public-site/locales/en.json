@@ -112,6 +112,8 @@
       "main-sub-description-2": "These scores reflect your patterns across all 20 scenarios - four for each of the andQfive Quotients. They are not a judgement of you as a person - they show how the environment you operate in tends to behave under pressure. This report is relevant whether you lead a team, work as part of one, or both.",
       "loader-title": "Building your readiness profile",
       "loader-body": "Analyzing system patterns across resilience, preparedness, and the five quotients.",
+      "loader-title-pre": "Saving your responses",
+      "loader-body-pre": "Your answers are being securely saved before we build your profile.",
       "score-title": "Readiness Score",
       "score-description": "Readiness = Preparedness × Resilience. The multiplication is deliberate - someone who collapses on one dimension is not ready, regardless of how strong the other is.",
       "zone-legend": {
@@ -133,7 +135,28 @@
       "foot-copy-url": "Copy link to my report",
       "turnstile-title": "Securing your submission",
       "turnstile-copy": "We’re checking this is a genuine assessment before saving your results.",
-      "turnstile-cancel": "Cancel"
+      "turnstile-copy-2": "One moment while we set up verification…",
+      "turnstile-cancel": "Cancel",
+      "turnstile-loading-failed": "Still setting up… check your connection and try again.",
+      "turnstile-retry": "Try again",
+      "next-button-submit": "Generate my readiness profile",
+      "next-button-halfway": "Halfway there",
+      "next-button-submitting": "Generating profile...",
+      "mode-tag-both-strong": "Genuinely ready — protect this and help others build it",
+      "mode-tag-both-low": "The foundation needs work across both dimensions",
+      "mode-tag-preparedness-high-resilience-low": "Strong direction and execution, but the personal resilience foundation is fragile",
+      "mode-tag-resilience-high-preparedness-low": "Relying on individual effort where shared habits and clearer thinking could do the work",
+      "mode-tag-both-building-or-higher": "Solid across both dimensions — the priority now is consistency under sustained pressure",
+      "focus-subtitle-single": "This comes directly from your lowest-scoring quotient — ",
+      "focus-subtitle-multiple": "These come directly from your two lowest-scoring quotients — ",
+      "focus": {
+        "callout": {
+          "intro": "These three priorities come from where your scores are lowest across the Five Quotients.",
+          "reminder": "Remember: <strong>Readiness = Preparedness × Resilience.</strong> A gap in either dimension cannot be covered by strength in the other.",
+          "final_with_chips": "Small, consistent shifts in {chips} will do more than a significant effort in an area where you are already strong.",
+          "final_fallback": "Small, consistent shifts where your scores are lowest will do more than a significant effort in an area where you are already strong."
+        }
+      }
     }
   }
 }
