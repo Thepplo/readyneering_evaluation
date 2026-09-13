@@ -419,9 +419,7 @@ if (dotWrap) {
     d.className = 'q-dot';
     d.innerHTML = `<span class="q-dot-tip">${qName(q)}</span>`;
     d.addEventListener('click', () => {
-      selected = i;
-      hovered = null;
-      render();
+      selectQ(i);
     });
     dotWrap.appendChild(d);
   });
@@ -479,7 +477,7 @@ function setMode(m) {
   updateNodeStyles();
 }
 
-fetch('/./assets/images/atom-model.svg')
+fetch('/assets/images/atom-model.svg')
   .then(res => res.text())
   .then(svg => {
     const wrap = document.getElementById('atom-svg');
