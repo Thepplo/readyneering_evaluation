@@ -154,7 +154,8 @@
           "intro": "These three priorities come from where your scores are lowest across the Five Quotients.",
           "reminder": "Remember: <strong>Readiness = Preparedness × Resilience.</strong> A gap in either dimension cannot be covered by strength in the other.",
           "final_with_chips": "Small, consistent shifts in {chips} will do more than a significant effort in an area where you are already strong.",
-          "final_fallback": "Small, consistent shifts where your scores are lowest will do more than a significant effort in an area where you are already strong."
+          "final_fallback": "Small, consistent shifts where your scores are lowest will do more than a significant effort in an area where you are already strong.",
+          "chip_conjunction": "and"
         }
       }
     }

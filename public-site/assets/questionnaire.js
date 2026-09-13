@@ -1107,12 +1107,14 @@ function renderFocusChipList(items) {
     return chips[0];
   }
 
+  const and = t('focus.chip_conjunction');
+
   if (chips.length === 2) {
-    return chips[0] + ' <span class="subtitle-and">and</span> ' + chips[1];
+    return chips[0] + ` <span class="subtitle-and">${and}</span> ` + chips[1];
   }
 
   return chips.slice(0, -1).join(', ') +
-    ', <span class="subtitle-and">and</span> ' +
+    `, <span class="subtitle-and">${and}</span> ` +
     chips[chips.length - 1];
 }
 

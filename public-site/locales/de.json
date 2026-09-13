@@ -155,7 +155,8 @@
           "intro": "Diese drei Prioritäten kommen aus den Bereichen, in denen deine Werte über die fünf Quotients am niedrigsten ausgeprägt sind.",
           "reminder": "Zur Erinnerung: <strong>Readiness = Resilience × Preparedness.</strong> Eine Lücke in einer Dimension lässt sich durch Stärke in der anderen nicht ausgleichen.",
           "final_with_chips": "Kleine, stetige Veränderungen bei {chips} bringen mehr als ein großer Einsatz in einem Bereich, in dem du schon stark bist.",
-          "final_fallback": "Kleine, stetige Veränderungen dort, wo deine Werte am niedrigsten sind, bringen mehr als ein großer Einsatz in einem Bereich, in dem du schon stark bist."
+          "final_fallback": "Kleine, stetige Veränderungen dort, wo deine Werte am niedrigsten sind, bringen mehr als ein großer Einsatz in einem Bereich, in dem du schon stark bist.",
+          "chip_conjunction": "und"
         }
       }
 
