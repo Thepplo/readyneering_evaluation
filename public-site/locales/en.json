@@ -162,9 +162,9 @@
           "final_with_chips": "Small, consistent shifts in {chips} will do more than a significant effort in an area where you are already strong.",
           "final_fallback": "Small, consistent shifts where your scores are lowest will do more than a significant effort in an area where you are already strong.",
           "chip_conjunction": "and",
-          "focus.outcome-prefix-do-less": "Supports",
-          "focus.outcome-prefix-sit-with": "Reflecting on this supports",
-          "focus.outcome-prefix-do-more": "Supports"
+          "outcome-prefix-do-less": "Supports",
+          "outcome-prefix-sit-with": "Reflecting on this supports",
+          "outcome-prefix-do-more": "Supports"
         },
         "do-more": {
           "title": "Building Readiness",

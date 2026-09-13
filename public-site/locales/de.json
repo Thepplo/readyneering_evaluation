@@ -163,9 +163,9 @@
           "final_with_chips": "Kleine, stetige Veränderungen bei {chips} bringen mehr als ein großer Einsatz in einem Bereich, in dem du schon stark bist.",
           "final_fallback": "Kleine, stetige Veränderungen dort, wo deine Werte am niedrigsten sind, bringen mehr als ein großer Einsatz in einem Bereich, in dem du schon stark bist.",
           "chip_conjunction": "und",
-          "focus.outcome-prefix-do-less": "Stärkt",
-          "focus.outcome-prefix-sit-with": "Darüber nachzudenken stärkt",
-          "focus.outcome-prefix-do-more": "Stärkt"
+          "outcome-prefix-do-less": "Stärkt",
+          "outcome-prefix-sit-with": "Darüber nachzudenken stärkt",
+          "outcome-prefix-do-more": "Stärkt"
         },
         "do-more": {
           "title": "Readiness aufbauen",
