@@ -2134,13 +2134,13 @@ function renderDebriefInvitationSection(serverResult) {
   return `
     <section class="next-section">
       <header class="next-header">
-        <div class="next-kicker">What happens next</div>
+        <div class="next-kicker">${t('questionnaire.results.focus.offer-next-kicker')}</div>
       </header>
 
       <div class="next-body">
         <h2 class="next-title">
-          <span>Your debrief is ready.</span>
-          <span style="color: #f5f5f5">Open it by booking the conversation.</span>
+          <span>${t('questionnaire.results.focus.offer-next-title')}</span>
+          <span style="color: #f5f5f5">${t('questionnaire.results.focus.offer-next-subtitle')}</span>
         </h2>
 
         ${renderSourceComment(serverResult.report.open)}
@@ -2151,18 +2151,18 @@ function renderDebriefInvitationSection(serverResult) {
         </div>
 
         <p class="next-lede next-lede--bold" style="margin-bottom: 12px;">
-          You have seen the pattern. Book the debrief and arrive ready for the conversation.
+          ${t('questionnaire.results.focus.offer-next-cta')}
         </p>
 
         <div class="what-next-actions">
           ${bookingUrl ? `
             <a class="btn primary" id="book-followup-btn" href="${escapeHtml(bookingUrl)}" target="_blank" rel="noopener">
-              Book your 45-minute debrief
+              ${t('questionnaire.results.focus.offer-next-cta-book')}
               <span class="arrow"></span>
             </a>
           ` : ''}
           <button type="button" class="what-next-secondary-btn" id="check-unlock-btn">
-            I've booked — reveal my actions
+            ${t('questionnaire.results.focus.offer-next-cta-reveal')}
           </button>
         </div>
         <p id="unlock-status" class="unlock-status" aria-live="polite"></p>
@@ -2173,16 +2173,13 @@ function renderDebriefInvitationSection(serverResult) {
           ${renderPatternDiagnosis(serverResult.report.open)}
         </p>
         <p class="next-lede">
-          The actions above are prepared for a reason. The right next move is specific
-          to your pattern. A generic list would be motivational confetti. <span class="next-lede--bold">What you need
-          is a conversation.</span>
+          ${t('questionnaire.results.focus.offer-next-closing-lede-1')}
         </p>
         <p class="next-lede">
-          We have had this conversation before. We know which question cuts through.
-          And we can almost guarantee it is not the one you are already asking yourself.
+          ${t('questionnaire.results.focus.offer-next-closing-lede-2')}
         </p>
         <p class="next-lede next-lede--bold">
-          Thirty minutes. Your scores, your patterns, your next move.
+          ${t('questionnaire.results.focus.offer-next-closing-lede-3')}
         </p>
       </div>
     </section>

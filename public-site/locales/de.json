@@ -176,6 +176,15 @@
           "title": "Tiefer gehen",
           "body": "3 Impulse · um das Gespräch zu öffnen"
         },
+        "offer-next-kicker": "Wie es weitergeht",
+        "offer-next-title": "Deine Auswertung ist bereit.",
+        "offer-next-subtitle": "Öffne sie, indem du das Gespräch buchst.",
+        "offer-next-cta": "Du hast das Muster gesehen. Buch das Auswertungsgespräch und komm vorbereitet hinein.",
+        "offer-next-cta-book": "45-Minuten-Gespräch buchen",
+        "offer-next-cta-reveal": "Ich habe gebucht, schalte meine Handlungsschritte frei",
+        "offer-next-closing-lede-1": "Die Handlungsschritte oben sind aus einem Grund vorbereitet. Der richtige nächste Schritt hängt von deinem individuellen Muster ab. Eine allgemeine Liste wäre nichts weiter als leere Worte.<strong>Was du brauchst, ist ein Gespräch.</strong>",
+        "offer-next-closing-lede-2": "Wir haben dieses Gespräch schon oft geführt. Wir wissen, welche Frage wirklich trifft. Und ziemlich sicher ist es eine andere als die, die du dir selbst schon stellst.",
+        "offer-next-closing-lede-3": "Dreißig Minuten. Deine Werte, deine Muster, dein nächster Schritt.",
         "offer-teaser": "Darunter: <em>{hint}</em>"
       },
       "pattern": {
