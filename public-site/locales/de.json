@@ -121,7 +121,9 @@
         "zone-risk": "Im Risikobereich",
         "zone-dev": "In Entwicklung",
         "zone-build": "Im Aufbau",
-        "zone-ready": "Ready"
+        "zone-ready": "Ready",
+        "label_question": "Wo liegt <span class=\"zone-label-score\">{score}</span> auf der Gesamtskala?"
+
       },
       "zone-legend-2": {
         "zone-risk-2": "Wirkt aktiv gegen dich",

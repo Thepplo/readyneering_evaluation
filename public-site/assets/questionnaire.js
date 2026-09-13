@@ -1754,10 +1754,10 @@ function formatLevel(score) {
   const level = getDebriefLevel(score);
 
   const labels = {
-    risk: 'At risk',
-    developing: 'Developing',
-    building: 'Building',
-    strong: 'Strong'
+    risk: t('questionnaire.results.zone-legend.zone-risk'),
+    developing: t('questionnaire.results.zone-legend.zone-developing'),
+    building: t('questionnaire.results.zone-legend.zone-building'),
+    strong: t('questionnaire.results.zone-legend.zone-strong')
   };
 
   return labels[level] || level;
@@ -2517,10 +2517,7 @@ function renderVerdictFromServer(verdict, res) {
   const pscore = res.P;
   const rscore = res.R;
 
-  zonelabel.innerHTML =
-    'Where does <span class="zone-label-score">' +
-    score.toFixed(2) +
-    '</span> sit on the full scale?';
+  zonelabel.innerHTML = t('questionnaire.results.zone-legend.label_question', { score: score.toFixed(2) });
 
   setScoreMarkerPositions(score, rscore, pscore);
 

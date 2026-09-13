@@ -121,7 +121,8 @@
         "zone-risk": "At risk",
         "zone-dev": "Developing",
         "zone-build": "Building",
-        "zone-ready": "Ready"
+        "zone-ready": "Ready",
+        "label_question": "Where does <span class=\"zone-label-score\">{score}</span> sit on the full scale?"
       },
       "zone-legend-2": {
         "zone-risk-2": "Actively working against you",
