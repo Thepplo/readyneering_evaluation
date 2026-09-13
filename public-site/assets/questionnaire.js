@@ -1577,14 +1577,14 @@ function splitFirstSentence(text) {
 
 function getOutcomePrefix(actionType) {
   if (actionType === 'doLess') {
-    return t('questionnaire.results.focus.outcome-prefix-do-less');
+    return t('questionnaire.results.focus.callout.outcome-prefix-do-less');
   }
 
   if (actionType === 'sitWith') {
-    return t('questionnaire.results.focus.outcome-prefix-sit-with');
+    return t('questionnaire.results.focus.callout.outcome-prefix-sit-with');
   }
 
-  return t('questionnaire.results.focus.outcome-prefix-do-more');
+  return t('questionnaire.results.focus.callout.outcome-prefix-do-more');
 }
 
 function renderTinyUpArrow() {
