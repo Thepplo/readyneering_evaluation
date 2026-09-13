@@ -104,6 +104,10 @@
     "warn": "Please place your dot in the triangle before continuing.",
     "back-cta": "Back",
     "next-cta": "Next",
+    "assessment": {
+      "next-button-halfway": "Halfway there",
+      "next-button-submit": "Generate my readiness profile"
+    },
     "results": {
       "main-title": "Your Readiness Index",
       "main-title-2": "Your readiness profile",

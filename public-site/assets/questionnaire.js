@@ -2450,7 +2450,7 @@ function renderOrbit(res) {
       </foreignObject>
 
       <text x="${orbitCx}" y="${centerY + centerSize + 18}" text-anchor="middle" class="score-label center-label">
-        ${t('results.overall-score')}
+        ${t('questionnaire.results.overall-score')}
       </text>
       <text x="${orbitCx}" y="${centerY + centerSize + 34}" text-anchor="middle" class="score-sub center-sub">
         Resilience × Preparedness

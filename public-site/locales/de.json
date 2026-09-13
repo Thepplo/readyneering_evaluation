@@ -105,6 +105,10 @@
     "warn": "Bitte setz deinen Punkt in das Dreieck, um fortzufahren.",
     "back-cta": "Zurück",
     "next-cta": "Weiter",
+    "assessment": {
+      "next-button-halfway": "Halbzeit",
+      "next-button-submit": "Mein Readiness-Profil erstellen"
+    },
     "results": {
       "main-title": "Dein Readiness Index",
       "main-title-2": "Dein Readiness Profil",
