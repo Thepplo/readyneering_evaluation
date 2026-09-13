@@ -1755,9 +1755,9 @@ function formatLevel(score) {
 
   const labels = {
     risk: t('questionnaire.results.zone-legend.zone-risk'),
-    developing: t('questionnaire.results.zone-legend.zone-developing'),
-    building: t('questionnaire.results.zone-legend.zone-building'),
-    strong: t('questionnaire.results.zone-legend.zone-strong')
+    developing: t('questionnaire.results.zone-legend.zone-dev'),
+    building: t('questionnaire.results.zone-legend.zone-build'),
+    strong: t('questionnaire.results.zone-legend.zone-ready')
   };
 
   return labels[level] || level;
