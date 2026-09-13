@@ -2228,7 +2228,7 @@ async function loadResultByToken(token) {
   });
   const data = await response.json();
   if (!response.ok) {
-    throw new Error(data.error || 'This results link is no longer valid.');
+    throw new Error(data.error || t('questionnaire.results.error-loading-report'));
   }
   return {
     result_id: data.result_id,
@@ -2251,8 +2251,8 @@ async function renderResultsFromToken(token) {
     if (content) {
       content.innerHTML = `
         <div class="results-error">
-          <h2>This results link isn’t available.</h2>
-          <p>${escapeHtml(err.message || 'The link may have expired or is incorrect.')}</p>
+          <h2>${t('questionnaire.results.error-loading-report')}</h2>
+          <p>${escapeHtml(err.message || t('questionnaire.results.error-loading-report-details'))}</p>
         </div>`;
     }
   }
@@ -2281,7 +2281,7 @@ async function refreshReportUnlockStatus(serverResult) {
   const data = await response.json();
 
   if (!response.ok) {
-    status.textContent = data.error || 'Could not check the report yet.';
+    status.textContent = data.error || t('questionnaire.results.error-loading-report');
     return;
   }
 
@@ -2544,8 +2544,8 @@ function togglePrivacyDetails() {
   details.setAttribute('aria-hidden', String(!isOpen));
   toggle.setAttribute('aria-expanded', String(isOpen));
   toggle.textContent = isOpen
-    ? 'Hide privacy details'
-    : 'Read more about how your data is used';
+    ? t('questionnaire.privacy.toggle-hide-details')
+    : t('questionnaire.privacy.toggle-show-details');
 }
 
 function hasPrivacyConsent() {
@@ -2642,7 +2642,6 @@ document.getElementById('foot-download-pdf').addEventListener('click', function(
   const originalTitle = document.title;
   document.title = `andQfive Readiness Report — ${new Date().toISOString().slice(0,10)}`;
   globalThis.print();
-  // Restore title after print dialog closes
   setTimeout(() => { document.title = originalTitle; }, 100);
 });
 

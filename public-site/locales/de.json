@@ -220,6 +220,10 @@
         "developing": "Das zu stärken baut dein Fundament bei {build} auf.",
         "building": "Das sind aktuelle Stärken, die du wiederholen und verlässlicher machen kannst."
       }
+    },
+    "privacy": {
+      "toggle-hide-details": "Datenschutzdetails ausblenden",
+      "toggle-show-details": "Erfahren Sie mehr darüber, wie Ihre Daten verwendet werden"
     }
   }
 }

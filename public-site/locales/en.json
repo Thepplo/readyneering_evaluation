@@ -145,6 +145,8 @@
       "turnstile-verification-failed": "Verification failed. Please try again.",
       "turnstile-verification-timed-out": "Verification timed out. Please try again.",
       "turnstile-challenge-prompt": "Please complete the check below to continue.",
+      "error-loading-report": "This results link is no longer valid.",
+      "error-loading-report-details": "The link may have expired or is incorrect.",
       "next-button-submit": "Generate my readiness profile",
       "next-button-halfway": "Halfway there",
       "next-button-submitting": "Generating profile...",
@@ -218,6 +220,10 @@
         "developing": "Strengthening this builds your {build} foundation.",
         "building": "These are current strengths to repeat, and make more dependable."
       }
+    },
+    "privacy": {
+      "toggle-hide-details": "Hide privacy details",
+      "toggle-show-details": "Read more about how your data is used"
     }
   }
 }
