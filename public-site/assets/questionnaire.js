@@ -1107,7 +1107,7 @@ function renderFocusChipList(items) {
     return chips[0];
   }
 
-  const and = t('focus.callout.chip_conjunction');
+  const and = t('questionnaire.results.focus.callout.chip_conjunction');
 
   if (chips.length === 2) {
     return chips[0] + ` <span class="subtitle-and">${and}</span> ` + chips[1];
@@ -1284,15 +1284,15 @@ function renderFocusCallout(focusActions) {
   const quotientChips = renderFocusChipList(items);
 
   const finalSentence = quotientChips
-    ? t('focus.callout.final_with_chips', { chips: quotientChips })
-    : t('focus.callout.final_fallback');
+    ? t('questionnaire.results.focus.callout.final_with_chips', { chips: quotientChips })
+    : t('questionnaire.results.focus.callout.final_fallback');
 
   return `
     <div class="focus-actions-callout">
       <p>
-        ${t('focus.callout.intro')}
+        ${t('questionnaire.results.focus.callout.intro')}
         <br>
-        ${t('focus.callout.reminder')}
+        ${t('questionnaire.results.focus.callout.reminder')}
         <br>
         ${finalSentence}
       </p>
@@ -1577,14 +1577,14 @@ function splitFirstSentence(text) {
 
 function getOutcomePrefix(actionType) {
   if (actionType === 'doLess') {
-    return t('questionnaire.results.focus.outcome-prefix-do-less');
+    return t('questionnaire.results.questionnaire.results.focus.outcome-prefix-do-less');
   }
 
   if (actionType === 'sitWith') {
-    return t('questionnaire.results.focus.outcome-prefix-sit-with');
+    return t('questionnaire.results.questionnaire.results.focus.outcome-prefix-sit-with');
   }
 
-  return t('questionnaire.results.focus.outcome-prefix-do-more');
+  return t('questionnaire.results.questionnaire.results.focus.outcome-prefix-do-more');
 }
 
 function renderTinyUpArrow() {
@@ -1629,7 +1629,7 @@ function renderFocusActionsSection(focusActions) {
               <path d="M12 4L12 20M12 20L18 14M12 20L6 14" />
             </svg>
           </span>
-          <strong>${t('focus.do-more-heading')}</strong>
+          <strong>${t('questionnaire.results.focus.do-more-heading')}</strong>
         </div>
         ${renderFocusActionList(focusActions.doMore, 'doMore')}
       </div>
@@ -1641,7 +1641,7 @@ function renderFocusActionsSection(focusActions) {
               <path d="M12 4L12 20M12 20L18 14M12 20L6 14" />
             </svg>
           </span>
-          <strong>${t('focus.do-less-heading')}</strong>
+          <strong>${t('questionnaire.results.focus.do-less-heading')}</strong>
         </div>
         ${renderFocusActionList(focusActions.doLess, 'doLess')}
       </div>
@@ -1653,10 +1653,10 @@ function renderFocusActionsSection(focusActions) {
               <path d="M12 19H12.01M8.21704 7.69689C8.75753 6.12753 10.2471 5 12 5C14.2091 5 16 6.79086 16 9C16 10.6565 14.9931 12.0778 13.558 12.6852C12.8172 12.9988 12.4468 13.1556 12.3172 13.2767C12.1629 13.4209 12.1336 13.4651 12.061 13.6634C12 13.8299 12 14.0866 12 14.6L12 16" />
             </svg>
           </span>
-          <strong>${t('focus.sit-with-heading')}</strong>
+          <strong>${t('questionnaire.results.focus.sit-with-heading')}</strong>
         </div>
         <p class="focus-question-intro">
-          ${t('focus.sit-with-subheading')}
+          ${t('questionnaire.results.focus.sit-with-subheading')}
         </p>
         ${renderFocusQuestionList(focusActions.sitWith)}
       </div>
@@ -2087,30 +2087,30 @@ function getOfferCards(open) {
     {
       type: 'more',
       icon: ICON_BUILD_READINESS,
-      title: t('questionnaire.results.focus.do-more.title'),
+      title: t('questionnaire.results.questionnaire.results.focus.do-more.title'),
       hint: hints.doMore,
-      meta: t('questionnaire.results.focus.do-more.body'),
+      meta: t('questionnaire.results.questionnaire.results.focus.do-more.body'),
     },
     {
       type: 'less',
       icon: ICON_REMOVE_FRICTION,
-      title: t('questionnaire.results.focus.do-less.title'),
+      title: t('questionnaire.results.questionnaire.results.focus.do-less.title'),
       hint: hints.doLess,
-      meta: t('questionnaire.results.focus.do-less.body'),
+      meta: t('questionnaire.results.questionnaire.results.focus.do-less.body'),
     },
     {
       type: 'sit',
       icon: ICON_GO_DEEPER,
-      title: t('questionnaire.results.focus.do-sit.title'),
+      title: t('questionnaire.results.questionnaire.results.focus.do-sit.title'),
       hint: hints.sitWith,
-      meta: t('questionnaire.results.focus.do-sit.body'),
+      meta: t('questionnaire.results.questionnaire.results.focus.do-sit.body'),
     },
   ];
 }
 
 function renderOfferCard(offer) {
 const teaser = offer.hint
-  ? `<div class="next-offer__teaser">${t('questionnaire.results.focus.offer-teaser', { hint: escapeHtml(offer.hint) })}</div>`
+  ? `<div class="next-offer__teaser">${t('questionnaire.results.questionnaire.results.focus.offer-teaser', { hint: escapeHtml(offer.hint) })}</div>`
   : '';
 
   return `
@@ -2134,13 +2134,13 @@ function renderDebriefInvitationSection(serverResult) {
   return `
     <section class="next-section">
       <header class="next-header">
-        <div class="next-kicker">${t('questionnaire.results.focus.offer-next-kicker')}</div>
+        <div class="next-kicker">${t('questionnaire.results.questionnaire.results.focus.offer-next-kicker')}</div>
       </header>
 
       <div class="next-body">
         <h2 class="next-title">
-          <span>${t('questionnaire.results.focus.offer-next-title')}</span>
-          <span style="color: #f5f5f5">${t('questionnaire.results.focus.offer-next-subtitle')}</span>
+          <span>${t('questionnaire.results.questionnaire.results.focus.offer-next-title')}</span>
+          <span style="color: #f5f5f5">${t('questionnaire.results.questionnaire.results.focus.offer-next-subtitle')}</span>
         </h2>
 
         ${renderSourceComment(serverResult.report.open)}
@@ -2151,18 +2151,18 @@ function renderDebriefInvitationSection(serverResult) {
         </div>
 
         <p class="next-lede next-lede--bold" style="margin-bottom: 12px;">
-          ${t('questionnaire.results.focus.offer-next-cta')}
+          ${t('questionnaire.results.questionnaire.results.focus.offer-next-cta')}
         </p>
 
         <div class="what-next-actions">
           ${bookingUrl ? `
             <a class="btn primary" id="book-followup-btn" href="${escapeHtml(bookingUrl)}" target="_blank" rel="noopener">
-              ${t('questionnaire.results.focus.offer-next-cta-book')}
+              ${t('questionnaire.results.questionnaire.results.focus.offer-next-cta-book')}
               <span class="arrow"></span>
             </a>
           ` : ''}
           <button type="button" class="what-next-secondary-btn" id="check-unlock-btn">
-            ${t('questionnaire.results.focus.offer-next-cta-reveal')}
+            ${t('questionnaire.results.questionnaire.results.focus.offer-next-cta-reveal')}
           </button>
         </div>
         <p id="unlock-status" class="unlock-status" aria-live="polite"></p>
@@ -2173,13 +2173,13 @@ function renderDebriefInvitationSection(serverResult) {
           ${renderPatternDiagnosis(serverResult.report.open)}
         </p>
         <p class="next-lede">
-          ${t('questionnaire.results.focus.offer-next-closing-lede-1')}
+          ${t('questionnaire.results.questionnaire.results.focus.offer-next-closing-lede-1')}
         </p>
         <p class="next-lede">
-          ${t('questionnaire.results.focus.offer-next-closing-lede-2')}
+          ${t('questionnaire.results.questionnaire.results.focus.offer-next-closing-lede-2')}
         </p>
         <p class="next-lede next-lede--bold">
-          ${t('questionnaire.results.focus.offer-next-closing-lede-3')}
+          ${t('questionnaire.results.questionnaire.results.focus.offer-next-closing-lede-3')}
         </p>
       </div>
     </section>
