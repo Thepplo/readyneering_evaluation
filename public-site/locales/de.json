@@ -140,6 +140,9 @@
       "turnstile-copy-2": "Einen Moment, die Verifizierung wird vorbereitet …",
       "turnstile-loading-failed": "Die Verifizierung läuft noch. Prüf deine Verbindung und versuch es erneut.",
       "turnstile-retry": "Erneut versuchen",
+      "turnstile-challenge-prompt": "Bitte schließ die Verifizierung unten ab, um fortzufahren.",
+      "turnstile-verification-failed": "Die Verifizierung ist fehlgeschlagen. Bitte versuch es erneut.",
+      "turnstile-verification-timed-out": "Die Verifizierung hat zu lange gedauert. Bitte versuch es erneut.",
       "next-button-submit": "Mein Readiness-Profil erstellen",
       "next-button-halfway": "Halfway there",
       "next-button-submitting": "Profil wird erstellt...",
@@ -156,10 +159,50 @@
           "reminder": "Zur Erinnerung: <strong>Readiness = Resilience × Preparedness.</strong> Eine Lücke in einer Dimension lässt sich durch Stärke in der anderen nicht ausgleichen.",
           "final_with_chips": "Kleine, stetige Veränderungen bei {chips} bringen mehr als ein großer Einsatz in einem Bereich, in dem du schon stark bist.",
           "final_fallback": "Kleine, stetige Veränderungen dort, wo deine Werte am niedrigsten sind, bringen mehr als ein großer Einsatz in einem Bereich, in dem du schon stark bist.",
-          "chip_conjunction": "und"
+          "chip_conjunction": "und",
+          "focus.outcome-prefix-do-less": "Stärkt",
+          "focus.outcome-prefix-sit-with": "Darüber nachzudenken stärkt",
+          "focus.outcome-prefix-do-more": "Stärkt"
+        },
+        "do-more": {
+          "title": "Readiness aufbauen",
+          "body": "3 Handlungsschritte · bereit für das Gespräch"
+        },
+        "do-less": {
+          "title": "Reibung abbauen",
+          "body": "3 Muster · zum gemeinsamen Durcharbeiten"
+        },
+        "sit-with": {
+          "title": "Tiefer gehen",
+          "body": "3 Impulse · um das Gespräch zu öffnen"
+        },
+        "offer-teaser": "Darunter: <em>{hint}</em>"
+      },
+      "pattern": {
+        "lede_intro": "Ein Readiness-Wert ist ein Ausgangspunkt.",
+        "lede_bold": "Kein Urteil. Kein Ziel.",
+        "combination": {
+          "same_dim": "zwei {band} {dim} Quotienten, die gegen den Rest ziehen",
+          "same_band": "Resilience und Preparedness beide im Bereich {band}, dabei stehen {a} und {b} am stärksten unter Belastung",
+          "mismatched": "{weakerBand} {weakerDim} gegen {strongerBand} {strongerDim}"
+        },
+        "main_paragraph": "Dein {aLabel} liegt bei {aScore}. Dein {bLabel} liegt bei {bScore}. Diese Kombination, {combination}, zeigt sich auf vorhersehbare Weise. {symptom}",
+        "symptom": {
+          "alignment|emotion": "In der Teambesprechung, in der das Wesentliche ungesagt blieb. In der Stille nach einem schwierigen Gespräch. In dem Vertrauen, das still und leise schwindet.",
+          "alignment|mind": "In der Besprechung, in der die Richtung klar war und sich doch nichts bewegte. In der Strategie, die du dreimal erklärt hast und die dennoch falsch verstanden wird. Im zweiten Entwurf, der nie kam.",
+          "alignment|vitality": "In der Woche, die ihre Form verloren hat. In den Prioritäten, die sich verschoben haben, ohne dass es jemand bemerkt hat. In dem, was du bauen wolltest, gegenüber dem, was gebaut wurde.",
+          "emotion|execution": "In dem Anruf, den du verschoben hast. In der Maßnahme, von der du wusstest, dass sie richtig war, die du aber nicht ergriffen hast. In dem Gefühl, das ein Freitagnachmittag auslöst.",
+          "emotion|mind": "In der Entscheidung, die zu schnell getroffen wurde, um sie zu spüren. In dem Gespräch, das du immer wieder führen willst. In der Geschichte, die du dir immer wieder erzählst, warum es noch nicht passiert ist.",
+          "execution|alignment": "Im Projekt, das abgedriftet ist. In den Prioritäten, die sich still und leise vervielfachten. In dem, was geliefert wurde, gegenüber dem, was geplant war.",
+          "execution|vitality": "In dem Plan, dem der Treibstoff ausging, bevor die Arbeit erledigt war. Im Freitagnachmittag, an dem sich Verpflichtungen auflösen. In dem, was erledigt wurde, im Vergleich zu dem, was wirklich wichtig war.",
+          "mind|vitality": "In der Strategiesitzung um 16 Uhr. In der Entscheidung, die aus Erschöpfung getroffen wurde. In den Überlegungen, die klarer hätten sein müssen, als sie es waren."
         }
+      },
+      "ranked-signal-suffix": {
+        "risk": "Das ist deine unmittelbarste Chance bei {build}.",
+        "developing": "Das zu stärken baut dein Fundament bei {build} auf.",
+        "building": "Das sind aktuelle Stärken, die du wiederholen und verlässlicher machen kannst."
       }
-
     }
   }
 }

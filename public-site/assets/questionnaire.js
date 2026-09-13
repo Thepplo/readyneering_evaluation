@@ -167,7 +167,7 @@ function renderTurnstileWidgetOnce() {
       const shell = document.getElementById('turnstile-shell');
       if (shell) shell.classList.remove('is-loading');
       const copy = document.querySelector('#turnstile-shell .turnstile-copy');
-      if (copy) copy.textContent = 'Please complete the check below to continue.';
+      if (copy) copy.textContent = t('questionnaire.results.turnstile-challenge-prompt');
       showVerifyCard();
     },
     'after-interactive-callback': function () { hideVerifyCard(); },
@@ -177,8 +177,8 @@ function renderTurnstileWidgetOnce() {
         submitWithToken(token);
     },
     callback: function (token) { hideVerifyCard(); submitWithToken(token); },
-    'error-callback':   function () { showVerifyRetry('Verification failed. Please try again.'); },
-    'timeout-callback': function () { showVerifyRetry('Verification timed out. Please try again.'); },
+    'error-callback':   function () { showVerifyRetry(t('questionnaire.results.turnstile-loading-failed')); },
+    'timeout-callback': function () { showVerifyRetry(t('questionnaire.results.turnstile-loading-timed-out')); },
     'expired-callback': function () { try { globalThis.turnstile.reset(turnstileWidgetId); } catch (e) {} }
   });
 }
@@ -218,7 +218,7 @@ async function saveAssessment(payload, token) {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.error || 'Failed to save assessment');
+    throw new Error(data.error || t('questionnaire.results.loader-error'));
   }
 
   localStorage.removeItem('submit_attempt_id');
@@ -1107,7 +1107,7 @@ function renderFocusChipList(items) {
     return chips[0];
   }
 
-  const and = t('focus.chip_conjunction');
+  const and = t('focus.callout.chip_conjunction');
 
   if (chips.length === 2) {
     return chips[0] + ` <span class="subtitle-and">${and}</span> ` + chips[1];
@@ -1172,7 +1172,10 @@ function renderPatternDiagnosis(open) {
 
   if (sameDimension) {
     const dimBand = bandLabelFromScore(dimensionAverage(open.scores, dimA));
-    combinationLine = `two ${escapeHtml(dimBand)} ${escapeHtml(dimA)} quotients pulling against the rest`;
+    combinationLine = t('pattern.combination.same_dim', {
+      band: escapeHtml(t(`levels.${dimBand}`)),
+      dim: escapeHtml(t(`dimensions.${dimA}`)),
+    });
   } else {
     const dimAScore = dimensionAverage(open.scores, dimA);
     const dimBScore = dimensionAverage(open.scores, dimB);
@@ -1181,26 +1184,45 @@ function renderPatternDiagnosis(open) {
     const sameBand = bandA === bandB;
 
     if (sameBand) {
-      combinationLine = `both Resilience and Preparedness in the ${escapeHtml(bandA)} band, with ${escapeHtml(a.key)} and ${escapeHtml(b.key)} under the most strain`;
+      combinationLine = t('pattern.combination.same_band', {
+        band: escapeHtml(t(`levels.${bandA}`)),
+        a: escapeHtml(t(`quotients.${a.key}.name`)),
+        b: escapeHtml(t(`quotients.${b.key}.name`)),
+      });
     } else {
       const weakerDim   = dimAScore <= dimBScore ? dimA : dimB;
       const strongerDim = dimAScore <= dimBScore ? dimB : dimA;
       const weakerBand   = bandLabelFromScore(Math.min(dimAScore, dimBScore));
       const strongerBand = bandLabelFromScore(Math.max(dimAScore, dimBScore));
-      combinationLine = `${escapeHtml(weakerBand)} ${escapeHtml(weakerDim)} against ${escapeHtml(strongerBand)} ${escapeHtml(strongerDim)}`;
+      combinationLine = t('pattern.combination.mismatched', {
+        weakerBand: escapeHtml(t(`levels.${weakerBand}`)),
+        weakerDim: escapeHtml(t(`dimensions.${weakerDim}`)),
+        strongerBand: escapeHtml(t(`levels.${strongerBand}`)),
+        strongerDim: escapeHtml(t(`dimensions.${strongerDim}`)),
+      });
     }
   }
 
   const symptomLine = getSymptomLine(a.key, b.key);
+
+  const aLabelHtml = `<span class="next-q-name next-q-name--${escapeHtml(a.key)}">${escapeHtml(t(`quotients.${a.key}.name`))}</span>`;
+  const bLabelHtml = `<span class="next-q-name next-q-name--${escapeHtml(b.key)}">${escapeHtml(t(`quotients.${b.key}.name`))}</span>`;
+  const aScoreHtml = `<strong>${a.score.toFixed(1)}</strong>`;
+  const bScoreHtml = `<strong>${b.score.toFixed(1)}</strong>`;
+
   return `
     <p class="next-lede">
-      A Readiness score is a starting point. <span class="next-lede__bold">Not a verdict. Not a destination.</span>
+      ${t('pattern.lede_intro')} <span class="next-lede__bold">${t('pattern.lede_bold')}</span>
     </p>
     <p class="next-lede">
-      Your <span class="next-q-name next-q-name--${escapeHtml(a.key)}">${escapeHtml(a.label)}</span> is at <strong>${a.score.toFixed(1)}</strong>. 
-      Your <span class="next-q-name next-q-name--${escapeHtml(b.key)}">${escapeHtml(b.label)}</span> is at <strong>${b.score.toFixed(1)}</strong>. 
-      That specific combination — ${combinationLine} — shows up in a predictable way. 
-      ${symptomLine}
+      ${t('pattern.main_paragraph', {
+        aLabel: aLabelHtml,
+        aScore: aScoreHtml,
+        bLabel: bLabelHtml,
+        bScore: bScoreHtml,
+        combination: combinationLine,
+        symptom: symptomLine,
+      })}
     </p>
   `;
 }
@@ -1224,34 +1246,34 @@ function getSymptomLine(keyA, keyB) {
   const pair = [keyA, keyB].sort().join('|');
   const lines = {
     'execution|mind':
-      'In meetings. In Monday mornings. In the gap between what you decide and what actually happens.',
+      t('pattern.symptom.execution_mind'),
 
     'emotion|vitality':
-      'In the third day of a hard week. In the response you wish you had not sent. In how you arrive home.',
+      t('pattern.symptom.emotion_vitality'),
 
     'alignment|mind':
-      'In the meeting where the direction sounded clear and nothing moved. In the strategy you have explained three times and still see misread. In the second draft that never came.',
+      t('pattern.symptom.alignment_mind'),
 
     'execution|alignment':
-      'In the project that drifted. In the priorities that quietly multiplied. In what got shipped versus what got planned.',
+      t('pattern.symptom.execution_alignment'),
 
     'emotion|mind':
-      'In the decision made too fast to feel. In the conversation you keep meaning to have. In the story you keep telling yourself about why it has not happened yet.',
+      t('pattern.symptom.emotion_mind'),
 
     'emotion|execution':
-      'In the call you postponed. In the action you knew was right but did not take. In how Friday afternoon feels.',
+      t('pattern.symptom.emotion_execution'),
 
     'mind|vitality':
-      'In the 4pm strategy session. In the decision made on an empty tank. In the thinking that should have been clearer than it was.',
+      t('pattern.symptom.mind_vitality'),
 
     'alignment|emotion':
-      'In the team meeting where the real thing did not get said. In the silence after a hard call. In the trust that quietly thins.',
+      t('pattern.symptom.alignment_emotion'),
 
     'alignment|vitality':
-      'In the week that lost its shape. In the priorities that shifted without anyone noticing. In what you meant to build versus what got built.',
+      t('pattern.symptom.alignment_vitality'),
 
     'execution|vitality':
-      'In the plan that ran out of fuel before it ran out of work. In the Friday afternoon where commitments dissolve. In what got done versus what mattered.',
+      t('pattern.symptom.execution_vitality'),
   };
   return lines[pair] ||
     'In meetings. In transitions. In the quiet moments where the pattern repeats itself.';
@@ -1555,14 +1577,14 @@ function splitFirstSentence(text) {
 
 function getOutcomePrefix(actionType) {
   if (actionType === 'doLess') {
-    return 'Supports';
+    return t('questionnaire.results.focus.outcome-prefix-do-less');
   }
 
   if (actionType === 'sitWith') {
-    return 'Reflecting on this supports';
+    return t('questionnaire.results.focus.outcome-prefix-sit-with');
   }
 
-  return 'Supports';
+  return t('questionnaire.results.focus.outcome-prefix-do-more');
 }
 
 function renderTinyUpArrow() {
@@ -1682,9 +1704,9 @@ function getRankedSignalSuffix(tone, items) {
     : 'readiness';
 
   const suffixes = {
-    risk: 'This is your most immediate ' + buildLabel + ' opportunity.',
-    developing: 'Strengthening this builds your ' + buildLabel + ' foundation.',
-    building: 'These are current strengths to repeat, and make more dependable.'
+    risk: t('questionnaire.results.ranked-signal-suffix.risk', { build: buildLabel }),
+    developing: t('questionnaire.results.ranked-signal-suffix.developing', { build: buildLabel }),
+    building: t('questionnaire.results.ranked-signal-suffix.building')
   };
 
   return suffixes[tone] || '';
@@ -2065,31 +2087,31 @@ function getOfferCards(open) {
     {
       type: 'more',
       icon: ICON_BUILD_READINESS,
-      title: 'Building Readiness',
+      title: t('questionnaire.results.focus.do-more.title'),
       hint: hints.doMore,
-      meta: '3 actions · ready for the call',
+      meta: t('questionnaire.results.focus.do-more.body'),
     },
     {
       type: 'less',
       icon: ICON_REMOVE_FRICTION,
-      title: 'Removing Friction',
+      title: t('questionnaire.results.focus.do-less.title'),
       hint: hints.doLess,
-      meta: '3 patterns · to work through together',
+      meta: t('questionnaire.results.focus.do-less.body'),
     },
     {
       type: 'sit',
       icon: ICON_GO_DEEPER,
-      title: 'Going Deeper',
+      title: t('questionnaire.results.focus.do-sit.title'),
       hint: hints.sitWith,
-      meta: '3 prompts · to open the conversation',
+      meta: t('questionnaire.results.focus.do-sit.body'),
     },
   ];
 }
 
 function renderOfferCard(offer) {
-  const teaser = offer.hint
-    ? `<div class="next-offer__teaser">Including: <em>${escapeHtml(offer.hint)}</em></div>`
-    : '';
+const teaser = offer.hint
+  ? `<div class="next-offer__teaser">${t('questionnaire.results.focus.offer-teaser', { hint: escapeHtml(offer.hint) })}</div>`
+  : '';
 
   return `
     <article class="next-offer">

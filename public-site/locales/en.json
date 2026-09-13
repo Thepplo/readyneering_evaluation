@@ -114,6 +114,7 @@
       "loader-body": "Analyzing system patterns across resilience, preparedness, and the five quotients.",
       "loader-title-pre": "Saving your responses",
       "loader-body-pre": "Your answers are being securely saved before we build your profile.",
+      "loader-error": "An error occurred while saving your responses. Please try again.",
       "score-title": "Readiness Score",
       "score-description": "Readiness = Preparedness × Resilience. The multiplication is deliberate - someone who collapses on one dimension is not ready, regardless of how strong the other is.",
       "zone-legend": {
@@ -139,6 +140,9 @@
       "turnstile-cancel": "Cancel",
       "turnstile-loading-failed": "Still setting up… check your connection and try again.",
       "turnstile-retry": "Try again",
+      "turnstile-verification-failed": "Verification failed. Please try again.",
+      "turnstile-verification-timed-out": "Verification timed out. Please try again.",
+      "turnstile-challenge-prompt": "Please complete the check below to continue.",
       "next-button-submit": "Generate my readiness profile",
       "next-button-halfway": "Halfway there",
       "next-button-submitting": "Generating profile...",
@@ -155,8 +159,49 @@
           "reminder": "Remember: <strong>Readiness = Preparedness × Resilience.</strong> A gap in either dimension cannot be covered by strength in the other.",
           "final_with_chips": "Small, consistent shifts in {chips} will do more than a significant effort in an area where you are already strong.",
           "final_fallback": "Small, consistent shifts where your scores are lowest will do more than a significant effort in an area where you are already strong.",
-          "chip_conjunction": "and"
+          "chip_conjunction": "and",
+          "focus.outcome-prefix-do-less": "Supports",
+          "focus.outcome-prefix-sit-with": "Reflecting on this supports",
+          "focus.outcome-prefix-do-more": "Supports"
+        },
+        "do-more": {
+          "title": "Building Readiness",
+          "body": "3 actions · ready for the call"
+        },
+        "do-less": {
+          "title": "Removing Friction",
+          "body": "3 patterns · to work through together"
+        },
+        "sit-with": {
+          "title": "Going Deeper",
+          "body": "3 prompts · to open the conversation"
+        },
+        "offer-teaser": "Including: <em>{hint}</em>"
+      },
+      "pattern": {
+        "lede_intro": "A Readiness score is a starting point.",
+        "lede_bold": "Not a verdict. Not a destination.",
+        "combination": {
+          "same_dim": "two {band} {dim} quotients pulling against the rest",
+          "same_band": "both Resilience and Preparedness in the {band} band, with {a} and {b} under the most strain",
+          "mismatched": "{weakerBand} {weakerDim} against {strongerBand} {strongerDim}"
+        },
+        "main_paragraph": "Your {aLabel} is at {aScore}. Your {bLabel} is at {bScore}. That specific combination — {combination} — shows up in a predictable way. {symptom}",
+        "symptom": {
+          "alignment|emotion": "You may find yourself avoiding difficult conversations, or struggling to maintain trust and morale when the pressure is on.",
+          "alignment|mind": "You may find yourself in meetings where the direction sounds clear but nothing moves, or in strategy sessions that are misread despite repeated explanations.",
+          "alignment|vitality": "You may find yourself losing shape over the week, with shifting priorities and a gap between what you meant to build and what got built.",
+          "emotion|execution": "You may find yourself postponing calls or actions you knew were right, leading to a sense of frustration and missed opportunities.",
+          "emotion|mind": "You may find yourself making decisions too quickly to feel confident, or struggling with conversations you keep meaning to have.",
+          "execution|alignment": "You may find yourself in projects that drift, with quietly multiplying priorities and a gap between what got shipped versus what was planned.",
+          "execution|vitality": "You may find yourself running out of fuel before completing work, with commitments dissolving and a gap between what got done versus what mattered.",
+          "mind|vitality": "You may find yourself in strategy sessions that drain your energy, making decisions on an empty tank, and struggling with unclear thinking."
         }
+      },
+      "ranked-signal-suffix": {
+        "risk": "This is your most immediate {build} opportunity.",
+        "developing": "Strengthening this builds your {build} foundation.",
+        "building": "These are current strengths to repeat, and make more dependable."
       }
     }
   }
