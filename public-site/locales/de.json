@@ -82,6 +82,7 @@
     "stat_1": "Situationen",
     "stat_2": "Minuten",
     "stat_3": "Bewertete Quotienten",
+    "triangle_hint": "Klick oder tipp an eine beliebige Stelle innerhalb des Dreiecks. Du kannst deinen Punkt verschieben, bevor du fortfährst.",
     "industry_select":{
       "title": "Deine Branche (optional)",
       "placeholder": "Branche wählen",
@@ -120,7 +121,8 @@
     "assessment": {
       "next-button-halfway": "Halbzeit",
       "next-button-submit": "Mein Readiness-Profil erstellen",
-      "next-button-next": "Weiter"
+      "next-button-next": "Weiter",
+      "step_indicator": "Situation {current} von {total}"
     },
     "results": {
       "main-title": "Dein Readiness Index",

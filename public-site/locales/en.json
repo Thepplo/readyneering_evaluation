@@ -82,6 +82,7 @@
     "stat_1": "Situations",
     "stat_2": "Minutes",
     "stat_3": "Quotients scored",
+    "triangle_hint": "Click or tap anywhere inside the triangle. You can reposition your dot before moving on.",
     "industry_select":{
       "title": "Your industry (optional)",
       "placeholder": "Branche wählen",
@@ -119,7 +120,8 @@
     "assessment": {
       "next-button-halfway": "Halfway there",
       "next-button-submit": "Generate my readiness profile",
-      "next-button-next": "Next"
+      "next-button-next": "Next",
+      "step_indicator": "Situation {current} of {total}"
     },
     "results": {
       "main-title": "Your Readiness Index",

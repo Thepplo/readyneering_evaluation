@@ -514,7 +514,7 @@ function makeSVG(idx) {
 
   // ── Layout constants ──────────────────────────────────────
   const MAX_LINES = 7;
-  const MAX_LINES_TOP=4;
+  const MAX_LINES_TOP=6;
   const SLOT_HEIGHT = MAX_LINES * LH;
   const SLOT_HEIGHT_TOP = MAX_LINES_TOP * LH;
   const SLOT_WIDTH_SIDE = s(300);
@@ -617,7 +617,7 @@ async function buildSteps(savedState) {
       +'<div class="scenario-text">'+esc(t.scenario)+'</div>'
       +'</div>'
       +'<div class="question">'+esc(t.question)
-      +'<div class="hint">Click or tap anywhere inside the triangle. You can reposition your dot before moving on.</div>'
+      +'<div class="hint">'+t('questionnaire.triangle_hint')+'</div>'
       +'</div>'
       +'</div>'
       +'<div class="tri-wrap">'+makeSVG(i)+'</div>'
@@ -733,7 +733,10 @@ function updateUI() {
   }
 
   document.getElementById('prog').style.width = pct + '%';
-  document.getElementById('step-ind').textContent = 'Situation ' + (current+1) + ' of ' + SHUFFLED_TRIADS.length;
+  document.getElementById('step-ind').textContent = t('questionnaire.assessment.step_indicator', {
+    current: current + 1,
+    total: SHUFFLED_TRIADS.length,
+  });
   document.getElementById('btn-back').disabled = current === 0;
   document.getElementById('btn-next').innerHTML =
     label + ' <span class="arrow"></span>';
