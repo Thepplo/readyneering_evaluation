@@ -98,6 +98,18 @@
 
 
     },
+    "privacy": {
+      "heading": "Datenschutzhinweis",
+      "summary": "Deine Antworten werden zur Erstellung deiner Diagnoseergebnisse verwendet und sicher in unserer in der EU gehosteten Datenbank gespeichert.",
+      "toggle-hide-details": "Datenschutzdetails ausblenden",
+      "toggle-show-details": "Erfahren Sie mehr darüber, wie Ihre Daten verwendet werden",
+      "detail_1": "Wir fragen nicht nach deinem Namen. Wir speichern das Datum deiner Teilnahme, optional Branche und Unternehmensgröße, deine Antworten, die berechneten Werte, die generierten Ergebnisse sowie eine technische Sitzungskennung zur Verarbeitung der Diagnostik.",
+      "detail_2": "Wir verwenden diese Daten, um dir dein Ergebnis bereitzustellen, Aufzeichnungen zur Diagnostik zu führen, das Verfahren zu verbessern und übergreifende Muster zu verstehen. Wir können aggregierte, nicht identifizierende Daten für Analysen und Benchmarking nutzen.",
+      "detail_3": "Da wir weder deinen Namen noch deine E-Mail-Adresse erfassen, können wir deine einzelne Einreichung später möglicherweise nicht mehr identifizieren. Wenn du uns bezüglich deiner Daten kontaktierst, benötigen wir eventuell deine Einreichungsreferenz oder andere Angaben, die uns eine Zuordnung ermöglichen.",
+      "detail_4": "Wir nutzen den Browser-Speicher auf deinem Gerät, um deinen Fortschritt in der Diagnostik vorübergehend zu speichern – einschließlich deiner Antworten sowie optionaler Angaben zu Branche und Unternehmensgröße –, damit die Diagnostik nach einem Neuladen oder Schließen der Seite fortgesetzt werden kann. Dieser Browser-Speicher wird nicht für Werbung, Analytics oder seitenübergreifendes Tracking verwendet.",
+      "consent": "Ich habe den Datenschutzhinweis gelesen und verstehe, wie meine Antworten verwendet werden.",
+      "warn_unchecked": "Bitte bestätige dies, bevor du beginnst."
+    },
     "company_select": {
       "title": "Unternehmensgröße (optional)",
       "placeholder": "Unternehmensgröße"
@@ -225,10 +237,6 @@
         "developing": "Das zu stärken baut dein Fundament bei {build} auf.",
         "building": "Das sind aktuelle Stärken, die du wiederholen und verlässlicher machen kannst."
       }
-    },
-    "privacy": {
-      "toggle-hide-details": "Datenschutzdetails ausblenden",
-      "toggle-show-details": "Erfahren Sie mehr darüber, wie Ihre Daten verwendet werden"
     }
   }
 }

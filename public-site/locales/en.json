@@ -97,6 +97,18 @@
       "other_text_input": "Please specify"
 
     },
+    "privacy": {
+      "heading": "Privacy notice",
+      "summary": "Your responses will be used to generate your diagnostic results and will be securely stored in our EU-hosted database.",
+      "toggle-show-details": "Read more about how your data is used",
+      "toggle-hide-details": "Hide privacy details",
+      "detail_1": "We do not ask for your name. We save your completed date, optional industry and company size, assessment answers, calculated scores, generated results, and a technical session identifier used to process the assessment.",
+      "detail_2": "We use this data to provide your result, maintain assessment records, improve the diagnostic, and understand aggregate patterns. We may use aggregated, non-identifying data for analysis and benchmarking.",
+      "detail_3": "Because we do not collect your name or email address, we may not be able to identify your individual submission later. If you contact us about your data, we may need your submission reference or other information that lets us locate it.",
+      "detail_4": "We use browser storage on your device to temporarily save your assessment progress, including your answers and any optional industry or company size selections, so the diagnostic can continue if the page reloads or closes. This browser storage is not used for advertising, analytics, or cross-site tracking.",
+      "consent": "I have read the privacy notice and understand how my responses will be used.",
+      "warn_unchecked": "Please confirm this before starting."
+    },
     "company_select":{
       "title": "Your company (optional)",
       "placeholder": "Company name"
@@ -225,10 +237,6 @@
         "developing": "Strengthening this builds your {build} foundation.",
         "building": "These are current strengths to repeat, and make more dependable."
       }
-    },
-    "privacy": {
-      "toggle-hide-details": "Hide privacy details",
-      "toggle-show-details": "Read more about how your data is used"
     }
   }
 }
