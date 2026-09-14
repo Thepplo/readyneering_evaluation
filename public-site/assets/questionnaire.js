@@ -412,7 +412,7 @@ let  selectedSizeLabel = null;
 
 // ── SVG builder ───────────────────────────────────────────
 
-const VW = s(500), VH = s(520), LH = s(18), FS = s(13);
+const VW = s(500), VH = s(520), LH = s(18), FS = s(14);
 const GX = (TA.x + TB.x + TC.x) / 3;
 const GY = (TA.y + TB.y + TC.y) / 3;
 
@@ -517,7 +517,7 @@ function makeSVG(idx) {
   const MAX_LINES_TOP=4;
   const SLOT_HEIGHT = MAX_LINES * LH;
   const SLOT_HEIGHT_TOP = MAX_LINES_TOP * LH;
-  const SLOT_WIDTH_SIDE = s(180);
+  const SLOT_WIDTH_SIDE = s(200);
   const SLOT_WIDTH_TOP = s(260);
   const CORNER_GAP = s(14);
   const labelStyle = 'font-size:' + FS + 'px;color:#2a2a28;font-weight:500;'
