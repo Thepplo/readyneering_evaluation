@@ -517,12 +517,12 @@ function makeSVG(idx) {
   const MAX_LINES_TOP=4;
   const SLOT_HEIGHT = MAX_LINES * LH;
   const SLOT_HEIGHT_TOP = MAX_LINES_TOP * LH;
-  const SLOT_WIDTH_SIDE = s(200);
+  const SLOT_WIDTH_SIDE = s(300);
   const SLOT_WIDTH_TOP = s(260);
   const CORNER_GAP = s(14);
   const labelStyle = 'font-size:' + FS + 'px;color:#2a2a28;font-weight:500;'
     + 'font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif;'
-    + 'line-height:' + LH + 'px;text-wrap:balance;text-align:center;'
+    + 'line-height:' + LH + 'px;text-wrap:balance;text-align:center;overflow:visible;'
     + 'pointer-events:none;';
 
   const aSlotX = TA.x - SLOT_WIDTH_TOP / 2;
