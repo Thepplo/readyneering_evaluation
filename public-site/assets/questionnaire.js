@@ -510,7 +510,7 @@ function getBounds(pad) {
 
 
 function makeSVG(idx) {
-  const t = SHUFFLED_TRIADS[idx];
+  const triad = SHUFFLED_TRIADS[idx];
 
   // ── Layout constants ──────────────────────────────────────
   const MAX_LINES = 7;
@@ -574,9 +574,9 @@ function makeSVG(idx) {
     + '<circle cx="' + TB.x + '" cy="' + TB.y + '" r="' + s(5) + '" fill="#770136" opacity="0.4"/>'
     + '<circle cx="' + TC.x + '" cy="' + TC.y + '" r="' + s(5) + '" fill="#770136" opacity="0.4"/>'
 
-    + labelBox(aSlotX, aSlotY, SLOT_WIDTH_TOP, SLOT_HEIGHT_TOP, t.A, 'bottom')
-    + labelBox(bSlotX, sideSlotY, SLOT_WIDTH_SIDE, SLOT_HEIGHT, t.B, 'top')
-    + labelBox(cSlotX, sideSlotY, SLOT_WIDTH_SIDE, SLOT_HEIGHT, t.C, 'top')
+    + labelBox(aSlotX, aSlotY, SLOT_WIDTH_TOP, SLOT_HEIGHT_TOP, triad.A, 'bottom')
+    + labelBox(bSlotX, sideSlotY, SLOT_WIDTH_SIDE, SLOT_HEIGHT, triad.B, 'top')
+    + labelBox(cSlotX, sideSlotY, SLOT_WIDTH_SIDE, SLOT_HEIGHT, triad.C, 'top')
 
     + '<circle id="ring-' + idx + '" cx="-999" cy="-999" r="' + s(20) + '" fill="rgba(119,1,54,0.8)" opacity="0" style="pointer-events:none"/>'
     + '<circle id="dot-' + idx + '"  cx="-999" cy="-999" r="' + s(11) + '" fill="#770136" opacity="0" style="pointer-events:none"/>'
@@ -608,15 +608,15 @@ async function buildSteps(savedState) {
     : 0;
 
   for (let i = 0; i < SHUFFLED_TRIADS.length; i++) {
-    const t = SHUFFLED_TRIADS[i];
+    const triad = SHUFFLED_TRIADS[i];
     const display = i === current ? 'block' : 'none';
 
     html += '<div id="step-'+i+'" style="display:'+display+'">'
       +'<div class="scenario-wrapper">'
       +'<div class="card">'
-      +'<div class="scenario-text">'+esc(t.scenario)+'</div>'
+      +'<div class="scenario-text">'+esc(triad.scenario)+'</div>'
       +'</div>'
-      +'<div class="question">'+esc(t.question)
+      +'<div class="question">'+esc(triad.question)
       +'<div class="hint">'+t('questionnaire.triangle_hint')+'</div>'
       +'</div>'
       +'</div>'
