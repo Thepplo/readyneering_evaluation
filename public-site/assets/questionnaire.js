@@ -290,11 +290,11 @@ const MODE_META = {
 
 
 const QUOTIENT_ICONS = {
-  vitality: 'assets/images/q-vitality.svg',
-  emotion: 'assets/images/q-emotion.svg',
-  mind: 'assets/images/q-mind.svg',
-  execution: 'assets/images/q-execution.svg',
-  alignment: 'assets/images/q-alignment.svg'
+  vitality: '/assets/images/q-vitality.svg',
+  emotion: '/assets/images/q-emotion.svg',
+  mind: '/assets/images/q-mind.svg',
+  execution: '/assets/images/q-execution.svg',
+  alignment: '/assets/images/q-alignment.svg'
 };
 
 const TRIADS = []
