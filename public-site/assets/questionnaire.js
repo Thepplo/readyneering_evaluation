@@ -2058,7 +2058,7 @@ function renderOpenReport(open, res, quotientData) {
     companySize: selectedSizeLabel || selectedSize
   });
   setHTML('focus-copy', `
-    <h2 class="section-title" style="margin-bottom:0px; color: #1A1A1A; font-weight:600;">Your three priorities for action</h2>
+    <h2 class="section-title" style="margin-bottom:0px; color: #1A1A1A; font-weight:600;">${t('questionnaire.results.focus-section-unlocked-title')}</h2>
   `);
   setHTML('action-sub', renderServerFocusSubtitle(open.focus));
 
