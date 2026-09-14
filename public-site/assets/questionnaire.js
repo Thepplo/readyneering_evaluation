@@ -412,7 +412,7 @@ let  selectedSizeLabel = null;
 
 // ── SVG builder ───────────────────────────────────────────
 
-const VW = s(500), VH = s(520), LH = s(18), FS = s(14);
+const VW = s(500), VH = s(520), LH = s(18), FS = s(15);
 const GX = (TA.x + TB.x + TC.x) / 3;
 const GY = (TA.y + TB.y + TC.y) / 3;
 
@@ -513,7 +513,7 @@ function makeSVG(idx) {
   const t = SHUFFLED_TRIADS[idx];
 
   // ── Layout constants ──────────────────────────────────────
-  const MAX_LINES = 5;
+  const MAX_LINES = 7;
   const MAX_LINES_TOP=4;
   const SLOT_HEIGHT = MAX_LINES * LH;
   const SLOT_HEIGHT_TOP = MAX_LINES_TOP * LH;
@@ -2562,7 +2562,7 @@ function getPrivacyConsentRecord() {
 }
 
 // ── Start ─────────────────────────────────────────────────
-function startAssessment() {
+async function startAssessment() {
   currentResult = null;
   const industrySelect = document.getElementById('industry-select');
   const sizeSelect = document.getElementById('size-select');
@@ -2589,11 +2589,12 @@ function startAssessment() {
   document.getElementById('scr-intro').style.display = 'none';
   document.getElementById('scr-assess').style.display = 'block';
 
-  buildSteps();
+
+  await buildSteps();
   updateUI();
   globalThis.scrollTo(0, 0);
 }
-function restoreAssessment() {
+async function restoreAssessment() {
   const saved = loadAssessmentState();
   if (!saved) return;
 
@@ -2624,7 +2625,7 @@ function restoreAssessment() {
   document.getElementById('scr-intro').style.display = 'none';
   document.getElementById('scr-assess').style.display = 'block';
 
-  buildSteps(saved);
+  await buildSteps(saved);
   updateUI();
 }
 
