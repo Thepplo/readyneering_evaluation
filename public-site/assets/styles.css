@@ -320,10 +320,11 @@ body::after {
 }
 
 .mode-exp {
-  font-size: 0.68rem; line-height: 1.5;
+  font-size: 0.72rem; line-height: 1.5;
   color: rgb(34, 34, 34); min-height: 50px;
   margin-bottom: 1rem;
   transition: opacity 0.3s;
+  max-width: 60ch; text-align: center;
 }
 
 .mode-row {
