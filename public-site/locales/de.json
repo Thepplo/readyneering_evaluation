@@ -32,7 +32,9 @@
   "orbit": {
     "mode": {
       "resilience": "Resilience",
-      "preparedness": "Preparedness"
+      "preparedness": "Preparedness",
+      "explanation": "Klicke auf die einzelnen Quotienten, um mehr darüber zu erfahren, wofür sie stehen. Du kannst zwischen Resilience und Preparedness wechseln."
+
     },
     "label": {
       "resilience": "RESILIENCE",

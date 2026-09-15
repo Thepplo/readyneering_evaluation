@@ -32,7 +32,8 @@
   "orbit": {
     "mode": {
       "resilience": "Resilience",
-      "preparedness": "Preparedness"
+      "preparedness": "Preparedness",
+      "explanation": "Click on the individual quotients to learn more about what they represent. You can switch between the Resilience and Preparedness contexts."
     },
     "label": {
       "resilience": "RESILIENCE",
