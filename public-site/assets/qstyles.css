@@ -375,7 +375,7 @@
 
 .quotient-row {
   display: grid;
-  grid-template-columns: 200px 1fr 120px;
+  grid-template-columns: 200px 1fr 150px;
   align-items: center;
   gap: 20px;
   padding: 14px 0;
@@ -448,6 +448,7 @@
   letter-spacing: 0.06em;
   padding: 3px 7px;
   border-radius: 999px;
+  white-space: nowrap;
 }
 .band-risk     { background: #fff1f2; color: #9f1239; }
 .band-developing      { background: #fef3c7; color: #92400e; }
@@ -2966,6 +2967,7 @@
   font-weight: 600;
   position: relative;
   padding-left: 10px;
+  white-space: nowrap;
 }
 
 .q-chip::before {
