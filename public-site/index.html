@@ -77,9 +77,14 @@
 
   <!-- RIGHT -->
   <div class="right">
-    <div class="mode-row">
-        <span class="mode-pill on" id="pill-r" onclick="setMode('R')">{{t.orbit.mode.resilience}}</span>
-        <span class="mode-pill" id="pill-p" onclick="setMode('P')">{{t.orbit.mode.preparedness}}</span>
+    <div class="mode-container">
+      <div class="mode-row">
+          <span class="mode-pill on" id="pill-r" onclick="setMode('R')">{{t.orbit.mode.resilience}}</span>
+          <span class="mode-pill" id="pill-p" onclick="setMode('P')">{{t.orbit.mode.preparedness}}</span>
+      </div>
+      <div class="mode-exp">
+        <p>{{t.orbit.mode.explanation}}</p>
+      </div>
     </div>
   <div class="orbit-stage" style = "margin-top: 3rem;">
     <svg class="orbit-svg" viewBox="0 0 630 320" xmlns="http://www.w3.org/2000/svg">

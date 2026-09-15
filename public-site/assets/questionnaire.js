@@ -1126,7 +1126,8 @@ function renderServerFocusSubtitle(focusActions) {
 
   if (!items.length) return '';
 
-  const chipHtml = renderFocusChipList(items);
+  const chipHtml = renderFocusChipList(items); 
+  
 
   const intro = items.length === 1
     ? t('questionnaire.results.focus-subtitle-single') + ' '
