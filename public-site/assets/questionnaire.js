@@ -1898,7 +1898,7 @@ function renderReportMetaLine(profile) {
   }
 
   const items = [
-    'Completed ' + profile.completedDate,
+    t('questionnaire.results.completed_on', { date: profile.completedDate }),
     profile.industry,
     profile.companySize
   ].filter(function(item, index) {
@@ -2520,6 +2520,7 @@ function renderVerdictFromServer(verdict, res) {
   const score = res.O;
   const pscore = res.P;
   const rscore = res.R;
+  const label = t(`questionnaire.results.zone-legend.zone-${verdict.key}`);
 
   zonelabel.innerHTML = t('questionnaire.results.zone-legend.label_question', { score: score.toFixed(2) });
 
@@ -2529,7 +2530,7 @@ function renderVerdictFromServer(verdict, res) {
   pvalue.textContent = pscore.toFixed(2);
   oval.textContent = score.toFixed(2);
 
-  vmodel.textContent = verdict.label;
+  vmodel.textContent = label;
   vmodel.className = 'verdict-ov-mode ' + verdict.cls;
 
   activateVerdictZone(verdict.label);

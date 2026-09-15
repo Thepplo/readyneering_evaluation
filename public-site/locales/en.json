@@ -241,7 +241,8 @@
         "developing": "Strengthening this builds your {build} foundation.",
         "building": "These are current strengths to repeat, and make more dependable."
       },
-      "focus-subtitle-apply": "They apply whether you are a people manager, an individual contributor, or both."
+      "focus-subtitle-apply": "They apply whether you are a people manager, an individual contributor, or both.",
+      "completed_on": "Completed {date}"
     }
   }
 }

@@ -242,7 +242,8 @@
         "developing": "Das zu stärken baut dein Fundament bei {build} auf.",
         "building": "Das sind aktuelle Stärken, die du wiederholen und verlässlicher machen kannst."
       },
-    "focus-subtitle-apply": "Sie gelten unabhängig davon, ob Du Führungskraft bist, als Mitarbeitender ohne Führungsverantwortung arbeitest oder beides."
+    "focus-subtitle-apply": "Sie gelten unabhängig davon, ob Du Führungskraft bist, als Mitarbeitender ohne Führungsverantwortung arbeitest oder beides.",
+    "completed_on": "Ausgefüllt am {date}"
     }
   }
 }
