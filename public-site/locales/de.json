@@ -61,7 +61,7 @@
     },
     "mind": {
       "name": "Mind",
-      "dr": "Die Qualität deines Denkens und Entscheidens, wenn Daten unvollständig und Entscheidungen unter Zeitdruck getroffen werden müssen.",
+      "dr": "Die Qualität deines Denkens und Entscheidens, wenn Daten unvollständig sind und Entscheidungen unter Zeitdruck getroffen werden müssen.",
       "dp": "Ob Szenariodenken, Pre-Mortems und das Hinterfragen von Annahmen fest in deine Vorbereitung integriert sind."
     },
     "execution": {
@@ -76,7 +76,7 @@
     }
   },
   "questionnaire": {
-    "body": "Du wirst 20 realen Situationen aus dem Arbeitsalltag begegnen. Platziere bei jeder Situation deinen Punkt innerhalb des Dreiecks und zwar näher an der Ecke, die für dich am ehesten zutrifft. Es gibt keine richtigen oder falschen Antworten. Die Position deines Punktes zeigt dein persönliches Readiness-Profil.",
+    "body": "Du wirst 20 realen Situationen aus dem Arbeitsalltag begegnen. Platziere bei jeder Situation deinen Punkt innerhalb des Dreiecks, orientiere dich an der Ecke die für dich am ehesten zutrifft. Es gibt keine richtigen oder falschen Antworten. Die Position deines Punktes zeigt dein persönliches Readiness-Profil.",
     "body_2": "Du wirst dich zwischen konkurrierenden Realitäten entscheiden müssen, nicht zwischen idealen Antworten.",
     "body_meta": "Deine Antworten ergeben ein ganzheitliches Readiness-Profil, nicht eine Reihe unabhängiger Einzelwerte.",
     "stat_1": "Situationen",
@@ -141,7 +141,8 @@
         "zone-dev": "In Entwicklung",
         "zone-build": "Im Aufbau",
         "zone-ready": "Ready",
-        "label_question": "Wo liegt <span class=\"zone-label-score\">{score}</span> auf der Gesamtskala?"
+        "label_question": "Wo liegt <span class=\"zone-label-score\">{score}</span> auf der Gesamtskala?",
+        "zone-mixed": "Gemischt"
 
       },
       "zone-legend-2": {
@@ -238,7 +239,8 @@
         "risk": "Das ist deine unmittelbarste Chance bei {build}.",
         "developing": "Das zu stärken baut dein Fundament bei {build} auf.",
         "building": "Das sind aktuelle Stärken, die du wiederholen und verlässlicher machen kannst."
-      }
+      },
+    "focus-subtitle-apply": "Sie gelten unabhängig davon, ob Du Führungskraft bist, als Mitarbeitender ohne Führungsverantwortung arbeitest oder beides."
     }
   }
 }

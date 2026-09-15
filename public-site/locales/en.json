@@ -141,7 +141,8 @@
         "zone-dev": "Developing",
         "zone-build": "Building",
         "zone-ready": "Ready",
-        "label_question": "Where does <span class=\"zone-label-score\">{score}</span> sit on the full scale?"
+        "label_question": "Where does <span class=\"zone-label-score\">{score}</span> sit on the full scale?",
+        "zone-mixed": "Mixed"
       },
       "zone-legend-2": {
         "zone-risk-2": "Actively working against you",
@@ -238,7 +239,8 @@
         "risk": "This is your most immediate {build} opportunity.",
         "developing": "Strengthening this builds your {build} foundation.",
         "building": "These are current strengths to repeat, and make more dependable."
-      }
+      },
+      "focus-subtitle-apply": "They apply whether you are a people manager, an individual contributor, or both."
     }
   }
 }

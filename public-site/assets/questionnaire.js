@@ -1135,7 +1135,7 @@ function renderServerFocusSubtitle(focusActions) {
   return `
     <p class="page-sub" style="color:#555555 !important; line-height: 1.75; font-size: 13px; max-width: 755px; margin-bottom: 5%;">
       ${intro}${chipHtml}.
-      They apply whether you are a people manager, an individual contributor, or both.
+      ${t('questionnaire.results.focus-subtitle-apply')}
     </p>
   `;
 }
@@ -1790,7 +1790,7 @@ function getGroupedLevelLabel(items) {
 
   if (allSame) return formatLevel(levels[0]);
 
-  return 'Mixed';
+  return t('questionnaire.results.zone-legend.zone-mixed');
 }
 
 function formatList(items) {
