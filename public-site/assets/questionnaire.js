@@ -1216,10 +1216,10 @@ function renderPatternDiagnosis(open) {
 
   return `
     <p class="next-lede">
-      ${t('pattern.lede_intro')} <span class="next-lede__bold">${t('pattern.lede_bold')}</span>
+      ${t('questionnaire.results.focus.pattern.lede_intro')} <span class="next-lede__bold">${t('questionnaire.results.focus.pattern.lede_bold')}</span>
     </p>
     <p class="next-lede">
-      ${t('pattern.main_paragraph', {
+      ${t('questionnaire.results.focus.pattern.main_paragraph', {
         aLabel: aLabelHtml,
         aScore: aScoreHtml,
         bLabel: bLabelHtml,
@@ -2105,9 +2105,9 @@ function getOfferCards(open) {
     {
       type: 'sit',
       icon: ICON_GO_DEEPER,
-      title: t('questionnaire.results.focus.do-sit.title'),
+      title: t('questionnaire.results.focus.sit-with.title'),
       hint: hints.sitWith,
-      meta: t('questionnaire.results.focus.do-sit.body'),
+      meta: t('questionnaire.results.focus.sit-with.body'),
     },
   ];
 }
