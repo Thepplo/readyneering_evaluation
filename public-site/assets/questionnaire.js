@@ -1216,10 +1216,10 @@ function renderPatternDiagnosis(open) {
 
   return `
     <p class="next-lede">
-      ${t('questionnaire.results.focus.pattern.lede_intro')} <span class="next-lede__bold">${t('questionnaire.results.focus.pattern.lede_bold')}</span>
+      ${t('questionnaire.results.pattern.lede_intro')} <span class="next-lede__bold">${t('questionnaire.results.pattern.lede_bold')}</span>
     </p>
     <p class="next-lede">
-      ${t('questionnaire.results.focus.pattern.main_paragraph', {
+      ${t('questionnaire.results.pattern.main_paragraph', {
         aLabel: aLabelHtml,
         aScore: aScoreHtml,
         bLabel: bLabelHtml,
