@@ -86,7 +86,7 @@
     "triangle_hint": "Click or tap anywhere inside the triangle. You can reposition your dot before moving on.",
     "industry_select":{
       "title": "Your industry (optional)",
-      "placeholder": "Branche wählen",
+      "placeholder": "Select Industry",
       "opt_1": "Adhesives and Tapes",
       "opt_2": "Aerospace and Defense",
       "opt_3": "Healthcare",
@@ -113,7 +113,7 @@
     },
     "company_select":{
       "title": "Your company (optional)",
-      "placeholder": "Company name"
+      "placeholder": "Company size"
     },
     "warn": "Please place your dot in the triangle before continuing.",
     "back-cta": "Back",
