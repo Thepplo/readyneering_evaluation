@@ -72,6 +72,16 @@ const quotientMeta = {
   }
 };
 
+function t(key, vars) {
+  let str = key.split('.').reduce((o, k) => o?.[k], window.__I18N__) ?? key;
+  if (vars) {
+    for (const [k, v] of Object.entries(vars)) {
+      str = str.replaceAll(`{${k}}`, v);
+    }
+  }
+  return str;
+}
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll('&', '&amp;')

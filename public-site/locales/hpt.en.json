@@ -49,15 +49,99 @@
     "progress_of": "of",
     "progress_questions": "questions",
     "back": "Back",
-    "next": "Next"
+    "next": "Next",
+    "page_indicator": "Page {current} of {total}",
+    "submit": "Submit",
+    "reflection_label": "As you respond",
+    "error_missing": "Please answer all {total} questions before continuing ({missing} remaining)."
   },
   "loading": {
     "title": "Calculating your team profile…",
-    "saving": "Saving your responses."
+    "saving": "Saving your responses.",
+    "building": "Building your profile.",
+    "loading_report": "Loading your report."
   },
   "results": {
     "title": "Your Team Profile",
     "subtitle_1": "A snapshot of where your team stands today.",
-    "subtitle_2": "Read it as a starting point for a conversation, not a verdict."
+    "subtitle_2": "Read it as a starting point for a conversation, not a verdict.",
+    "team_type": "Team Type",
+    "band_prefix": "BAND",
+    "quotients_title": "The 5 Quotients",
+    "quotients_desc_primary": "Each dimension scored on its own scale. Your primary constraint is where attention will go furthest.",
+    "quotients_desc_none": "Each dimension scored on its own scale. No single primary constraint stands out right now.",
+    "primary_constraint": "Primary constraint",
+    "primary_constraint_prefix": "Primary constraint:",
+    "indices_title": "Indices",
+    "indices_desc": "How the dimensions combine into readiness.",
+    "readiness_title": "Readiness",
+    "pole_left": "Structural Risk",
+    "pole_right": "Strategic Readiness",
+    "critical_title": "Critical questions for your team",
+    "critical_sub": "Bring these to your team debrief. They matter more than the scores.",
+    "rvp": {
+      "balanced": "Balanced",
+      "resilience_leads": "Resilience leads — build structure",
+      "preparedness_leads": "Preparedness leads — build capacity"
+    }
+  },
+  "errors": {
+    "variant_failed": "Failed to load variant",
+    "wrong_type": "This variant is not an HPT assessment.",
+    "load_failed": "Failed to load assessment: {error}",
+    "save_failed": "Failed to save assessment",
+    "submit_failed": "Submission failed: {error}",
+    "already_submitted": "You've already completed this assessment. Your responses are saved with your facilitator.",
+    "no_report": "No report returned.",
+    "link_unavailable": "This results link isn’t available.",
+    "link_default": "The link may have expired or is incorrect.",
+    "link_invalid": "This results link is no longer valid.",
+    "link_timeout": "Loading the report timed out. Please refresh and try again."
+  },
+  "quotients": {
+    "vitality": {
+      "description": "The collective energy, resilience and sustainability of the team.",
+      "reflection": "Think about the team's typical rhythm over the past 3–6 months—not just the last busy week."
+    },
+    "emotion": {
+      "description": "The quality of trust, care and emotional honesty within the team.",
+      "reflection": "Consider what is consistently true, especially when the team is under pressure."
+    },
+    "mind": {
+      "description": "How the team learns, challenges assumptions and makes sense of complexity.",
+      "reflection": "Think about how decisions are actually made, not how they are intended to be made."
+    },
+    "execution": {
+      "description": "The team's ability to coordinate, commit and reliably deliver together.",
+      "reflection": "Focus on everyday habits and follow-through rather than exceptional moments."
+    },
+    "alignment": {
+      "description": "The shared purpose, identity and direction that connect the team.",
+      "reflection": "Think about whether purpose genuinely influences daily behaviour and decisions."
+    }
+  },
+  "indices": {
+    "resilience": {
+      "label": "Resilience Index",
+      "formula": "Vitality + Emotion",
+      "description": "Your team's capacity to absorb pressure and recover."
+    },
+    "preparedness": {
+      "label": "Preparedness Index",
+      "formula": "Execution + Alignment",
+      "description": "Your team's readiness to act, decide, and deliver."
+    },
+    "mind": {
+      "label": "Mind Index",
+      "formula": "Mind Q",
+      "description": "The cognitive enabler underlying both dimensions."
+    }
+  },
+  "signal_levels": {
+    "low": "Low",
+    "building": "Building",
+    "moderate": "Moderate",
+    "strong": "Strong",
+    "exceptional": "Exceptional"
   }
 }

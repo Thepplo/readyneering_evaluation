@@ -7,7 +7,7 @@
     "subtitle": "Willkommen zur Selbsteinschätzung deines Teams",
     "body_1": "Hier hast du Raum, in Ruhe darüber nachzudenken, wie dein Team wirklich zusammenarbeitet. Es gibt keine richtigen Antworten, nur eine ehrliche Bestandsaufnahme, wie die Dinge heute stehen.",
     "body_2": "Du bewertest 28 Aussagen in fünf Dimensionen. Nimm dir Zeit: Der Wert liegt im kurzen Innehalten vor jeder Antwort.",
-    "cta": "Begin"
+    "cta": "Starten"
   },
   "dimensions": {
     "title": "Die fünf Dimensionen",
@@ -49,15 +49,100 @@
     "progress_of": "von",
     "progress_questions": "Fragen",
     "back": "Zurück",
-    "next": "Weiter"
+    "next": "Weiter",
+    "page_indicator": "Seite {current} von {total}",
+    "submit": "Absenden",
+    "reflection_label": "Beim Beantworten",
+    "error_missing": "Bitte beantworte alle {total} Fragen, bevor du fortfährst (noch {missing} offen)."
   },
   "loading": {
     "title": "Dein Teamprofil wird berechnet…",
-    "saving": "Deine Antworten werden gespeichert."
+    "saving": "Deine Antworten werden gespeichert.",
+    "building": "Dein Profil wird erstellt.",
+    "loading_report": "Dein Bericht wird geladen."
   },
   "results": {
     "title": "Dein Teamprofil",
     "subtitle_1": "Eine Momentaufnahme, wo dein Team heute steht.",
-    "subtitle_2": "Sieh sie als Ausgangspunkt für ein Gespräch und nicht als Urteil."
+    "subtitle_2": "Sieh sie als Ausgangspunkt für ein Gespräch und nicht als Urteil.",
+    "team_type": "Teamtyp",
+    "band_prefix": "STUFE",
+    "quotients_title": "Die 5 Quotients",
+    "quotients_desc_primary": "Jede Dimension wird auf einer eigenen Skala bewertet. Dein Hauptengpass ist der Bereich, in dem gezielte Aufmerksamkeit am meisten bewirkt.",
+    "quotients_desc_none": "Jede Dimension wird auf einer eigenen Skala bewertet. Derzeit sticht kein einzelner Hauptengpass hervor.",
+    "primary_constraint": "Hauptengpass",
+    "primary_constraint_prefix": "Hauptengpass:",
+    "indices_title": "Indizes",
+    "indices_desc": "Wie sich die Dimensionen zur Readiness verbinden.",
+    "readiness_title": "Readiness",
+    "pole_left": "Strukturelles Risiko",
+    "pole_right": "Strategische Readiness",
+    "critical_title": "Kritische Fragen für dein Team",
+    "critical_sub": "Nimm sie mit in die Nachbesprechung mit deinem Team. Sie sind wichtiger als die Werte.",
+    "rvp": {
+      "balanced": "Ausgewogen",
+      "resilience_leads": "Resilience überwiegt: Struktur aufbauen",
+      "preparedness_leads": "Preparedness überwiegt: Kapazität aufbauen"
+    }
+
+  },
+    "errors": {
+    "variant_failed": "Failed to load variant",
+    "wrong_type": "Diese Variante ist keine HPT-Einschätzung.",
+    "load_failed": "Die Einschätzung konnte nicht geladen werden: {error}",
+    "save_failed": "Failed to save assessment",
+    "submit_failed": "Absenden fehlgeschlagen: {error}",
+    "already_submitted": "You've already completed this assessment. Your responses are saved with your facilitator.",
+    "no_report": "No report returned.",
+    "link_unavailable": "This results link isn’t available.",
+    "link_default": "The link may have expired or is incorrect.",
+    "link_invalid": "This results link is no longer valid.",
+    "link_timeout": "Loading the report timed out. Please refresh and try again."
+  },
+  "quotients": {
+    "vitality": {
+      "description": "Die gemeinsame Energie, Resilienz und Nachhaltigkeit des Teams.",
+      "reflection": "Denk an den typischen Rhythmus des Teams in den letzten 3 bis 6 Monaten und nicht nur an die letzte stressige Woche."
+    },
+    "emotion": {
+      "description": "Die Qualität von Vertrauen, Achtsamkeit füreinander und emotionaler Ehrlichkeit im Team.",
+      "reflection": "Achte darauf, was beständig zutrifft, vor allem wenn das Team unter Druck steht."
+    },
+    "mind": {
+      "description": "Wie das Team lernt, Annahmen hinterfragt und Komplexität einordnet.",
+      "reflection": "Denk daran, wie Entscheidungen tatsächlich getroffen werden, und nicht daran, wie sie getroffen werden sollten."
+    },
+    "execution": {
+      "description": "Die Fähigkeit des Teams, sich abzustimmen, Verbindlichkeit einzugehen und gemeinsam zuverlässig Ergebnisse zu liefern.",
+      "reflection": "Konzentriere dich auf alltägliche Gewohnheiten und konsequente Umsetzung statt auf Ausnahmemomente."
+    },
+    "alignment": {
+      "description": "Das gemeinsame Wofür, die Identität und die Richtung, die das Team verbinden.",
+      "reflection": "Stell dir die Frage, ob das Wofür das tägliche Verhalten und die Entscheidungen wirklich beeinflusst."
+    }
+  },
+  "indices": {
+    "resilience": {
+      "label": "Resilience Index",
+      "formula": "Vitality + Emotion",
+      "description": "Die Fähigkeit deines Teams, Druck aufzufangen und sich zu erholen."
+    },
+    "preparedness": {
+      "label": "Preparedness Index",
+      "formula": "Execution + Alignment",
+      "description": "Die Bereitschaft deines Teams, zu handeln, zu entscheiden und Ergebnisse zu liefern."
+    },
+    "mind": {
+      "label": "Mind Index",
+      "formula": "Mind Q",
+      "description": "Der kognitive Enabler, der beiden Dimensionen zugrunde liegt."
+    }
+  },
+  "signal_levels": {
+    "low": "Niedrig",
+    "building": "Im Aufbau",
+    "moderate": "Moderat",
+    "strong": "Stark",
+    "exceptional": "Herausragend"
   }
 }
