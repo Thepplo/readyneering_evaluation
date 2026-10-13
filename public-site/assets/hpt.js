@@ -1,76 +1,7 @@
 const SUPABASE_FUNCTIONS_BASE = 'https://supabase-andqfive-u72683.vm.elestio.app/functions/v1';
-// ---- Turnstile state ----
 
 const PAGE_LOADED_AT = Date.now();
 const DEV_MODE = getQueryParam('dev') === '1';
-
-const indexMeta = {
-  resilience: {
-    label: "Resilience Index",
-    formula: "Vitality + Emotion",
-    components: ["vitality", "emotion"],
-    description: "Your team's capacity to absorb pressure and recover."
-  },
-  preparedness: {
-    label: "Preparedness Index",
-    formula: "Execution + Alignment",
-    components: ["execution", "alignment"],
-    description: "Your team's readiness to act, decide, and deliver."
-  },
-  mind: {
-    label: "Mind Index",
-    formula: "Mind Q",
-    components: ["mind"],
-    description: "The cognitive enabler underlying both dimensions."
-  }
-};
-
-const quotientMeta = {
-  vitality: {
-    title: "Vitality",
-    color: "var(--vitality)",
-    description: 
-      "The collective energy, resilience and sustainability of the team.",
-    reflection:
-      "Think about the team's typical rhythm over the past 3–6 months—not just the last busy week."
-  },
-
-  emotion: {
-    title: "Emotion",
-    color: "var(--emotion)",
-    description:
-      "The quality of trust, care and emotional honesty within the team.",
-    reflection:
-      "Consider what is consistently true, especially when the team is under pressure."
-  },
-
-  mind: {
-    title: "Mind",
-    color: "var(--mind)",
-    description:
-      "How the team learns, challenges assumptions and makes sense of complexity.",
-    reflection:
-      "Think about how decisions are actually made, not how they are intended to be made."
-  },
-
-  execution: {
-    title: "Execution",
-    color: "var(--execution)",
-    description:
-      "The team's ability to coordinate, commit and reliably deliver together.",
-    reflection:
-      "Focus on everyday habits and follow-through rather than exceptional moments."
-  },
-
-  alignment: {
-    title: "Alignment",
-    color: "var(--alignment)",
-    description:
-      "The shared purpose, identity and direction that connect the team.",
-    reflection:
-      "Think about whether purpose genuinely influences daily behaviour and decisions."
-  }
-};
 
 function t(key, vars) {
   let str = key.split('.').reduce((o, k) => o?.[k], window.__I18N__) ?? key;
@@ -81,6 +12,27 @@ function t(key, vars) {
   }
   return str;
 }
+
+const indexMeta = {
+  resilience:   { components: ["vitality", "emotion"] },
+  preparedness: { components: ["execution", "alignment"] },
+  mind:         { components: ["mind"] },
+};
+function indexText(key, field) { return t(`indices.${key}.${field}`); }
+
+const quotientMeta = {
+  vitality:  { color: "var(--vitality)" },
+  emotion:   { color: "var(--emotion)" },
+  mind:      { color: "var(--mind)" },
+  execution: { color: "var(--execution)" },
+  alignment: { color: "var(--alignment)" },
+};
+const RVP_KEYS = {
+  'Balanced': 'balanced',
+  'Resilience leads — build structure': 'resilience_leads',
+  'Preparedness leads — build capacity': 'preparedness_leads',
+};
+function isNoConstraint(pc) { return !pc || pc === 'none' || pc === 'None found'; }
 
 function escapeHtml(value) {
   return String(value)
@@ -95,7 +47,7 @@ function escapeHtml(value) {
 async function loadVariant() {
   const variantKey = getQueryParam('variant') || 'hpt-default';
   const r = await fetch(`${SUPABASE_FUNCTIONS_BASE}/variant?variant=${encodeURIComponent(variantKey)}`);
-  if (!r.ok) throw new Error('Failed to load variant');
+  if (!r.ok) throw new Error(t('errors.variant_failed'));
   return r.json();
 }
 
@@ -128,10 +80,10 @@ async function init() {
     VARIANT = await loadVariant();
     const def = VARIANT.instrument.definition;
     if (def.type !== 'likert_sum') {
-      alert('This variant is not an HPT assessment.');
+      alert(t('errors.wrong_type'));
       return;
     }
-    SCALE_LABELS = def.scale.labels ?? { 1: 'Never', 2: 'Rarely', 3: 'Sometimes', 4: 'Often', 5: 'Always' };
+    SCALE_LABELS = def.scale.labels ?? {};
     SCALE_CHOICES = [];
     MAX_SCORE = def.total.max;
     for (let v = def.scale.min; v <= def.scale.max; v++) SCALE_CHOICES.push(v);
@@ -143,7 +95,7 @@ async function init() {
     $('btn-start').disabled = false;
   } catch (err) {
     console.error(err);
-    alert('Failed to load assessment: ' + err.message);
+    alert(t('errors.load_failed', { error: err.message }));
   }
 }
 
@@ -215,7 +167,7 @@ function getSubmitAttemptId() {
   return id;
 }
 
-function renderQuotientInfo(quotient) {
+function renderQuotientInfo(quotient, label) {
   const meta = quotientMeta[quotient];
   const title = document.getElementById("quotient-title");
   const info = document.getElementById("quotient-info");
@@ -225,14 +177,14 @@ function renderQuotientInfo(quotient) {
     meta.color
   ); 
 
-  title.textContent = meta.title;
+  title.textContent = label;
 
   info.innerHTML = `
-    <p class="description">${meta.description}</p>
+    <p class="description">${t(`quotients.${quotient}.description`)}</p>
 
     <div class="reflection">
-      <strong style="font-size: 11px;letter-spacing: 0.12em;text-transform: uppercase;font-weight: 600;color: var(--ink,#2A251E);margin-bottom: 9px;">As you respond</strong>
-      <p>${meta.reflection}</p>
+      <strong style="font-size: 11px;letter-spacing: 0.12em;text-transform: uppercase;font-weight: 600;color: var(--ink,#2A251E);margin-bottom: 9px;">${t('assessment.reflection_label')}</strong>
+      <p>${t(`quotients.${quotient}.reflection`)}</p>
     </div>
   `;
 }
@@ -256,9 +208,9 @@ function renderAnswerLegend(def) {
 
 function renderQuotient() {
   const q = QUOTIENTS[currentQuotient];
-  $('progress-page').textContent = `Page ${currentQuotient + 1} of ${QUOTIENTS.length}`;
+  $('progress-page').textContent = t('assessment.page_indicator', { current: currentQuotient + 1, total: QUOTIENTS.length });
 
-  renderQuotientInfo(q.key)
+  renderQuotientInfo(q.key, q.label)
 
   const container = $('questions-container');
   container.innerHTML = '';
@@ -312,7 +264,7 @@ function renderQuotient() {
   });
 
   $('btn-back').disabled = currentQuotient === 0;
-  $('btn-next-label').textContent = currentQuotient === QUOTIENTS.length - 1 ? 'Submit' : 'Next';
+  $('btn-next-label').textContent = currentQuotient === QUOTIENTS.length - 1 ? t('assessment.submit') : t('assessment.next');
   updatePageProgress();
 
 }
@@ -330,7 +282,7 @@ function validateCurrentQuotient() {
   const q = QUOTIENTS[currentQuotient];
   const missing = q.items.filter(it => !Number.isInteger(answers[it.key]));
   if (missing.length) {
-    $('quotient-err').textContent = `Please answer all ${q.items.length} questions before continuing (${missing.length} remaining).`;
+    $('quotient-err').textContent = t('assessment.error_missing', { total: q.items.length, missing: missing.length });
     $('quotient-err').hidden = false;
     return false;
   }
@@ -372,8 +324,8 @@ function togglePrivacyDetails() {
   details.setAttribute('aria-hidden', String(!isOpen));
   toggle.setAttribute('aria-expanded', String(isOpen));
   toggle.textContent = isOpen
-    ? 'Hide privacy details'
-    : 'Read more about how your data is used';
+    ? t('privacy.toggle_close')
+    : t('privacy.toggle_open');
 }
 
 function hasPrivacyConsent() {
@@ -407,18 +359,18 @@ async function saveAssessment(payload) {
     body: JSON.stringify(payload),
   });
   const data = await response.json();
-  if (!response.ok) throw new Error(data.error || 'Failed to save assessment');
+  if (!response.ok) throw new Error(data.error || t('errors.save_failed'));
   localStorage.removeItem('hpt_submit_attempt_id');
   return data;
 }
 
 async function submitAssessment() {
   showScreen('scr-loading');
-  $('loading-msg').textContent = 'Saving your responses.';
+  $('loading-msg').textContent = t('loading.saving');
   try {
     const saved = await saveAssessment(buildSubmissionPayload());
     currentResult = saved;
-    $('loading-msg').textContent = 'Building your profile.';
+    $('loading-msg').textContent = t('loading.building');
     updateUrlForResult(saved.access_token); 
     renderResults(saved);
     showScreen('scr-results');
@@ -427,13 +379,12 @@ async function submitAssessment() {
     if (err.message?.includes('already submitted')) {
       showScreen('scr-results');
       $('results-summary').innerHTML = `
-        <p>You've already completed this assessment.
-        Your responses are saved with your facilitator.</p>
+        <p>${t('errors.already_submitted')}</p>
       `;
       $('results-debug').textContent = '';
       return;
     }
-    alert('Submission failed: ' + err.message);
+    alert(t('errors.submit_failed', { error: err.message }));
     showScreen('scr-quotient');
   }
 }
@@ -523,7 +474,7 @@ function renderTeamTypeBar(total, bands, label) {
     <div class="tt-header">
       <p class="results-team"><span class=results-teamtype>${label}</span></p>
       <strong>${total} / ${max}</strong>
-      <span class="tt-band-label">BAND ${bands.find(b => b.key === activeKey).range}</span>
+      <span class="tt-band-label">${t('results.band_prefix')} ${bands.find(b => b.key === activeKey).range}</span>
     </div>
     <div class="tt-bar">
       ${segments.map(s => `
@@ -589,8 +540,8 @@ function renderReadinessBar(value, bands, level) {
       </div>
 
       <div class="rd-poles">
-        <span>Structural Risk</span>
-        <span>Strategic Readiness</span>
+        <span>${t('results.pole_left')}</span>
+        <span>${t('results.pole_right')}</span>
       </div>
     </div>
   `;
@@ -604,14 +555,14 @@ function renderIndexCard(key, value, report) {
 
   return `
     <div class="index-card">
-      <p class="index-eb">${meta.label}</p>
+      <p class="index-eb">${indexText(key, 'label')}</p>
       <div class="index-hero">
         <span class="index-value">${value.toFixed(2)}</span>
         <span class="index-raw">${score} / ${max}</span>
       </div>
-      <p class="index-formula">${meta.formula}</p>
+      <p class="index-formula">${indexText(key, 'formula')}</p>
       <div class="index-bar"><div class="index-bar-fill" style="width:${pct}%;"></div></div>
-      <p class="index-desc">${meta.description}</p>
+      <p class="index-desc">${indexText(key, 'description')}</p>
     </div>
   `;
 }
@@ -621,13 +572,13 @@ function renderMindCard(value, report) {
   const pct = (value * 100).toFixed(0);
   return `
     <div class="mind-card">
-      <p class="index-eb">${meta.label}</p>
+      <p class="index-eb">${indexText('mind', 'label')}</p>
       <div class="mind-card-grid">
         <div>
           <span class="index-value">${value.toFixed(2)}</span>
         </div>
         <div class="index-bar"><div class="index-bar-fill" style="width:${pct}%;"></div></div>
-        <p class="index-desc" style="max-width:260px;">${meta.description}</p>
+        <p class="index-desc" style="max-width:260px;">${indexText('mind', 'description')}</p>
       </div>
     </div>
   `;
@@ -636,15 +587,18 @@ function renderMindCard(value, report) {
 function renderReadinessCard(readiness, report, def) {
   const pct = (readiness.value * 100).toFixed(0);
   const primaryConstraint = readiness.primaryConstraint;
-  const hasPrimaryConstraint = primaryConstraint && primaryConstraint !== "none";
+  const hasPrimaryConstraint = !isNoConstraint(primaryConstraint);
 
   const primaryConstraintLabel = hasPrimaryConstraint
     ? report.quotients[primaryConstraint]?.label ?? primaryConstraint
     : null;
 
+  const rvpKey = RVP_KEYS[readiness.resilienceVsPreparedness];
+  const rvpText = rvpKey ? t(`results.rvp.${rvpKey}`) : readiness.resilienceVsPreparedness;
+
   return `
     <div class="readiness-card">
-      <p class="index-eb">Readiness</p>
+      <p class="index-eb">${t('results.readiness_title')}</p>
       <div class="index-hero">
         <span class="readiness-value">${pct}%</span>
       </div>
@@ -652,9 +606,9 @@ function renderReadinessCard(readiness, report, def) {
       ${renderReadinessBar(readiness.value, def.readiness.bands, readiness.level)}
 
       <p class="index-desc" style="color:rgba(255,255,255,0.75); margin-top:14px;">
-        ${readiness.resilienceVsPreparedness}
+        ${rvpText}
         ${hasPrimaryConstraint ? `
-          · Primary constraint:
+          · ${t('results.primary_constraint_prefix')}
           <strong style="color:#fff;">${primaryConstraintLabel}</strong>
         ` : ""}
       </p>
@@ -664,26 +618,26 @@ function renderReadinessCard(readiness, report, def) {
 function renderResults(saved) {
   const report = saved.report?.open;
   if (!report) {
-    $('results-summary').innerHTML = '<p>No report returned.</p>';
+    $('results-summary').innerHTML = `<p>${t('errors.no_report')}</p>`;
     $('results-debug').textContent = JSON.stringify(saved, null, 2);
     return;
   }
   const def = VARIANT.instrument.definition;
   const primaryConstraint = report.readiness?.primaryConstraint;
-  const hasPrimaryConstraint = primaryConstraint && primaryConstraint !== "none";
+  const hasPrimaryConstraint = !isNoConstraint(primaryConstraint);
 
   const html = `
     <div class="results-container">
-      <p class="results-eb">Team Type</p>
-      ${renderTeamTypeBar(report.total,def.teamType.bands, report.teamType.label)}
+      <p class="results-eb">${t('results.team_type')}</p>
+      ${renderTeamTypeBar(report.total, def.teamType.bands, report.teamType.label)}
       <p class="team-desc">${stripSignalPrefix(report.teamType.description)}</p>
     </div>
     <div class="results-container">
-      <p class="results-eb">The 5 Quotients</p>
+      <p class="results-eb">${t('results.quotients_title')}</p>
       <p class="results-desc">
         ${hasPrimaryConstraint
-          ? "Each dimension scored on its own scale. Your primary constraint is where attention will go furthest."
-          : "Each dimension scored on its own scale. No single primary constraint stands out right now."
+          ? t('results.quotients_desc_primary')
+          : t('results.quotients_desc_none')
         }
       </p>
       <div class="quotient-flex">
@@ -701,12 +655,12 @@ function renderResults(saved) {
             <div class="q-meta">
               <div class="q-chip-flex">
                 <div class="q-chip ${q.label}">${q.label}</div>
-                ${isPrimary ? `<span class="q-tag">Primary constraint</span>` : ''}
+                ${isPrimary ? `<span class="q-tag">${t('results.primary_constraint')}</span>` : ''}
               </div>
               <div class="q-score">
                 <span class="q-value">${q.score}/${q.max}</span>
                 <span class="q-percent ${q.label}">${pct}%</span>
-                <span class="q-band band-${q.signal.level}">${q.signal.level}</span>
+                <span class="q-band band-${q.signal.level}">${t(`signal_levels.${q.signal.level}`)}</span>
               </div>
             </div>
 
@@ -728,8 +682,8 @@ function renderResults(saved) {
       </div>
     </div>
     <div class="results-container">
-      <p class="results-eb">Indices</p>
-      <p class="results-desc">How the dimensions combine into readiness.</p>
+      <p class="results-eb">${t('results.indices_title')}</p>
+      <p class="results-desc">${t('results.indices_desc')}</p>
       <div class="index-pair">
         ${renderIndexCard('resilience', report.indices.resilience, report)}
         ${renderIndexCard('preparedness', report.indices.preparedness, report)}
@@ -740,8 +694,8 @@ function renderResults(saved) {
       ${renderReadinessCard(report.readiness, report, def)}
     </div>
     <div class="result-questions-wrapper">
-      <p class="results-eb-title">Critical questions for your team</p>
-      <p class="title-sub" style="margin-bottom: 25px !important;">Bring these to your team debrief. They matter more than the scores.</p>
+      <p class="results-eb-title">${t('results.critical_title')}</p>
+      <p class="title-sub" style="margin-bottom: 25px !important;">${t('results.critical_sub')}</p>
       ${report.criticalQuestions.map((q, i) => `
         <div class="result-question">
           <span class="result-question-num">${String(i + 1).padStart(2, '0')}</span>
@@ -800,7 +754,7 @@ async function loadResultByToken(token) {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error || 'This results link is no longer valid.');
+      throw new Error(data.error || t('errors.link_invalid'));
     }
 
     return {
@@ -813,7 +767,7 @@ async function loadResultByToken(token) {
     };
   } catch (err) {
     if (err.name === 'AbortError') {
-      throw new Error('Loading the report timed out. Please refresh and try again.');
+      throw new Error(t('errors.link_timeout'));
     }
     throw err;
   } finally {
@@ -840,8 +794,8 @@ async function renderResultsFromToken(token) {
     if (content) {
       content.innerHTML = `
         <div class="results-error">
-          <h2>This results link isn’t available.</h2>
-          <p>${escapeHtml(err.message || 'The link may have expired or is incorrect.')}</p>
+          <h2>${t('errors.link_unavailable')}</h2>
+          <p>${escapeHtml(err.message || t('errors.link_default'))}</p>
         </div>`;
     }
   }
@@ -849,7 +803,7 @@ async function renderResultsFromToken(token) {
 
 function showResultsByToken(token) {
   showScreen('scr-loading');
-  $('loading-msg').textContent = 'Loading your report.';
+  $('loading-msg').textContent = t('loading.loading_report');
   return renderResultsFromToken(token);
 }
 
