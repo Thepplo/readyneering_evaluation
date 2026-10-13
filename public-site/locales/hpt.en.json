@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "HPT — Highest Performing Teams Self-Evaluation"
+  },
+  "intro": {
+    "title": "Highest Performing Teams",
+    "subtitle": "Welcome to the team self-evaluation",
+    "body_1": "This is a quiet space to reflect on how your team really works together. There are no right answers — only an honest read of where things stand today.",
+    "body_2": "You’ll respond to 28 statements across five dimensions. Take your time; the value is in the pause before you answer.",
+    "cta": "Begin"
+  },
+  "dimensions": {
+    "title": "The five dimensions",
+    "vitality": {
+      "label": "Vitality",
+      "desc": "Energy, resilience and sustainable pace."
+    },
+    "emotion": {
+      "label": "Emotion",
+      "desc": "Trust, care and emotional honesty."
+    },
+    "mind": {
+      "label": "Mind",
+      "desc": "Learning, judgement and sense-making."
+    },
+    "execution": {
+      "label": "Execution",
+      "desc": "Coordination, commitment and follow-through."
+    },
+    "alignment": {
+      "label": "Alignment",
+      "desc": "Shared purpose, identity and direction."
+    }
+  },
+  "privacy": {
+    "title": "A NOTE ON PRIVACY",
+    "body": "Your individual responses are private. Your facilitator will see the team's combined patterns — not who said what. Responses are securely stored in our EU-hosted database.",
+    "toggle_open": "Read more about how your data is used",
+    "toggle_close": "Hide privacy details",
+    "details_1": "We do not ask for your name. We save your completed date, assessment answers, calculated scores, generated results, and a technical session identifier used to process the assessment.",
+    "details_2": "We use this data to provide your result, maintain assessment records, improve the assessment, and understand aggregate patterns. We may use aggregated, non-identifying data for analysis and benchmarking.",
+    "details_3": "Because we do not collect your name or email address, we may not be able to identify your individual submission later. If you contact us about your data, we may need your submission reference or other information that lets us locate it.",
+    "details_4": "We use browser storage on your device to temporarily save your assessment progress, including your answers and any optional industry or company size selections, so the diagnostic can continue if the page reloads or closes. This browser storage is not used for advertising, analytics, or cross-site tracking.",
+    "consent": "I have read the privacy notice and understand how my responses will be used.",
+    "warn": "Please confirm this before starting."
+  },
+  "assessment": {
+    "legend": "Rate how true each statement is for your team today.",
+    "progress_of": "of",
+    "progress_questions": "questions",
+    "back": "Back",
+    "next": "Next"
+  },
+  "loading": {
+    "title": "Calculating your team profile…",
+    "saving": "Saving your responses."
+  },
+  "results": {
+    "title": "Your Team Profile",
+    "subtitle_1": "A snapshot of where your team stands today.",
+    "subtitle_2": "Read it as a starting point for a conversation, not a verdict."
+  }
+}

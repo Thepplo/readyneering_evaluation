@@ -14,27 +14,38 @@ const DIST = join(ROOT, 'dist');
 
 const languages = {
   en: {
-    file: 'en.json',
     outputDir: '',
     localePath: '/',
   },
 
   de: {
-    file: 'de.json',
     outputDir: 'de',
     localePath: '/de/',
   },
 };
 
 const templateFiles = [
-  'index.html',
-  'questionnaire.html',
+  { file: 'index.html', locale: null },
+  { file: 'questionnaire.html', locale: null },
+  { file: 'hpt.html', locale: 'hpt' },
 ];
 
 const staticFiles = [
   '_redirects',
-  'hpt.html',
 ];
+
+const localeCache = new Map();
+
+async function loadLocale(prefix, lang) {
+  const name = prefix ? `${prefix}.${lang}.json` : `${lang}.json`;
+  if (!localeCache.has(name)) {
+    localeCache.set(
+      name,
+      JSON.parse(await readFile(join(LOCALES, name), 'utf8'))
+    );
+  }
+  return localeCache.get(name);
+}
 
 const staticDirectories = [
   'assets',
@@ -116,14 +127,9 @@ async function build() {
   });
 
   for (const [lang, config] of Object.entries(languages)) {
-    const translations = JSON.parse(
-      await readFile(
-        join(LOCALES, config.file),
-        'utf8'
-      )
-    );
+    for (const { file, locale } of templateFiles) {
+      const translations = await loadLocale(locale, lang);
 
-    for (const file of templateFiles) {
       const source = await readFile(
         join(ROOT, file),
         'utf8'

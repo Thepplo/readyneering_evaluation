@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "HPT: Highest Performing Teams- Selbsteinschätzung"
+  },
+  "intro": {
+    "title": "Highest Performing Teams",
+    "subtitle": "Willkommen zur Selbsteinschätzung deines Teams",
+    "body_1": "Hier hast du Raum, in Ruhe darüber nachzudenken, wie dein Team wirklich zusammenarbeitet. Es gibt keine richtigen Antworten, nur eine ehrliche Bestandsaufnahme, wie die Dinge heute stehen.",
+    "body_2": "Du bewertest 28 Aussagen in fünf Dimensionen. Nimm dir Zeit: Der Wert liegt im kurzen Innehalten vor jeder Antwort.",
+    "cta": "Begin"
+  },
+  "dimensions": {
+    "title": "Die fünf Dimensionen",
+    "vitality": {
+      "label": "Vitality",
+      "desc": "Energie, Resilienz und ein nachhaltiges Tempo."
+    },
+    "emotion": {
+      "label": "Emotion",
+      "desc": "Vertrauen, Achtsamkeit füreinander und emotionale Ehrlichkeit."
+    },
+    "mind": {
+      "label": "Mind",
+      "desc": "Lernen, Urteilsvermögen und das Erfassen von Zusammenhängen."
+    },
+    "execution": {
+      "label": "Execution",
+      "desc": "Koordination, Verbindlichkeit und konsequente Umsetzung."
+    },
+    "alignment": {
+      "label": "Alignment",
+      "desc": "Gemeinsames Wofür, Identität und Richtung."
+    }
+  },
+  "privacy": {
+    "title": "HINWEIS ZUM DATENSCHUTZ",
+    "body": "Deine individuellen Antworten bleiben vertraulich. Dein Catalyst sieht die zusammengefassten Muster des Teams, aber nicht, wer was geantwortet hat. Die Antworten werden sicher in unserer in der EU gehosteten Datenbank gespeichert.",
+    "toggle_open": "Mehr dazu, wie deine Daten verwendet werden",
+    "toggle_close": "Datenschutzhinweise ausblenden",
+    "details_1": "Wir fragen nicht nach deinem Namen. Wir speichern das Datum, an dem du die Einschätzung abgeschlossen hast, deine Antworten, die berechneten Werte, die erstellten Ergebnisse sowie eine technische Sitzungskennung, die zur Verarbeitung der Einschätzung dient.",
+    "details_2": "Wir verwenden diese Daten, um dir dein Ergebnis bereitzustellen, die Aufzeichnungen zur Einschätzung zu führen, die Einschätzung weiterzuentwickeln und übergreifende Muster zu verstehen. Aggregierte Daten, die keine Rückschlüsse auf einzelne Personen zulassen, können wir für Analysen und Benchmarking nutzen.",
+    "details_3": "Da wir weder deinen Namen noch deine E-Mail-Adresse erheben, können wir deine individuelle Einsendung später möglicherweise nicht zuordnen. Wenn du uns wegen deiner Daten kontaktierst, benötigen wir unter Umständen deine Einsendungsreferenz oder andere Angaben, mit denen wir deine Daten finden können.",
+    "details_4": "Wir nutzen den Browserspeicher auf deinem Gerät, um deinen Fortschritt vorübergehend zu sichern, einschließlich deiner Antworten und einer optionalen Auswahl zu Branche oder Unternehmensgröße. So kannst du die Einschätzung fortsetzen, falls die Seite neu geladen oder geschlossen wird. Dieser Browserspeicher wird nicht für Werbung, Analysen oder seitenübergreifendes Tracking verwendet.",
+    "consent": "Ich habe die Datenschutzhinweise gelesen und verstehe, wie meine Antworten verwendet werden.",
+    "warn": "Bitte bestätige dies, bevor du beginnst."
+  },
+  "assessment": {
+    "legend": "Bewerte, wie sehr jede Aussage heute auf dein Team zutrifft.",
+    "progress_of": "von",
+    "progress_questions": "Fragen",
+    "back": "Zurück",
+    "next": "Weiter"
+  },
+  "loading": {
+    "title": "Dein Teamprofil wird berechnet…",
+    "saving": "Deine Antworten werden gespeichert."
+  },
+  "results": {
+    "title": "Dein Teamprofil",
+    "subtitle_1": "Eine Momentaufnahme, wo dein Team heute steht.",
+    "subtitle_2": "Sieh sie als Ausgangspunkt für ein Gespräch und nicht als Urteil."
+  }
+}
