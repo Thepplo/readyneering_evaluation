@@ -161,11 +161,11 @@ function getSessionId() {
   return s;
 }
 
-function getSubmitAttemptId() {
+/* function getSubmitAttemptId() {
   let id = localStorage.getItem('hpt_submit_attempt_id');
   if (!id) { id = crypto.randomUUID(); localStorage.setItem('hpt_submit_attempt_id', id); }
   return id;
-}
+} */
 
 function renderQuotientInfo(quotient, label) {
   const meta = quotientMeta[quotient];
@@ -352,8 +352,8 @@ function startAssessment() {
 }
 
 async function saveAssessment(payload) {
-  const idempotencyKey = getSubmitAttemptId();
-  const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/submit`, {
+/*   const idempotencyKey = getSubmitAttemptId();
+ */  const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/submit`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey },
     body: JSON.stringify(payload),
