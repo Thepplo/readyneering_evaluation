@@ -162,6 +162,7 @@
     "success_headline": "Danke für Ihre Anfrage",
     "success_message": "Wir melden uns in den nächsten Werktagen bei Ihnen.",
     "error_generic": "Das hat leider nicht geklappt. Bitte versuchen Sie es erneut.",
-    "error_network": "Keine Verbindung. Bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut."
+    "error_network": "Keine Verbindung. Bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
+    "quotient_label": "Welcher Quotient ist für Sie aus Ihren Ergebnissen am interessantesten?"
   }
 }
