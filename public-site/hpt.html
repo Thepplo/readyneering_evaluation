@@ -213,7 +213,15 @@
                 <label for="lead-email">{{t.lead.email}}</label>
                 <input id="lead-email" name="email" type="email" required autocomplete="email" maxlength="254" />
               </div>
-
+              <div class="newsletter-signup__field">
+                <label for="lead-quotient">{{t.lead.quotient_label}}</label>
+                <div class="newsletter-signup__select-wrap">
+                  <select id="lead-quotient" name="quotient"
+                          data-tag-field data-tag-prefix="hpt-q-">
+                    <option value="" disabled selected>{{t.lead.quotient_placeholder}}</option>
+                  </select>
+                </div>
+              </div>
               <label class="newsletter-signup__optin">
                 <input type="checkbox" name="opt_in" value="1" required/>
                 <span>{{t.lead.optin}}</span>
@@ -234,15 +242,7 @@
               </div>
 
               <button type="submit" class="nl-btn nl-btn--dark">{{t.lead.cta}}</button>
-              <div class="newsletter-signup__field">
-                <label for="lead-quotient">{{t.lead.quotient_label}}</label>
-                <div class="newsletter-signup__select-wrap">
-                  <select id="lead-quotient" name="quotient"
-                          data-tag-field data-tag-prefix="hpt-q-">
-                    <option value="" disabled selected>{{t.lead.quotient_placeholder}}</option>
-                  </select>
-                </div>
-              </div>
+
               <p class="newsletter-signup__optin__legal">
                 {{t.lead.legal}} <a href="{{t.lead.privacy_url}}" target="_blank" rel="noopener">{{t.lead.privacy_link}}</a>.
               </p>
