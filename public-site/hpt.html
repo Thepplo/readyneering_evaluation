@@ -232,7 +232,15 @@
                   <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
                 </label>
               </div>
-
+              <div class="newsletter-signup__field">
+                <label for="lead-quotient">{{t.lead.quotient_label}}</label>
+                <div class="newsletter-signup__select-wrap">
+                  <select id="lead-quotient" name="quotient"
+                          data-tag-field data-tag-prefix="hpt-q-">
+                    <option value="" disabled selected>{{t.lead.quotient_placeholder}}</option>
+                  </select>
+                </div>
+              </div>
               <button type="submit" class="nl-btn nl-btn--dark">{{t.lead.cta}}</button>
 
               <p class="newsletter-signup__optin__legal">

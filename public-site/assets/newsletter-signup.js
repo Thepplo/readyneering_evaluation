@@ -55,7 +55,12 @@
         showSuccess();
         return;
       }
-
+      var tags = [];
+      try { tags = JSON.parse(formData.get('tags') || '[]'); } catch (_) {}
+      if (!Array.isArray(tags)) tags = [];
+      form.querySelectorAll('[data-tag-field]').forEach(function (el) {
+        if (el.value) tags.push((el.dataset.tagPrefix || '') + el.value);
+      });
       var payload = {
         name: formData.get('name'),
         email: formData.get('email'),
@@ -64,7 +69,7 @@
         form_version: formData.get('form_version'),
         source: formData.get('source'),
         consent_text: formData.get('consent_text'),
-        tags: formData.get('tags'),
+        tags: JSON.stringify(tags),
         slot_id: formData.get('slot_id'),
       };
       if (formData.has('company')) payload.company = formData.get('company');

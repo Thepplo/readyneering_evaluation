@@ -704,15 +704,38 @@ function renderResults(saved) {
     </div>
   `;
   $('results-summary').innerHTML = html;
-  showLeadForm();
+  showLeadForm(report);
 }
 
-// Lead form sits under the report; only shown once a report actually rendered
-function showLeadForm() {
+function setupLeadQuotientSelect(section, report) {
+  const select = section.querySelector('#lead-quotient');
+  if (!select) return;
+  const wrap = select.closest('.newsletter-signup__select-wrap');
+
+  if (select.options.length <= 1) {
+    const qs = buildQuotientsFromDefinition(VARIANT.instrument.definition);
+    for (const q of qs) select.add(new Option(q.label, q.key));
+    select.addEventListener('change', sync);
+  }
+
+  const pc = report?.readiness?.primaryConstraint;
+  if (!isNoConstraint(pc) && [...select.options].some(o => o.value === pc)) select.value = pc;
+  sync();
+
+  function sync() {
+    const color = quotientMeta[select.value]?.color;
+    if (color) wrap.style.setProperty('--q-color', color);
+    else wrap.style.removeProperty('--q-color');
+    wrap.dataset.q = select.value || '';
+  }
+}
+
+function showLeadForm(report) {
   const section = $('hpt-lead');
   if (!section) return;
   const variantInput = section.querySelector('input[name="variant_key"]');
   if (variantInput) variantInput.value = getVariantKey();
+  setupLeadQuotientSelect(section, report);
   section.hidden = false;
 }
 

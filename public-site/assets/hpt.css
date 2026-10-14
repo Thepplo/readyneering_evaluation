@@ -1377,6 +1377,37 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   font-weight: 700;
 }
 .newsletter-signup--hpt .newsletter-signup__success-icon { color: #000; }
+.newsletter-signup__select-wrap {
+  position: relative;
+  --q-color: rgba(42, 37, 30, 0.25);
+}
+.newsletter-signup__select-wrap::before {
+  content: '';
+  position: absolute; left: 14px; top: 50%;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--q-color);
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: background .2s;
+}
+.newsletter-signup__select-wrap::after {          /* chevron */
+  content: '';
+  position: absolute; right: 16px; top: 50%;
+  width: 8px; height: 8px;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+.newsletter-signup__select-wrap select {
+  appearance: none; -webkit-appearance: none;
+  width: 100%;
+  padding-left: 34px; padding-right: 40px;
+  border-left: 4px solid var(--q-color);
+  font: inherit; color: inherit;
+  background: transparent;
+  transition: border-color .2s;
+}
+.newsletter-signup__select-wrap[data-q=""] select { color: rgba(42, 37, 30, 0.55); } /* placeholder state */
 /* ── Mobile ─────────────────────────────────────────── */
 @media (max-width: 768px) {
   .newsletter-signup__inner,
