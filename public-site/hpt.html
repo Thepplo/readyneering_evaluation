@@ -6,6 +6,7 @@
 <title>{{t.meta.title}}</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/hpt.css">
+<link rel="stylesheet" href="/assets/newsletter-signup.css">
 </head>
 <body>
   <div class="logo-div">
@@ -171,28 +172,20 @@
     </p>
     <div id="results-summary"></div>
     <!--
-      Newsletter signup: vanilla port of NewsLetterSignup.astro
-      Requires: newsletter-signup.css (in <head>) and newsletter-signup.js (deferred).
-
-      Per-instance config lives in the markup:
-        - data-endpoint        → Bunny edge script URL
-        - data-require-optin   → "true" | "false" (also set/remove `disabled` on the button to match)
-        - hidden inputs        → form_version, source, tags (must be allowlisted in the edge script)
-        - consent_text value   → must match the visible opt-in label text exactly (it's your consent record)
-      Variants:
-        - Glass: add `is-glass` to .newsletter-signup__inner and use nl-btn--primary instead of nl-btn--dark
-        - Without intro column: delete the .newsletter-signup__intro block (form centers automatically)
-        - Name optional: remove `required` from the name input and keep the "(optional)" span
-      Multiple instances on one page: give each input a unique id/for pair.
+      Lead form → Bunny edge script → Odoo CRM (crm.lead), routed by source="hpt-results".
+      Hidden until a report renders successfully (hpt.js reveals it).
+      - Submitting the form IS the contact request; it doesn't need a checkbox.
+      - opt_in is the separate, optional marketing consent. consent_text must equal the label.
+      - variant_key is filled in by hpt.js so sales sees which HPT variant the lead came from.
     -->
-    <section class="newsletter-signup">
+    <section class="newsletter-signup newsletter-signup--hpt" id="hpt-lead" hidden>
       <div class="newsletter-signup__container">
         <div class="newsletter-signup__inner">
 
           <div class="newsletter-signup__intro">
-            <h2 class="newsletter-signup__headline">Stay in the loop</h2>
+            <h2 class="newsletter-signup__headline">{{t.lead.headline}}</h2>
             <div class="newsletter-signup__subheadline">
-              <p>Short intro copy goes here. <strong>HTML allowed.</strong></p>
+              <p>{{t.lead.subheadline}}</p>
             </div>
           </div>
 
@@ -201,33 +194,40 @@
               class="newsletter-signup__form"
               data-view="form"
               data-endpoint="https://YOUR-EDGE-SCRIPT.b-cdn.net/"
-              data-require-optin="true"
+              data-require-optin="false"
+              data-msg-error="{{t.lead.error_generic}}"
+              data-msg-network="{{t.lead.error_network}}"
               novalidate
             >
-              <h2 class="newsletter-signup__form-headline">Sign up for our newsletter</h2>
-              <div data-slot-confirm-target></div>
+              <h2 class="newsletter-signup__form-headline">{{t.lead.form_headline}}</h2>
 
               <div class="newsletter-signup__field">
-                <label for="newsletter-name">
-                  Name <!-- <span class="newsletter-signup__optional">(optional)</span> -->
-                </label>
-                <input id="newsletter-name" name="name" type="text" required autocomplete="name" maxlength="120" />
+                <label for="lead-name">{{t.lead.name}}</label>
+                <input id="lead-name" name="name" type="text" required autocomplete="name" maxlength="120" />
               </div>
 
               <div class="newsletter-signup__field">
-                <label for="newsletter-email">E-Mail</label>
-                <input id="newsletter-email" name="email" type="email" required autocomplete="email" maxlength="254" />
+                <label for="lead-email">{{t.lead.email}}</label>
+                <input id="lead-email" name="email" type="email" required autocomplete="email" maxlength="254" />
+              </div>
+
+              <div class="newsletter-signup__field">
+                <label for="lead-company">
+                  {{t.lead.company}} <span class="newsletter-signup__optional">{{t.lead.optional}}</span>
+                </label>
+                <input id="lead-company" name="company" type="text" autocomplete="organization" maxlength="160" />
               </div>
 
               <label class="newsletter-signup__optin">
                 <input type="checkbox" name="opt_in" value="1" />
-                <span>Yes, keep me updated about webinars and events.</span>
+                <span>{{t.lead.optin}}</span>
               </label>
 
-              <input type="hidden" name="form_version" value="newsletter-v1" />
-              <input type="hidden" name="source" value="newsletter-footer-pages" />
-              <input type="hidden" name="consent_text" value="Yes, keep me updated about webinars and events." />
-              <input type="hidden" name="tags" value='["newsletter-subscriber"]' />
+              <input type="hidden" name="form_version" value="hpt-lead-v1" />
+              <input type="hidden" name="source" value="hpt-results" />
+              <input type="hidden" name="consent_text" value="{{t.lead.optin}}" />
+              <input type="hidden" name="tags" value='["hpt-lead"]' />
+              <input type="hidden" name="variant_key" value="" />
               <input type="hidden" name="slot_id" value="" />
 
               <div class="newsletter-signup__honeypot" aria-hidden="true">
@@ -237,19 +237,18 @@
                 </label>
               </div>
 
-              <button type="submit" class="nl-btn nl-btn--dark" disabled>Sign me up</button>
+              <button type="submit" class="nl-btn nl-btn--dark">{{t.lead.cta}}</button>
 
-              <!-- Replaces i18n.newsletter.consentLabel from the Astro site: paste the same legal text -->
               <p class="newsletter-signup__optin__legal">
-                You can unsubscribe at any time. See our <a href="/privacy">privacy policy</a>.
+                {{t.lead.legal}} <a href="{{t.lead.privacy_url}}" target="_blank" rel="noopener">{{t.lead.privacy_link}}</a>.
               </p>
               <p class="newsletter-signup__status" data-status role="status" aria-live="polite" hidden></p>
             </form>
 
             <div class="newsletter-signup__success" data-view="success" hidden>
               <div class="newsletter-signup__success-icon" aria-hidden="true">✓</div>
-              <h3 class="newsletter-signup__success-headline">You're on the list</h3>
-              <p class="newsletter-signup__success-message">You're on the list. We'll be in touch.</p>
+              <h3 class="newsletter-signup__success-headline">{{t.lead.success_headline}}</h3>
+              <p class="newsletter-signup__success-message">{{t.lead.success_message}}</p>
             </div>
           </div>
 
@@ -265,5 +264,6 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 <script>window.__I18N__ = {{i18nJson}};</script>
 <script src="/assets/hpt.js"></script>
+<script src="/assets/newsletter-signup.js" defer></script>
 </body>
 </html>
