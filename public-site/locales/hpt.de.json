@@ -144,5 +144,23 @@
     "moderate": "Moderat",
     "strong": "Stark",
     "exceptional": "Herausragend"
+  },
+  "lead": {
+    "headline": "Was heißt das für Ihr Team?",
+    "subheadline": "Ein Ergebnis ist ein Ausgangspunkt. Wenn Sie wissen möchten, wie Sie mit diesen Mustern im Team konkret weiterarbeiten können, melden wir uns persönlich bei Ihnen.",
+    "form_headline": "Gespräch anfragen",
+    "name": "Name",
+    "email": "E-Mail",
+    "company": "Unternehmen",
+    "optional": "(optional)",
+    "optin": "Ja, ich möchte zusätzlich Informationen zu Webinaren und Veranstaltungen von andQFIVE per E-Mail erhalten. Die Einwilligung kann ich jederzeit widerrufen.",
+    "cta": "Anfrage senden",
+    "legal": "Wir verwenden Ihre Angaben ausschließlich zur Bearbeitung Ihrer Anfrage. Details in unserer",
+    "privacy_link": "Datenschutzerklärung",
+    "privacy_url": "https://de.andqfive.com/data-privacy",
+    "success_headline": "Danke für Ihre Anfrage",
+    "success_message": "Wir melden uns in den nächsten Werktagen bei Ihnen.",
+    "error_generic": "Das hat leider nicht geklappt. Bitte versuchen Sie es erneut.",
+    "error_network": "Keine Verbindung. Bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut."
   }
 }

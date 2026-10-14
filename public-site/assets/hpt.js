@@ -381,7 +381,6 @@ async function submitAssessment() {
       $('results-summary').innerHTML = `
         <p>${t('errors.already_submitted')}</p>
       `;
-      $('results-debug').textContent = '';
       return;
     }
     alert(t('errors.submit_failed', { error: err.message }));
@@ -619,7 +618,7 @@ function renderResults(saved) {
   const report = saved.report?.open;
   if (!report) {
     $('results-summary').innerHTML = `<p>${t('errors.no_report')}</p>`;
-    $('results-debug').textContent = JSON.stringify(saved, null, 2);
+    console.warn('No open report in response', saved);
     return;
   }
   const def = VARIANT.instrument.definition;
@@ -705,7 +704,16 @@ function renderResults(saved) {
     </div>
   `;
   $('results-summary').innerHTML = html;
-/*   $('results-debug').textContent = JSON.stringify(report, null, 2); */
+  showLeadForm();
+}
+
+// Lead form sits under the report; only shown once a report actually rendered
+function showLeadForm() {
+  const section = $('hpt-lead');
+  if (!section) return;
+  const variantInput = section.querySelector('input[name="variant_key"]');
+  if (variantInput) variantInput.value = getVariantKey();
+  section.hidden = false;
 }
 
 document.getElementById('btn-start').addEventListener('click', startAssessment);

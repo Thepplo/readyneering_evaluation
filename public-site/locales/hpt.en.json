@@ -143,5 +143,23 @@
     "moderate": "Moderate",
     "strong": "Strong",
     "exceptional": "Exceptional"
+  },
+  "lead": {
+    "headline": "What does this mean for your team?",
+    "subheadline": "A result is a starting point. If you'd like to talk through how to work with these patterns in your team, we'll get in touch personally.",
+    "form_headline": "Request a conversation",
+    "name": "Name",
+    "email": "Email",
+    "company": "Company",
+    "optional": "(optional)",
+    "optin": "Yes, I'd also like to receive information about andQFIVE webinars and events by email. I can withdraw this consent at any time.",
+    "cta": "Send request",
+    "legal": "We only use your details to handle your request. See our",
+    "privacy_link": "privacy policy",
+    "privacy_url": "https://andqfive.com/data-privacy",
+    "success_headline": "Thanks for your request",
+    "success_message": "We'll be in touch within the next few working days.",
+    "error_generic": "Something went wrong. Please try again.",
+    "error_network": "No connection. Please check your internet connection and try again."
   }
 }

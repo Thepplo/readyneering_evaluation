@@ -1009,7 +1009,387 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   display: flex;
   flex-wrap: wrap;
 }
+/*
+  Newsletter signup: vanilla port of NewsLetterSignup.astro styles.
+  Local --nl-* tokens read the host site's tokens if they exist (same names as the Astro
+  design system) and fall back to defaults otherwise. To theme, define the host tokens
+  on :root, or override the --nl-* values on .newsletter-signup.
+*/
+.newsletter-signup {
+  --nl-primary: var(--color-primary, #d4a800);
+  --nl-error: var(--color-error, #c62828);
+  --nl-text: var(--color-text, #222);
+  --nl-text-black: var(--color-text-black, #111);
+  --nl-text-muted: var(--color-text-black-muted, rgba(0, 0, 0, 0.55));
+  --nl-gray-300: var(--color-gray-300, #d1d5db);
+  --nl-link-hover: var(--overlay-black-90, rgba(0, 0, 0, 0.9));
+  --nl-font-display: var(--font-display, inherit);
+  --nl-ease: var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1));
+  --nl-radius-md: var(--radius-md, 8px);
+  --nl-radius-lg: var(--radius-lg, 16px);
+  --nl-shadow: var(--shadow-md, 0 4px 16px rgba(0, 0, 0, 0.08));
+  --nl-s2: var(--space-2, 0.5rem);
+  --nl-s3: var(--space-3, 0.75rem);
+  --nl-s4: var(--space-4, 1rem);
+  --nl-s6: var(--space-6, 1.5rem);
+  --nl-s10: var(--space-10, 2.5rem);
+  --nl-xs: var(--text-xs, 0.75rem);
+  --nl-sm: var(--text-sm, 0.875rem);
+  --nl-base: var(--text-base, 1rem);
+  --nl-xl: var(--text-xl, 1.25rem);
+  --nl-2xl: var(--text-2xl, 1.5rem);
+  --nl-3xl: var(--text-3xl, 1.875rem);
+  --nl-5xl: var(--text-5xl, 3rem);
 
+  padding-block: 3rem; /* replaces <Section spacing="sm"> */
+}
+
+.newsletter-signup *,
+.newsletter-signup *::before,
+.newsletter-signup *::after {
+  box-sizing: border-box;
+}
+
+/* replaces <Container size="default"> */
+.newsletter-signup__container {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+/* ── Layout ─────────────────────────────────────────── */
+.newsletter-signup__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--nl-s10);
+  align-items: stretch;
+}
+.newsletter-signup__inner:not(:has(.newsletter-signup__intro)) {
+  grid-template-columns: minmax(0, calc(50% - var(--nl-s10) / 2));
+  justify-content: center;
+}
+
+/* ── Intro column ───────────────────────────────────── */
+.newsletter-signup__headline {
+  font-family: var(--nl-font-display);
+  font-size: var(--nl-5xl);
+  line-height: 1.1;
+  margin: 0 0 var(--nl-s4);
+  text-wrap: balance;
+  text-transform: uppercase;
+  max-width: 90%;
+}
+.newsletter-signup__subheadline {
+  color: var(--nl-text);
+  line-height: 1.6;
+  max-width: 46ch;
+  margin: 0;
+  text-wrap: pretty;
+}
+.newsletter-signup__subheadline p { margin: 0 0 1rem; }
+.newsletter-signup__subheadline p:last-child { margin-bottom: 0; }
+.newsletter-signup__subheadline strong { font-weight: 600; color: inherit; }
+.newsletter-signup__subheadline ul {
+  margin: 0.5rem 0 1.25rem;
+  padding-left: 1.25rem;
+  list-style: circle;
+}
+.newsletter-signup__subheadline li { margin-bottom: 0.5rem; padding-left: 0.2rem; }
+.newsletter-signup__subheadline li:last-child { margin-bottom: 0; }
+.newsletter-signup__subheadline li::marker { color: currentColor; }
+
+/* ── Stage (form ↔ success crossfade) ───────────────── */
+.newsletter-signup__stage {
+  position: relative;
+  display: grid;
+  grid-template-areas: 'stack';
+  align-self: center;
+}
+.newsletter-signup__form,
+.newsletter-signup__success {
+  grid-area: stack;
+  transition: opacity 300ms var(--nl-ease);
+}
+.newsletter-signup__form[hidden],
+.newsletter-signup__success[hidden] {
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Form card ──────────────────────────────────────── */
+.newsletter-signup__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nl-s4);
+  padding: var(--nl-s6);
+  background: #fff;
+  border-radius: var(--nl-radius-lg);
+  box-shadow: var(--nl-shadow);
+}
+.newsletter-signup__form-headline {
+  font-family: var(--nl-font-display);
+  font-size: var(--nl-3xl);
+  color: var(--nl-text-black);
+  text-transform: uppercase;
+  line-height: 1.2;
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.newsletter-signup__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nl-s2);
+}
+.newsletter-signup__field label {
+  font-size: var(--nl-sm);
+  font-weight: 500;
+  color: var(--nl-text-black);
+}
+.newsletter-signup__optional {
+  color: var(--nl-text-muted);
+  font-weight: 400;
+  font-size: var(--nl-xs);
+}
+.newsletter-signup__field input {
+  padding: var(--nl-s3);
+  font: inherit;
+  font-size: var(--nl-base);
+  border: 1.5px solid var(--nl-gray-300);
+  border-radius: var(--nl-radius-md);
+  background: #fff;
+  color: var(--nl-text-black);
+  transition: border-color 200ms var(--nl-ease);
+}
+.newsletter-signup__field input:focus {
+  outline: none;
+  border-color: var(--nl-primary);
+}
+
+/* ── Opt-in ─────────────────────────────────────────── */
+.newsletter-signup__optin {
+  display: flex;
+  gap: var(--nl-s3);
+  align-items: flex-start;
+  font-size: var(--nl-sm);
+  color: var(--nl-text-black);
+  cursor: pointer;
+}
+.newsletter-signup__optin input { margin-top: 3px; flex-shrink: 0; }
+.newsletter-signup__optin a,
+.newsletter-signup__optin a:visited {
+  color: var(--nl-text-black);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+.newsletter-signup__optin a:hover,
+.newsletter-signup__optin a:focus-visible {
+  color: var(--nl-primary);
+  text-decoration-color: var(--nl-primary);
+}
+
+.newsletter-signup__optin__legal {
+  margin: var(--nl-s3) 0 0;
+  font-size: var(--nl-xs);
+  color: rgba(0, 0, 0, 0.6);
+  text-align: center;
+  line-height: 1.5;
+}
+.newsletter-signup__optin__legal a,
+.newsletter-signup__optin__legal a:visited {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color 0.15s ease;
+}
+.newsletter-signup__optin__legal a:hover,
+.newsletter-signup__optin__legal a:focus-visible {
+  color: var(--nl-link-hover);
+}
+
+/* ── Honeypot ───────────────────────────────────────── */
+.newsletter-signup__honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ── Status ─────────────────────────────────────────── */
+.newsletter-signup__status {
+  margin: 0;
+  font-size: var(--nl-sm);
+  padding: var(--nl-s3);
+  border-radius: var(--nl-radius-md);
+}
+.newsletter-signup__status[data-tone='success'] {
+  background: color-mix(in oklab, var(--nl-primary), transparent 90%);
+  color: var(--nl-primary);
+}
+.newsletter-signup__status[data-tone='error'] {
+  background: color-mix(in oklab, var(--nl-error), transparent 90%);
+  color: var(--nl-error);
+}
+
+/* ── Button (replaces <Button>) ─────────────────────── */
+.nl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.5rem;
+  font: inherit;
+  font-weight: 600;
+  border: 0;
+  border-radius: var(--nl-radius-md);
+  cursor: pointer;
+  transition: background-color 200ms var(--nl-ease), opacity 200ms var(--nl-ease);
+}
+.nl-btn--dark { background: #111; color: #fff; }
+.nl-btn--dark:hover:not(:disabled) { background: #333; }
+.nl-btn--primary { background: var(--nl-primary); color: #000; }
+.nl-btn--primary:hover:not(:disabled) { filter: brightness(1.05); }
+.nl-btn:focus-visible { outline: 2px solid var(--nl-primary); outline-offset: 2px; }
+.nl-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ── Success card ───────────────────────────────────── */
+.newsletter-signup__success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--nl-s4);
+  padding: var(--nl-s6);
+  background: #fff;
+  border-radius: var(--nl-radius-lg);
+  box-shadow: var(--nl-shadow);
+}
+.newsletter-signup__success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--nl-primary);
+  color: #fff;
+  font-size: var(--nl-xl);
+  font-weight: bold;
+}
+.newsletter-signup__success-headline {
+  font-family: var(--nl-font-display);
+  text-transform: uppercase;
+  font-size: var(--nl-2xl);
+  line-height: 1.2;
+  margin: 0;
+  color: var(--nl-text-black);
+  text-align: center;
+}
+.newsletter-signup__success-message {
+  color: var(--nl-text-black);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Glass variant ──────────────────────────────────── */
+.is-glass .newsletter-signup__form,
+.is-glass .newsletter-signup__success {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  color: #fff;
+}
+.is-glass .newsletter-signup__form-headline,
+.is-glass .newsletter-signup__success-headline,
+.is-glass .newsletter-signup__success-message,
+.is-glass .newsletter-signup__field label,
+.is-glass .newsletter-signup__optin { color: #fff; }
+.is-glass .newsletter-signup__optional { color: rgba(255, 255, 255, 0.6); }
+.is-glass .newsletter-signup__field input {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+.is-glass .newsletter-signup__field input:focus {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--nl-primary);
+}
+/* Browser autofill otherwise paints a white/yellow box with dark text */
+.is-glass .newsletter-signup__field input:-webkit-autofill {
+  -webkit-text-fill-color: #fff;
+  caret-color: #fff;
+  box-shadow: 0 0 0 1000px rgba(30, 30, 30, 0.95) inset;
+}
+.is-glass .newsletter-signup__optin input { accent-color: var(--nl-primary); }
+.is-glass .newsletter-signup__optin a,
+.is-glass .newsletter-signup__optin a:visited { color: #fff; }
+.is-glass .newsletter-signup__optin__legal { color: rgba(255, 255, 255, 0.6); }
+.is-glass .newsletter-signup__optin__legal a:hover,
+.is-glass .newsletter-signup__optin__legal a:focus-visible { color: #fff; }
+.is-glass .newsletter-signup__success-icon { color: #000; }
+
+/* ── Mobile ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .newsletter-signup__inner,
+  .newsletter-signup__inner:not(:has(.newsletter-signup__intro)) {
+    grid-template-columns: minmax(0, 1fr);
+    justify-content: stretch;
+    gap: var(--nl-s6);
+  }
+  .newsletter-signup__form-headline {
+    font-size: var(--nl-2xl);
+    overflow-wrap: break-word;
+  }
+}
+
+/* ── HPT results theme ──────────────────────────────── */
+/* Maps the form onto the HPT page tokens (--ink, --muted, --line) and
+   sizes it to sit inside the results column rather than a full-width section. */
+.newsletter-signup--hpt {
+  --nl-primary: rgb(255, 208, 0);
+  --nl-text: var(--ink, #2a251e);
+  --nl-text-black: var(--ink, #2a251e);
+  --nl-text-muted: var(--muted, #97907e);
+  --nl-gray-300: var(--line, #e6decf);
+  --nl-font-display: 'Montserrat', sans-serif;
+  --nl-5xl: 2rem;
+  --nl-3xl: 1.375rem;
+  --nl-2xl: 1.25rem;
+  padding-block: 3rem 1rem;
+  font-family: 'Montserrat', sans-serif;
+}
+.newsletter-signup--hpt .newsletter-signup__container {
+  max-width: none;
+  padding-inline: 0;
+}
+.newsletter-signup--hpt .newsletter-signup__headline,
+.newsletter-signup--hpt .newsletter-signup__form-headline,
+.newsletter-signup--hpt .newsletter-signup__success-headline {
+  text-transform: none;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+.newsletter-signup--hpt .newsletter-signup__success-icon { color: #000; }
+/* ── Mobile ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .newsletter-signup__inner,
+  .newsletter-signup__inner:not(:has(.newsletter-signup__intro)) {
+    grid-template-columns: minmax(0, 1fr);
+    justify-content: stretch;
+    gap: var(--nl-s6);
+  }
+  .newsletter-signup__form-headline {
+    font-size: var(--nl-2xl);
+    overflow-wrap: break-word;
+  }
+}
 @media (max-width: 767px) {
   #scr-quotient {
     grid-template-columns: 1fr;

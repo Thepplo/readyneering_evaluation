@@ -170,6 +170,92 @@
       {{t.results.subtitle_2}}
     </p>
     <div id="results-summary"></div>
+    <!--
+      Newsletter signup: vanilla port of NewsLetterSignup.astro
+      Requires: newsletter-signup.css (in <head>) and newsletter-signup.js (deferred).
+
+      Per-instance config lives in the markup:
+        - data-endpoint        → Bunny edge script URL
+        - data-require-optin   → "true" | "false" (also set/remove `disabled` on the button to match)
+        - hidden inputs        → form_version, source, tags (must be allowlisted in the edge script)
+        - consent_text value   → must match the visible opt-in label text exactly (it's your consent record)
+      Variants:
+        - Glass: add `is-glass` to .newsletter-signup__inner and use nl-btn--primary instead of nl-btn--dark
+        - Without intro column: delete the .newsletter-signup__intro block (form centers automatically)
+        - Name optional: remove `required` from the name input and keep the "(optional)" span
+      Multiple instances on one page: give each input a unique id/for pair.
+    -->
+    <section class="newsletter-signup">
+      <div class="newsletter-signup__container">
+        <div class="newsletter-signup__inner">
+
+          <div class="newsletter-signup__intro">
+            <h2 class="newsletter-signup__headline">Stay in the loop</h2>
+            <div class="newsletter-signup__subheadline">
+              <p>Short intro copy goes here. <strong>HTML allowed.</strong></p>
+            </div>
+          </div>
+
+          <div class="newsletter-signup__stage" data-state="form">
+            <form
+              class="newsletter-signup__form"
+              data-view="form"
+              data-endpoint="https://YOUR-EDGE-SCRIPT.b-cdn.net/"
+              data-require-optin="true"
+              novalidate
+            >
+              <h2 class="newsletter-signup__form-headline">Sign up for our newsletter</h2>
+              <div data-slot-confirm-target></div>
+
+              <div class="newsletter-signup__field">
+                <label for="newsletter-name">
+                  Name <!-- <span class="newsletter-signup__optional">(optional)</span> -->
+                </label>
+                <input id="newsletter-name" name="name" type="text" required autocomplete="name" maxlength="120" />
+              </div>
+
+              <div class="newsletter-signup__field">
+                <label for="newsletter-email">E-Mail</label>
+                <input id="newsletter-email" name="email" type="email" required autocomplete="email" maxlength="254" />
+              </div>
+
+              <label class="newsletter-signup__optin">
+                <input type="checkbox" name="opt_in" value="1" />
+                <span>Yes, keep me updated about webinars and events.</span>
+              </label>
+
+              <input type="hidden" name="form_version" value="newsletter-v1" />
+              <input type="hidden" name="source" value="newsletter-footer-pages" />
+              <input type="hidden" name="consent_text" value="Yes, keep me updated about webinars and events." />
+              <input type="hidden" name="tags" value='["newsletter-subscriber"]' />
+              <input type="hidden" name="slot_id" value="" />
+
+              <div class="newsletter-signup__honeypot" aria-hidden="true">
+                <label>
+                  Company website
+                  <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
+                </label>
+              </div>
+
+              <button type="submit" class="nl-btn nl-btn--dark" disabled>Sign me up</button>
+
+              <!-- Replaces i18n.newsletter.consentLabel from the Astro site: paste the same legal text -->
+              <p class="newsletter-signup__optin__legal">
+                You can unsubscribe at any time. See our <a href="/privacy">privacy policy</a>.
+              </p>
+              <p class="newsletter-signup__status" data-status role="status" aria-live="polite" hidden></p>
+            </form>
+
+            <div class="newsletter-signup__success" data-view="success" hidden>
+              <div class="newsletter-signup__success-icon" aria-hidden="true">✓</div>
+              <h3 class="newsletter-signup__success-headline">You're on the list</h3>
+              <p class="newsletter-signup__success-message">You're on the list. We'll be in touch.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
   </div>
 
 <input type="text" id="website-honeypot" name="website"
