@@ -211,15 +211,8 @@
                 <input id="lead-email" name="email" type="email" required autocomplete="email" maxlength="254" />
               </div>
 
-              <div class="newsletter-signup__field">
-                <label for="lead-company">
-                  {{t.lead.company}} <span class="newsletter-signup__optional">{{t.lead.optional}}</span>
-                </label>
-                <input id="lead-company" name="company" type="text" autocomplete="organization" maxlength="160" />
-              </div>
-
               <label class="newsletter-signup__optin">
-                <input type="checkbox" name="opt_in" value="1" />
+                <input type="checkbox" name="opt_in" value="1" required/>
                 <span>{{t.lead.optin}}</span>
               </label>
 
