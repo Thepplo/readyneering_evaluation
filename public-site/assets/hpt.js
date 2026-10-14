@@ -355,7 +355,7 @@ async function saveAssessment(payload) {
 /*   const idempotencyKey = getSubmitAttemptId();
  */  const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/submit`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
   const data = await response.json();
