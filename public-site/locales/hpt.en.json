@@ -153,6 +153,7 @@
     "email": "Email",
     "company": "Company",
     "quotient_label": "Which quotient is the most interesting to you from your results?",
+    "quotient_placeholder": "Select a quotient",
     "optional": "(optional)",
     "optin": "Yes, please contact me by email about my results. andQFIVE GmbH stores the details I entered for this purpose. More in our [privacy policy]",
     "cta": "Send request",
