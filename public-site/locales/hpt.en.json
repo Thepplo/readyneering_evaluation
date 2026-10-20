@@ -84,7 +84,8 @@
       "balanced": "Balanced",
       "resilience_leads": "Resilience leads — build structure",
       "preparedness_leads": "Preparedness leads — build capacity"
-    }
+    },
+    "critical_locked_sub": "Locked"
   },
   "errors": {
     "variant_failed": "Failed to load variant",

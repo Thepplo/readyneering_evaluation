@@ -6,7 +6,7 @@
 <title>{{t.meta.title}}</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/hpt.css">
-<link rel="stylesheet" href="/assets/newsletter-signup.css">
+<link rel="stylesheet" href="/assets/contact-form.css">
 </head>
 <body>
   <div class="logo-div">
@@ -181,48 +181,49 @@
       - opt_in is the separate, optional marketing consent. consent_text must equal the label.
       - variant_key is filled in by hpt.js so sales sees which HPT variant the lead came from.
     -->
-    <section class="newsletter-signup newsletter-signup--hpt" id="hpt-lead" hidden>
-      <div class="newsletter-signup__container">
-        <div class="newsletter-signup__inner">
+    <section class="contact-form contact-form--hpt" id="hpt-lead" hidden>
+      <div class="contact-form__container">
+        <div class="contact-form__inner">
 
-          <div class="newsletter-signup__intro">
-            <h2 class="newsletter-signup__headline">{{t.lead.headline}}</h2>
-            <div class="newsletter-signup__subheadline">
+          <div class="contact-form__intro">
+            <h2 class="contact-form__headline">{{t.lead.headline}}</h2>
+            <div class="contact-form__subheadline">
               <p>{{t.lead.subheadline}}</p>
             </div>
           </div>
 
-          <div class="newsletter-signup__stage" data-state="form">
+          <div class="contact-form__stage" data-state="form">
             <form
-              class="newsletter-signup__form"
+              class="contact-form__form"
               data-view="form"
-              data-endpoint="https://odoo-newsletterwebinar-handler-alzmq.bunny.run/"
+              data-endpoint="${SUPABASE_FUNCTIONS_BASE}/hpt-unlock"
               data-require-optin="false"
+              
               data-msg-error="{{t.lead.error_generic}}"
               data-msg-network="{{t.lead.error_network}}"
               novalidate
             >
-              <h2 class="newsletter-signup__form-headline">{{t.lead.form_headline}}</h2>
+              <h2 class="contact-form__form-headline">{{t.lead.form_headline}}</h2>
 
-              <div class="newsletter-signup__field">
+              <div class="contact-form__field">
                 <label for="lead-name">{{t.lead.name}}</label>
                 <input id="lead-name" name="name" type="text" required autocomplete="name" maxlength="120" />
               </div>
 
-              <div class="newsletter-signup__field">
+              <div class="contact-form__field">
                 <label for="lead-email">{{t.lead.email}}</label>
                 <input id="lead-email" name="email" type="email" required autocomplete="email" maxlength="254" />
               </div>
-              <div class="newsletter-signup__field">
+              <div class="contact-form__field">
                 <label for="lead-quotient">{{t.lead.quotient_label}}</label>
-                <div class="newsletter-signup__select-wrap">
+                <div class="contact-form__select-wrap">
                   <select id="lead-quotient" name="quotient"
                           data-tag-field data-tag-prefix="Q:">
                     <option value="" disabled selected>{{t.lead.quotient_placeholder}}</option>
                   </select>
                 </div>
               </div>
-              <label class="newsletter-signup__optin">
+              <label class="contact-form__optin">
                 <input type="checkbox" name="opt_in" value="1" required/>
                 <span>{{t.lead.optin}}</span>
               </label>
@@ -233,8 +234,9 @@
               <input type="hidden" name="tags" value='["hpt-lead"]' />
               <input type="hidden" name="variant_key" value="" />
               <input type="hidden" name="slot_id" value="" />
+              <input type="hidden" name="access_token">
 
-              <div class="newsletter-signup__honeypot" aria-hidden="true">
+              <div class="contact-form__honeypot" aria-hidden="true">
                 <label>
                   Company website
                   <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
@@ -243,16 +245,16 @@
 
               <button type="submit" class="nl-btn nl-btn--dark">{{t.lead.cta}}</button>
 
-              <p class="newsletter-signup__optin__legal">
+              <p class="contact-form__optin__legal">
                 {{t.lead.legal}} <a href="{{t.lead.privacy_url}}" target="_blank" rel="noopener">{{t.lead.privacy_link}}</a>.
               </p>
-              <p class="newsletter-signup__status" data-status role="status" aria-live="polite" hidden></p>
+              <p class="contact-form__status" data-status role="status" aria-live="polite" hidden></p>
             </form>
 
-            <div class="newsletter-signup__success" data-view="success" hidden>
-              <div class="newsletter-signup__success-icon" aria-hidden="true">✓</div>
-              <h3 class="newsletter-signup__success-headline">{{t.lead.success_headline}}</h3>
-              <p class="newsletter-signup__success-message">{{t.lead.success_message}}</p>
+            <div class="contact-form__success" data-view="success" hidden>
+              <div class="contact-form__success-icon" aria-hidden="true">✓</div>
+              <h3 class="contact-form__success-headline">{{t.lead.success_headline}}</h3>
+              <p class="contact-form__success-message">{{t.lead.success_message}}</p>
             </div>
           </div>
 
@@ -268,6 +270,6 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 <script>window.__I18N__ = {{i18nJson}};</script>
 <script src="/assets/hpt.js"></script>
-<script src="/assets/newsletter-signup.js" defer></script>
+<script src="/assets/contact-form.js" defer></script>
 </body>
 </html>

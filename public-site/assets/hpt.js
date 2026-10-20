@@ -614,6 +614,37 @@ function renderReadinessCard(readiness, report, def) {
     </div>
   `;
 }
+
+function renderCriticalQuestions(qs) {
+  return `
+    <div class="result-questions-wrapper">
+      <p class="results-eb-title">${t('results.critical_title')}</p>
+      <p class="title-sub" style="margin-bottom: 25px !important;">${t('results.critical_sub')}</p>
+      ${qs.map((q, i) => `
+        <div class="result-question">
+          <span class="result-question-num">${String(i + 1).padStart(2, '0')}</span>
+          <p class="result-question-text">${q}</p>
+        </div>`).join('')}
+    </div>`;
+}
+
+function renderLockedTeaser() {
+  return `
+    <div class="result-questions-wrapper is-locked">
+      <p class="results-eb-title">${t('results.critical_title')}</p>
+      <p class="title-sub">${t('results.critical_locked_sub')}</p>
+    </div>`;
+}
+
+document.addEventListener('newsletter:success', (e) => {
+  if (!e.target.closest('#hpt-lead')) return;
+  const locked = e.detail?.report?.locked;
+  if (!locked?.criticalQuestions || !currentResult) return;
+  currentResult.report = { ...currentResult.report, locked };
+  $('critical-slot').innerHTML = renderCriticalQuestions(locked.criticalQuestions);
+  $('critical-slot').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
 function renderResults(saved) {
   const report = saved.report?.open;
   if (!report) {
@@ -624,6 +655,7 @@ function renderResults(saved) {
   const def = VARIANT.instrument.definition;
   const primaryConstraint = report.readiness?.primaryConstraint;
   const hasPrimaryConstraint = !isNoConstraint(primaryConstraint);
+  const critical = report.criticalQuestions ?? saved.report?.locked?.criticalQuestions ?? null;
 
   const html = `
     <div class="results-container">
@@ -692,15 +724,8 @@ function renderResults(saved) {
 
       ${renderReadinessCard(report.readiness, report, def)}
     </div>
-    <div class="result-questions-wrapper">
-      <p class="results-eb-title">${t('results.critical_title')}</p>
-      <p class="title-sub" style="margin-bottom: 25px !important;">${t('results.critical_sub')}</p>
-      ${report.criticalQuestions.map((q, i) => `
-        <div class="result-question">
-          <span class="result-question-num">${String(i + 1).padStart(2, '0')}</span>
-          <p class="result-question-text">${q}</p>
-        </div>
-      `).join('')}
+    <div id="critical-slot">
+      ${critical ? renderCriticalQuestions(critical) : (saved.locked ? renderLockedTeaser() : '')}
     </div>
   `;
   $('results-summary').innerHTML = html;
@@ -710,7 +735,7 @@ function renderResults(saved) {
 function setupLeadQuotientSelect(section, report) {
   const select = section.querySelector('#lead-quotient');
   if (!select) return;
-  const wrap = select.closest('.newsletter-signup__select-wrap');
+  const wrap = select.closest('.contact-form__select-wrap');
 
   if (select.options.length <= 1) {
     const qs = buildQuotientsFromDefinition(VARIANT.instrument.definition);
@@ -736,6 +761,8 @@ function showLeadForm(report) {
   const variantInput = section.querySelector('input[name="variant_key"]');
   if (variantInput) variantInput.value = getVariantKey();
   setupLeadQuotientSelect(section, report);
+  const tokenInput = section.querySelector('input[name="access_token"]');
+  if (tokenInput) tokenInput.value = currentResult?.access_token || '';
   section.hidden = false;
 }
 

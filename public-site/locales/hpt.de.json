@@ -84,7 +84,8 @@
       "balanced": "Ausgewogen",
       "resilience_leads": "Resilience überwiegt: Struktur aufbauen",
       "preparedness_leads": "Preparedness überwiegt: Kapazität aufbauen"
-    }
+    },
+    "critical_locked_sub": "Locked"
 
   },
     "errors": {

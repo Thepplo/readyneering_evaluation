@@ -7,7 +7,7 @@
 
     var endpoint = form.dataset.endpoint;
     var requireOptIn = form.dataset.requireOptin === 'true';
-    var stage = form.closest('.newsletter-signup__stage');
+    var stage = form.closest('.contact-form__stage');
     var status = form.querySelector('[data-status]');
     var submitButton = form.querySelector('button[type="submit"]');
     var optInCheckbox = form.querySelector('[name="opt_in"]');
@@ -74,6 +74,8 @@
       };
       if (formData.has('company')) payload.company = formData.get('company');
       if (formData.has('variant_key')) payload.variant_key = formData.get('variant_key');
+      if (formData.has('access_token')) payload.access_token = formData.get('access_token');
+
 
       var msgError = form.dataset.msgError;
       var msgNetwork = form.dataset.msgNetwork || 'Network error. Please try again.';
@@ -87,6 +89,7 @@
         var data = await res.json().catch(function () { return {}; });
 
         if (res.ok && data.ok) {
+          form.dispatchEvent(new CustomEvent('newsletter:success', { bubbles: true, detail: data }));
           showSuccess();
         } else {
           setStatus(msgError || data.error || 'Something went wrong. Please try again.', 'error');
@@ -100,7 +103,7 @@
   }
 
   function initAll(root) {
-    (root || document).querySelectorAll('.newsletter-signup__form').forEach(initNewsletterForm);
+    (root || document).querySelectorAll('.contact-form__form').forEach(initNewsletterForm);
   }
 
   initAll();

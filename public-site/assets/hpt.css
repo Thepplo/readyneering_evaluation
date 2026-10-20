@@ -1013,9 +1013,9 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   Newsletter signup: vanilla port of NewsLetterSignup.astro styles.
   Local --nl-* tokens read the host site's tokens if they exist (same names as the Astro
   design system) and fall back to defaults otherwise. To theme, define the host tokens
-  on :root, or override the --nl-* values on .newsletter-signup.
+  on :root, or override the --nl-* values on .contact-form.
 */
-.newsletter-signup {
+.contact-form {
   --nl-primary: var(--color-primary, #d4a800);
   --nl-error: var(--color-error, #c62828);
   --nl-text: var(--color-text, #222);
@@ -1044,33 +1044,33 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   padding-block: 3rem; /* replaces <Section spacing="sm"> */
 }
 
-.newsletter-signup *,
-.newsletter-signup *::before,
-.newsletter-signup *::after {
+.contact-form *,
+.contact-form *::before,
+.contact-form *::after {
   box-sizing: border-box;
 }
 
 /* replaces <Container size="default"> */
-.newsletter-signup__container {
+.contact-form__container {
   max-width: 1200px;
   margin-inline: auto;
   padding-inline: 16px;
 }
 
 /* ── Layout ─────────────────────────────────────────── */
-.newsletter-signup__inner {
+.contact-form__inner {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--nl-s10);
   align-items: stretch;
 }
-.newsletter-signup__inner:not(:has(.newsletter-signup__intro)) {
+.contact-form__inner:not(:has(.contact-form__intro)) {
   grid-template-columns: minmax(0, calc(50% - var(--nl-s10) / 2));
   justify-content: center;
 }
 
 /* ── Intro column ───────────────────────────────────── */
-.newsletter-signup__headline {
+.contact-form__headline {
   font-family: var(--nl-font-display);
   font-size: var(--nl-5xl);
   line-height: 1.1;
@@ -1079,39 +1079,39 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   text-transform: uppercase;
   max-width: 90%;
 }
-.newsletter-signup__subheadline {
+.contact-form__subheadline {
   color: var(--nl-text);
   line-height: 1.6;
   max-width: 46ch;
   margin: 0;
   text-wrap: pretty;
 }
-.newsletter-signup__subheadline p { margin: 0 0 1rem; }
-.newsletter-signup__subheadline p:last-child { margin-bottom: 0; }
-.newsletter-signup__subheadline strong { font-weight: 600; color: inherit; }
-.newsletter-signup__subheadline ul {
+.contact-form__subheadline p { margin: 0 0 1rem; }
+.contact-form__subheadline p:last-child { margin-bottom: 0; }
+.contact-form__subheadline strong { font-weight: 600; color: inherit; }
+.contact-form__subheadline ul {
   margin: 0.5rem 0 1.25rem;
   padding-left: 1.25rem;
   list-style: circle;
 }
-.newsletter-signup__subheadline li { margin-bottom: 0.5rem; padding-left: 0.2rem; }
-.newsletter-signup__subheadline li:last-child { margin-bottom: 0; }
-.newsletter-signup__subheadline li::marker { color: currentColor; }
+.contact-form__subheadline li { margin-bottom: 0.5rem; padding-left: 0.2rem; }
+.contact-form__subheadline li:last-child { margin-bottom: 0; }
+.contact-form__subheadline li::marker { color: currentColor; }
 
 /* ── Stage (form ↔ success crossfade) ───────────────── */
-.newsletter-signup__stage {
+.contact-form__stage {
   position: relative;
   display: grid;
   grid-template-areas: 'stack';
   align-self: center;
 }
-.newsletter-signup__form,
-.newsletter-signup__success {
+.contact-form__form,
+.contact-form__success {
   grid-area: stack;
   transition: opacity 300ms var(--nl-ease);
 }
-.newsletter-signup__form[hidden],
-.newsletter-signup__success[hidden] {
+.contact-form__form[hidden],
+.contact-form__success[hidden] {
   display: block;
   visibility: hidden;
   opacity: 0;
@@ -1119,7 +1119,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 }
 
 /* ── Form card ──────────────────────────────────────── */
-.newsletter-signup__form {
+.contact-form__form {
   display: flex;
   flex-direction: column;
   gap: var(--nl-s4);
@@ -1128,7 +1128,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   border-radius: var(--nl-radius-lg);
   box-shadow: var(--nl-shadow);
 }
-.newsletter-signup__form-headline {
+.contact-form__form-headline {
   font-family: var(--nl-font-display);
   font-size: var(--nl-3xl);
   color: var(--nl-text-black);
@@ -1139,22 +1139,22 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   margin: 0 auto;
 }
 
-.newsletter-signup__field {
+.contact-form__field {
   display: flex;
   flex-direction: column;
   gap: var(--nl-s2);
 }
-.newsletter-signup__field label {
+.contact-form__field label {
   font-size: var(--nl-sm);
   font-weight: 500;
   color: var(--nl-text-black);
 }
-.newsletter-signup__optional {
+.contact-form__optional {
   color: var(--nl-text-muted);
   font-weight: 400;
   font-size: var(--nl-xs);
 }
-.newsletter-signup__field input {
+.contact-form__field input {
   padding: var(--nl-s3);
   font: inherit;
   font-size: var(--nl-base);
@@ -1164,13 +1164,13 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   color: var(--nl-text-black);
   transition: border-color 200ms var(--nl-ease);
 }
-.newsletter-signup__field input:focus {
+.contact-form__field input:focus {
   outline: none;
   border-color: var(--nl-primary);
 }
 
 /* ── Opt-in ─────────────────────────────────────────── */
-.newsletter-signup__optin {
+.contact-form__optin {
   display: flex;
   gap: var(--nl-s3);
   align-items: flex-start;
@@ -1178,43 +1178,43 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   color: var(--nl-text-black);
   cursor: pointer;
 }
-.newsletter-signup__optin input { margin-top: 3px; flex-shrink: 0; }
-.newsletter-signup__optin a,
-.newsletter-signup__optin a:visited {
+.contact-form__optin input { margin-top: 3px; flex-shrink: 0; }
+.contact-form__optin a,
+.contact-form__optin a:visited {
   color: var(--nl-text-black);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
   transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
-.newsletter-signup__optin a:hover,
-.newsletter-signup__optin a:focus-visible {
+.contact-form__optin a:hover,
+.contact-form__optin a:focus-visible {
   color: var(--nl-primary);
   text-decoration-color: var(--nl-primary);
 }
 
-.newsletter-signup__optin__legal {
+.contact-form__optin__legal {
   margin: var(--nl-s3) 0 0;
   font-size: var(--nl-xs);
   color: rgba(0, 0, 0, 0.6);
   text-align: center;
   line-height: 1.5;
 }
-.newsletter-signup__optin__legal a,
-.newsletter-signup__optin__legal a:visited {
+.contact-form__optin__legal a,
+.contact-form__optin__legal a:visited {
   color: inherit;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
   transition: color 0.15s ease;
 }
-.newsletter-signup__optin__legal a:hover,
-.newsletter-signup__optin__legal a:focus-visible {
+.contact-form__optin__legal a:hover,
+.contact-form__optin__legal a:focus-visible {
   color: var(--nl-link-hover);
 }
 
 /* ── Honeypot ───────────────────────────────────────── */
-.newsletter-signup__honeypot {
+.contact-form__honeypot {
   position: absolute;
   left: -10000px;
   width: 1px;
@@ -1223,17 +1223,17 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 }
 
 /* ── Status ─────────────────────────────────────────── */
-.newsletter-signup__status {
+.contact-form__status {
   margin: 0;
   font-size: var(--nl-sm);
   padding: var(--nl-s3);
   border-radius: var(--nl-radius-md);
 }
-.newsletter-signup__status[data-tone='success'] {
+.contact-form__status[data-tone='success'] {
   background: color-mix(in oklab, var(--nl-primary), transparent 90%);
   color: var(--nl-primary);
 }
-.newsletter-signup__status[data-tone='error'] {
+.contact-form__status[data-tone='error'] {
   background: color-mix(in oklab, var(--nl-error), transparent 90%);
   color: var(--nl-error);
 }
@@ -1259,7 +1259,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 .nl-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
 /* ── Success card ───────────────────────────────────── */
-.newsletter-signup__success {
+.contact-form__success {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1269,7 +1269,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   border-radius: var(--nl-radius-lg);
   box-shadow: var(--nl-shadow);
 }
-.newsletter-signup__success-icon {
+.contact-form__success-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1281,7 +1281,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   font-size: var(--nl-xl);
   font-weight: bold;
 }
-.newsletter-signup__success-headline {
+.contact-form__success-headline {
   font-family: var(--nl-font-display);
   text-transform: uppercase;
   font-size: var(--nl-2xl);
@@ -1290,15 +1290,15 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   color: var(--nl-text-black);
   text-align: center;
 }
-.newsletter-signup__success-message {
+.contact-form__success-message {
   color: var(--nl-text-black);
   line-height: 1.6;
   margin: 0;
 }
 
 /* ── Glass variant ──────────────────────────────────── */
-.is-glass .newsletter-signup__form,
-.is-glass .newsletter-signup__success {
+.is-glass .contact-form__form,
+.is-glass .contact-form__success {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(14px) saturate(1.3);
@@ -1306,44 +1306,44 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
   color: #fff;
 }
-.is-glass .newsletter-signup__form-headline,
-.is-glass .newsletter-signup__success-headline,
-.is-glass .newsletter-signup__success-message,
-.is-glass .newsletter-signup__field label,
-.is-glass .newsletter-signup__optin { color: #fff; }
-.is-glass .newsletter-signup__optional { color: rgba(255, 255, 255, 0.6); }
-.is-glass .newsletter-signup__field input {
+.is-glass .contact-form__form-headline,
+.is-glass .contact-form__success-headline,
+.is-glass .contact-form__success-message,
+.is-glass .contact-form__field label,
+.is-glass .contact-form__optin { color: #fff; }
+.is-glass .contact-form__optional { color: rgba(255, 255, 255, 0.6); }
+.is-glass .contact-form__field input {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.25);
   color: #fff;
 }
-.is-glass .newsletter-signup__field input:focus {
+.is-glass .contact-form__field input:focus {
   background: rgba(255, 255, 255, 0.12);
   border-color: var(--nl-primary);
 }
 /* Browser autofill otherwise paints a white/yellow box with dark text */
-.is-glass .newsletter-signup__field input:-webkit-autofill {
+.is-glass .contact-form__field input:-webkit-autofill {
   -webkit-text-fill-color: #fff;
   caret-color: #fff;
   box-shadow: 0 0 0 1000px rgba(30, 30, 30, 0.95) inset;
 }
-.is-glass .newsletter-signup__optin input { accent-color: var(--nl-primary); }
-.is-glass .newsletter-signup__optin a,
-.is-glass .newsletter-signup__optin a:visited { color: #fff; }
-.is-glass .newsletter-signup__optin__legal { color: rgba(255, 255, 255, 0.6); }
-.is-glass .newsletter-signup__optin__legal a:hover,
-.is-glass .newsletter-signup__optin__legal a:focus-visible { color: #fff; }
-.is-glass .newsletter-signup__success-icon { color: #000; }
+.is-glass .contact-form__optin input { accent-color: var(--nl-primary); }
+.is-glass .contact-form__optin a,
+.is-glass .contact-form__optin a:visited { color: #fff; }
+.is-glass .contact-form__optin__legal { color: rgba(255, 255, 255, 0.6); }
+.is-glass .contact-form__optin__legal a:hover,
+.is-glass .contact-form__optin__legal a:focus-visible { color: #fff; }
+.is-glass .contact-form__success-icon { color: #000; }
 
 /* ── Mobile ─────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .newsletter-signup__inner,
-  .newsletter-signup__inner:not(:has(.newsletter-signup__intro)) {
+  .contact-form__inner,
+  .contact-form__inner:not(:has(.contact-form__intro)) {
     grid-template-columns: minmax(0, 1fr);
     justify-content: stretch;
     gap: var(--nl-s6);
   }
-  .newsletter-signup__form-headline {
+  .contact-form__form-headline {
     font-size: var(--nl-2xl);
     overflow-wrap: break-word;
   }
@@ -1352,7 +1352,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
 /* ── HPT results theme ──────────────────────────────── */
 /* Maps the form onto the HPT page tokens (--ink, --muted, --line) and
    sizes it to sit inside the results column rather than a full-width section. */
-.newsletter-signup--hpt {
+.contact-form--hpt {
   --nl-primary: rgb(255, 208, 0);
   --nl-text: var(--ink, #2a251e);
   --nl-text-black: var(--ink, #2a251e);
@@ -1365,23 +1365,23 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   padding-block: 3rem 1rem;
   font-family: 'Montserrat', sans-serif;
 }
-.newsletter-signup--hpt .newsletter-signup__container {
+.contact-form--hpt .contact-form__container {
   max-width: none;
   padding-inline: 0;
 }
-.newsletter-signup--hpt .newsletter-signup__headline,
-.newsletter-signup--hpt .newsletter-signup__form-headline,
-.newsletter-signup--hpt .newsletter-signup__success-headline {
+.contact-form--hpt .contact-form__headline,
+.contact-form--hpt .contact-form__form-headline,
+.contact-form--hpt .contact-form__success-headline {
   text-transform: none;
   letter-spacing: -0.01em;
   font-weight: 700;
 }
-.newsletter-signup--hpt .newsletter-signup__success-icon { color: #000; }
-.newsletter-signup__select-wrap {
+.contact-form--hpt .contact-form__success-icon { color: #000; }
+.contact-form__select-wrap {
   position: relative;
   --q-color: rgba(42, 37, 30, 0.25);
 }
-.newsletter-signup__select-wrap::before {
+.contact-form__select-wrap::before {
   content: '';
   position: absolute; left: 14px; top: 50%;
   width: 10px; height: 10px; border-radius: 50%;
@@ -1390,7 +1390,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   pointer-events: none;
   transition: background .2s;
 }
-.newsletter-signup__select-wrap::after {          /* chevron */
+.contact-form__select-wrap::after {          /* chevron */
   content: '';
   position: absolute; right: 16px; top: 50%;
   width: 8px; height: 8px;
@@ -1398,7 +1398,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   transform: translateY(-70%) rotate(45deg);
   pointer-events: none;
 }
-.newsletter-signup__select-wrap select {
+.contact-form__select-wrap select {
   appearance: none; -webkit-appearance: none;
   width: 100%;
   padding-left: 34px; padding-right: 40px;
@@ -1407,16 +1407,16 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   background: transparent;
   transition: border-color .2s;
 }
-.newsletter-signup__select-wrap[data-q=""] select { color: rgba(42, 37, 30, 0.55); } /* placeholder state */
+.contact-form__select-wrap[data-q=""] select { color: rgba(42, 37, 30, 0.55); } /* placeholder state */
 /* ── Mobile ─────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .newsletter-signup__inner,
-  .newsletter-signup__inner:not(:has(.newsletter-signup__intro)) {
+  .contact-form__inner,
+  .contact-form__inner:not(:has(.contact-form__intro)) {
     grid-template-columns: minmax(0, 1fr);
     justify-content: stretch;
     gap: var(--nl-s6);
   }
-  .newsletter-signup__form-headline {
+  .contact-form__form-headline {
     font-size: var(--nl-2xl);
     overflow-wrap: break-word;
   }
