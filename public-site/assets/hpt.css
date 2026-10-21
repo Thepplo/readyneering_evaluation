@@ -1489,8 +1489,11 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-  .results-container{
+  .results-container,
+  .result-questions-wrapper{
     break-inside: avoid;
+    padding-top: 5rem;
   }
+  .
 }
 
