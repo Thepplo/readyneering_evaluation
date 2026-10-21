@@ -739,7 +739,11 @@ function renderResults(saved) {
       ${renderReadinessCard(report.readiness, report, def)}
     </div>
     <div id="critical-slot">
-      ${critical ? renderCriticalQuestions(critical) : (saved.locked ? renderLockedTeaser() : '')}
+      ${critical
+        ? renderCriticalQuestions(critical)
+        : isLockedVariant
+          ? (saved.unlocked ? renderSentTeaser() : renderLockedTeaser())
+          : ''}
     </div>
   `;
   $('results-summary').innerHTML = html;
@@ -772,7 +776,7 @@ function setupLeadQuotientSelect(section, report) {
   }
 }
 
-function showLeadForm(report) {
+function showLeadForm(report, show) {
   const section = $('hpt-lead');
   if (!section) return;
   if (!show) { section.hidden = true; return; }
@@ -815,7 +819,7 @@ function updateUrlForResult(token) {
   window.history.replaceState({}, '', newUrl);
 }
 
-async function loadResultByToken(token) {
+async function loadResultByToken(tokenBody) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 15000);
 
@@ -823,7 +827,7 @@ async function loadResultByToken(token) {
     const response = await fetch(`${SUPABASE_FUNCTIONS_BASE}/report`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ access_token: token }),
+      body: JSON.stringify(tokenBody),
       signal: controller.signal
     });
 
@@ -835,11 +839,11 @@ async function loadResultByToken(token) {
 
     return {
       result_id: data.result_id,
-      access_token: token,
+      access_token: tokenBody.access_token ?? null,
       locked: Boolean(data.locked),
       unlocked: Boolean(data.unlocked),
+      full: Boolean(data.full),
       report: data.report,
-      booking: data.booking || null
     };
   } catch (err) {
     if (err.name === 'AbortError') {
