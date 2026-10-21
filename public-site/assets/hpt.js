@@ -790,6 +790,12 @@ function showLeadForm(report, show) {
 
 document.getElementById('btn-start').addEventListener('click', startAssessment);
 
+document.getElementById('btn-print').addEventListener('click', function() {
+  const originalTitle = document.title;
+  document.title = `andQfive HPT report - ${new Date().toISOString().slice(0,10)}`;
+  globalThis.print();
+  setTimeout(() => { document.title = originalTitle; }, 100);
+});
 
 $('btn-back').addEventListener('click', () => {
   if (currentQuotient > 0) {
