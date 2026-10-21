@@ -1498,7 +1498,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   background: #0f1115;
   color: rgba(255,255,255,0.6);
   font-size: 12px;
-  border-radius: 12px;
+  border-radius: 0px 0px 12px 12px;
   flex-wrap: wrap;
 }
 
@@ -1582,7 +1582,10 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   .results-container,
   .result-questions-wrapper{
     break-inside: avoid;
-    margin-top: 4rem;
+    padding-top: 4rem;
+  }
+  .result-questions-wrapper{
+    border-color: transparent;
   }
   .pdf-button {
     display: none;
