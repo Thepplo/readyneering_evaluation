@@ -214,7 +214,8 @@
                 <label for="lead-email">{{t.lead.email}}</label>
                 <input id="lead-email" name="email" type="email" required autocomplete="email" maxlength="254" />
               </div>
-              <div class="contact-form__field">
+
+<!--               <div class="contact-form__field">
                 <label for="lead-quotient">{{t.lead.quotient_label}}</label>
                 <div class="contact-form__select-wrap">
                   <select id="lead-quotient" name="quotient"
@@ -222,12 +223,15 @@
                     <option value="" disabled selected>{{t.lead.quotient_placeholder}}</option>
                   </select>
                 </div>
-              </div>
+              </div> -->
               <label class="contact-form__optin">
                 <input type="checkbox" name="opt_in" value="1" required/>
-                <span>{{t.lead.optin}}</span>
+                <span>{{t.lead.mail-optin}}</span>
               </label>
-
+              <label class="contact-form__optin">
+                <input type="checkbox" name="opt_in" value="1" required/>
+                <span>{{t.lead.marketing-optin}}</span>
+              </label>
               <input type="hidden" name="form_version" value="hpt-lead-v1" />
               <input type="hidden" name="source" value="hpt-results" />
               <input type="hidden" name="consent_text" value="{{t.lead.optin}}" />

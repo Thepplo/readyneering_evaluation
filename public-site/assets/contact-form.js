@@ -11,6 +11,7 @@
     var status = form.querySelector('[data-status]');
     var submitButton = form.querySelector('button[type="submit"]');
     var optInCheckbox = form.querySelector('[name="opt_in"]');
+    var optInMarketing = form.querySelector('[name="marketing_opt_in"]');
     var successView = stage && stage.querySelector('[data-view="success"]');
 
     if (!endpoint || !stage || !status || !submitButton) return;
@@ -65,6 +66,7 @@
         name: formData.get('name'),
         email: formData.get('email'),
         opt_in: formData.get('opt_in') === '1',
+        marketing_opt_in: formData.get('marketing_opt_in') === '1',
         company_website: formData.get('company_website'),
         form_version: formData.get('form_version'),
         source: formData.get('source'),
