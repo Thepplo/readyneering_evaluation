@@ -636,6 +636,14 @@ function renderLockedTeaser() {
     </div>`;
 }
 
+function renderSentTeaser() {
+  return `
+    <div class="result-questions-wrapper is-locked">
+      <p class="results-eb-title">${t('results.critical_title')}</p>
+      <p class="title-sub">${t('results.critical_sent_sub')}</p>
+    </div>`;
+}
+
 document.addEventListener('newsletter:success', (e) => {
   if (!e.target.closest('#hpt-lead')) return;
   const locked = e.detail?.report?.locked;
@@ -652,10 +660,16 @@ function renderResults(saved) {
     console.warn('No open report in response', saved);
     return;
   }
+  const isFull = Boolean(saved.full);
+  const isLockedVariant = Boolean(saved.locked);
   const def = VARIANT.instrument.definition;
   const primaryConstraint = report.readiness?.primaryConstraint;
   const hasPrimaryConstraint = !isNoConstraint(primaryConstraint);
-  const critical = report.criticalQuestions ?? saved.report?.locked?.criticalQuestions ?? null;
+  const critical = isFull
+  ? (saved.report?.locked?.criticalQuestions ?? report.criticalQuestions)
+  : report.criticalQuestions;
+  const canExport = isFull || !isLockedVariant;
+
 
   const html = `
     <div class="results-container">
@@ -729,7 +743,10 @@ function renderResults(saved) {
     </div>
   `;
   $('results-summary').innerHTML = html;
-  showLeadForm(report);
+  showLeadForm(report, isLockedVariant && !saved.unlocked && !isFull);
+  document.body.classList.toggle('can-export', canExport);
+  const printBtn = $('btn-print');
+  if (printBtn) printBtn.hidden = !canExport;
 }
 
 function setupLeadQuotientSelect(section, report) {
@@ -758,6 +775,7 @@ function setupLeadQuotientSelect(section, report) {
 function showLeadForm(report) {
   const section = $('hpt-lead');
   if (!section) return;
+  if (!show) { section.hidden = true; return; }
   const variantInput = section.querySelector('input[name="variant_key"]');
   if (variantInput) variantInput.value = getVariantKey();
   setupLeadQuotientSelect(section, report);
@@ -865,12 +883,11 @@ function showResultsByToken(token) {
   return renderResultsFromToken(token);
 }
 
+const reportToken = getQueryParam('r');
 const resultToken = getQueryParam('t');
 
 $('btn-start').disabled = true;
 
-if (resultToken) {
-  showResultsByToken(resultToken);
-} else {
-  init();
-}
+if (reportToken) showResultsByToken({ report_token: reportToken });
+else if (resultToken) showResultsByToken({ access_token: resultToken });
+else init();
