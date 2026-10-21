@@ -816,6 +816,28 @@ $('btn-next').addEventListener('click', () => {
   }
 });
 
+document.getElementById('foot-copy-url').addEventListener('click', async function() {
+  const btn = this;
+  const label = document.getElementById('foot-copy-url-label');
+  if (!label) return;
+
+  try {
+    await navigator.clipboard.writeText(globalThis.location.href);
+    const original = label.textContent;
+    label.textContent = 'Copied';
+    btn.classList.add('is-copied');
+    setTimeout(() => {
+      label.textContent = original;
+      btn.classList.remove('is-copied');
+    }, 1800);
+  } catch (err) {
+    label.textContent = 'Press Ctrl+C to copy';
+    setTimeout(() => {
+      label.textContent = 'Copy link to my report';
+    }, 2000);
+  }
+});
+
 function updateUrlForResult(token) {
   if (!token) return;
   const params = new URLSearchParams(window.location.search);
