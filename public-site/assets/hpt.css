@@ -1597,7 +1597,7 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
     radial-gradient(circle at top left, rgba(255,255,255,0.06), transparent 38%),
     var(--ink, #2A251E);
   color: #fff;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
   overflow: hidden;
 }
 .hpt-invite__header {
