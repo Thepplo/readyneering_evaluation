@@ -377,6 +377,7 @@ async function submitAssessment() {
   } catch (err) {
     console.error(err);
     if (err.message?.includes('already submitted')) {
+      parkLeadForm();
       showScreen('scr-results');
       $('results-summary').innerHTML = `
         <p>${t('errors.already_submitted')}</p>
@@ -628,20 +629,52 @@ function renderCriticalQuestions(qs) {
     </div>`;
 }
 
-function renderLockedTeaser() {
+function renderInvitation(report, { withForm }) {
+  const pc = report?.readiness?.primaryConstraint;
+  const hasPc = !isNoConstraint(pc);
+  const pcLabel = hasPc ? (report.quotients[pc]?.label ?? pc) : null;
+  const pcColor = hasPc ? (quotientMeta[pc]?.color ?? 'currentColor') : null;
+
   return `
-    <div class="result-questions-wrapper is-locked">
-      <p class="results-eb-title">${t('results.critical_title')}</p>
-      <p class="title-sub">${t('results.critical_locked_sub')}</p>
-    </div>`;
+    <section class="hpt-invite">
+      <header class="hpt-invite__header">
+        <p class="hpt-invite__kicker">${t('results.critical_title')}</p>
+      </header>
+      <div class="hpt-invite__body">
+        <p class="hpt-invite__lede">
+          ${t(withForm ? 'results.critical_locked_sub' : 'results.critical_sent_sub')}
+        </p>
+        ${hasPc ? `
+          <p class="hpt-invite__context" style="--current-quotient:${pcColor};">
+            <span class="q-tag">${t('results.primary_constraint')}</span>
+            <span class="q-chip">${escapeHtml(pcLabel)}</span>
+          </p>` : ''}
+        ${withForm ? `
+          <div class="hpt-invite__divider"></div>
+          <div id="invite-form-slot"></div>` : ''}
+      </div>
+    </section>`;
 }
 
-function renderSentTeaser() {
-  return `
-    <div class="result-questions-wrapper is-locked">
-      <p class="results-eb-title">${t('results.critical_title')}</p>
-      <p class="title-sub">${t('results.critical_sent_sub')}</p>
-    </div>`;
+let leadHome = null;
+
+function mountLeadForm(section) {
+  const slot = $('invite-form-slot');
+  if (!slot) return;
+  if (!leadHome) {
+    leadHome = document.createComment('hpt-lead-home');
+    section.parentNode.insertBefore(leadHome, section);
+  }
+  slot.appendChild(section);
+  section.classList.add('is-glass');
+}
+
+function parkLeadForm() {
+  const section = $('hpt-lead');
+  if (!section || !leadHome) return;
+  section.hidden = true;
+  section.classList.remove('is-glass');
+  leadHome.parentNode.insertBefore(section, leadHome);
 }
 
 document.addEventListener('newsletter:success', (e) => {
@@ -649,11 +682,13 @@ document.addEventListener('newsletter:success', (e) => {
   const locked = e.detail?.report?.locked;
   if (!locked?.criticalQuestions || !currentResult) return;
   currentResult.report = { ...currentResult.report, locked };
+  parkLeadForm();
   $('critical-slot').innerHTML = renderCriticalQuestions(locked.criticalQuestions);
   $('critical-slot').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
 function renderResults(saved) {
+  parkLeadForm();
   const report = saved.report?.open;
   if (!report) {
     $('results-summary').innerHTML = `<p>${t('errors.no_report')}</p>`;
@@ -742,7 +777,7 @@ function renderResults(saved) {
       ${critical
         ? renderCriticalQuestions(critical)
         : isLockedVariant
-          ? (saved.unlocked ? renderSentTeaser() : renderLockedTeaser())
+          ? renderInvitation(report, { withForm: !saved.unlocked })
           : ''}
     </div>
   `;
@@ -785,6 +820,7 @@ function showLeadForm(report, show) {
   setupLeadQuotientSelect(section, report);
   const tokenInput = section.querySelector('input[name="access_token"]');
   if (tokenInput) tokenInput.value = currentResult?.access_token || '';
+  mountLeadForm(section);
   section.hidden = false;
 }
 
@@ -891,6 +927,7 @@ async function renderResultsFromToken(token) {
     renderResults(serverResult);
     showScreen('scr-results');
   } catch (err) {
+    parkLeadForm();
     console.error(err);
 
     showScreen('scr-results');
