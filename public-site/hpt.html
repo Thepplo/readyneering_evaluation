@@ -214,24 +214,14 @@
                 <label for="lead-email">{{t.lead.email}}</label>
                 <input id="lead-email" name="email" type="email" required autocomplete="email" maxlength="254" />
               </div>
-
-<!--               <div class="contact-form__field">
-                <label for="lead-quotient">{{t.lead.quotient_label}}</label>
-                <div class="contact-form__select-wrap">
-                  <select id="lead-quotient" name="quotient"
-                          data-tag-field data-tag-prefix="Q:">
-                    <option value="" disabled selected>{{t.lead.quotient_placeholder}}</option>
-                  </select>
-                </div>
-              </div> -->
-              <label class="contact-form__optin">
-                <input type="checkbox" name="opt_in" value="1" required/>
-                <span>{{t.lead.mail-optin}}</span>
+              <label>
+                <input type="checkbox" name="marketing_opt_in" value="1"> {{t.lead.marketing-optin}}
               </label>
-              <label class="contact-form__optin">
-                <input type="checkbox" name="marketing_opt_in" value="1"/>
-                <span>{{t.lead.marketing-optin}}</span>
-              </label>
+              <input type="hidden" name="marketing_consent_text" value="{{t.lead.marketing-optin}}" />
+              <div class="contact-form__field" data-show-when="marketing_opt_in" hidden>
+                <label for="lead-phone">{{t.lead.phone}}</label>
+                <input id="lead-phone" type="tel" name="phone" autocomplete="tel" maxlength="30" disabled>
+              </div>
               <input type="hidden" name="form_version" value="hpt-lead-v1" />
               <input type="hidden" name="source" value="hpt-results" />
               <input type="hidden" name="consent_text" value="{{t.lead.marketing-optin}}" />
@@ -246,12 +236,11 @@
                   <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
                 </label>
               </div>
-
-              <button type="submit" class="nl-btn nl-btn--dark">{{t.lead.cta}}</button>
-
               <p class="contact-form__optin__legal">
                 {{t.lead.legal}} <a href="{{t.lead.privacy_url}}" target="_blank" rel="noopener">{{t.lead.privacy_link}}</a>.
               </p>
+              <button type="submit" class="nl-btn nl-btn--dark">{{t.lead.cta}}</button>
+
               <p class="contact-form__status" data-status role="status" aria-live="polite" hidden></p>
             </form>
 

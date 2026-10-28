@@ -41,7 +41,20 @@
       form.hidden = true;
       successView.hidden = false;
     }
-
+    form.querySelectorAll('[data-show-when]').forEach(function (el) {
+      var trigger = form.querySelector('[name="' + el.dataset.showWhen + '"]');
+      if (!trigger) return;
+      function sync() {
+        var on = trigger.checked;
+        el.hidden = !on;
+        el.querySelectorAll('input, select, textarea').forEach(function (f) {
+          f.disabled = !on;
+          if (!on) f.value = '';
+        });
+      }
+      trigger.addEventListener('change', sync);
+      sync();
+    });
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       setStatus('', null);
@@ -77,6 +90,8 @@
       if (formData.has('company')) payload.company = formData.get('company');
       if (formData.has('variant_key')) payload.variant_key = formData.get('variant_key');
       if (formData.has('access_token')) payload.access_token = formData.get('access_token');
+      if (formData.has('phone')) payload.phone = formData.get('phone');
+      if (formData.has('marketing_consent_text')) payload.marketing_consent_text = formData.get('marketing_consent_text');
 
 
       var msgError = form.dataset.msgError;
