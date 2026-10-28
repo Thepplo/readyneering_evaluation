@@ -1563,6 +1563,9 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   .foot-actions {
     display: none !important;
   }
+  .hpt-invite {
+    display: none !important;
+  }
   .tt-bar,
   .q-bar,
   .section-icon,
