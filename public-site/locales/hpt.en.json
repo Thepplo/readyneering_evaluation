@@ -169,6 +169,7 @@
     "success_headline": "Thanks for your request",
     "success_message": "We'll be in touch within the next few working days.",
     "error_generic": "Something went wrong. Please try again.",
-    "error_network": "No connection. Please check your internet connection and try again."
+    "error_network": "No connection. Please check your internet connection and try again.",
+    "phone": "Your phone number (optional)"
   }
 }
