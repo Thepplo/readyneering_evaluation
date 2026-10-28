@@ -80,7 +80,7 @@
     "pole_right": "Strategische Readiness",
     "critical_title": "Kritische Fragen für dein Team",
     "critical_sub": "Nimm sie mit in die Nachbesprechung mit deinem Team. Sie sind wichtiger als die Werte.",
-    "critical_sent_sub": "Sent!",
+    "critical_sent_sub": "Ihr vollständiger Bericht inklusive der kritischen Fragen ist unterwegs in Ihr Postfach. Öffnen Sie ihn über die E-Mail, um die Fragen zu sehen und den Bericht als PDF zu speichern. Nichts angekommen? Bitte prüfen Sie Ihren Spam-Ordner.",
     "foot-download-pdf": "Als PDF herunterladen",
     "foot-delete": "Meine Daten löschen",
     "foot-copy-url": "Link zu meinem Bericht kopieren",
@@ -89,7 +89,7 @@
       "resilience_leads": "Resilience überwiegt: Struktur aufbauen",
       "preparedness_leads": "Preparedness überwiegt: Kapazität aufbauen"
     },
-    "critical_locked_sub": "Dieser Teil des Berichts wird vorerst zurückgehalten. Er enthält die entscheidenden Fragen, die sich aus dem Profil Ihres Teams ergeben und die es wert sind, bei Ihrer nächsten Sitzung zur Sprache gebracht zu werden. Geben Sie Ihre E-Mail-Adresse ein, dann senden wir Ihnen den vollständigen Bericht einschließlich der Fragen zu."
+    "critical_locked_sub": "Ihr Profil wirft eine Reihe kritischer Fragen auf: die Fragen, die bei Ihrer nächsten Teamsitzung auf den Tisch gehören. Geben Sie Ihre E-Mail-Adresse ein, und wir senden Ihnen den vollständigen Bericht inklusive dieser Fragen, bereit zum Speichern als PDF."
 
 
   },
@@ -161,7 +161,6 @@
     "company": "Unternehmen",
     "optional": "(optional)",
     "mail-optin": "Ja, bitte kontaktieren Sie mich per E-Mail bezüglich meiner Ergebnisse. Die andQFIVE GmbH speichert die Daten, die ich zu diesem Zweck eingegeben habe.",
-    "marketing-optin":"Ich möchte Marketingmaterial von andQFIVE erhalten (optional)",
     "cta": "Anfrage senden",
     "legal": "Wir verwenden Ihre Angaben ausschließlich zur Bearbeitung Ihrer Anfrage. Details in unserer",
     "privacy_link": "Datenschutzerklärung",
@@ -172,7 +171,9 @@
     "error_network": "Keine Verbindung. Bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
     "quotient_label": "Welcher Quotient ist für Sie aus Ihren Ergebnissen am interessantesten?",
     "quotient_placeholder": "Quotient auswählen",
-    "phone": "Ihre Telefonnummer (optional)"
+    "notice": "Wir senden Ihnen den vollständigen Bericht per E-Mail und antworten, wenn Sie uns Fragen dazu stellen. Ihre Antworten und Ergebnisse werden getrennt von Ihren Kontaktdaten gespeichert; die Person, die Ihnen antwortet, kann sie nicht einsehen. Sie können Ihre Daten jederzeit über den Link in der E-Mail löschen; andernfalls löschen wir sie automatisch nach 3 Monaten. Verantwortlich für diese Verarbeitung ist die Q595 GmbH.",
+    "marketing-optin": "andQFIVE darf mich per E-Mail oder Telefon zu meinen Ergebnissen und zugehörigen Leistungen kontaktieren. Ich bestätige dies vorab über eine kurze E-Mail. (optional)",
+    "phone": "Telefon (optional)"
 
   }
 }

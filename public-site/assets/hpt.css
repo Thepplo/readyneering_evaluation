@@ -1553,6 +1553,14 @@ pre { background: #f5f5f5; padding: 1rem; overflow: auto; font-size: 0.85rem; }
   color: #6ee7b7;
   border-color: rgba(110, 231, 183, 0.4);
 }
+[hidden] { display: none !important; }
+.contact-form__notice {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: 0.7;
+}
+.contact-form__notice a { color: inherit; text-decoration: underline; }
 @media print {
   body:not(.can-export) #results-summary,
   body:not(.can-export) #hpt-lead { display: none !important; }

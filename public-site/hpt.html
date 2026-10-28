@@ -212,7 +212,11 @@
 
               <div class="contact-form__field">
                 <label for="lead-email">{{t.lead.email}}</label>
-                <input id="lead-email" name="email" type="email" required autocomplete="email" maxlength="254" />
+                <input id="lead-email" name="email" type="email" required autocomplete="email" maxlength="254"
+                      aria-describedby="lead-notice" />
+                <p class="contact-form__notice" id="lead-notice">
+                  {{t.lead.notice}} <a href="{{t.lead.privacy_url}}" target="_blank" rel="noopener">{{t.lead.privacy_link}}</a>.
+                </p>
               </div>
               <label>
                 <input type="checkbox" name="marketing_opt_in" value="1"> {{t.lead.marketing-optin}}

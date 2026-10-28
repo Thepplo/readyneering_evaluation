@@ -80,7 +80,7 @@
     "pole_right": "Strategic Readiness",
     "critical_title": "Critical questions for your team",
     "critical_sub": "Bring these to your team debrief. They matter more than the scores.",
-    "critical_sent_sub": "Sent!",
+    "critical_sent_sub": "Your full report, critical questions included, is on its way to your inbox. Open it from the email to view the questions and save the report as a PDF. Nothing there? Check your spam folder.",
     "foot-download-pdf": "Download as PDF",
     "foot-copy-url": "Copy link to my report",
     "foot-delete": "Delete my data",
@@ -89,8 +89,7 @@
       "resilience_leads": "Resilience leads — build structure",
       "preparedness_leads": "Preparedness leads — build capacity"
     },
-    "critical_locked_sub": "This part of the report is held back for now. It contains the critical questions your team's profile raises, the ones worth putting on the table at your next session. Enter your email and we'll send you the full report, questions included."
-  },
+  "critical_locked_sub": "Your profile raises a set of critical questions: the ones worth putting on the table at your next team session. Enter your email and we'll send you the full report with these questions included, ready to save as a PDF."  },
   "errors": {
     "variant_failed": "Failed to load variant",
     "wrong_type": "This variant is not an HPT assessment.",
@@ -161,7 +160,6 @@
     "quotient_placeholder": "Select a quotient",
     "optional": "(optional)",
     "mail-optin": "Yes, please contact me by email about my results. andQFIVE GmbH stores the details I entered for this purpose.",
-    "marketing-optin": "I would like to recieve marketing material from andQFIVE (optional)",
     "cta": "Send request",
     "legal": "We only use your details to handle your request. See our",
     "privacy_link": "privacy policy",
@@ -170,6 +168,8 @@
     "success_message": "We'll be in touch within the next few working days.",
     "error_generic": "Something went wrong. Please try again.",
     "error_network": "No connection. Please check your internet connection and try again.",
-    "phone": "Your phone number (optional)"
+    "notice": "We'll email you the full report and reply if you send us questions about it. Your answers and results are stored separately from your contact details, and the person who replies to you can't see them. You can delete your data at any time using the link in the email; otherwise we delete it automatically after 3 months. Q595 GmbH is responsible for this processing.",
+    "marketing-optin": "andQFIVE may contact me by email or phone about my results and related services. I'll confirm this via a short email first. (optional)",
+    "phone": "Phone (optional)"
   }
 }
