@@ -81,14 +81,15 @@
     "critical_title": "Kritische Fragen für dein Team",
     "critical_sub": "Nimm sie mit in die Nachbesprechung mit deinem Team. Sie sind wichtiger als die Werte.",
     "critical_sent_sub": "Sent!",
-    "foot-download-pdf": "Download as PDF",
-    "foot-copy-url": "Copy link to my report",
+    "foot-download-pdf": "Als PDF herunterladen",
+    "foot-delete": "Meine Daten löschen",
+    "foot-copy-url": "Link zu meinem Bericht kopieren",
     "rvp": {
       "balanced": "Ausgewogen",
       "resilience_leads": "Resilience überwiegt: Struktur aufbauen",
       "preparedness_leads": "Preparedness überwiegt: Kapazität aufbauen"
     },
-    "critical_locked_sub": "This part of the report is held back for now. It contains the critical questions your team's profile raises, the ones worth putting on the table at your next session. Enter your email and we'll send you the full report, questions included."
+    "critical_locked_sub": "Dieser Teil des Berichts wird vorerst zurückgehalten. Er enthält die entscheidenden Fragen, die sich aus dem Profil Ihres Teams ergeben und die es wert sind, bei Ihrer nächsten Sitzung zur Sprache gebracht zu werden. Geben Sie Ihre E-Mail-Adresse ein, dann senden wir Ihnen den vollständigen Bericht einschließlich der Fragen zu."
 
 
   },
