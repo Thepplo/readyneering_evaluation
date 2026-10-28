@@ -786,6 +786,12 @@ function renderResults(saved) {
   document.body.classList.toggle('can-export', canExport);
   const printBtn = $('btn-print');
   if (printBtn) printBtn.hidden = !canExport;
+
+  const forgetBtn = $('btn-forget');
+  if (forgetBtn) forgetBtn.hidden = !isFull;
+  if (isFull && getQueryParam('action') === 'delete') {
+    setTimeout(forgetReport, 300);
+  }
 }
 
 function setupLeadQuotientSelect(section, report) {
@@ -851,6 +857,8 @@ $('btn-next').addEventListener('click', () => {
     submitAssessment();
   }
 });
+
+$('btn-forget')?.addEventListener('click', forgetReport);
 
 document.getElementById('foot-copy-url').addEventListener('click', async function() {
   const btn = this;
@@ -944,6 +952,24 @@ async function renderResultsFromToken(token) {
         </div>`;
     }
   }
+}
+
+async function forgetReport() {
+  const token = getQueryParam('r');
+  if (!token) return;
+  if (!confirm(t('privacy.forget_confirm'))) return;
+
+  const res = await fetch(`${SUPABASE_FUNCTIONS_BASE}/hpt-forget`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ report_token: token }),
+  });
+  if (!res.ok) { alert(t('privacy.forget_failed')); return; }
+
+  window.history.replaceState({}, '', window.location.pathname);
+  $('results-summary').innerHTML = `<div class="results-error"><h2>${t('privacy.forget_done')}</h2></div>`;
+  $('btn-print')?.setAttribute('hidden', '');
+  $('btn-forget')?.setAttribute('hidden', '');
 }
 
 function showResultsByToken(token) {
