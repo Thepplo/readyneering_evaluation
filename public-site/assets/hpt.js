@@ -959,7 +959,7 @@ async function forgetReport() {
   if (!token) return;
   if (!confirm(t('privacy.forget_confirm'))) return;
 
-  const res = await fetch(`${SUPABASE_FUNCTIONS_BASE}/hpt-forget`, {
+  const res = await fetch(`${SUPABASE_FUNCTIONS_BASE}/hpt_forget`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ report_token: token }),
