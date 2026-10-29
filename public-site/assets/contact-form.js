@@ -92,6 +92,7 @@
       if (formData.has('access_token')) payload.access_token = formData.get('access_token');
       if (formData.has('phone')) payload.phone = formData.get('phone');
       if (formData.has('marketing_consent_text')) payload.marketing_consent_text = formData.get('marketing_consent_text');
+      if (formData.has('lang')) payload.lang = formData.get('lang');
 
 
       var msgError = form.dataset.msgError;

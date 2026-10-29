@@ -169,7 +169,7 @@
     "error_generic": "Something went wrong. Please try again.",
     "error_network": "No connection. Please check your internet connection and try again.",
     "notice": "We'll email you the full report and reply if you send us questions about it. Your answers and results are stored separately from your contact details, and the person who replies to you can't see them. You can delete your data at any time using the link in the email; otherwise we delete it automatically after 3 months. Q595 GmbH is responsible for this processing.",
-    "marketing-optin": "andQFIVE may contact me by email or phone about my results and related services. I'll confirm this via a short email first. (optional)",
+    "marketing-optin": "andQFIVE may contact me by email or phone about related services. You will need to confirm this via another email (optional)",
     "phone": "Phone (optional)"
   }
 }
