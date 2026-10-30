@@ -170,6 +170,7 @@
     "error_network": "No connection. Please check your internet connection and try again.",
     "notice_short": "By entering your email, you agree that we send you the full report and may contact you about it, and only about it. You can object at any time. Responsible: Q595 GmbH.",
     "notice_more_toggle": "More on privacy",
+    "marketing-optin": "andQFIVE may contact me by email or phone about related services. You will need to confirm this via another email (optional)",
     "notice_more": "Your answers and results are stored separately from your contact details, and the person who contacts you can't see them. To object, write to cto_office@andqfive.com. You can delete your data using the link in the email; otherwise we delete it automatically after 3 months.",
     "phone": "Phone (optional)"
   }
