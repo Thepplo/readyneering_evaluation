@@ -214,9 +214,13 @@
                 <label for="lead-email">{{t.lead.email}}</label>
                 <input id="lead-email" name="email" type="email" required autocomplete="email" maxlength="254"
                       aria-describedby="lead-notice" />
-                <p class="contact-form__notice" id="lead-notice">
-                  {{t.lead.notice}} <a href="{{t.lead.privacy_url}}" target="_blank" rel="noopener">{{t.lead.privacy_link}}</a>.
-                </p>
+                <div class="contact-form__notice" id="lead-notice">
+                  <p>{{t.lead.notice_short}}</p>
+                  <details>
+                    <summary>{{t.lead.notice_more_toggle}}</summary>
+                    <p>{{t.lead.notice_more}} <a href="{{t.lead.privacy_url}}" target="_blank" rel="noopener">{{t.lead.privacy_link}}</a>.</p>
+                  </details>
+                </div>
               </div>
               <label>
                 <input type="checkbox" name="marketing_opt_in" value="1"> {{t.lead.marketing-optin}}
